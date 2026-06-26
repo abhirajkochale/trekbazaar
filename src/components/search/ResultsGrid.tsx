@@ -8,7 +8,7 @@ interface ResultsGridProps {
 
 export function ResultsGrid({ treks }: ResultsGridProps) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 xl:gap-8">
       {treks.map((trek) => (
         <TrekCard key={trek.id} trek={trek} />
       ))}
