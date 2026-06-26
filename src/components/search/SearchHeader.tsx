@@ -1,35 +1,17 @@
 import React from 'react';
 import { Container } from '../layout/Container';
-import { Button } from '../ui/Button';
+import { OmniSearchBar } from './OmniSearchBar';
 
 interface SearchHeaderProps {
   totalCount: number;
-  initialQuery?: string;
 }
 
-export function SearchHeader({ totalCount, initialQuery = '' }: SearchHeaderProps) {
+export function SearchHeader({ totalCount }: SearchHeaderProps) {
   return (
     <div className="border-b border-tb-border bg-white sticky top-[64px] md:top-[68px] z-40 shadow-sm transition-all">
       <Container>
         <div className="py-6 flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="flex items-center gap-3 w-full md:max-w-lg">
-            <div className="relative flex-1 group">
-              <label htmlFor="search-input" className="sr-only">Search treks</label>
-              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-tb-text-tertiary group-focus-within:text-tb-primary transition-colors">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </div>
-              <input 
-                id="search-input"
-                type="text" 
-                placeholder="Search by trek, region, or keyword..." 
-                defaultValue={initialQuery}
-                className="w-full pl-11 pr-4 py-3 border border-tb-border rounded-tb-md bg-tb-sys-background text-base font-medium text-tb-text-primary focus:outline-none focus:border-tb-primary focus:ring-1 focus:ring-tb-primary transition-all placeholder:text-tb-text-tertiary"
-              />
-            </div>
-            <Button size="lg" variant="primary" className="px-8 shrink-0">Search</Button>
-          </div>
+          <OmniSearchBar />
           
           <div className="flex items-center justify-between md:justify-end gap-6 w-full md:w-auto mt-2 md:mt-0 border-t border-tb-border md:border-t-0 pt-4 md:pt-0">
             <span className="text-sm font-semibold text-tb-text-secondary tracking-wide uppercase">

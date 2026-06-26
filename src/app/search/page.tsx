@@ -31,7 +31,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     <div className="flex min-h-screen flex-col">
       <Navbar />
       <main className="flex-1 flex flex-col">
-        <SearchHeader totalCount={totalCount} initialQuery={q} />
+        <SearchHeader totalCount={totalCount} />
         <SearchLayout>
           {treks.length > 0 ? (
             <ResultsGrid treks={treks} />
