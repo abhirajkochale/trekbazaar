@@ -31,7 +31,9 @@ export function HeroSection() {
         </p>
 
         <form onSubmit={handleSearch} className="max-w-xl mx-auto flex flex-col sm:flex-row gap-2 justify-center bg-white p-2 rounded-tb-md shadow-tb-medium border border-tb-border">
+          <label htmlFor="hero-search" className="sr-only">Search Treks</label>
           <input 
+            id="hero-search"
             type="text" 
             placeholder="Search for a trek or region..."
             value={query}

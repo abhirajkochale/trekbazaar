@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Section } from '../layout/Section';
 import { Container } from '../layout/Container';
 
@@ -40,13 +41,13 @@ export function FeaturedRegions() {
               href={`/search?q=${encodeURIComponent(region.name)}`}
               className="group block relative overflow-hidden rounded-tb-md border border-tb-border bg-white shadow-tb-subtle hover:shadow-tb-medium transition-shadow"
             >
-              <div className="aspect-[4/3] overflow-hidden bg-tb-sys-background">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img 
+              <div className="aspect-[4/3] overflow-hidden bg-tb-sys-background relative">
+                <Image 
                   src={region.imageUrl} 
                   alt={region.name}
-                  className="w-full h-full object-cover transition-transform duration-tb-slow ease-tb-ease group-hover:scale-105"
-                  loading="lazy"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover transition-transform duration-tb-slow ease-tb-ease group-hover:scale-105"
                 />
               </div>
               <div className="p-4 bg-white border-t border-tb-border">
