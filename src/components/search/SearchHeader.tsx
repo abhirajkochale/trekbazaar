@@ -2,7 +2,12 @@ import React from 'react';
 import { Container } from '../layout/Container';
 import { Button } from '../ui/Button';
 
-export function SearchHeader() {
+interface SearchHeaderProps {
+  totalCount: number;
+  initialQuery?: string;
+}
+
+export function SearchHeader({ totalCount, initialQuery = '' }: SearchHeaderProps) {
   return (
     <div className="border-b border-tb-border bg-white sticky top-16 z-40">
       <Container>
@@ -14,6 +19,7 @@ export function SearchHeader() {
                 id="search-input-placeholder"
                 type="text" 
                 placeholder="Search by trek, region, or keyword..." 
+                defaultValue={initialQuery}
                 className="w-full pl-4 pr-10 py-2 border border-tb-border rounded-tb-md bg-tb-sys-background text-sm focus:outline-none focus:border-tb-primary"
                 readOnly
               />
@@ -23,7 +29,7 @@ export function SearchHeader() {
           
           <div className="flex items-center justify-between md:justify-end gap-4 w-full md:w-auto">
             <span className="text-sm font-medium text-tb-text-secondary">
-              Showing 0 treks
+              {totalCount === 1 ? '1 trek found' : `${totalCount} treks found`}
             </span>
             <div className="flex items-center gap-2">
               <label htmlFor="sort-placeholder" className="text-sm text-tb-text-secondary sr-only">Sort by</label>
