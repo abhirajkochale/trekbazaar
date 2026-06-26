@@ -28,6 +28,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   const duration = typeof params.duration === 'string' ? parseInt(params.duration, 10) : undefined;
   const minPrice = typeof params.minPrice === 'string' ? parseInt(params.minPrice, 10) : undefined;
   const maxPrice = typeof params.maxPrice === 'string' ? parseInt(params.maxPrice, 10) : undefined;
+  const sort = typeof params.sort === 'string' ? params.sort as import('@/lib/search/api').SearchFilters['sort'] : undefined;
 
   // Fetch production data
   const { treks, totalCount } = await searchTreks({ 
@@ -37,7 +38,8 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     difficulty, 
     duration, 
     minPrice, 
-    maxPrice 
+    maxPrice,
+    sort
   });
 
   return (
