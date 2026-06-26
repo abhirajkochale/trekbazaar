@@ -30,10 +30,10 @@ CREATE POLICY "Public can view active regions"
     USING (status = 'active');
 
 -- Trigger to update 'updated_at'
-CREATE TRIGGER handle_updated_at_regions
+CREATE TRIGGER regions_set_updated_at
     BEFORE UPDATE ON public.regions
     FOR EACH ROW
-    EXECUTE FUNCTION moddatetime(updated_at);
+    EXECUTE FUNCTION public.set_updated_at();
 
 -- Seed initial regions
 INSERT INTO public.regions (
