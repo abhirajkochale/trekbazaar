@@ -1,5 +1,4 @@
 import React from 'react';
-import { Section } from '../layout/Section';
 import { Container } from '../layout/Container';
 
 export function TrustMetrics() {
@@ -11,17 +10,21 @@ export function TrustMetrics() {
   ];
 
   return (
-    <Section spacing="sm" background="surface" className="border-b border-tb-border py-8">
+    <section className="bg-white border-b border-tb-border py-12 md:py-16">
       <Container>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4 divide-x-0 md:divide-x divide-tb-border">
           {metrics.map((metric, idx) => (
-            <div key={idx} className="flex flex-col">
-              <span className="text-2xl md:text-3xl font-bold text-tb-primary mb-1">{metric.value}</span>
-              <span className="text-xs md:text-sm font-medium text-tb-text-secondary uppercase tracking-wider">{metric.label}</span>
+            <div key={idx} className="flex flex-col items-center justify-center text-center">
+              <span className="text-4xl md:text-5xl font-light text-tb-text-primary tracking-tight mb-2">
+                {metric.value}
+              </span>
+              <span className="text-sm font-medium text-tb-text-tertiary uppercase tracking-widest">
+                {metric.label}
+              </span>
             </div>
           ))}
         </div>
       </Container>
-    </Section>
+    </section>
   );
 }

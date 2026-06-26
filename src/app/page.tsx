@@ -7,9 +7,6 @@ import { FeaturedRegions } from "@/components/home/FeaturedRegions";
 import { FeaturedTreks } from "@/components/home/FeaturedTreks";
 import { WhyChooseUs } from "@/components/home/WhyChooseUs";
 import { CTASection } from "@/components/home/CTASection";
-import { EnquiryForm } from "@/components/EnquiryForm";
-import { Section } from "@/components/layout/Section";
-import { Container } from "@/components/layout/Container";
 
 export default async function Home() {
   const treks = await getActiveTreks();
@@ -24,21 +21,6 @@ export default async function Home() {
         <WhyChooseUs />
         <FeaturedTreks treks={treks} />
         <CTASection />
-        
-        {/* General Enquiry Form retained from old homepage */}
-        <Section id="contact" spacing="lg" background="surface" withBorder>
-          <Container variant="reading">
-            <div className="mb-8 text-center">
-              <h2 className="text-h2 text-tb-text-primary mb-2">Still Unsure?</h2>
-              <p className="text-body text-tb-text-secondary">
-                Drop a general enquiry and our team will help you find the perfect trek.
-              </p>
-            </div>
-            <div className="bg-white border border-tb-border rounded-tb-md p-6 shadow-tb-subtle">
-              <EnquiryForm />
-            </div>
-          </Container>
-        </Section>
       </main>
       <Footer />
     </>
