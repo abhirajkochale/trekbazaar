@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Region } from '@/lib/types';
+import { RegionBestTimeCalendar } from './RegionBestTimeCalendar';
 
 interface RegionMainContentProps {
   region: Region;
@@ -18,29 +19,21 @@ export function RegionMainContent({ region }: RegionMainContentProps) {
         </section>
       )}
 
+      {/* Best Time Calendar (Animated Strip) */}
+      <RegionBestTimeCalendar bestSeasonText={region.best_season} />
+
       {/* Grid Sections */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* Weather & Best Time */}
-        {(region.weather || region.best_season) && (
+        {/* Typical Weather */}
+        {region.weather && (
           <section className="bg-white rounded-2xl border border-tb-border shadow-sm p-6 md:p-8">
             <h2 className="text-xl font-bold text-tb-text-primary mb-4 flex items-center gap-2">
               <svg className="w-6 h-6 text-tb-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
               </svg>
-              Weather & Season
+              Typical Weather
             </h2>
-            {region.best_season && (
-              <div className="mb-4">
-                <h3 className="text-sm font-semibold text-tb-text-tertiary uppercase tracking-wider mb-1">Best Time to Visit</h3>
-                <p className="text-tb-text-secondary font-medium">{region.best_season}</p>
-              </div>
-            )}
-            {region.weather && (
-              <div>
-                <h3 className="text-sm font-semibold text-tb-text-tertiary uppercase tracking-wider mb-1">Typical Weather</h3>
-                <p className="text-tb-text-secondary">{region.weather}</p>
-              </div>
-            )}
+            <p className="text-tb-text-secondary leading-relaxed">{region.weather}</p>
           </section>
         )}
 
@@ -88,7 +81,7 @@ export function RegionMainContent({ region }: RegionMainContentProps) {
           <h2 className="text-xl font-bold text-tb-text-primary mb-4">Nearby Attractions</h2>
           <div className="flex flex-wrap gap-2">
             {region.nearby_attractions.map((attraction, idx) => (
-              <span key={idx} className="bg-tb-sys-background border border-tb-border text-tb-text-secondary px-4 py-2 rounded-full text-sm font-medium">
+              <span key={idx} className="bg-tb-sys-background border border-tb-border text-tb-text-secondary px-4 py-2 rounded-full text-sm font-medium hover:border-tb-primary hover:text-tb-primary transition-colors cursor-default">
                 {attraction}
               </span>
             ))}
