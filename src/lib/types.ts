@@ -34,3 +34,18 @@ export type Trek = {
   created_at: string;
   updated_at: string;
 };
+
+export type EnquiryStatus = "open" | "responded" | "closed";
+
+export interface Enquiry {
+  id: string;
+  trek_id: string | null;
+  name: string;
+  email: string;
+  phone: string | null;
+  message: string | null;
+  status: EnquiryStatus;
+  created_at: string;
+  // If we ever join treks
+  treks?: { title: string };
+}
