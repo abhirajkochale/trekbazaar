@@ -1,5 +1,14 @@
 import type { Difficulty } from "./types";
 
+/** Turn a title into a URL-safe slug, e.g. "Hampta Pass!" -> "hampta-pass". */
+export function slugify(input: string): string {
+  return input
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 /** Format a price in Indian Rupees, e.g. 8500 -> "₹8,500". */
 export function formatPrice(amount: number): string {
   return new Intl.NumberFormat("en-IN", {
