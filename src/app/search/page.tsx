@@ -20,12 +20,25 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   // Next.js 15 requires awaiting searchParams
   const params = await searchParams;
   
-  // Extract only q and page for now
+  // Extract all relevant filter parameters
   const q = typeof params.q === 'string' ? params.q : undefined;
   const page = typeof params.page === 'string' ? parseInt(params.page, 10) : 1;
+  const region = typeof params.region === 'string' ? params.region : undefined;
+  const difficulty = typeof params.difficulty === 'string' ? params.difficulty : undefined;
+  const duration = typeof params.duration === 'string' ? parseInt(params.duration, 10) : undefined;
+  const minPrice = typeof params.minPrice === 'string' ? parseInt(params.minPrice, 10) : undefined;
+  const maxPrice = typeof params.maxPrice === 'string' ? parseInt(params.maxPrice, 10) : undefined;
 
   // Fetch production data
-  const { treks, totalCount } = await searchTreks({ q, page });
+  const { treks, totalCount } = await searchTreks({ 
+    q, 
+    page, 
+    region, 
+    difficulty, 
+    duration, 
+    minPrice, 
+    maxPrice 
+  });
 
   return (
     <div className="flex min-h-screen flex-col">

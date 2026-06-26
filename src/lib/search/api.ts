@@ -50,19 +50,29 @@ export async function searchTreks(filters: SearchFilters = {}): Promise<SearchRe
     query = query.ilike("title", `%${filters.q.trim()}%`);
   }
 
-  // 2. Region Filter
+  // 2. Region Filter (supports comma-separated)
   if (filters.region && filters.region.trim() !== "") {
-    query = query.eq("region", filters.region.trim());
+    const regions = filters.region.split(',').map(r => r.trim());
+    if (regions.length > 1) {
+      query = query.in("region", regions);
+    } else {
+      query = query.eq("region", regions[0]);
+    }
   }
 
-  // 3. Difficulty Filter
+  // 3. Difficulty Filter (supports comma-separated)
   if (filters.difficulty && filters.difficulty.trim() !== "") {
-    query = query.eq("difficulty", filters.difficulty.trim());
+    const difficulties = filters.difficulty.split(',').map(d => d.trim());
+    if (difficulties.length > 1) {
+      query = query.in("difficulty", difficulties);
+    } else {
+      query = query.eq("difficulty", difficulties[0]);
+    }
   }
 
-  // 4. Duration Filter
+  // 4. Duration Filter (treat as Max Duration)
   if (filters.duration && filters.duration > 0) {
-    query = query.eq("duration_days", filters.duration);
+    query = query.lte("duration_days", filters.duration);
   }
 
   // 5. Season Filter
