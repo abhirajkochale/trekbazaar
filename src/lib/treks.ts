@@ -1,6 +1,6 @@
 import { cache } from "react";
 import { createClient } from "@/lib/supabase/server";
-import type { Trek } from "@/lib/types";
+import type { Trek, Region } from "@/lib/types";
 
 /**
  * Fetch all active treks, newest first.
@@ -82,4 +82,50 @@ export const getRelatedTreks = cache(async (currentTrek: Trek): Promise<Trek[]> 
   }
 
   return (related ?? []) as Trek[];
+});
+
+export const getRegionBySlug = cache(async (slug: string): Promise<Region | null> => {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("regions")
+    .select("*")
+    .eq("slug", slug)
+    .eq("status", "active")
+    .maybeSingle();
+
+  return (data as Region | null) ?? null;
+});
+
+export const getAllRegions = cache(async (): Promise<Region[]> => {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("regions")
+    .select("*")
+    .eq("status", "active")
+    .order("name", { ascending: true });
+
+  return (data ?? []) as Region[];
+});
+
+export const getTreksByRegion = cache(async (regionSlug: string): Promise<Trek[]> => {
+  const supabase = await createClient();
+  
+  // Notice we query the treks table where region (string) matches the slug,
+  // or you can match the actual region name. Given the DB has region names 
+  // (e.g. 'Uttarakhand'), but the URL is a slug, we first fetch the region to get its exact Name
+  // or we query directly if they match.
+  // We'll map the slug back to the Name via getRegionBySlug to be safe, 
+  // because treks.region currently stores the readable name.
+  
+  const region = await getRegionBySlug(regionSlug);
+  if (!region) return [];
+
+  const { data } = await supabase
+    .from("treks")
+    .select("*")
+    .eq("status", "active")
+    .eq("region", region.name)
+    .order("created_at", { ascending: false });
+
+  return (data ?? []) as Trek[];
 });
