@@ -1,26 +1,182 @@
 @import "tailwindcss";
 
+/* 
+ * TrekBazaar Global Design Tokens 
+ * These define the fundamental design foundation (Milestone 1).
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Colors - Semantic Definitions */
+  --tb-primary: #10B981; /* Emerald 500 */
+  --tb-primary-hover: #059669; /* Emerald 600 */
+  --tb-secondary: #475569; /* Slate 600 */
+  --tb-secondary-hover: #334155; /* Slate 700 */
+  
+  --tb-success: #34D399; /* Emerald 400 */
+  --tb-warning: #F59E0B; /* Amber 500 */
+  --tb-danger: #EF4444; /* Red 500 */
+  
+  --tb-surface: #FFFFFF;
+  --tb-background: #F9FAFB; /* Gray 50 */
+  --tb-border: #E5E7EB; /* Gray 200 */
+  
+  --tb-text-primary: #1F2937; /* Gray 800 (Charcoal) */
+  --tb-text-secondary: #6B7280; /* Gray 500 (Medium Gray) */
+  --tb-text-tertiary: #9CA3AF; /* Gray 400 (Light Gray) */
+
+  /* Spacing Scale (Strict 8pt system base) */
+  --tb-space-micro: 4px;
+  --tb-space-sm: 8px;
+  --tb-space-md: 16px;
+  --tb-space-lg: 24px;
+  --tb-space-xl: 32px;
+  --tb-space-2xl: 48px;
+  --tb-space-3xl: 64px;
+  --tb-space-4xl: 96px;
+
+  /* Radius Scale */
+  --tb-radius-sm: 4px;
+  --tb-radius-md: 8px;
+  --tb-radius-lg: 16px;
+  --tb-radius-full: 9999px;
+
+  /* Shadow Scale (Semantic Elevation) */
+  --tb-shadow-subtle: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --tb-shadow-medium: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --tb-shadow-large: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+  /* Motion & Animation Scale */
+  --tb-motion-fast: 150ms;
+  --tb-motion-normal: 250ms;
+  --tb-motion-slow: 350ms;
+  --tb-ease: cubic-bezier(0, 0, 0.2, 1); /* Snappy ease-out */
+
+  /* Container Widths */
+  --tb-container-content: 65ch;
+  --tb-container-reading: 75ch;
+  --tb-container-app: 1200px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
+/* 
+ * Dark Mode Strategy (Structural setup only)
+ * Defined in preparation for future support without major rewrites.
+ */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* To be populated when Dark Mode is fully designed */
   }
 }
 
+/* 
+ * Tailwind v4 @theme integration 
+ * Maps our custom semantic CSS variables to Tailwind utility classes.
+ */
+@theme inline {
+  --color-primary: var(--tb-primary);
+  --color-primary-hover: var(--tb-primary-hover);
+  --color-secondary: var(--tb-secondary);
+  --color-secondary-hover: var(--tb-secondary-hover);
+  --color-success: var(--tb-success);
+  --color-warning: var(--tb-warning);
+  --color-danger: var(--tb-danger);
+  
+  --color-surface: var(--tb-surface);
+  --color-background: var(--tb-background);
+  --color-border: var(--tb-border);
+  
+  --color-text-primary: var(--tb-text-primary);
+  --color-text-secondary: var(--tb-text-secondary);
+  --color-text-tertiary: var(--tb-text-tertiary);
+
+  --spacing-micro: var(--tb-space-micro);
+  --spacing-sm: var(--tb-space-sm);
+  --spacing-md: var(--tb-space-md);
+  --spacing-lg: var(--tb-space-lg);
+  --spacing-xl: var(--tb-space-xl);
+  --spacing-2xl: var(--tb-space-2xl);
+  --spacing-3xl: var(--tb-space-3xl);
+  --spacing-4xl: var(--tb-space-4xl);
+
+  --radius-sm: var(--tb-radius-sm);
+  --radius-md: var(--tb-radius-md);
+  --radius-lg: var(--tb-radius-lg);
+  --radius-full: var(--tb-radius-full);
+
+  --shadow-subtle: var(--tb-shadow-subtle);
+  --shadow-medium: var(--tb-shadow-medium);
+  --shadow-large: var(--tb-shadow-large);
+
+  --transition-timing-function-ease: var(--tb-ease);
+  --transition-duration-fast: var(--tb-motion-fast);
+  --transition-duration-normal: var(--tb-motion-normal);
+  --transition-duration-slow: var(--tb-motion-slow);
+
+  --container-content: var(--tb-container-content);
+  --container-reading: var(--tb-container-reading);
+  --container-app: var(--tb-container-app);
+}
+
+/* 
+ * Semantic Typography Utilities 
+ * We intentionally do not override raw HTML elements (like h1, p) to avoid 
+ * polluting existing pages. We use strictly defined opt-in utility classes.
+ */
+@layer utilities {
+  .text-display {
+    font-size: 48px;
+    line-height: 1.1;
+    font-weight: 700;
+  }
+  
+  .text-h1 {
+    font-size: 36px;
+    line-height: 1.2;
+    font-weight: 600;
+  }
+
+  .text-h2 {
+    font-size: 24px;
+    line-height: 1.2;
+    font-weight: 600;
+  }
+
+  .text-h3 {
+    font-size: 18px;
+    line-height: 1.2;
+    font-weight: 600;
+  }
+
+  .text-body-lg {
+    font-size: 16px;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  .text-body {
+    font-size: 14px;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  .text-caption {
+    font-size: 12px;
+    line-height: 1.4;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .text-label {
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+}
+
+/* Base resets */
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background-color: var(--tb-background);
+  color: var(--tb-text-primary);
   font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
