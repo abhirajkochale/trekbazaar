@@ -95,21 +95,21 @@ body {
 
 @theme inline {
   /* Colors */
-  --color-primary: var(--tb-primary);
-  --color-primary-hover: var(--tb-primary-hover);
-  --color-secondary: var(--tb-secondary);
-  --color-secondary-hover: var(--tb-secondary-hover);
-  --color-success: var(--tb-success);
-  --color-warning: var(--tb-warning);
-  --color-danger: var(--tb-danger);
+  --color-tb-primary: var(--tb-primary);
+  --color-tb-primary-hover: var(--tb-primary-hover);
+  --color-tb-secondary: var(--tb-secondary);
+  --color-tb-secondary-hover: var(--tb-secondary-hover);
+  --color-tb-success: var(--tb-success);
+  --color-tb-warning: var(--tb-warning);
+  --color-tb-danger: var(--tb-danger);
   
-  --color-surface: var(--tb-surface);
-  --color-sys-background: var(--tb-sys-background); /* Isolated from original --color-background */
-  --color-border: var(--tb-border);
+  --color-tb-surface: var(--tb-surface);
+  --color-tb-sys-background: var(--tb-sys-background); /* Isolated from original --color-background */
+  --color-tb-border: var(--tb-border);
   
-  --color-text-primary: var(--tb-text-primary);
-  --color-text-secondary: var(--tb-text-secondary);
-  --color-text-tertiary: var(--tb-text-tertiary);
+  --color-tb-text-primary: var(--tb-text-primary);
+  --color-tb-text-secondary: var(--tb-text-secondary);
+  --color-tb-text-tertiary: var(--tb-text-tertiary);
 
   /* Namespaced Spacing to protect Tailwind defaults */
   --spacing-tb-micro: var(--tb-space-micro);
