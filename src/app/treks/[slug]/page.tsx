@@ -120,7 +120,7 @@ export default async function TrekDetailPage({ params }: Props) {
 
         {/* Enquiry form */}
         <div className="mt-8">
-          <EnquiryForm trek={trek} />
+          <EnquiryForm trekId={trek.id} trekTitle={trek.title} />
         </div>
       </div>
     </main>
