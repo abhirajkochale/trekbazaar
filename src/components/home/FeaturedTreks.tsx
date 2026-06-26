@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Section } from '../layout/Section';
 import { Container } from '../layout/Container';
-import { TrekCard } from '@/components/TrekCard';
+import { TrekCard } from '@/components/trek/TrekCard';
 import { Button } from '../ui/Button';
 import type { Trek } from '@/lib/types';
 

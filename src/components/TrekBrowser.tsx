@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { TrekCard } from "@/components/TrekCard";
+import { TrekCard } from "@/components/trek/TrekCard";
 import { difficultyLabel } from "@/lib/format";
 import type { Difficulty, Trek } from "@/lib/types";
 

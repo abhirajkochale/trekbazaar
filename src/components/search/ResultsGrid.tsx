@@ -1,5 +1,5 @@
 import React from 'react';
-import { TrekCard } from '@/components/TrekCard';
+import { TrekCard } from '@/components/trek/TrekCard';
 import type { Trek } from '@/lib/types';
 
 const MOCK_TREK: Trek = {
