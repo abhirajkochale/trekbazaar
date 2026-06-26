@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm --version)",
+      "Bash(cd c:/Projects/trekbazaar && mv .claude ../trekbazaar-claude-tmp && echo \"moved .claude aside\")"
+    ],
+    "additionalDirectories": [
+      "c:\\Projects\\trekbazaar\\.claude"
+    ]
+  }
+}
