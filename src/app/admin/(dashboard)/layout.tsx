@@ -1,6 +1,7 @@
 import React from "react";
 import { Sidebar } from "@/components/admin/layout/Sidebar";
 import { TopBar } from "@/components/admin/layout/TopBar";
+import { Toaster } from "react-hot-toast";
 
 export default function AdminLayout({
   children,
@@ -20,6 +21,7 @@ export default function AdminLayout({
           </div>
         </main>
       </div>
+      <Toaster position="bottom-right" />
     </div>
   );
 }
