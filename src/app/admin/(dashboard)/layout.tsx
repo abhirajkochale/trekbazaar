@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { logout } from "./actions";
 
 export default function AdminLayout({
   children,
@@ -26,6 +27,14 @@ export default function AdminLayout({
           >
             View site ↗
           </Link>
+          <form action={logout}>
+            <button
+              type="submit"
+              className="text-sm text-zinc-500 hover:text-zinc-900"
+            >
+              Log out
+            </button>
+          </form>
         </div>
       </header>
       <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-6">

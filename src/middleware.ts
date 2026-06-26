@@ -1,7 +1,24 @@
-import { type NextRequest } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
+import { SESSION_COOKIE, verifySessionToken } from "@/lib/auth";
 import { updateSession } from "@/lib/supabase/middleware";
 
 export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  // Password-protect everything under /admin (except the login page itself).
+  if (pathname.startsWith("/admin")) {
+    if (pathname === "/admin/login") {
+      return NextResponse.next();
+    }
+    const token = request.cookies.get(SESSION_COOKIE)?.value;
+    if (await verifySessionToken(token)) {
+      return NextResponse.next();
+    }
+    const loginUrl = request.nextUrl.clone();
+    loginUrl.pathname = "/admin/login";
+    return NextResponse.redirect(loginUrl);
+  }
+
   return await updateSession(request);
 }
 
