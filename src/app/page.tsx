@@ -1,8 +1,15 @@
-import { TrekCard } from "@/components/TrekCard";
+import { EnquiryForm } from "@/components/EnquiryForm";
+import { TrekBrowser } from "@/components/TrekBrowser";
 import { getActiveTreks } from "@/lib/treks";
 
 export default async function Home() {
   const treks = await getActiveTreks();
+
+  // Distinct regions derived from the real data (sorted A–Z), so the
+  // region dropdown always matches what's actually listed.
+  const regions = Array.from(new Set(treks.map((t) => t.region))).sort((a, b) =>
+    a.localeCompare(b)
+  );
 
   return (
     <main className="flex flex-1 flex-col">
@@ -19,7 +26,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Listings */}
+      {/* Listings + search/filter */}
       <section className="mx-auto w-full max-w-6xl flex-1 px-4 py-10 sm:px-6 sm:py-14">
         <h2 className="mb-6 text-xl font-semibold text-zinc-900 sm:text-2xl">
           Available Treks
@@ -32,12 +39,15 @@ export default async function Home() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {treks.map((trek) => (
-              <TrekCard key={trek.id} trek={trek} />
-            ))}
-          </div>
+          <TrekBrowser treks={treks} regions={regions} />
         )}
+      </section>
+
+      {/* General enquiry */}
+      <section className="border-t border-zinc-200 bg-zinc-50">
+        <div className="mx-auto w-full max-w-2xl px-4 py-12 sm:px-6">
+          <EnquiryForm />
+        </div>
       </section>
     </main>
   );
