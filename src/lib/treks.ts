@@ -43,3 +43,43 @@ export const getTrekBySlug = cache(
     return (data as Trek | null) ?? null;
   }
 );
+
+/**
+ * Fetch related treks based on priority:
+ * 1. Same region
+ * 2. Exclude current trek
+ * Fallback to newest if < 3 results.
+ */
+export const getRelatedTreks = cache(async (currentTrek: Trek): Promise<Trek[]> => {
+  const supabase = await createClient();
+  
+  // 1. Try to get treks in the same region
+  let { data: related } = await supabase
+    .from("treks")
+    .select("*")
+    .eq("status", "active")
+    .neq("id", currentTrek.id)
+    .eq("region", currentTrek.region)
+    .order("created_at", { ascending: false })
+    .limit(4);
+
+  // 2. If we don't have enough, fetch fallback (newest active treks)
+  if (!related || related.length < 3) {
+    const { data: fallback } = await supabase
+      .from("treks")
+      .select("*")
+      .eq("status", "active")
+      .neq("id", currentTrek.id)
+      .order("created_at", { ascending: false })
+      .limit(4 - (related?.length || 0));
+
+    if (fallback) {
+      // Combine and deduplicate just in case
+      const combined = [...(related || []), ...fallback];
+      const unique = Array.from(new Map(combined.map(t => [t.id, t])).values());
+      related = unique.slice(0, 4);
+    }
+  }
+
+  return (related ?? []) as Trek[];
+});

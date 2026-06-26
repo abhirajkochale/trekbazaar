@@ -1,7 +1,7 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { getTrekBySlug } from '@/lib/treks';
+import { getTrekBySlug, getRelatedTreks } from '@/lib/treks';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { Container } from '@/components/layout/Container';
@@ -11,6 +11,7 @@ import { QuickFacts } from '@/components/trek/details/QuickFacts';
 import { Highlights } from '@/components/trek/details/Highlights';
 import { ItineraryTimeline } from '@/components/trek/details/ItineraryTimeline';
 import { StickySidebar } from '@/components/trek/details/StickySidebar';
+import { RelatedTreks } from '@/components/trek/details/RelatedTreks';
 
 interface TrekDetailsPageProps {
   params: Promise<{ slug: string }>;
@@ -40,11 +41,14 @@ export default async function TrekDetailsPage({ params }: TrekDetailsPageProps) 
     notFound();
   }
 
+  // Fetch related treks (cached automatically by the helper)
+  const relatedTreks = await getRelatedTreks(trek);
+
   return (
     <div className="flex min-h-screen flex-col bg-tb-sys-background">
       <Navbar />
       
-      <main className="flex-1 w-full pb-20">
+      <main className="flex-1 w-full pb-12">
         <HeroGallery trek={trek} />
         
         <Container className="mt-8 md:mt-12">
@@ -62,6 +66,9 @@ export default async function TrekDetailsPage({ params }: TrekDetailsPageProps) 
               <StickySidebar trek={trek} />
             </aside>
           </div>
+          
+          {/* Related Treks Section */}
+          <RelatedTreks treks={relatedTreks} />
         </Container>
       </main>
       
