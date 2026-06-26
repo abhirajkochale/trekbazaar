@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import { Button } from '../ui/Button';
 
 export function SearchEmptyState() {
   return (
@@ -14,8 +13,11 @@ export function SearchEmptyState() {
       <p className="text-sm text-tb-text-secondary mb-6 max-w-sm">
         We couldn&apos;t find any treks matching your current filters. Try changing your filters to see more results.
       </p>
-      <Link href="/search" passHref legacyBehavior>
-        <Button variant="primary">Clear Filters</Button>
+      <Link 
+        href="/search" 
+        className="inline-flex items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tb-primary focus-visible:ring-offset-2 rounded-tb-md active:scale-[0.98] bg-tb-primary text-white hover:bg-tb-primary-hover shadow-tb-subtle border border-transparent h-10 px-4 py-2 text-sm"
+      >
+        Clear Filters
       </Link>
     </div>
   );
