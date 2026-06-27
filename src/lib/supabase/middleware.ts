@@ -30,9 +30,7 @@ export async function updateSession(request: NextRequest) {
     }
   );
 
-  // Touch the session so expired tokens are refreshed. No-op while there
-  // is no logged-in user, which is fine for Phase 1.
-  await supabase.auth.getUser();
+  const { data: { user } } = await supabase.auth.getUser();
 
-  return supabaseResponse;
+  return { supabaseResponse, user };
 }
