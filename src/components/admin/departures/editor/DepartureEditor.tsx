@@ -13,12 +13,14 @@ interface Props {
   initialDeparture?: Departure;
   companies: Company[];
   treks: Trek[];
+  isCompanyPortal?: boolean;
+  onSaveOverride?: (payload: Partial<Departure>) => Promise<{success: boolean, error?: string, departureId?: string}>;
 }
 
 const inputClasses = "mt-1 block w-full rounded-md border border-zinc-300 px-3 py-2 text-sm focus:border-tb-primary focus:outline-none focus:ring-1 focus:ring-tb-primary";
 const labelClasses = "block text-sm font-medium text-zinc-700";
 
-export function DepartureEditor({ initialDeparture, companies, treks }: Props) {
+export function DepartureEditor({ initialDeparture, companies, treks, isCompanyPortal = false, onSaveOverride }: Props) {
   const router = useRouter();
   const [, startTransition] = useTransition();
   const [isSaving, setIsSaving] = useState(false);
@@ -44,8 +46,8 @@ export function DepartureEditor({ initialDeparture, companies, treks }: Props) {
 
   const [isDirty, setIsDirty] = useState(false);
 
-  // Filter treks dynamically based on selected company
-  const availableTreks = treks.filter(t => t.company_id === selectedCompanyId);
+  // Filter treks dynamically based on selected company (unless in company portal where treks are already filtered)
+  const availableTreks = isCompanyPortal ? treks : treks.filter(t => t.company_id === selectedCompanyId);
 
   const updateField = useCallback(<K extends keyof Departure>(field: K, value: Departure[K]) => {
     setDeparture(prev => ({ ...prev, [field]: value }));
@@ -70,7 +72,9 @@ export function DepartureEditor({ initialDeparture, companies, treks }: Props) {
     }
 
     setIsSaving(true);
-    const res = await saveDepartureAction(departure);
+    const res = onSaveOverride 
+      ? await onSaveOverride(departure)
+      : await saveDepartureAction(departure);
     setIsSaving(false);
 
     if (res.success) {
@@ -110,7 +114,7 @@ export function DepartureEditor({ initialDeparture, companies, treks }: Props) {
       {/* Sticky Header */}
       <div className="sticky top-16 z-20 bg-zinc-50/90 backdrop-blur-md py-4 border-b border-zinc-200 flex items-center justify-between gap-4 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-4">
-          <Link href="/admin/departures" className="p-2 -ml-2 text-zinc-400 hover:text-zinc-900 transition-colors rounded-full hover:bg-zinc-200">
+          <Link href={isCompanyPortal ? "/company/departures" : "/admin/departures"} className="p-2 -ml-2 text-zinc-400 hover:text-zinc-900 transition-colors rounded-full hover:bg-zinc-200">
             <ArrowLeft className="w-5 h-5" />
           </Link>
           <div>
@@ -146,26 +150,28 @@ export function DepartureEditor({ initialDeparture, companies, treks }: Props) {
           <AdminCard title="Core Details">
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className={labelClasses}>Company <span className="text-red-500">*</span></label>
-                  <select
-                    value={selectedCompanyId}
-                    onChange={handleCompanyChange}
-                    className={inputClasses}
-                  >
-                    <option value="">Select a Company...</option>
-                    {companies.map(c => (
-                      <option key={c.id} value={c.id}>{c.name}</option>
-                    ))}
-                  </select>
-                </div>
-                <div>
+                {!isCompanyPortal && (
+                  <div>
+                    <label className={labelClasses}>Company <span className="text-red-500">*</span></label>
+                    <select
+                      value={selectedCompanyId}
+                      onChange={handleCompanyChange}
+                      className={inputClasses}
+                    >
+                      <option value="">Select a Company...</option>
+                      {companies.map(c => (
+                        <option key={c.id} value={c.id}>{c.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+                <div className={isCompanyPortal ? "md:col-span-2" : ""}>
                   <label className={labelClasses}>Trek <span className="text-red-500">*</span></label>
                   <select
                     value={departure.trek_id || ''}
                     onChange={(e) => updateField('trek_id', e.target.value)}
                     className={inputClasses}
-                    disabled={!selectedCompanyId}
+                    disabled={!isCompanyPortal && !selectedCompanyId}
                   >
                     <option value="">Select a Trek...</option>
                     {availableTreks.map(t => (
