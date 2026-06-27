@@ -27,7 +27,20 @@ const FAQBuilder = dynamic(() => import('./FAQBuilder').then(m => m.FAQBuilder),
   loading: () => <div className="h-64 animate-pulse bg-zinc-100 rounded-xl" />
 });
 
-export function TrekEditor({ initialTrek, companies = [], isCompanyPortal = false, onSaveOverride }: { initialTrek?: Trek, companies?: Company[], isCompanyPortal?: boolean, onSaveOverride?: (payload: Partial<Trek>) => Promise<{success: boolean, error?: string, trekId?: string}> }) {
+export function TrekEditor({ 
+  initialTrek, 
+  companies = [], 
+  masterTreks = [],
+  isCompanyPortal = false, 
+  onSaveOverride 
+}: { 
+  initialTrek?: Trek, 
+  companies?: Company[], 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  masterTreks?: any[],
+  isCompanyPortal?: boolean, 
+  onSaveOverride?: (payload: Partial<Trek>) => Promise<{success: boolean, error?: string, trekId?: string}> 
+}) {
   const router = useRouter();
   const [, startTransition] = useTransition();
   const [isSaving, setIsSaving] = useState(false);
@@ -36,6 +49,7 @@ export function TrekEditor({ initialTrek, companies = [], isCompanyPortal = fals
   // Provide defaults for all fields to prevent controlled/uncontrolled warnings
   const [trek, setTrek] = useState<Partial<Trek>>(initialTrek || {
     company_id: null,
+    master_trek_id: null,
     title: "",
     slug: "",
     status: "draft",
@@ -81,6 +95,10 @@ export function TrekEditor({ initialTrek, companies = [], isCompanyPortal = fals
   const handleSave = useCallback(async (showToast = true) => {
     if (!trek.title) {
       if (showToast) toast.error("Title is required before saving.");
+      return;
+    }
+    if (!trek.master_trek_id) {
+      if (showToast) toast.error("Master Trek is required before saving.");
       return;
     }
 
@@ -196,7 +214,7 @@ export function TrekEditor({ initialTrek, companies = [], isCompanyPortal = fals
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
           <AdminCard title="Basic Information">
-            <BasicInfoSection trek={trek} updateField={updateField} companies={companies} isCompanyPortal={isCompanyPortal} />
+            <BasicInfoSection trek={trek} updateField={updateField} companies={companies} masterTreks={masterTreks} isCompanyPortal={isCompanyPortal} />
           </AdminCard>
           
           <AdminCard title="Media & Gallery">

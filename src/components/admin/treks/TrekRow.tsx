@@ -75,6 +75,17 @@ export function TrekRow({ trek }: { trek: Trek }) {
           </div>
         </td>
         <td className="px-6 py-4 whitespace-nowrap text-sm text-zinc-700">
+          {trek.master_treks?.name ? (
+            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200">
+              {trek.master_treks.name}
+            </span>
+          ) : (
+            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-zinc-100 text-zinc-500">
+              Unlinked
+            </span>
+          )}
+        </td>
+        <td className="px-6 py-4 whitespace-nowrap text-sm text-zinc-700">
           {trek.region}
         </td>
         <td className="px-6 py-4 whitespace-nowrap">

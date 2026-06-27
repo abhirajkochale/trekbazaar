@@ -185,6 +185,7 @@ export type Trek = {
   updated_at: string;
   
   departures?: Departure[];
+  master_treks?: { name: string };
 };
 export type EnquiryStatus = "open" | "responded" | "closed";
 

@@ -8,6 +8,7 @@ interface TreksTableProps {
   regionFilter?: string;
   difficultyFilter?: string;
   statusFilter?: string;
+  masterTrekFilter?: string;
   sortBy?: string;
 }
 
@@ -16,9 +17,10 @@ export async function TreksTable({
   regionFilter, 
   difficultyFilter, 
   statusFilter, 
+  masterTrekFilter,
   sortBy 
 }: TreksTableProps) {
-  const treks = await getTreks(searchQuery, regionFilter, difficultyFilter, statusFilter, sortBy);
+  const treks = await getTreks(searchQuery, regionFilter, difficultyFilter, statusFilter, masterTrekFilter, sortBy);
 
   return (
     <AdminCard title="Treks Directory" noPadding>
@@ -27,6 +29,7 @@ export async function TreksTable({
           <thead className="border-b border-zinc-200 bg-zinc-50 text-xs uppercase tracking-wide text-zinc-500">
             <tr>
               <th className="px-6 py-4 font-medium">Trek</th>
+              <th className="px-6 py-4 font-medium">Master Trek</th>
               <th className="px-6 py-4 font-medium">Region</th>
               <th className="px-6 py-4 font-medium">Difficulty</th>
               <th className="px-6 py-4 font-medium">Duration</th>
@@ -38,7 +41,7 @@ export async function TreksTable({
           <tbody className="divide-y divide-zinc-100 bg-white">
             {treks.length === 0 ? (
               <tr>
-                <td colSpan={7} className="px-6 py-16 text-center text-zinc-500">
+                <td colSpan={8} className="px-6 py-16 text-center text-zinc-500">
                   <div className="flex flex-col items-center">
                     <p className="text-sm font-medium text-zinc-900">No treks found</p>
                     <p className="text-xs text-zinc-500 mt-1">Try adjusting your filters or search query.</p>

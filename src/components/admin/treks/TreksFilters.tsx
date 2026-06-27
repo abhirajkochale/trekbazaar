@@ -6,7 +6,7 @@ import { Search } from 'lucide-react';
 import Link from 'next/link';
 import { Plus } from 'lucide-react';
 
-export function TreksFilters() {
+export function TreksFilters({ masterTreks = [] }: { masterTreks?: { id: string, name: string }[] }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [, startTransition] = useTransition();
@@ -48,7 +48,7 @@ export function TreksFilters() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 pt-4 border-t border-zinc-100">
+      <div className="grid grid-cols-1 sm:grid-cols-5 gap-4 pt-4 border-t border-zinc-100">
         <div>
           <label className="block text-xs font-medium text-zinc-500 mb-1">Status</label>
           <select
@@ -60,6 +60,23 @@ export function TreksFilters() {
             <option value="active">Active</option>
             <option value="draft">Draft</option>
             <option value="archived">Archived</option>
+          </select>
+        </div>
+        <div>
+          <label className="block text-xs font-medium text-zinc-500 mb-1">Master Trek</label>
+          <select
+            defaultValue={searchParams.get('masterTrekFilter') || 'all'}
+            onChange={(e) => updateParams('masterTrekFilter', e.target.value)}
+            className="block w-full py-1.5 pl-3 pr-8 border border-zinc-200 bg-white rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-tb-primary focus:border-tb-primary"
+          >
+            <option value="all">All Treks</option>
+            <option value="linked">Only Linked Packages</option>
+            <option value="unlinked">Only Unlinked Packages</option>
+            <optgroup label="Specific Master Treks">
+              {masterTreks.map(mt => (
+                <option key={mt.id} value={mt.id}>{mt.name}</option>
+              ))}
+            </optgroup>
           </select>
         </div>
         <div>

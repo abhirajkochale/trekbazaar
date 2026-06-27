@@ -9,7 +9,7 @@ export async function getCompanyTreks(): Promise<Trek[]> {
   const supabase = await createClient();
   const { data } = await supabase
     .from("treks")
-    .select("*")
+    .select("*, master_treks(name)")
     .eq("company_id", companyId)
     .order("created_at", { ascending: false });
 
@@ -36,6 +36,21 @@ export async function saveCompanyTrek(payload: Partial<Trek>): Promise<Trek> {
   if (!companyId) throw new Error("Unauthorized");
 
   const supabase = await createClient();
+
+  if (!payload.master_trek_id) {
+    throw new Error("Master Trek is required.");
+  }
+
+  const { data: activeMasterTrek } = await supabase
+    .from("master_treks")
+    .select("id")
+    .eq("id", payload.master_trek_id)
+    .eq("status", "active")
+    .maybeSingle();
+
+  if (!activeMasterTrek) {
+    throw new Error("Selected Master Trek must be active and exist.");
+  }
 
   // Denormalize the DEPRECATED operator_* fields from the company profile, so
   // the public UI (which still reads operator_name) shows the real operator,

@@ -40,14 +40,22 @@ export async function getTreks(
   regionFilter?: string,
   difficultyFilter?: string,
   statusFilter?: string,
+  masterTrekFilter?: string,
   sortBy: string = "updated_desc"
 ): Promise<Trek[]> {
   const supabase = createAdminClient();
   
-  let query = supabase.from("treks").select("*");
+  let query = supabase.from("treks").select("*, master_treks(name)");
 
   if (searchQuery) {
-    query = query.or(`title.ilike.%${searchQuery}%,slug.ilike.%${searchQuery}%`);
+    const { data: mtData } = await supabase.from('master_treks').select('id').ilike('name', `%${searchQuery}%`);
+    const mtIds = mtData?.map(d => d.id) || [];
+    
+    if (mtIds.length > 0) {
+      query = query.or(`title.ilike.%${searchQuery}%,slug.ilike.%${searchQuery}%,master_trek_id.in.(${mtIds.join(',')})`);
+    } else {
+      query = query.or(`title.ilike.%${searchQuery}%,slug.ilike.%${searchQuery}%`);
+    }
   }
   if (regionFilter && regionFilter !== "all") {
     query = query.eq("region", regionFilter);
@@ -57,6 +65,15 @@ export async function getTreks(
   }
   if (statusFilter && statusFilter !== "all") {
     query = query.eq("status", statusFilter);
+  }
+  if (masterTrekFilter && masterTrekFilter !== "all") {
+    if (masterTrekFilter === "linked") {
+      query = query.not("master_trek_id", "is", null);
+    } else if (masterTrekFilter === "unlinked") {
+      query = query.is("master_trek_id", null);
+    } else {
+      query = query.eq("master_trek_id", masterTrekFilter);
+    }
   }
 
   // Handle sorting
@@ -98,6 +115,7 @@ export async function createTrek(trekData: Partial<Trek>): Promise<Trek> {
   const supabase = createAdminClient();
   
   if (!trekData.title) throw new Error("Title is required");
+  if (!trekData.master_trek_id) throw new Error("Master Trek is required");
   if (!trekData.slug) trekData.slug = slugify(trekData.title);
   
   if (trekData.price_per_person && trekData.price_per_person < 0) {
@@ -116,6 +134,15 @@ export async function createTrek(trekData: Partial<Trek>): Promise<Trek> {
 
   if (existing) throw new Error("A trek with this slug already exists.");
 
+  const { data: activeMasterTrek } = await supabase
+    .from("master_treks")
+    .select("id")
+    .eq("id", trekData.master_trek_id)
+    .eq("status", "active")
+    .maybeSingle();
+
+  if (!activeMasterTrek) throw new Error("Selected Master Trek must be active and exist.");
+
   const { data, error } = await supabase.from("treks").insert([trekData]).select().single();
   if (error) throw new Error(error.message);
   
@@ -127,6 +154,9 @@ export async function updateTrek(id: string, trekData: Partial<Trek>): Promise<T
   
   if (trekData.title && !trekData.slug) {
     trekData.slug = slugify(trekData.title);
+  }
+  if ('master_trek_id' in trekData && !trekData.master_trek_id) {
+    throw new Error("Master Trek is required");
   }
 
   if (trekData.price_per_person && trekData.price_per_person < 0) {
@@ -145,6 +175,17 @@ export async function updateTrek(id: string, trekData: Partial<Trek>): Promise<T
       .maybeSingle();
 
     if (existing) throw new Error("A trek with this slug already exists.");
+  }
+
+  if (trekData.master_trek_id) {
+    const { data: activeMasterTrek } = await supabase
+      .from("master_treks")
+      .select("id")
+      .eq("id", trekData.master_trek_id)
+      .eq("status", "active")
+      .maybeSingle();
+
+    if (!activeMasterTrek) throw new Error("Selected Master Trek must be active and exist.");
   }
 
   const payload = {
