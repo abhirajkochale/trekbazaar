@@ -1,81 +1,68 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
-import { createAdminClient } from "@/lib/supabase/admin";
+import { 
+  createTrek, 
+  updateTrek, 
+  deleteTrek, 
+  duplicateTrek, 
+  togglePublished 
+} from "@/lib/admin/treks";
+import type { Trek } from "@/lib/types";
 
-export type SaveTrekState = { error: string } | null;
+export type SaveTrekResponse = {
+  success: boolean;
+  error?: string | null;
+  trekId?: string;
+};
 
-function str(formData: FormData, key: string): string {
-  return ((formData.get(key) as string) ?? "").trim();
+export async function saveTrekAction(trekData: Partial<Trek>): Promise<SaveTrekResponse> {
+  try {
+    if (trekData.id) {
+      await updateTrek(trekData.id, trekData);
+      revalidatePath("/admin/treks");
+      revalidatePath(`/admin/treks/${trekData.id}/edit`);
+      return { success: true, trekId: trekData.id };
+    } else {
+      const newTrek = await createTrek(trekData);
+      revalidatePath("/admin/treks");
+      return { success: true, trekId: newTrek.id };
+    }
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to save trek.";
+    return { success: false, error: message };
+  }
 }
 
-export async function saveTrek(
-  _prev: SaveTrekState,
-  formData: FormData
-): Promise<SaveTrekState> {
-  const id = str(formData, "id");
-  const title = str(formData, "title");
-  const slug = str(formData, "slug");
-  const description = str(formData, "description");
-  const region = str(formData, "region");
-  const difficulty = str(formData, "difficulty");
-  const cover = str(formData, "cover_image_url");
-  const operatorName = str(formData, "operator_name");
-  const operatorContact = str(formData, "operator_contact");
-  const status = str(formData, "status");
-
-  if (
-    !title ||
-    !slug ||
-    !description ||
-    !region ||
-    !operatorName ||
-    !operatorContact
-  ) {
-    return { error: "Please fill in all required fields." };
+export async function removeTrekAction(id: string) {
+  try {
+    await deleteTrek(id);
+    revalidatePath("/admin/treks");
+    return { success: true };
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to delete trek.";
+    return { success: false, error: message };
   }
+}
 
-  const duration_days = Number.parseInt(str(formData, "duration_days"), 10);
-  const price_per_person = Number.parseFloat(str(formData, "price_per_person"));
-  if (!Number.isFinite(duration_days) || duration_days <= 0) {
-    return { error: "Duration must be a positive whole number of days." };
+export async function duplicateTrekAction(id: string) {
+  try {
+    const newId = await duplicateTrek(id);
+    revalidatePath("/admin/treks");
+    return { success: true, newId };
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to duplicate trek.";
+    return { success: false, error: message };
   }
-  if (!Number.isFinite(price_per_person) || price_per_person < 0) {
-    return { error: "Price must be a valid, non-negative number." };
+}
+
+export async function togglePublishAction(id: string, currentStatus: string) {
+  try {
+    await togglePublished(id, currentStatus);
+    revalidatePath("/admin/treks");
+    return { success: true };
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Failed to toggle status.";
+    return { success: false, error: message };
   }
-
-  const payload = {
-    title,
-    slug,
-    description,
-    region,
-    difficulty,
-    duration_days,
-    price_per_person,
-    cover_image_url: cover || null,
-    operator_name: operatorName,
-    operator_contact: operatorContact,
-    status,
-  };
-
-  const supabase = createAdminClient();
-  const { error } = id
-    ? await supabase.from("treks").update(payload).eq("id", id)
-    : await supabase.from("treks").insert(payload);
-
-  if (error) {
-    if (error.code === "23505") {
-      return {
-        error: `The slug "${slug}" is already used by another trek. Please choose a unique slug.`,
-      };
-    }
-    return { error: error.message };
-  }
-
-  // Refresh the admin list and any public pages that show this trek.
-  revalidatePath("/admin");
-  revalidatePath("/");
-  revalidatePath(`/treks/${slug}`);
-  redirect("/admin");
 }

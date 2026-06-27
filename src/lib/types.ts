@@ -18,16 +18,57 @@ export interface Region {
   updated_at: string;
 }
 
+export interface ItineraryDay {
+  day: number;
+  title: string;
+  description: string;
+  altitude: string;
+  accommodation: string;
+  distance: string;
+  meals: string;
+  hours: string;
+}
+
+export interface FAQ {
+  question: string;
+  answer: string;
+}
+
 export type Trek = {
   id: string;
   title: string;
   slug: string;
+  short_description: string | null;
   description: string;
+  gallery_images: string[];
   region: string;
   difficulty: Difficulty;
   duration_days: number;
   price_per_person: number;
   cover_image_url: string | null;
+  
+  altitude: string | null;
+  distance: string | null;
+  base_camp: string | null;
+  start_point: string | null;
+  end_point: string | null;
+  best_season: string | null;
+  temperature: string | null;
+  age_limit: string | null;
+  fitness_level: string | null;
+  
+  included: string[];
+  excluded: string[];
+  things_to_carry: string[];
+  highlights: string[];
+  
+  itinerary: ItineraryDay[];
+  faqs: FAQ[];
+  
+  seo_title: string | null;
+  seo_description: string | null;
+  canonical_url: string | null;
+  
   operator_name: string;
   operator_contact: string;
   status: TrekStatus;
