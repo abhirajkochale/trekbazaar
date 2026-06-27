@@ -44,3 +44,17 @@ export async function getBookingStats() {
     totalRevenue
   };
 }
+
+export async function updateBookingStatus(id: string, status: string) {
+  const supabase = createAdminClient();
+  
+  const { error } = await supabase
+    .from('bookings')
+    .update({ status })
+    .eq('id', id);
+
+  if (error) {
+    console.error("Error updating booking status:", error);
+    throw new Error(error.message);
+  }
+}

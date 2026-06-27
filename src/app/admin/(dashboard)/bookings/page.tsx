@@ -1,9 +1,10 @@
 import React from 'react';
 import { getBookings, getBookingStats } from '@/lib/admin/bookings';
-import { BookingsTable } from '@/components/admin/bookings/BookingsTable';
 import { formatPrice } from '@/lib/format';
 import { BookOpen, CheckCircle, Clock, DollarSign } from 'lucide-react';
+import { BookingsClientWrapper } from './BookingsClientWrapper';
 
+export const dynamic = "force-dynamic";
 export const metadata = {
   title: "Bookings Management | TrekBazaar Admin",
 };
@@ -64,7 +65,7 @@ export default async function BookingsPage() {
       </div>
 
       <div className="bg-white border border-zinc-200 rounded-xl p-5 shadow-sm">
-        <BookingsTable bookings={bookings} />
+        <BookingsClientWrapper initialBookings={bookings} />
       </div>
     </div>
   );

@@ -31,7 +31,6 @@ export async function updateCompanyProfile(payload: Partial<Company>): Promise<C
   // Disallow modifying sensitive fields
   const safePayload = { ...payload };
   delete safePayload.id;
-  // @ts-ignore - owner_id is not in all versions of the type
   delete safePayload.owner_id;
   delete safePayload.verification_status;
   delete safePayload.status;

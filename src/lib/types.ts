@@ -1,4 +1,5 @@
 export type Difficulty = "easy" | "moderate" | "difficult" | "extreme";
+export type MasterTrekDifficulty = "Easy" | "Moderate" | "Difficult" | "Extreme";
 export type TrekStatus = "draft" | "active" | "archived";
 
 export interface Region {
@@ -32,6 +33,44 @@ export interface ItineraryDay {
 export interface FAQ {
   question: string;
   answer: string;
+}
+
+export interface MasterTrekCategory {
+  id: string;
+  name: string;
+  slug: string;
+  description: string | null;
+  status: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface MasterTrek {
+  id: string;
+  name: string;
+  slug: string;
+  category_id: string | null;
+  region_id: string | null;
+  country: string;
+  state: string | null;
+  difficulty: MasterTrekDifficulty | null;
+  duration_min: number | null;
+  duration_max: number | null;
+  altitude: string | null;
+  best_season: string | null;
+  overview: string | null;
+  cover_image: string | null;
+  gallery: string[];
+  highlights: string[];
+  seo_title: string | null;
+  seo_description: string | null;
+  status: TrekStatus;
+  created_at: string;
+  updated_at: string;
+  
+  // Joined fields
+  category?: MasterTrekCategory;
+  region?: Region;
 }
 
 export type VerificationStatus = "pending" | "verified" | "rejected";
@@ -104,6 +143,7 @@ export interface Departure {
 export type Trek = {
   id: string;
   company_id: string | null;
+  master_trek_id: string | null;
   title: string;
   slug: string;
   short_description: string | null;

@@ -45,9 +45,10 @@ export async function searchTreks(filters: SearchFilters = {}): Promise<SearchRe
     .select(TREKCARD_COLUMNS, { count: 'exact' })
     .eq("status", "active");
 
-  // 1. Text Search (title)
+  // 1. Text Search (title and short_description)
   if (filters.q && filters.q.trim() !== "") {
-    query = query.ilike("title", `%${filters.q.trim()}%`);
+    const q = filters.q.trim();
+    query = query.or(`title.ilike.%${q}%,short_description.ilike.%${q}%`);
   }
 
   // 2. Region Filter (supports comma-separated)
@@ -77,10 +78,10 @@ export async function searchTreks(filters: SearchFilters = {}): Promise<SearchRe
 
   // 5. Season Filter
   // Note: The database blueprint specifies `best_seasons` as text[],
-  // but we can query if a specific season is inside it using the `contains` or `cs` operator.
-  // Actually, we are only fetching TrekCard columns, but we can still filter on unselected columns in Supabase.
+  // but we are using the `best_season` text column on the regions/treks tables for now.
+  // The `treks` table has `best_season` as a string, so we use ilike to do a substring match.
   if (filters.season && filters.season.trim() !== "") {
-    query = query.contains("best_seasons", [filters.season.trim()]);
+    query = query.ilike("best_season", `%${filters.season.trim()}%`);
   }
 
   // 6. Price Filters
