@@ -3,9 +3,9 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { SearchHeader } from '@/components/search/SearchHeader';
 import { SearchLayout } from '@/components/search/SearchLayout';
-import { ResultsGrid } from '@/components/search/ResultsGrid';
 import { SearchEmptyState } from '@/components/search/SearchEmptyState';
-import { searchTreks } from '@/lib/search/api';
+import { searchMasterTreks } from '@/lib/search/master-api';
+import { MasterTrekSearchCard } from '@/components/search/MasterTrekSearchCard';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -28,10 +28,10 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   const duration = typeof params.duration === 'string' ? parseInt(params.duration, 10) : undefined;
   const minPrice = typeof params.minPrice === 'string' ? parseInt(params.minPrice, 10) : undefined;
   const maxPrice = typeof params.maxPrice === 'string' ? parseInt(params.maxPrice, 10) : undefined;
-  const sort = typeof params.sort === 'string' ? params.sort as import('@/lib/search/api').SearchFilters['sort'] : undefined;
+  const sort = typeof params.sort === 'string' ? params.sort as import('@/lib/search/master-api').MasterSearchFilters['sort'] : undefined;
 
   // Fetch production data
-  const { treks, totalCount } = await searchTreks({ 
+  const { masterTreks, totalCount } = await searchMasterTreks({ 
     q, 
     page, 
     region, 
@@ -48,8 +48,13 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
       <main className="flex-1 flex flex-col">
         <SearchHeader totalCount={totalCount} />
         <SearchLayout>
-          {treks.length > 0 ? (
-            <ResultsGrid treks={treks} />
+          {masterTreks.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+              {masterTreks.map((mt: any) => (
+                <MasterTrekSearchCard key={mt.id} masterTrek={mt} />
+              ))}
+            </div>
           ) : (
             <SearchEmptyState />
           )}

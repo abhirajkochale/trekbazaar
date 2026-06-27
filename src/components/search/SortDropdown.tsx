@@ -44,9 +44,11 @@ export function SortDropdown() {
       >
         <option value="recommended">Recommended</option>
         <option value="newest">Newest</option>
-        <option value="price_low">Price: Low to High</option>
-        <option value="price_high">Price: High to Low</option>
-        <option value="duration">Duration</option>
+        <option value="lowest-price">Price: Low to High</option>
+        <option value="highest-price">Price: High to Low</option>
+        <option value="most-companies">Most Companies</option>
+        <option value="most-departures">Most Departures</option>
+        <option value="alphabetical">Alphabetical</option>
       </select>
     </div>
   );

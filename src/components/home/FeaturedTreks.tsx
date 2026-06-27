@@ -1,11 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
 import { Container } from '../layout/Container';
-import { TrekCard } from '@/components/trek/TrekCard';
-import type { Trek } from '@/lib/types';
+import { MasterTrekSearchCard } from '@/components/search/MasterTrekSearchCard';
 
 interface FeaturedTreksProps {
-  treks: Trek[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  treks: any[];
 }
 
 export function FeaturedTreks({ treks }: FeaturedTreksProps) {
@@ -18,7 +18,7 @@ export function FeaturedTreks({ treks }: FeaturedTreksProps) {
         <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="max-w-2xl">
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-tb-text-primary mb-4">
-              Curated Expeditions
+              Featured Destinations
             </h2>
             <p className="text-lg text-tb-text-secondary leading-relaxed">
               A handpicked selection of our most popular and highly-rated treks. 
@@ -44,8 +44,9 @@ export function FeaturedTreks({ treks }: FeaturedTreksProps) {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
-            {topTreks.map((trek) => (
-              <TrekCard key={trek.id} trek={trek} />
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+            {topTreks.map((trek: any) => (
+              <MasterTrekSearchCard key={trek.id} masterTrek={trek} />
             ))}
           </div>
         )}

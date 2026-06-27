@@ -1,4 +1,4 @@
-import { getActiveTreks } from "@/lib/treks";
+import { searchMasterTreks } from "@/lib/search/master-api";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { HeroSection } from "@/components/home/HeroSection";
@@ -9,7 +9,7 @@ import { WhyChooseUs } from "@/components/home/WhyChooseUs";
 import { CTASection } from "@/components/home/CTASection";
 
 export default async function Home() {
-  const treks = await getActiveTreks();
+  const { masterTreks: treks } = await searchMasterTreks({ limit: 6, sort: "featured-first" });
 
   return (
     <>
