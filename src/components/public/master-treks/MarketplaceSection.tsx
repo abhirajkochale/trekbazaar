@@ -67,7 +67,7 @@ export function MarketplaceSection({ packages }: Props) {
     result.sort((a, b) => {
       const aPrice = a.departures?.[0]?.offer_price || a.departures?.[0]?.base_price || a.price_per_person;
       const bPrice = b.departures?.[0]?.offer_price || b.departures?.[0]?.base_price || b.price_per_person;
-      
+
       if (sort === "lowest-price") return aPrice - bPrice;
       if (sort === "highest-price") return bPrice - aPrice;
       if (sort === "earliest-departure") {
@@ -87,7 +87,7 @@ export function MarketplaceSection({ packages }: Props) {
         const aFeatured = a.companies?.featured ? 1 : 0;
         const bFeatured = b.companies?.featured ? 1 : 0;
         if (aFeatured !== bFeatured) return bFeatured - aFeatured;
-        
+
         const aVerified = a.companies?.verification_status === "verified" ? 1 : 0;
         const bVerified = b.companies?.verification_status === "verified" ? 1 : 0;
         if (aVerified !== bVerified) return bVerified - aVerified;
@@ -97,7 +97,7 @@ export function MarketplaceSection({ packages }: Props) {
         const bVerified = b.companies?.verification_status === "verified" ? 1 : 0;
         if (aVerified !== bVerified) return bVerified - aVerified;
       }
-      return 0; 
+      return 0;
     });
 
     return result;
@@ -116,10 +116,10 @@ export function MarketplaceSection({ packages }: Props) {
     <div className="space-y-6">
       <div className="space-y-3">
         <label className="block text-sm font-medium text-tb-text-secondary">Sort By</label>
-        <select 
+        <select
           value={sort}
           onChange={(e) => setSort(e.target.value)}
-          className="w-full border-zinc-200 rounded-lg text-sm focus:ring-tb-primary focus:border-tb-primary shadow-sm"
+          className="w-full border-zinc-200 rounded-lg text-sm text-zinc-900 focus:ring-tb-primary focus:border-tb-primary shadow-sm"
         >
           <option value="featured-first">Recommended</option>
           <option value="lowest-price">Lowest Price</option>
@@ -141,10 +141,10 @@ export function MarketplaceSection({ packages }: Props) {
 
         <div className="space-y-2">
           <label className="block text-sm font-medium text-tb-text-secondary">Company</label>
-          <select 
+          <select
             value={companyFilter}
             onChange={(e) => setCompanyFilter(e.target.value)}
-            className="w-full border-zinc-200 rounded-lg text-sm focus:ring-tb-primary focus:border-tb-primary shadow-sm"
+            className="w-full border-zinc-200 rounded-lg text-sm text-zinc-900 focus:ring-tb-primary focus:border-tb-primary shadow-sm"
           >
             <option value="all">All Companies</option>
             {companies.map(([id, name]) => (
@@ -152,13 +152,13 @@ export function MarketplaceSection({ packages }: Props) {
             ))}
           </select>
         </div>
-        
+
         <div className="space-y-2">
           <label className="block text-sm font-medium text-tb-text-secondary">Difficulty</label>
-          <select 
+          <select
             value={difficultyFilter}
             onChange={(e) => setDifficultyFilter(e.target.value)}
-            className="w-full border-zinc-200 rounded-lg text-sm focus:ring-tb-primary focus:border-tb-primary shadow-sm"
+            className="w-full border-zinc-200 rounded-lg text-sm text-zinc-900 focus:ring-tb-primary focus:border-tb-primary shadow-sm"
           >
             <option value="all">Any Difficulty</option>
             <option value="easy">Easy</option>
@@ -170,10 +170,10 @@ export function MarketplaceSection({ packages }: Props) {
 
         <div className="space-y-2">
           <label className="block text-sm font-medium text-tb-text-secondary">Price Range</label>
-          <select 
+          <select
             value={priceFilter}
             onChange={(e) => setPriceFilter(e.target.value)}
-            className="w-full border-zinc-200 rounded-lg text-sm focus:ring-tb-primary focus:border-tb-primary shadow-sm"
+            className="w-full border-zinc-200 rounded-lg text-sm text-zinc-900 focus:ring-tb-primary focus:border-tb-primary shadow-sm"
           >
             <option value="all">Any Price</option>
             <option value="under-10k">Under ₹10,000</option>
@@ -184,10 +184,10 @@ export function MarketplaceSection({ packages }: Props) {
 
         <div className="space-y-2">
           <label className="block text-sm font-medium text-tb-text-secondary">Duration</label>
-          <select 
+          <select
             value={durationFilter}
             onChange={(e) => setDurationFilter(e.target.value)}
-            className="w-full border-zinc-200 rounded-lg text-sm focus:ring-tb-primary focus:border-tb-primary shadow-sm"
+            className="w-full border-zinc-200 rounded-lg text-sm text-zinc-900 focus:ring-tb-primary focus:border-tb-primary shadow-sm"
           >
             <option value="all">Any Duration</option>
             <option value="short">Under 5 Days</option>
@@ -205,7 +205,7 @@ export function MarketplaceSection({ packages }: Props) {
       {/* Mobile Filter Toggle */}
       <div className="lg:hidden w-full flex justify-between items-center mb-4">
         <span className="text-sm text-zinc-500">{filteredAndSorted.length} packages found</span>
-        <button 
+        <button
           onClick={() => setIsMobileFilterOpen(true)}
           className="flex items-center gap-2 bg-white border border-zinc-200 px-4 py-2 rounded-lg text-sm font-medium shadow-sm active:scale-95 transition-transform"
         >
@@ -217,14 +217,14 @@ export function MarketplaceSection({ packages }: Props) {
       <AnimatePresence>
         {isMobileFilterOpen && (
           <>
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="fixed inset-0 bg-black/50 z-50 lg:hidden"
               onClick={() => setIsMobileFilterOpen(false)}
             />
-            <motion.div 
+            <motion.div
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
@@ -232,14 +232,14 @@ export function MarketplaceSection({ packages }: Props) {
               className="fixed inset-y-0 right-0 w-[300px] max-w-[80vw] bg-white z-50 shadow-2xl p-6 overflow-y-auto lg:hidden"
             >
               <div className="flex items-center justify-between mb-8">
-                <h3 className="font-bold text-lg">Filters & Sort</h3>
+                <h3 className="font-bold text-lg text-zinc-900">Filters & Sort</h3>
                 <button onClick={() => setIsMobileFilterOpen(false)} className="p-2 -mr-2 text-zinc-500">
                   <X className="w-5 h-5" />
                 </button>
               </div>
               {filterContent}
-              
-              <button 
+
+              <button
                 onClick={() => setIsMobileFilterOpen(false)}
                 className="w-full mt-8 bg-tb-primary text-white py-3 rounded-lg font-medium"
               >
@@ -264,7 +264,7 @@ export function MarketplaceSection({ packages }: Props) {
             Showing {filteredAndSorted.length} operator package{filteredAndSorted.length !== 1 && 's'}
           </div>
         )}
-        
+
         <div className="flex flex-col gap-6">
           <AnimatePresence mode="popLayout">
             {filteredAndSorted.map(pkg => (
@@ -283,9 +283,9 @@ export function MarketplaceSection({ packages }: Props) {
         </div>
 
         {filteredAndSorted.length === 0 && (
-          <motion.div 
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }} 
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             className="py-20 text-center bg-white rounded-2xl border border-zinc-200 shadow-sm"
           >
             <div className="w-16 h-16 bg-zinc-50 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -293,7 +293,7 @@ export function MarketplaceSection({ packages }: Props) {
             </div>
             <h3 className="text-lg font-bold text-zinc-900 mb-2">No packages found</h3>
             <p className="text-zinc-500">Try adjusting your filters to see more results.</p>
-            <button 
+            <button
               onClick={() => {
                 setDifficultyFilter("all");
                 setCompanyFilter("all");

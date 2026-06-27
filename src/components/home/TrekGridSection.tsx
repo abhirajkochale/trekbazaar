@@ -29,18 +29,21 @@ export function TrekGridSection({ title, subtitle, treks }: Props) {
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {treks.map((trek, idx) => (
-            <motion.div
-              key={trek.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-            >
-              <MasterTrekSearchCard masterTrek={trek} className="h-full" />
-            </motion.div>
-          ))}
+        <div className="relative group">
+          <div className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth hide-scrollbar gap-4 md:gap-6 pb-8 -mx-4 px-4 md:mx-0 md:px-0">
+            {treks.map((trek, idx) => (
+              <motion.div
+                key={trek.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="shrink-0 w-[80vw] sm:w-[45vw] md:w-[30vw] lg:w-[22vw] snap-start snap-always"
+              >
+                <MasterTrekSearchCard masterTrek={trek} className="h-full w-full" />
+              </motion.div>
+            ))}
+          </div>
         </div>
       </Container>
     </section>

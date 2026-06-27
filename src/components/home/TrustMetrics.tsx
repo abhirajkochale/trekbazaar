@@ -4,12 +4,18 @@ import React from 'react';
 import { Container } from '../layout/Container';
 import { motion } from 'framer-motion';
 
-export function TrustMetrics() {
+interface Props {
+  operatorsCount?: number;
+  departuresCount?: number;
+  destinationsCount?: number;
+}
+
+export function TrustMetrics({ operatorsCount = 20, departuresCount = 100, destinationsCount = 5 }: Props) {
   const metrics = [
-    { label: 'Verified Operators', value: '50+' },
-    { label: 'Destinations', value: '120+' },
-    { label: 'Happy Trekkers', value: '10k+' },
-    { label: 'Safety Record', value: '100%' },
+    { label: 'Verified Operators', value: `${operatorsCount}+` },
+    { label: 'Upcoming Departures', value: `${departuresCount}+` },
+    { label: 'Destinations', value: `${destinationsCount}+` },
+    { label: 'Lowest Price', value: 'Guaranteed' },
   ];
 
   return (
@@ -23,12 +29,12 @@ export function TrustMetrics() {
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1, duration: 0.5 }}
               key={idx} 
-              className="flex flex-col items-center justify-center text-center px-4"
+              className="flex flex-col items-center justify-center text-center px-2 md:px-4"
             >
-              <span className="text-4xl md:text-5xl font-bold text-zinc-900 tracking-tight mb-3">
+              <span className="text-3xl md:text-5xl font-bold text-zinc-900 tracking-tight mb-2 md:mb-3">
                 {metric.value}
               </span>
-              <span className="text-sm font-semibold text-zinc-500 uppercase tracking-widest">
+              <span className="text-xs md:text-sm font-semibold text-zinc-500 uppercase tracking-widest">
                 {metric.label}
               </span>
             </motion.div>

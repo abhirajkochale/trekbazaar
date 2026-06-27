@@ -17,6 +17,16 @@ export function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => { document.body.style.overflow = 'unset'; };
+  }, [isMobileMenuOpen]);
+
   const navLinks = [
     { name: 'Explore Treks', href: '#featured-treks' },
     { name: 'Regions', href: '#featured-regions' },
@@ -76,43 +86,65 @@ export function Navbar() {
           {/* Mobile Menu Button */}
           <button 
             type="button"
-            className={`md:hidden p-2 -mr-2 transition-colors duration-300 ${
-              scrolled ? 'text-tb-text-primary' : 'text-white'
-            }`}
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
+            className={`md:hidden flex items-center justify-center w-11 h-11 transition-colors duration-300 ${
+              scrolled ? 'text-tb-text-primary hover:bg-zinc-100' : 'text-white hover:bg-white/10'
+            } rounded-full`}
+            onClick={() => setIsMobileMenuOpen(true)}
+            aria-label="Open menu"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              {isMobileMenuOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              )}
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
         </div>
       </Container>
 
-      {/* Mobile Menu Panel */}
+      {/* Mobile Menu Side Drawer */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-tb-border bg-white shadow-tb-medium absolute top-full left-0 w-full">
-          <Container className="py-6 space-y-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className="block text-lg font-medium text-tb-text-primary"
+        <div className="md:hidden fixed inset-0 z-[100]">
+          {/* Backdrop */}
+          <div 
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity" 
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+          
+          {/* Drawer */}
+          <div className="absolute top-0 right-0 bottom-0 w-4/5 max-w-sm bg-white shadow-2xl flex flex-col transition-transform transform translate-x-0">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-100">
+              <span className="text-xl font-bold text-zinc-900">Menu</span>
+              <button 
                 onClick={() => setIsMobileMenuOpen(false)}
+                className="w-11 h-11 flex items-center justify-center rounded-full hover:bg-zinc-100 text-zinc-600 transition-colors -mr-2"
+                aria-label="Close menu"
               >
-                {link.name}
-              </Link>
-            ))}
-            <div className="pt-6 border-t border-tb-border">
-              <Link href="/admin/login" onClick={() => setIsMobileMenuOpen(false)}>
-                <span className="block text-lg font-medium text-tb-text-primary">Admin Login</span>
-              </Link>
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
             </div>
-          </Container>
+            
+            <div className="flex flex-col py-4 px-6 space-y-2 overflow-y-auto">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className="block text-lg font-medium text-zinc-700 py-3 hover:text-tb-primary transition-colors"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {link.name}
+                </Link>
+              ))}
+              <div className="pt-6 mt-6 border-t border-zinc-100">
+                <Link 
+                  href="/admin/login" 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block text-lg font-medium text-zinc-700 py-3 hover:text-tb-primary transition-colors"
+                >
+                  Admin Login
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </header>

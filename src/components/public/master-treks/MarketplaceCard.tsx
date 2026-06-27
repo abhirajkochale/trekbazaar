@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { formatPrice, formatDuration, difficultyLabel, difficultyBadgeClasses } from '@/lib/format';
+import { formatPrice, formatDuration } from '@/lib/format';
 import { Calendar, MapPin, Users, ShieldCheck, CheckCircle2, Navigation, Coffee, Star, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -116,6 +116,11 @@ export function MarketplaceCard({ pkg }: Props) {
               <Navigation className="w-4 h-4" /> Transport Included
             </div>
           )}
+          
+          <div className="flex items-center gap-2 text-sm font-medium text-blue-700 w-full mt-2 bg-blue-50/50 p-2 rounded-lg border border-blue-100">
+            <ShieldCheck className="w-4 h-4" />
+            {pkg.cancellation_policy || 'Flexible Cancellation Policy'}
+          </div>
         </div>
       </div>
 
@@ -172,9 +177,9 @@ export function MarketplaceCard({ pkg }: Props) {
 
         <Link 
           href={`/treks/${pkg.slug}`}
-          className="w-full inline-flex items-center justify-center font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tb-primary rounded-xl bg-zinc-900 text-white hover:bg-black hover:scale-[1.02] active:scale-95 shadow-md h-12 px-6 text-base"
+          className="w-full inline-flex items-center justify-center font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tb-primary rounded-xl bg-tb-primary text-white hover:bg-tb-primary-hover hover:scale-[1.02] active:scale-95 shadow-md h-12 px-6 text-base"
         >
-          View Experience
+          Book Now
         </Link>
       </div>
     </motion.div>

@@ -1,21 +1,17 @@
 "use client";
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from '@/components/ui/Button';
 import { formatPrice, formatDuration, difficultyLabel } from '@/lib/format';
-import { BookingModal } from '@/components/booking/BookingModal';
 import type { Trek, Departure } from '@/lib/types';
+import { useRouter } from 'next/navigation';
 
 interface StickySidebarProps {
   trek: Trek;
 }
 
 export function StickySidebar({ trek }: StickySidebarProps) {
-  const [bookingModalState, setBookingModalState] = useState<{ isOpen: boolean; departure: Departure | null }>({
-    isOpen: false,
-    departure: null
-  });
-  
+  const router = useRouter();
   const departures = trek.departures || [];
   const activeDepartures = departures.filter(d => d.is_active && d.status !== 'Cancelled' && d.status !== 'Completed');
 
@@ -27,7 +23,7 @@ export function StickySidebar({ trek }: StickySidebarProps) {
   const displayPrice = minDeparturePrice ?? trek.price_per_person;
 
   const handleBookClick = (dep: Departure) => {
-    setBookingModalState({ isOpen: true, departure: dep });
+    router.push(`/checkout/${dep.id}`);
   };
 
   const handleMainCTA = () => {
@@ -134,13 +130,6 @@ export function StickySidebar({ trek }: StickySidebarProps) {
           </p>
         )}
       </div>
-
-      <BookingModal
-        trek={trek}
-        departure={bookingModalState.departure}
-        isOpen={bookingModalState.isOpen}
-        onClose={() => setBookingModalState({ isOpen: false, departure: null })}
-      />
     </>
   );
 }
