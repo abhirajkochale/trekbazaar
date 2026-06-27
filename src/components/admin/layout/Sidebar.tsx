@@ -22,6 +22,7 @@ const navItems = [
   { name: 'Treks', href: '/admin/treks', icon: Mountain },
   { name: 'Departures', href: '/admin/departures', icon: CalendarDays },
   { name: 'Regions', href: '/admin/regions', icon: Map },
+  { name: 'Master Treks', href: '/admin/master-treks', icon: Mountain },
   { name: 'Categories', href: '/admin/master-trek-categories', icon: LayoutList },
   { name: 'Enquiries', href: '/admin/enquiries', icon: MessageSquare },
   { name: 'Bookings', href: '/admin/bookings', icon: CalendarCheck },
