@@ -13,7 +13,8 @@ import {
   Settings,
   Building2,
   CalendarDays,
-  LayoutList
+  LayoutList,
+  Link2
 } from 'lucide-react';
 
 const navItems = [
@@ -24,6 +25,7 @@ const navItems = [
   { name: 'Regions', href: '/admin/regions', icon: Map },
   { name: 'Master Treks', href: '/admin/master-treks', icon: Mountain },
   { name: 'Categories', href: '/admin/master-trek-categories', icon: LayoutList },
+  { name: 'Trek Mapping', href: '/admin/master-trek-mapping', icon: Link2 },
   { name: 'Enquiries', href: '/admin/enquiries', icon: MessageSquare },
   { name: 'Bookings', href: '/admin/bookings', icon: CalendarCheck },
   { name: 'Users', href: '/admin/users', icon: Users },
