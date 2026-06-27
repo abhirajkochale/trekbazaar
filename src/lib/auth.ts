@@ -9,7 +9,7 @@
  */
 
 export const SESSION_COOKIE = "tb_admin_session";
-export const SESSION_DURATION_MS = 8 * 60 * 60 * 1000; // 8 hours
+const SESSION_DURATION_MS = 8 * 60 * 60 * 1000; // 8 hours
 
 function getSecret(): string {
   const secret = process.env.ADMIN_PASSWORD;

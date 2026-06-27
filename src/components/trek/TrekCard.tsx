@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { formatPrice, formatDuration, difficultyLabel, difficultyBadgeClasses } from '@/lib/format';
 import type { Trek } from '@/lib/types';
 
-export type TrekCardVariant = 'default' | 'compact';
+type TrekCardVariant = 'default' | 'compact';
 
 export interface TrekCardProps {
   trek: Trek;
