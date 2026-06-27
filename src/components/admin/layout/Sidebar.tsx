@@ -7,14 +7,11 @@ import {
   LayoutDashboard, 
   Mountain, 
   Map, 
-  MessageSquare, 
   CalendarCheck, 
   Users, 
   Settings,
   Building2,
-  CalendarDays,
-  LayoutList,
-  Link2
+  CalendarDays
 } from 'lucide-react';
 
 const navItems = [
@@ -23,10 +20,6 @@ const navItems = [
   { name: 'Treks', href: '/admin/treks', icon: Mountain },
   { name: 'Departures', href: '/admin/departures', icon: CalendarDays },
   { name: 'Regions', href: '/admin/regions', icon: Map },
-  { name: 'Master Treks', href: '/admin/master-treks', icon: Mountain },
-  { name: 'Categories', href: '/admin/master-trek-categories', icon: LayoutList },
-  { name: 'Trek Mapping', href: '/admin/master-trek-mapping', icon: Link2 },
-  { name: 'Enquiries', href: '/admin/enquiries', icon: MessageSquare },
   { name: 'Bookings', href: '/admin/bookings', icon: CalendarCheck },
   { name: 'Users', href: '/admin/users', icon: Users },
   { name: 'Settings', href: '/admin/settings', icon: Settings },

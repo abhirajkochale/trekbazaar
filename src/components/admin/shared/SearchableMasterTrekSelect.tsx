@@ -12,7 +12,7 @@ interface Props {
   error?: boolean;
 }
 
-export function SearchableMasterTrekSelect({ value, onChange, masterTreks = [], placeholder = "Search and select a Master Trek...", error }: Props) {
+export function SearchableMasterTrekSelect({ value, onChange, masterTreks = [], placeholder = "Search and select a Destination...", error }: Props) {
   const [mtSearch, setMtSearch] = useState('');
   const [mtOpen, setMtOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);

@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { formatPrice, formatDuration, difficultyLabel } from '@/lib/format';
-import { EnquiryModal } from '@/components/enquiry/EnquiryModal';
 import { BookingModal } from '@/components/booking/BookingModal';
 import type { Trek, Departure } from '@/lib/types';
 
@@ -12,7 +11,6 @@ interface StickySidebarProps {
 }
 
 export function StickySidebar({ trek }: StickySidebarProps) {
-  const [isEnquiryModalOpen, setIsEnquiryModalOpen] = useState(false);
   const [bookingModalState, setBookingModalState] = useState<{ isOpen: boolean; departure: Departure | null }>({
     isOpen: false,
     departure: null
@@ -35,8 +33,6 @@ export function StickySidebar({ trek }: StickySidebarProps) {
   const handleMainCTA = () => {
     if (activeDepartures.length > 0) {
       handleBookClick(activeDepartures[0]);
-    } else {
-      setIsEnquiryModalOpen(true);
     }
   };
 
@@ -127,23 +123,18 @@ export function StickySidebar({ trek }: StickySidebarProps) {
           fullWidth 
           className="mb-4 text-base font-bold h-14"
           onClick={handleMainCTA}
+          disabled={activeDepartures.length === 0}
         >
-          {activeDepartures.length > 0 ? "Book Departure" : "Enquire Now"}
+          {activeDepartures.length > 0 ? "Book Departure" : "No Departures Available"}
         </Button>
         
         {activeDepartures.length === 0 && (
           <p className="text-xs text-center text-tb-text-tertiary">
-            No payment required to enquire. Our team will contact you within 24 hours.
+            There are currently no active departures for this trek.
           </p>
         )}
       </div>
 
-      <EnquiryModal 
-        trek={trek} 
-        isOpen={isEnquiryModalOpen} 
-        onClose={() => setIsEnquiryModalOpen(false)} 
-      />
-      
       <BookingModal
         trek={trek}
         departure={bookingModalState.departure}

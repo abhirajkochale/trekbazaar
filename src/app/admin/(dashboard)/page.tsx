@@ -1,7 +1,6 @@
 import React from 'react';
 import { DashboardStats } from '@/components/admin/dashboard/DashboardStats';
 import { DashboardCharts } from '@/components/admin/dashboard/DashboardCharts';
-import { RecentEnquiries } from '@/components/admin/dashboard/RecentEnquiries';
 import { RecentTreks } from '@/components/admin/dashboard/RecentTreks';
 import { QuickActions } from '@/components/admin/dashboard/QuickActions';
 
@@ -24,7 +23,6 @@ export default function AdminDashboardPage() {
       {/* Grid Layout for Recent Activity and Actions */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
-          <RecentEnquiries />
           <RecentTreks />
         </div>
         <div className="lg:col-span-1">

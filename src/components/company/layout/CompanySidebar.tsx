@@ -17,7 +17,6 @@ const navItems = [
   { name: "My Treks", href: "/company/treks", icon: Map },
   { name: "Departures", href: "/company/departures", icon: CalendarDays },
   { name: "Bookings", href: "/company/bookings", icon: BookOpen },
-  { name: "Enquiries", href: "/company/enquiries", icon: MessageSquare },
   { name: "Company Profile", href: "/company/profile", icon: Building2 },
 ];
 

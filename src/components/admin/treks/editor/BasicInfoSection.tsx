@@ -56,7 +56,7 @@ export function BasicInfoSection({ trek, updateField, companies = [], masterTrek
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className={labelClasses}>Master Trek <span className="text-red-500">*</span></label>
+          <label className={labelClasses}>Destination <span className="text-red-500">*</span></label>
           <SearchableMasterTrekSelect 
             value={trek.master_trek_id || null}
             onChange={(val) => updateField('master_trek_id', val)}
@@ -65,7 +65,7 @@ export function BasicInfoSection({ trek, updateField, companies = [], masterTrek
           
           {isCompanyPortal && (
             <p className="mt-2 text-xs text-zinc-500">
-              Can&apos;t find your trek? <Link href="/company/enquiries" className="text-tb-primary hover:underline">Contact TrekBazaar Admin</Link> to add it.
+              Can&apos;t find your destination? Contact TrekBazaar Admin to add it.
             </p>
           )}
         </div>
