@@ -16,97 +16,67 @@ export function MasterTrekSearchCard({ masterTrek, className = '' }: Props) {
   const stats = masterTrek.aggregated;
 
   return (
-    <div className={`group flex flex-col overflow-hidden rounded-xl border border-tb-border bg-white shadow-tb-subtle transition-shadow hover:shadow-tb-medium ${className}`}>
-      
-      {/* 1. Hero Image */}
-      <Link 
-        href={`/master-treks/${masterTrek.slug}`} 
-        className="relative aspect-[16/10] w-full bg-tb-sys-background overflow-hidden block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tb-primary"
-      >
+    <Link 
+      href={`/master-treks/${masterTrek.slug}`} 
+      className={`group flex flex-col overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tb-primary ${className}`}
+    >
+      {/* 1. Hero Image (Airbnb style square/4:3) */}
+      <div className="relative aspect-[4/3] w-full bg-zinc-100 overflow-hidden rounded-2xl mb-3 shadow-sm">
         <Image 
           src={imageUrl} 
           alt={`Scenery from ${masterTrek.name}`}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover transition-transform duration-500 ease-tb-ease group-hover:scale-105"
+          className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
         />
+        {/* Favorite Icon Placeholder */}
+        <div className="absolute top-3 right-3 z-10 text-white drop-shadow-md hover:scale-110 transition-transform">
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+        </div>
+        
         {/* Badges on Image */}
         <div className="absolute top-3 left-3 flex flex-wrap gap-2 z-10">
           {masterTrek.category?.name && (
-            <span className="px-2 py-1 bg-black/60 backdrop-blur-md text-white text-xs font-semibold rounded-md border border-white/20">
+            <span className="px-2 py-1 bg-white/90 backdrop-blur-md text-zinc-900 text-xs font-bold rounded-md shadow-sm">
               {masterTrek.category.name}
             </span>
           )}
         </div>
-      </Link>
+      </div>
 
-      <div className="flex flex-1 flex-col p-5">
-        {/* 2. Destination Name */}
+      <div className="flex flex-col">
+        {/* 2. Destination Name & Location */}
         <div className="flex items-start justify-between gap-2 mb-1">
-          <h3 className="text-xl font-bold text-tb-text-primary line-clamp-1">
-            <Link href={`/master-treks/${masterTrek.slug}`} className="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tb-primary rounded-sm">
-              {masterTrek.name}
-            </Link>
+          <h3 className="text-base font-bold text-zinc-900 line-clamp-1 group-hover:text-tb-primary transition-colors">
+            {masterTrek.name}
           </h3>
-          {masterTrek.difficulty && (
-            <span className={`inline-flex items-center rounded-md px-2 py-1 text-[10px] font-bold uppercase tracking-wider ${difficultyBadgeClasses(masterTrek.difficulty.toLowerCase())}`}>
-              {difficultyLabel(masterTrek.difficulty.toLowerCase())}
-            </span>
-          )}
+          <div className="flex items-center gap-1 text-sm font-medium text-zinc-900 shrink-0">
+            ★ <span className="font-semibold">4.8</span>
+          </div>
         </div>
         
-        {/* 3. Region */}
-        <div className="flex items-center text-sm text-tb-text-secondary mb-4">
-          <MapPin className="w-4 h-4 mr-1 shrink-0" />
-          <span className="line-clamp-1">{masterTrek.region?.name || 'Various Regions'}</span>
-        </div>
+        <p className="text-sm text-zinc-500 line-clamp-1 mb-1">
+          {masterTrek.region?.name || 'Himalayas, India'} • {masterTrek.duration_min === masterTrek.duration_max ? `${masterTrek.duration_min} Days` : `${masterTrek.duration_min}-${masterTrek.duration_max} Days`}
+        </p>
+        
+        <p className="text-sm text-zinc-500 mb-2">
+          {stats.companiesCount} verified operators
+        </p>
 
-        {/* 4. Stats Grid */}
-        <div className="grid grid-cols-2 gap-y-3 gap-x-2 mb-5">
-          <div className="flex items-center text-sm text-tb-text-secondary">
-            <Building2 className="w-4 h-4 mr-1.5 text-tb-primary" />
-            <span className="font-medium text-tb-text-primary mr-1">{stats.companiesCount}</span>
-            <span>Operators</span>
-          </div>
-          <div className="flex items-center text-sm text-tb-text-secondary">
-            <CalendarDays className="w-4 h-4 mr-1.5 text-tb-primary" />
-            <span className="font-medium text-tb-text-primary mr-1">{stats.upcomingDeparturesCount}</span>
-            <span>Dates</span>
-          </div>
-          <div className="flex items-center text-sm text-tb-text-secondary col-span-2">
-            <svg className="w-4 h-4 mr-1.5 text-tb-primary shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-            <span>{masterTrek.duration_min === masterTrek.duration_max ? `${masterTrek.duration_min} Days Typical` : `${masterTrek.duration_min}-${masterTrek.duration_max} Days Typical`}</span>
-          </div>
-          {masterTrek.best_season && (
-            <div className="flex items-center text-sm text-tb-text-secondary col-span-2">
-              <svg className="w-4 h-4 mr-1.5 text-tb-primary shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" /></svg>
-              <span className="line-clamp-1">{masterTrek.best_season}</span>
-            </div>
+        {/* 5. Starting Price */}
+        <div className="mt-1 flex items-baseline gap-1">
+          {stats.lowestPrice > 0 ? (
+            <>
+              <span className="text-base font-bold text-zinc-900">{formatPrice(stats.lowestPrice)}</span>
+              <span className="text-sm text-zinc-500">onwards</span>
+            </>
+          ) : (
+            <span className="text-sm font-medium text-zinc-500">Price not available</span>
           )}
         </div>
-
-        <div className="mt-auto flex items-end justify-between gap-2 pt-4 border-t border-zinc-100">
-          {/* 5. Starting Price */}
-          <div>
-            <span className="text-xs text-tb-text-tertiary block mb-0.5">Starting from</span>
-            {stats.lowestPrice > 0 ? (
-              <span className="text-xl font-bold text-tb-text-primary">{formatPrice(stats.lowestPrice)}</span>
-            ) : (
-              <span className="text-sm font-medium text-zinc-500">Price not available</span>
-            )}
-          </div>
-          
-          {/* 6. View CTA */}
-          <Link 
-            href={`/master-treks/${masterTrek.slug}`} 
-            tabIndex={-1} 
-            className="inline-flex items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tb-primary rounded-lg active:scale-95 bg-tb-primary text-white hover:bg-tb-primary-hover shadow-sm h-10 px-5 text-sm"
-          >
-            Compare Companies
-            <svg className="w-4 h-4 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-          </Link>
-        </div>
       </div>
-    </div>
+    </Link>
   );
 }

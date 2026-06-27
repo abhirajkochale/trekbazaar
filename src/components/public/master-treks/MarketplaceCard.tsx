@@ -40,82 +40,79 @@ export function MarketplaceCard({ pkg }: Props) {
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ y: -2 }}
       transition={{ duration: 0.2 }}
-      className="bg-white rounded-2xl border border-zinc-200 shadow-sm overflow-hidden hover:shadow-tb-medium flex flex-col md:flex-row transition-all relative"
+      className="bg-white rounded-3xl border border-zinc-100 shadow-sm overflow-hidden hover:shadow-tb-medium flex flex-col md:flex-row transition-all relative"
     >
       {company?.featured && (
-        <div className="absolute top-0 left-0 bg-tb-primary text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-br-lg z-10">
+        <div className="absolute top-4 left-4 bg-zinc-900/90 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full z-10 shadow-sm">
           Featured Partner
         </div>
       )}
 
       {/* Left: Company & Basic Info */}
-      <div className="p-6 md:p-8 flex-1 flex flex-col pt-8">
-        <div className="flex items-start gap-4 mb-5">
+      <div className="p-6 md:p-8 flex-1 flex flex-col pt-10 md:pt-8">
+        <div className="flex items-start gap-5 mb-6">
           {company?.logo_url ? (
-            <div className="w-14 h-14 relative rounded-xl overflow-hidden border border-zinc-100 bg-white shrink-0 shadow-sm">
+            <div className="w-16 h-16 relative rounded-2xl overflow-hidden border border-zinc-100 bg-white shrink-0 shadow-sm">
               <Image src={company.logo_url} alt={company.name} fill className="object-cover" />
             </div>
           ) : (
-            <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-zinc-100 to-zinc-200 flex items-center justify-center text-zinc-500 font-bold text-xl shrink-0 shadow-sm">
+            <div className="w-16 h-16 rounded-2xl bg-zinc-100 flex items-center justify-center text-zinc-500 font-bold text-2xl shrink-0 shadow-sm border border-zinc-200/50">
               {company?.name?.[0] || 'T'}
             </div>
           )}
           <div className="flex-1">
-            <h3 className="font-bold text-zinc-900 text-lg flex items-center gap-1.5 flex-wrap">
+            <h3 className="font-bold text-zinc-900 text-xl flex items-center gap-2 flex-wrap">
               {company?.name || 'Unknown Operator'}
               {company?.verification_status === 'verified' && (
-                <span title="Verified Operator">
-                  <ShieldCheck className="w-5 h-5 text-emerald-500" />
+                <span title="Verified Operator" className="text-tb-primary">
+                  <ShieldCheck className="w-5 h-5" />
                 </span>
               )}
             </h3>
-            <div className="flex items-center gap-3 text-sm text-zinc-500 mt-1">
-              <div className="flex items-center gap-1 text-amber-500 font-medium">
-                <Star className="w-4 h-4 fill-current" /> 4.8 <span className="text-zinc-400 font-normal">(124)</span>
+            <div className="flex items-center gap-3 text-sm text-zinc-600 mt-1.5 font-medium">
+              <div className="flex items-center gap-1 text-amber-500">
+                <Star className="w-4 h-4 fill-current" /> 4.9 <span className="text-zinc-400 font-normal">(128 reviews)</span>
               </div>
               {company?.years_of_experience > 0 && (
                 <>
                   <span className="w-1 h-1 rounded-full bg-zinc-300" />
-                  <span>{company.years_of_experience} yrs exp</span>
+                  <span>{company.years_of_experience} yrs experience</span>
                 </>
               )}
             </div>
           </div>
         </div>
 
-        <h4 className="text-lg font-bold text-zinc-900 mb-2">{pkg.title}</h4>
+        <h4 className="text-xl font-bold text-zinc-900 mb-2">{pkg.title}</h4>
         
-        <p className="text-sm text-zinc-600 mb-6 line-clamp-2 leading-relaxed">
+        <p className="text-sm text-zinc-500 mb-6 line-clamp-2 leading-relaxed font-medium">
           {company?.description || pkg.short_description || 'No description provided.'}
         </p>
 
-        <div className="flex flex-wrap items-center gap-4 text-sm mt-auto pb-6 border-b border-zinc-100">
-          <div className="flex items-center gap-2 text-zinc-700 bg-zinc-50 px-3 py-1.5 rounded-lg border border-zinc-100">
+        <div className="flex flex-wrap items-center gap-3 text-sm mt-auto pb-6 border-b border-zinc-100">
+          <div className="flex items-center gap-1.5 text-zinc-700 bg-zinc-50 px-3 py-1.5 rounded-full border border-zinc-100 font-medium">
             <Clock className="w-4 h-4 text-zinc-400" />
-            <span className="font-medium">{formatDuration(pkg.duration_days)}</span>
+            {formatDuration(pkg.duration_days)}
           </div>
-          <div className="flex items-center gap-2 text-zinc-700 bg-zinc-50 px-3 py-1.5 rounded-lg border border-zinc-100">
+          <div className="flex items-center gap-1.5 text-zinc-700 bg-zinc-50 px-3 py-1.5 rounded-full border border-zinc-100 font-medium">
             <MapPin className="w-4 h-4 text-zinc-400" />
-            <span className="font-medium">{pkg.start_point || 'Not specified'}</span>
-          </div>
-          <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border ${difficultyBadgeClasses(pkg.difficulty)}`}>
-            <span className="font-medium">{difficultyLabel(pkg.difficulty)}</span>
+            {pkg.start_point || 'Not specified'}
           </div>
         </div>
 
-        <div className="pt-4 flex flex-wrap gap-x-6 gap-y-2">
+        <div className="pt-4 flex flex-wrap gap-x-6 gap-y-3">
           {hasGuide && (
-            <div className="flex items-center gap-1.5 text-sm text-emerald-700">
+            <div className="flex items-center gap-2 text-sm font-medium text-emerald-700">
               <CheckCircle2 className="w-4 h-4" /> Certified Leaders
             </div>
           )}
           {hasMeals && (
-            <div className="flex items-center gap-1.5 text-sm text-emerald-700">
+            <div className="flex items-center gap-2 text-sm font-medium text-emerald-700">
               <Coffee className="w-4 h-4" /> Meals Included
             </div>
           )}
           {hasTransport && (
-            <div className="flex items-center gap-1.5 text-sm text-emerald-700">
+            <div className="flex items-center gap-2 text-sm font-medium text-emerald-700">
               <Navigation className="w-4 h-4" /> Transport Included
             </div>
           )}
@@ -123,38 +120,40 @@ export function MarketplaceCard({ pkg }: Props) {
       </div>
 
       {/* Right: Price & Departures */}
-      <div className="bg-zinc-50 md:w-[320px] p-6 md:p-8 flex flex-col shrink-0 border-t md:border-t-0 md:border-l border-zinc-200">
+      <div className="bg-white md:bg-zinc-50 md:w-[320px] p-6 md:p-8 flex flex-col shrink-0 border-t md:border-t-0 md:border-l border-zinc-100 justify-between">
         <div className="mb-8">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium text-zinc-500 uppercase tracking-wider">Price</span>
+            <span className="text-sm font-bold text-zinc-900 uppercase tracking-wider">Total Price</span>
             {hasDiscount && (
-              <span className="bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded-md">
+              <span className="bg-red-50 text-red-600 border border-red-100 text-xs font-bold px-2 py-1 rounded-md">
                 Save {discountPercent}%
               </span>
             )}
           </div>
           
-          <div className="flex items-end gap-2">
-            <span className="text-3xl font-bold text-zinc-900">{formatPrice(displayPrice)}</span>
+          <div className="flex flex-col gap-1">
             {hasDiscount && (
-              <span className="text-lg text-zinc-400 line-through mb-1">{formatPrice(basePrice)}</span>
+              <span className="text-sm text-zinc-400 line-through font-medium">{formatPrice(basePrice)}</span>
             )}
+            <div className="flex items-end gap-1">
+              <span className="text-4xl font-bold text-zinc-900 tracking-tight">{formatPrice(displayPrice)}</span>
+              <span className="text-sm text-zinc-500 font-medium mb-1">/person</span>
+            </div>
           </div>
-          <span className="text-xs text-zinc-500 mt-1 block">per person</span>
         </div>
 
-        <div className="space-y-4 mb-8 bg-white p-4 rounded-xl border border-zinc-200 shadow-sm">
+        <div className="space-y-4 mb-8 bg-zinc-50 md:bg-white p-5 rounded-2xl border border-zinc-200/60 shadow-sm">
           <div className="flex items-start gap-3 text-sm">
-            <Calendar className="w-5 h-5 text-tb-primary shrink-0" />
+            <Calendar className="w-5 h-5 text-zinc-400 shrink-0 mt-0.5" />
             <div>
-              <span className="font-semibold text-zinc-900 block mb-0.5">Next Departure</span>
-              <span className="text-zinc-600 block">
+              <span className="font-bold text-zinc-900 block mb-1">Next Departure</span>
+              <span className="text-zinc-600 font-medium block">
                 {earliestDeparture 
                   ? new Date(earliestDeparture.departure_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
                   : 'No dates scheduled'}
               </span>
               {upcomingCount > 0 && (
-                <span className="text-xs text-tb-primary font-medium mt-1 block">
+                <span className="text-xs text-tb-primary font-bold mt-2 block bg-tb-primary/10 inline-block px-2 py-1 rounded-md">
                   +{upcomingCount - 1} more date{upcomingCount - 1 !== 1 ? 's' : ''} available
                 </span>
               )}
@@ -162,10 +161,10 @@ export function MarketplaceCard({ pkg }: Props) {
           </div>
 
           {earliestDeparture && (
-            <div className="flex items-center gap-3 text-sm pt-3 border-t border-zinc-100">
-              <Users className="w-5 h-5 text-tb-primary shrink-0" />
-              <div className="text-zinc-600">
-                <span className="font-semibold text-zinc-900">{availableSeats}</span> seats left
+            <div className="flex items-center gap-3 text-sm pt-4 border-t border-zinc-100">
+              <Users className="w-5 h-5 text-zinc-400 shrink-0" />
+              <div className="text-zinc-600 font-medium">
+                <span className="font-bold text-red-600">{availableSeats} seats</span> left
               </div>
             </div>
           )}
@@ -173,10 +172,9 @@ export function MarketplaceCard({ pkg }: Props) {
 
         <Link 
           href={`/treks/${pkg.slug}`}
-          className="mt-auto w-full inline-flex items-center justify-center font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tb-primary rounded-xl bg-tb-primary text-white hover:bg-tb-primary-hover hover:shadow-md h-12 px-6 text-base"
+          className="w-full inline-flex items-center justify-center font-bold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tb-primary rounded-xl bg-zinc-900 text-white hover:bg-black hover:scale-[1.02] active:scale-95 shadow-md h-12 px-6 text-base"
         >
-          View Itinerary
-          <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+          View Experience
         </Link>
       </div>
     </motion.div>

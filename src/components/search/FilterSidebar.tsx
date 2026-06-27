@@ -120,40 +120,45 @@ export function FilterSidebar() {
   const formatPrice = (val: number) => `₹${val.toLocaleString('en-IN')}`;
 
   return (
-    <div className="bg-white border border-tb-border rounded-tb-md p-6 h-max sticky top-[160px]">
-      <h3 className="text-lg font-bold text-tb-text-primary mb-6">Filters</h3>
+    <div className="bg-white border border-zinc-200 rounded-2xl p-6 md:p-8 h-max sticky top-[100px] shadow-sm">
+      <div className="flex items-center justify-between mb-8">
+        <h3 className="text-xl font-bold text-zinc-900">Filters</h3>
+        {/* Clear Filters could go here */}
+      </div>
       
       {/* Region Filter */}
-      <div className="mb-8">
-        <h4 className="text-sm font-semibold text-tb-text-primary mb-3 uppercase tracking-wide">Region</h4>
-        <div className="space-y-3">
+      <div className="mb-10">
+        <h4 className="text-xs font-bold text-zinc-900 mb-4 uppercase tracking-widest">Region</h4>
+        <div className="space-y-4">
           {REGIONS.map(reg => (
-            <label key={reg} className="flex items-center gap-3 cursor-pointer group">
-              <div className="relative flex items-center justify-center">
+            <label key={reg} className="flex items-center gap-4 cursor-pointer group">
+              <div className="relative flex items-center justify-center shrink-0">
                 <input 
                   type="checkbox"
                   className="peer sr-only"
                   checked={regions.includes(reg.toLowerCase())}
                   onChange={() => toggleRegion(reg)}
                 />
-                <div className="w-5 h-5 border-2 border-tb-text-tertiary rounded-sm peer-checked:bg-tb-primary peer-checked:border-tb-primary transition-all group-hover:border-tb-primary"></div>
-                <svg className="absolute w-3 h-3 text-white opacity-0 peer-checked:opacity-100 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                <div className="w-6 h-6 border-2 border-zinc-300 rounded-[6px] peer-checked:bg-zinc-900 peer-checked:border-zinc-900 transition-all group-hover:border-zinc-400"></div>
+                <svg className="absolute w-4 h-4 text-white opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <span className="text-sm font-medium text-tb-text-secondary group-hover:text-tb-text-primary transition-colors">{reg}</span>
+              <span className="text-base font-medium text-zinc-600 group-hover:text-zinc-900 transition-colors">{reg}</span>
             </label>
           ))}
         </div>
       </div>
 
+      <hr className="border-zinc-100 mb-8" />
+
       {/* Difficulty Filter */}
-      <div className="mb-8">
-        <h4 className="text-sm font-semibold text-tb-text-primary mb-3 uppercase tracking-wide">Difficulty</h4>
-        <div className="space-y-3">
+      <div className="mb-10">
+        <h4 className="text-xs font-bold text-zinc-900 mb-4 uppercase tracking-widest">Difficulty</h4>
+        <div className="space-y-4">
           {DIFFICULTIES.map(diff => (
-            <label key={diff} className="flex items-center gap-3 cursor-pointer group">
-              <div className="relative flex items-center justify-center">
+            <label key={diff} className="flex items-center gap-4 cursor-pointer group">
+              <div className="relative flex items-center justify-center shrink-0">
                 <input 
                   type="radio"
                   name="difficulty"
@@ -161,44 +166,50 @@ export function FilterSidebar() {
                   checked={difficulty === diff.toLowerCase()}
                   onChange={() => handleDifficulty(diff)}
                 />
-                <div className="w-5 h-5 border-2 border-tb-text-tertiary rounded-full peer-checked:border-tb-primary transition-all group-hover:border-tb-primary"></div>
-                <div className="absolute w-2.5 h-2.5 bg-tb-primary rounded-full opacity-0 peer-checked:opacity-100 pointer-events-none transform scale-0 peer-checked:scale-100 transition-all"></div>
+                <div className="w-6 h-6 border-2 border-zinc-300 rounded-full peer-checked:border-zinc-900 transition-all group-hover:border-zinc-400"></div>
+                <div className="absolute w-3 h-3 bg-zinc-900 rounded-full opacity-0 peer-checked:opacity-100 pointer-events-none transform scale-50 peer-checked:scale-100 transition-all"></div>
               </div>
-              <span className="text-sm font-medium text-tb-text-secondary group-hover:text-tb-text-primary transition-colors">{diff}</span>
+              <span className="text-base font-medium text-zinc-600 group-hover:text-zinc-900 transition-colors">{diff}</span>
             </label>
           ))}
         </div>
       </div>
 
+      <hr className="border-zinc-100 mb-8" />
+
       {/* Duration Filter */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-3">
-          <h4 className="text-sm font-semibold text-tb-text-primary uppercase tracking-wide">Duration</h4>
-          <span className="text-xs font-medium text-tb-text-secondary bg-tb-sys-background px-2 py-1 rounded-md">2–{duration} days</span>
+      <div className="mb-10">
+        <div className="flex items-center justify-between mb-4">
+          <h4 className="text-xs font-bold text-zinc-900 uppercase tracking-widest">Duration</h4>
+          <span className="text-sm font-bold text-tb-primary bg-tb-primary/10 px-2 py-1 rounded-md">Up to {duration} days</span>
         </div>
-        <input 
-          type="range" 
-          min="2" 
-          max="15" 
-          step="1"
-          value={duration}
-          onChange={handleDuration}
-          className="w-full accent-tb-primary"
-          aria-label="Duration up to"
-        />
+        <div className="px-1">
+          <input 
+            type="range" 
+            min="2" 
+            max="15" 
+            step="1"
+            value={duration}
+            onChange={handleDuration}
+            className="w-full accent-zinc-900 h-2 bg-zinc-200 rounded-lg appearance-none cursor-pointer"
+            aria-label="Duration up to"
+          />
+        </div>
       </div>
+
+      <hr className="border-zinc-100 mb-8" />
 
       {/* Price Filter */}
       <div>
-        <div className="flex items-center justify-between mb-3">
-          <h4 className="text-sm font-semibold text-tb-text-primary uppercase tracking-wide">Price</h4>
+        <div className="flex items-center justify-between mb-6">
+          <h4 className="text-xs font-bold text-zinc-900 uppercase tracking-widest">Price</h4>
         </div>
         <div className="relative h-12 w-full pt-2">
           {/* Track */}
-          <div className="absolute top-4 left-0 right-0 h-1.5 bg-tb-sys-background rounded-full"></div>
+          <div className="absolute top-4 left-0 right-0 h-2 bg-zinc-200 rounded-full"></div>
           {/* Active Track */}
           <div 
-            className="absolute top-4 h-1.5 bg-tb-primary rounded-full pointer-events-none" 
+            className="absolute top-4 h-2 bg-zinc-900 rounded-full pointer-events-none" 
             style={{ 
               left: `${((minPrice - 5000) / 45000) * 100}%`, 
               right: `${100 - ((maxPrice - 5000) / 45000) * 100}%` 
@@ -212,7 +223,7 @@ export function FilterSidebar() {
             step="1000"
             value={minPrice}
             onChange={handleMinPrice}
-            className="absolute top-4 left-0 w-full appearance-none bg-transparent pointer-events-auto h-1.5 z-10 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-tb-primary [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-md"
+            className="absolute top-4 left-0 w-full appearance-none bg-transparent pointer-events-auto h-2 z-10 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-6 [&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-zinc-900 [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-md hover:[&::-webkit-slider-thumb]:scale-110 [&::-webkit-slider-thumb]:transition-transform"
             aria-label="Minimum Price"
           />
           <input 
@@ -222,13 +233,19 @@ export function FilterSidebar() {
             step="1000"
             value={maxPrice}
             onChange={handleMaxPrice}
-            className="absolute top-4 left-0 w-full appearance-none bg-transparent pointer-events-auto h-1.5 z-20 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-tb-primary [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-md"
+            className="absolute top-4 left-0 w-full appearance-none bg-transparent pointer-events-auto h-2 z-20 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-6 [&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-zinc-900 [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-md hover:[&::-webkit-slider-thumb]:scale-110 [&::-webkit-slider-thumb]:transition-transform"
             aria-label="Maximum Price"
           />
         </div>
-        <div className="flex items-center justify-between mt-1">
-          <span className="text-xs font-medium text-tb-text-secondary">{formatPrice(minPrice)}</span>
-          <span className="text-xs font-medium text-tb-text-secondary">{formatPrice(maxPrice)}</span>
+        <div className="flex items-center justify-between mt-2">
+          <div className="flex flex-col items-center">
+            <span className="text-[10px] text-zinc-500 uppercase font-semibold">Min</span>
+            <span className="text-sm font-bold text-zinc-900 border border-zinc-200 px-3 py-1.5 rounded-lg mt-1">{formatPrice(minPrice)}</span>
+          </div>
+          <div className="flex flex-col items-center">
+            <span className="text-[10px] text-zinc-500 uppercase font-semibold">Max</span>
+            <span className="text-sm font-bold text-zinc-900 border border-zinc-200 px-3 py-1.5 rounded-lg mt-1">{formatPrice(maxPrice)}</span>
+          </div>
         </div>
       </div>
     </div>
