@@ -13,6 +13,11 @@ interface CreateBookingInput {
 
 export async function createBookingAction(input: CreateBookingInput) {
   try {
+    const supabase = await createAdminClient();
+    
+    // Check if user is logged in
+    const { data: { user } } = await supabase.auth.getUser();
+    const customerId = user?.id || null;
     // 1. Basic validation
     if (!input.departureId || !input.customerName || !input.customerEmail || !input.customerPhone) {
       return { success: false, error: "Please fill in all required fields." };
@@ -22,16 +27,15 @@ export async function createBookingAction(input: CreateBookingInput) {
       return { success: false, error: "Number of travellers must be at least 1." };
     }
 
-    const supabase = createAdminClient();
-
-    // 3. Call the Postgres RPC function (which handles the transaction atomically)
+    // 3. Call the Postgres RPC function
     const { data, error } = await supabase.rpc('create_booking', {
       p_departure_id: input.departureId,
       p_travellers: input.travellersCount,
       p_name: input.customerName.trim(),
       p_email: input.customerEmail.trim(),
       p_phone: input.customerPhone.trim(),
-      p_notes: input.notes?.trim() || null
+      p_notes: input.notes?.trim() || null,
+      p_customer_id: customerId
     });
 
     if (error) {
