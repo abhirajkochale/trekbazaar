@@ -7,8 +7,9 @@ import { Menu, X, LayoutDashboard, Mountain, Map, MessageSquare, CalendarCheck, 
 
 const navItems = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
-  { name: 'Treks', href: '/admin/treks', icon: Mountain },
   { name: 'Companies', href: '/admin/companies', icon: Building2 },
+  { name: 'Treks', href: '/admin/treks', icon: Mountain },
+  { name: 'Departures', href: '/admin/departures', icon: CalendarCheck }, // Using CalendarCheck here as it's already imported
   { name: 'Regions', href: '/admin/regions', icon: Map },
   { name: 'Enquiries', href: '/admin/enquiries', icon: MessageSquare },
   { name: 'Bookings', href: '/admin/bookings', icon: CalendarCheck },

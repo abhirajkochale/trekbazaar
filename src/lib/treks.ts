@@ -1,6 +1,6 @@
 import { cache } from "react";
 import { createClient } from "@/lib/supabase/server";
-import type { Trek, Region } from "@/lib/types";
+import type { Trek, Region, Departure } from "@/lib/types";
 
 /**
  * Fetch all active treks, newest first.
@@ -36,11 +36,26 @@ export const getTrekBySlug = cache(
       .eq("status", "active")
       .maybeSingle();
 
-    if (error) {
-      console.error(`Failed to load trek "${slug}":`, error.message);
+    if (error || !data) {
+      if (error) console.error(`Failed to load trek "${slug}":`, error.message);
       return null;
     }
-    return (data as Trek | null) ?? null;
+
+    const trek = data as Trek;
+
+    // Fetch upcoming departures
+    const { data: departures } = await supabase
+      .from("departures")
+      .select("*")
+      .eq("trek_id", trek.id)
+      .eq("is_active", true)
+      .eq("status", "Upcoming")
+      .order("departure_date", { ascending: true })
+      .limit(3);
+
+    trek.departures = (departures || []) as unknown as Departure[];
+
+    return trek;
   }
 );
 

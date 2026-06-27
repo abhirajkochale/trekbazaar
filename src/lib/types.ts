@@ -74,6 +74,32 @@ export interface Company {
   updated_at: string;
 }
 
+export type DepartureStatus = "Upcoming" | "Full" | "Cancelled" | "Completed";
+
+export interface Departure {
+  id: string;
+  trek_id: string;
+  departure_date: string;
+  return_date: string;
+  base_price: number;
+  offer_price: number | null;
+  total_seats: number;
+  booked_seats: number;
+  pickup_location: string | null;
+  notes: string | null;
+  status: DepartureStatus;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+  
+  // Joined fields for UI
+  treks?: {
+    title: string;
+    company_id?: string | null;
+    companies?: { name: string };
+  };
+}
+
 export type Trek = {
   id: string;
   company_id: string | null;
@@ -115,8 +141,9 @@ export type Trek = {
   status: TrekStatus;
   created_at: string;
   updated_at: string;
+  
+  departures?: Departure[];
 };
-
 export type EnquiryStatus = "open" | "responded" | "closed";
 
 export interface Enquiry {
