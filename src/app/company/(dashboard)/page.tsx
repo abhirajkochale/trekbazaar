@@ -1,5 +1,4 @@
 import React from "react";
-import { getCompanyId } from "@/lib/company/auth";
 import { getCompanyBookings } from "@/lib/company/bookings";
 import { getCompanyDepartures } from "@/lib/company/departures";
 import { getCompanyTreks } from "@/lib/company/treks";

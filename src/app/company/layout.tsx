@@ -1,13 +1,28 @@
 import React from "react";
 import { CompanySidebar } from "@/components/company/layout/CompanySidebar";
+import { CompanyNotLinked } from "@/components/company/layout/CompanyNotLinked";
 import { logoutCompany } from "@/app/actions/company-auth";
 import { LogOut } from "lucide-react";
 import Link from "next/link";
-import { getCompanyProfile } from "@/lib/company/profile";
+import { getCompanyContext } from "@/lib/company/auth";
 
 export default async function CompanyLayout({ children }: { children: React.ReactNode }) {
-  const company = await getCompanyProfile();
-  const companyName = company?.name || "Partner Portal";
+  const ctx = await getCompanyContext();
+
+  // Unauthenticated (e.g. the /company/login page). Middleware already
+  // redirects logged-out users away from protected routes, so just render the
+  // page bare without the portal chrome.
+  if (ctx.status === "unauthenticated") {
+    return <>{children}</>;
+  }
+
+  // Authenticated but not cleanly linked to exactly one company: show a clean
+  // explanatory screen instead of an empty dashboard or a raw Supabase error.
+  if (ctx.status !== "ok") {
+    return <CompanyNotLinked variant={ctx.status} />;
+  }
+
+  const companyName = ctx.company.name || "Partner Portal";
 
   return (
     <div className="flex h-screen bg-zinc-50 overflow-hidden">
