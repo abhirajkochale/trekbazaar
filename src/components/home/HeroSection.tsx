@@ -4,10 +4,13 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Container } from '../layout/Container';
+import { Search } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export function HeroSection() {
   const router = useRouter();
   const [query, setQuery] = useState('');
+  const [activeTab, setActiveTab] = useState<'search' | 'experiences'>('search');
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,80 +22,113 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative w-full min-h-[85vh] flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
-      <Image 
-        src="https://images.unsplash.com/photo-1542332213-9b5a5a3fad35?auto=format&fit=crop&q=80&w=2400"
-        alt="Snowy Himalayan Peak"
-        fill
-        priority
-        className="object-cover"
-        sizes="100vw"
-      />
+    <section className="relative w-full min-h-[90vh] flex items-center justify-center overflow-hidden bg-black">
+      {/* Background Image with motion */}
+      <motion.div 
+        initial={{ scale: 1.05 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 10, ease: "easeOut" }}
+        className="absolute inset-0 z-0"
+      >
+        <Image 
+          src="https://images.unsplash.com/photo-1542332213-9b5a5a3fad35?auto=format&fit=crop&q=80&w=2400"
+          alt="Snowy Himalayan Peak"
+          fill
+          priority
+          className="object-cover opacity-80"
+          sizes="100vw"
+        />
+      </motion.div>
       
       {/* Gradient Overlay for legibility */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/60" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black/60 z-0" />
 
       {/* Content */}
-      <Container className="relative z-10 w-full pt-20">
-        <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
-          
+      <Container className="relative z-10 w-full pt-32 pb-20 flex flex-col items-center">
+        
+        {/* Toggle (Stays vs Experiences style) */}
+        <div className="flex items-center gap-6 mb-8 text-white/90 font-medium">
+          <button 
+            onClick={() => setActiveTab('search')}
+            className={`pb-2 border-b-2 transition-colors ${activeTab === 'search' ? 'border-white text-white' : 'border-transparent hover:text-white hover:border-white/50'}`}
+          >
+            Find a Trek
+          </button>
+          <button 
+            onClick={() => setActiveTab('experiences')}
+            className={`pb-2 border-b-2 transition-colors ${activeTab === 'experiences' ? 'border-white text-white' : 'border-transparent hover:text-white hover:border-white/50'}`}
+          >
+            Custom Groups
+          </button>
+        </div>
+
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="text-center w-full max-w-4xl"
+        >
           {/* Main Headline */}
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6 drop-shadow-lg leading-tight">
-            Discover the Highest <br className="hidden md:block" />
-            <span className="text-white/90">Peaks of India.</span>
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white mb-6 drop-shadow-lg leading-[1.1]">
+            Find your next <br className="hidden md:block" />
+            <span className="text-white/90">Himalayan adventure.</span>
           </h1>
           
           {/* Subheading */}
-          <p className="text-lg md:text-xl text-white/90 mb-12 max-w-2xl font-medium drop-shadow-md">
-            Compare handpicked expeditions from verified operators. 
-            Find your perfect trek based on region, difficulty, and season.
+          <p className="text-lg md:text-xl text-white/90 mb-10 max-w-2xl mx-auto font-medium drop-shadow-md">
+            Compare verified operators, find the best prices, and book your departure in minutes.
           </p>
 
-          {/* Glassmorphic Search Pill */}
+          {/* Airbnb-style Omnibox */}
           <form 
             onSubmit={handleSearch} 
-            className="w-full max-w-2xl bg-white/20 backdrop-blur-md border border-white/30 p-2 md:p-3 rounded-full flex flex-col sm:flex-row gap-2 shadow-2xl transition-transform focus-within:scale-[1.02]"
+            className="w-full max-w-4xl mx-auto bg-white rounded-full flex flex-col md:flex-row items-center shadow-2xl transition-all duration-300 hover:shadow-tb-medium divide-y md:divide-y-0 md:divide-x divide-zinc-200"
           >
-            <label htmlFor="hero-search" className="sr-only">Search Treks</label>
-            <div className="relative flex-1 flex items-center">
-              <svg className="absolute left-4 w-5 h-5 text-white/80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
+            {/* Destination */}
+            <div className="flex-1 w-full px-8 py-3.5 hover:bg-zinc-100/50 transition-colors md:rounded-l-full group cursor-text relative text-left">
+              <label htmlFor="hero-search" className="block text-xs font-bold text-zinc-900 tracking-wide uppercase">Destination</label>
               <input 
                 id="hero-search"
                 type="text" 
-                placeholder="Where to? (e.g. Kedarkantha, Spiti...)"
+                placeholder="Search treks, regions..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 sm:py-4 bg-transparent focus:outline-none text-white placeholder:text-white/70 text-lg font-medium"
+                className="w-full bg-transparent focus:outline-none text-zinc-900 placeholder:text-zinc-500 text-sm sm:text-base font-medium truncate"
               />
             </div>
-            <button 
-              type="submit" 
-              className="bg-white text-tb-text-primary px-8 py-3 sm:py-4 rounded-full font-bold hover:bg-tb-sys-background transition-colors shadow-lg shrink-0"
-            >
-              Search
-            </button>
+
+            {/* Date/Season */}
+            <div className="flex-1 w-full px-8 py-3.5 hover:bg-zinc-100/50 transition-colors group cursor-pointer text-left">
+              <div className="block text-xs font-bold text-zinc-900 tracking-wide uppercase">When</div>
+              <div className="text-sm sm:text-base text-zinc-500 font-medium truncate">Any week</div>
+            </div>
+
+            {/* Difficulty */}
+            <div className="flex-1 w-full pl-8 pr-2 py-2 hover:bg-zinc-100/50 transition-colors md:rounded-r-full group cursor-pointer flex items-center justify-between">
+              <div className="text-left">
+                <div className="block text-xs font-bold text-zinc-900 tracking-wide uppercase">Difficulty</div>
+                <div className="text-sm sm:text-base text-zinc-500 font-medium truncate">Any difficulty</div>
+              </div>
+              
+              <button 
+                type="submit" 
+                className="bg-tb-primary hover:bg-tb-primary-hover text-white p-3.5 rounded-full transition-transform active:scale-95 shadow-md flex items-center justify-center ml-4"
+              >
+                <Search className="w-5 h-5" />
+                <span className="sr-only">Search</span>
+              </button>
+            </div>
           </form>
 
           {/* Quick Links */}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-3 text-sm font-medium text-white/80">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm font-medium text-white/80">
             <span className="opacity-70 uppercase tracking-widest text-xs mr-2">Trending</span>
-            <a href="#featured-regions" className="bg-black/20 hover:bg-white/20 backdrop-blur-sm border border-white/10 px-4 py-1.5 rounded-full transition-colors">Uttarakhand</a>
-            <a href="#featured-regions" className="bg-black/20 hover:bg-white/20 backdrop-blur-sm border border-white/10 px-4 py-1.5 rounded-full transition-colors">Himachal Pradesh</a>
-            <a href="#featured-regions" className="bg-black/20 hover:bg-white/20 backdrop-blur-sm border border-white/10 px-4 py-1.5 rounded-full transition-colors">Winter Treks</a>
+            <a href="#featured-regions" className="bg-black/20 hover:bg-white/20 backdrop-blur-sm border border-white/20 px-4 py-1.5 rounded-full transition-colors">Kedarkantha</a>
+            <a href="#featured-regions" className="bg-black/20 hover:bg-white/20 backdrop-blur-sm border border-white/20 px-4 py-1.5 rounded-full transition-colors">Valley of Flowers</a>
+            <a href="#featured-regions" className="bg-black/20 hover:bg-white/20 backdrop-blur-sm border border-white/20 px-4 py-1.5 rounded-full transition-colors">Hampta Pass</a>
           </div>
-
-        </div>
+        </motion.div>
       </Container>
-
-      {/* Subtle Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce opacity-70 hidden md:block">
-        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-        </svg>
-      </div>
     </section>
   );
 }

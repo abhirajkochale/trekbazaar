@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container } from '../layout/Container';
+import { motion } from 'framer-motion';
 
 export function WhyChooseUs() {
   const reasons = [
@@ -35,24 +36,37 @@ export function WhyChooseUs() {
   return (
     <section id="why-choose-us" className="py-24 md:py-32 bg-white">
       <Container>
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-tb-text-primary mb-6">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="max-w-3xl mx-auto text-center mb-16"
+        >
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-zinc-900 mb-6">
             The New Standard in Trekking
           </h2>
-          <p className="text-lg md:text-xl text-tb-text-secondary leading-relaxed">
+          <p className="text-lg md:text-xl text-zinc-500 leading-relaxed font-medium">
             We built TrekBazaar because finding a safe, reliable trek shouldn&apos;t be harder than the trek itself. Here is how we protect your journey.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
           {reasons.map((reason, index) => (
-            <div key={index} className="flex flex-col text-center items-center">
-              <div className="w-16 h-16 rounded-2xl bg-tb-sys-background flex items-center justify-center mb-6">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ delay: index * 0.15, duration: 0.5, ease: "easeOut" }}
+              key={index} 
+              className="flex flex-col text-center items-center group"
+            >
+              <div className="w-16 h-16 rounded-2xl bg-zinc-50 flex items-center justify-center mb-6 shadow-sm border border-zinc-100 group-hover:scale-110 group-hover:shadow-md transition-all duration-300">
                 {reason.icon}
               </div>
-              <h3 className="text-xl font-bold text-tb-text-primary mb-3">{reason.title}</h3>
-              <p className="text-tb-text-secondary leading-relaxed">{reason.description}</p>
-            </div>
+              <h3 className="text-xl font-bold text-zinc-900 mb-3">{reason.title}</h3>
+              <p className="text-zinc-500 leading-relaxed font-medium">{reason.description}</p>
+            </motion.div>
           ))}
         </div>
       </Container>
