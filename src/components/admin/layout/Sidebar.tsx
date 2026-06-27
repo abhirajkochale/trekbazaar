@@ -10,12 +10,14 @@ import {
   MessageSquare, 
   CalendarCheck, 
   Users, 
-  Settings 
+  Settings,
+  Building2
 } from 'lucide-react';
 
 const navItems = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
   { name: 'Treks', href: '/admin/treks', icon: Mountain },
+  { name: 'Companies', href: '/admin/companies', icon: Building2 },
   { name: 'Regions', href: '/admin/regions', icon: Map },
   { name: 'Enquiries', href: '/admin/enquiries', icon: MessageSquare },
   { name: 'Bookings', href: '/admin/bookings', icon: CalendarCheck },

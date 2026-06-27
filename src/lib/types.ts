@@ -34,8 +34,49 @@ export interface FAQ {
   answer: string;
 }
 
+export type VerificationStatus = "pending" | "verified" | "rejected";
+export type CompanyStatus = "active" | "suspended";
+
+export interface Company {
+  id: string;
+  name: string;
+  slug: string;
+  logo_url: string | null;
+  cover_image_url: string | null;
+  description: string | null;
+  
+  contact_person: string | null;
+  email: string | null;
+  phone: string | null;
+  emergency_contact: string | null;
+  website: string | null;
+  
+  instagram: string | null;
+  facebook: string | null;
+  youtube: string | null;
+  
+  address: string | null;
+  city: string | null;
+  state: string | null;
+  
+  gst_number: string | null;
+  years_of_experience: number;
+  
+  gst_document_url: string | null;
+  pan_document_url: string | null;
+  registration_document_url: string | null;
+  
+  verification_status: VerificationStatus;
+  status: CompanyStatus;
+  featured: boolean;
+  
+  created_at: string;
+  updated_at: string;
+}
+
 export type Trek = {
   id: string;
+  company_id: string | null;
   title: string;
   slug: string;
   short_description: string | null;

@@ -1,18 +1,19 @@
 "use client";
 
 import React from 'react';
-import type { Trek } from '@/lib/types';
+import type { Trek, Company } from '@/lib/types';
 import { slugify } from '@/lib/format';
 
 interface Props {
   trek: Partial<Trek>;
   updateField: <K extends keyof Trek>(field: K, value: Trek[K]) => void;
+  companies?: Company[];
 }
 
 const inputClasses = "mt-1 block w-full rounded-md border border-zinc-300 px-3 py-2 text-sm focus:border-tb-primary focus:outline-none focus:ring-1 focus:ring-tb-primary";
 const labelClasses = "block text-sm font-medium text-zinc-700";
 
-export function BasicInfoSection({ trek, updateField }: Props) {
+export function BasicInfoSection({ trek, updateField, companies = [] }: Props) {
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTitle = e.target.value;
     updateField('title', newTitle);
@@ -48,7 +49,21 @@ export function BasicInfoSection({ trek, updateField }: Props) {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className={labelClasses}>Company (Partner) <span className="text-red-500">*</span></label>
+          <select
+            value={trek.company_id || ''}
+            onChange={(e) => updateField('company_id', e.target.value || null)}
+            className={inputClasses}
+            required
+          >
+            <option value="">Select a Company</option>
+            {companies.map(c => (
+              <option key={c.id} value={c.id}>{c.name}</option>
+            ))}
+          </select>
+        </div>
         <div>
           <label className={labelClasses}>Region</label>
           <select

@@ -14,6 +14,7 @@ import { BasicInfoSection } from './BasicInfoSection';
 import { DetailsSection } from './DetailsSection';
 import { SEOSection } from './SEOSection';
 import { DynamicListSection } from './DynamicListSection';
+import type { Company } from '@/lib/types';
 
 // Lazy load large sections
 const MediaSection = dynamic(() => import('./MediaSection').then(m => m.MediaSection), { 
@@ -26,7 +27,7 @@ const FAQBuilder = dynamic(() => import('./FAQBuilder').then(m => m.FAQBuilder),
   loading: () => <div className="h-64 animate-pulse bg-zinc-100 rounded-xl" />
 });
 
-export function TrekEditor({ initialTrek }: { initialTrek?: Trek }) {
+export function TrekEditor({ initialTrek, companies = [] }: { initialTrek?: Trek, companies?: Company[] }) {
   const router = useRouter();
   const [, startTransition] = useTransition();
   const [isSaving, setIsSaving] = useState(false);
@@ -34,6 +35,7 @@ export function TrekEditor({ initialTrek }: { initialTrek?: Trek }) {
   
   // Provide defaults for all fields to prevent controlled/uncontrolled warnings
   const [trek, setTrek] = useState<Partial<Trek>>(initialTrek || {
+    company_id: null,
     title: "",
     slug: "",
     status: "draft",
@@ -190,7 +192,7 @@ export function TrekEditor({ initialTrek }: { initialTrek?: Trek }) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
           <AdminCard title="Basic Information">
-            <BasicInfoSection trek={trek} updateField={updateField} />
+            <BasicInfoSection trek={trek} updateField={updateField} companies={companies} />
           </AdminCard>
           
           <AdminCard title="Media & Gallery">
