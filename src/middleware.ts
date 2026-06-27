@@ -19,7 +19,22 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  return await updateSession(request);
+  const { supabaseResponse, user } = await updateSession(request);
+
+  if (pathname.startsWith("/company")) {
+    if (pathname === "/company/login") {
+      if (user) {
+        return NextResponse.redirect(new URL("/company", request.url));
+      }
+      return supabaseResponse;
+    }
+    
+    if (!user) {
+      return NextResponse.redirect(new URL("/company/login", request.url));
+    }
+  }
+
+  return supabaseResponse;
 }
 
 export const config = {
