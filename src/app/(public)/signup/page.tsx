@@ -30,7 +30,7 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 flex items-center justify-center p-4">
+    <div className="flex-1 bg-zinc-50 flex items-center justify-center p-4 pt-24 pb-12">
       <div className="max-w-md w-full bg-white rounded-3xl shadow-tb-large p-8 border border-zinc-100">
         
         <div className="text-center mb-8">

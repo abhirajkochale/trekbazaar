@@ -3,8 +3,7 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { getRegionBySlug } from '@/lib/treks';
 import { searchTreks } from '@/lib/search/api';
-import { Navbar } from '@/components/layout/Navbar';
-import { Footer } from '@/components/layout/Footer';
+import { getRegionBySlug } from '@/lib/public/master-treks';
 import { Container } from '@/components/layout/Container';
 import { RegionHero } from '@/components/region/RegionHero';
 import { RegionMainContent } from '@/components/region/RegionMainContent';
@@ -65,8 +64,7 @@ export default async function RegionDetailsPage({ params, searchParams }: Region
   const isCompletelyEmpty = totalCount === 0 && !hasActiveFilters;
 
   return (
-    <div className="flex min-h-screen flex-col bg-tb-sys-background">
-      <Navbar />
+    <>
       
       <main className="flex-1 w-full pb-20">
         <RegionHero region={region} trekCount={totalCount} />
@@ -94,7 +92,6 @@ export default async function RegionDetailsPage({ params, searchParams }: Region
         </Container>
       </main>
       
-      <Footer />
-    </div>
+    </>
   );
 }

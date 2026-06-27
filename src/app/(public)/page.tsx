@@ -1,7 +1,5 @@
 import { searchMasterTreks } from "@/lib/search/master-api";
 import { createClient } from "@/lib/supabase/server";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
 import { HeroSection } from "@/components/home/HeroSection";
 import { TrustMetrics } from "@/components/home/TrustMetrics";
 import { TrekGridSection } from "@/components/home/TrekGridSection";
@@ -42,7 +40,6 @@ export default async function Home() {
 
   return (
     <>
-      <Navbar />
       <main className="flex flex-1 flex-col">
         <HeroSection masterTreks={masterTreks} />
         
@@ -82,7 +79,6 @@ export default async function Home() {
         
         <CTASection />
       </main>
-      <Footer />
     </>
   );
 }

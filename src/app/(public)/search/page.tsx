@@ -1,6 +1,4 @@
 import React from 'react';
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
 import { SearchHeader } from '@/components/search/SearchHeader';
 import { SearchLayout } from '@/components/search/SearchLayout';
 import { SearchEmptyState } from '@/components/search/SearchEmptyState';
@@ -43,8 +41,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   });
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <Navbar />
+    <>
       <main className="flex-1 flex flex-col">
         <SearchHeader totalCount={totalCount} />
         <SearchLayout>
@@ -60,7 +57,6 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
           )}
         </SearchLayout>
       </main>
-      <Footer />
-    </div>
+    </>
   );
 }

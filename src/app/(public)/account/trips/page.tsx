@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server';
 import { formatPrice } from '@/lib/format';
 import { Compass } from 'lucide-react';
 import Link from 'next/link';
+import { Container } from '@/components/layout/Container';
 
 export default async function TripsPage() {
   const supabase = await createClient();
@@ -51,7 +52,8 @@ export default async function TripsPage() {
   );
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-500">
+    <Container>
+      <div className="space-y-8 animate-in fade-in duration-500 pt-24 pb-20 max-w-4xl mx-auto">
       <header>
         <h1 className="text-3xl font-bold text-zinc-900">My Trips</h1>
         <p className="text-zinc-500 mt-1">Manage all your upcoming and past bookings.</p>
@@ -87,6 +89,7 @@ export default async function TripsPage() {
           )}
         </div>
       )}
-    </div>
+      </div>
+    </Container>
   );
 }

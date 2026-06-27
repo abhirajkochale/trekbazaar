@@ -1,7 +1,7 @@
 import React from 'react';
 import { Heart } from 'lucide-react';
 import Link from 'next/link';
-// import { createClient } from '@/lib/supabase/server';
+import { Container } from '@/components/layout/Container';
 // import { MarketplaceCard } from '@/components/public/master-treks/MarketplaceCard';
 
 export default async function WishlistPage() {
@@ -17,7 +17,8 @@ export default async function WishlistPage() {
   const wishlistItems: any[] = []; // Empty for MVP UI showcase
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-500">
+    <Container>
+      <div className="space-y-8 animate-in fade-in duration-500 pt-24 pb-20">
       <header>
         <h1 className="text-3xl font-bold text-zinc-900">Wishlist</h1>
         <p className="text-zinc-500 mt-1">Keep track of the adventures you want to go on next.</p>
@@ -37,6 +38,7 @@ export default async function WishlistPage() {
           {/* Wishlist rendering logic goes here. Relies on the same MarketplaceCard for UX consistency. */}
         </div>
       )}
-    </div>
+      </div>
+    </Container>
   );
 }

@@ -63,6 +63,15 @@ export function TravellerInformationStep() {
         </button>
       </div>
 
+      <div className="bg-tb-primary/5 border border-tb-primary/10 rounded-xl p-4 mb-6 flex items-center justify-between">
+        <div className="text-sm text-zinc-700">
+          <span className="font-bold text-zinc-900">Have an account?</span> Log in for faster checkout and to save this trip to your portal.
+        </div>
+        <a href="/login" className="text-sm font-bold text-tb-primary hover:underline whitespace-nowrap ml-4">
+          Log In
+        </a>
+      </div>
+
       <div className="space-y-6">
         
         {/* Travellers Count (Prominent) */}

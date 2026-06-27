@@ -2,8 +2,6 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { getTrekBySlug, getRelatedTreks } from '@/lib/treks';
-import { Navbar } from '@/components/layout/Navbar';
-import { Footer } from '@/components/layout/Footer';
 import { Container } from '@/components/layout/Container';
 import { HeroGallery } from '@/components/trek/details/HeroGallery';
 import { TrekOverview } from '@/components/trek/details/TrekOverview';
@@ -45,9 +43,7 @@ export default async function TrekDetailsPage({ params }: TrekDetailsPageProps) 
   const relatedTreks = await getRelatedTreks(trek);
 
   return (
-    <div className="flex min-h-screen flex-col bg-tb-sys-background">
-      <Navbar />
-      
+    <>
       <main className="flex-1 w-full pb-12">
         <HeroGallery trek={trek} />
         
@@ -72,7 +68,6 @@ export default async function TrekDetailsPage({ params }: TrekDetailsPageProps) 
         </Container>
       </main>
       
-      <Footer />
-    </div>
+    </>
   );
 }
