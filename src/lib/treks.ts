@@ -43,15 +43,15 @@ export const getTrekBySlug = cache(
 
     const trek = data as Trek;
 
-    // Fetch upcoming departures
+    // Fetch upcoming and full departures
     const { data: departures } = await supabase
       .from("departures")
       .select("*")
       .eq("trek_id", trek.id)
       .eq("is_active", true)
-      .eq("status", "Upcoming")
+      .in("status", ["Upcoming", "Full"])
       .order("departure_date", { ascending: true })
-      .limit(3);
+      .limit(5);
 
     trek.departures = (departures || []) as unknown as Departure[];
 
