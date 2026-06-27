@@ -15,8 +15,8 @@ export async function getMasterTrekPageData(slug: string) {
   const { data: packages, error: pkError } = await supabase
     .from("treks")
     .select(`
-      id, title, slug, short_description, difficulty, duration_days, price_per_person, start_point,
-      companies(id, name, logo_url, verification_status),
+      id, title, slug, short_description, difficulty, duration_days, price_per_person, start_point, included,
+      companies(id, name, logo_url, verification_status, years_of_experience, featured, description),
       departures(id, departure_date, total_seats, booked_seats, base_price, offer_price, status)
     `)
     .eq("master_trek_id", masterTrek.id)

@@ -5,10 +5,15 @@ import { difficultyLabel, difficultyBadgeClasses } from '@/lib/format';
 interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   masterTrek: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  packages: any[];
 }
 
-export function MasterTrekHero({ masterTrek }: Props) {
+export function MasterTrekHero({ masterTrek, packages }: Props) {
   const imageUrl = masterTrek.cover_image || 'https://images.unsplash.com/photo-1522163182402-834f871fd851?auto=format&fit=crop&q=80&w=2000';
+
+  const companiesCount = new Set(packages.map(p => p.companies?.id)).size;
+  const departuresCount = packages.reduce((acc, p) => acc + (p.departures?.length || 0), 0);
 
   return (
     <div className="relative w-full h-[60vh] min-h-[500px] flex items-end">
@@ -63,13 +68,31 @@ export function MasterTrekHero({ masterTrek }: Props) {
               <span>{masterTrek.altitude}</span>
             </div>
           )}
+
+          {masterTrek.best_season && (
+            <div className="flex items-center gap-2">
+              <svg className="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" /></svg>
+              <span>{masterTrek.best_season}</span>
+            </div>
+          )}
         </div>
         
         {masterTrek.overview && (
-          <p className="mt-6 text-white/80 max-w-3xl leading-relaxed line-clamp-3">
+          <p className="mt-6 text-white/80 max-w-3xl leading-relaxed text-lg line-clamp-3">
             {masterTrek.overview}
           </p>
         )}
+
+        <div className="mt-8 flex flex-wrap gap-4">
+          <div className="bg-white/10 backdrop-blur-md rounded-lg px-4 py-2 border border-white/20">
+            <span className="block text-xs text-white/70 uppercase tracking-wider font-semibold">Trekking Agencies</span>
+            <span className="text-xl font-bold text-white">{companiesCount} Verified</span>
+          </div>
+          <div className="bg-white/10 backdrop-blur-md rounded-lg px-4 py-2 border border-white/20">
+            <span className="block text-xs text-white/70 uppercase tracking-wider font-semibold">Upcoming Departures</span>
+            <span className="text-xl font-bold text-white">{departuresCount} Dates</span>
+          </div>
+        </div>
       </div>
     </div>
   );

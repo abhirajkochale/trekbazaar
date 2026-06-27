@@ -2,6 +2,7 @@ import React from 'react';
 import { getMasterTrekPageData } from '@/lib/public/master-treks';
 import { notFound } from 'next/navigation';
 import { MasterTrekHero } from '@/components/public/master-treks/MasterTrekHero';
+import { MarketplaceSummaryBar } from '@/components/public/master-treks/MarketplaceSummaryBar';
 import { MarketplaceSection } from '@/components/public/master-treks/MarketplaceSection';
 
 export const dynamic = "force-dynamic";
@@ -15,8 +16,9 @@ export default async function MasterTrekMarketplacePage({ params }: { params: Pr
   }
 
   return (
-    <main className="min-h-screen bg-tb-sys-background pb-20">
-      <MasterTrekHero masterTrek={data.masterTrek} />
+    <main className="min-h-screen bg-zinc-50 pb-20">
+      <MasterTrekHero masterTrek={data.masterTrek} packages={data.packages} />
+      <MarketplaceSummaryBar packages={data.packages} />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
         <div className="mb-8">
