@@ -27,7 +27,7 @@ const FAQBuilder = dynamic(() => import('./FAQBuilder').then(m => m.FAQBuilder),
   loading: () => <div className="h-64 animate-pulse bg-zinc-100 rounded-xl" />
 });
 
-export function TrekEditor({ initialTrek, companies = [] }: { initialTrek?: Trek, companies?: Company[] }) {
+export function TrekEditor({ initialTrek, companies = [], isCompanyPortal = false, onSaveOverride }: { initialTrek?: Trek, companies?: Company[], isCompanyPortal?: boolean, onSaveOverride?: (payload: Partial<Trek>) => Promise<{success: boolean, error?: string, trekId?: string}> }) {
   const router = useRouter();
   const [, startTransition] = useTransition();
   const [isSaving, setIsSaving] = useState(false);
@@ -85,7 +85,9 @@ export function TrekEditor({ initialTrek, companies = [] }: { initialTrek?: Trek
     }
 
     setIsSaving(true);
-    const res = await saveTrekAction(trek);
+    const res = onSaveOverride 
+      ? await onSaveOverride(trek)
+      : await saveTrekAction(trek);
     setIsSaving(false);
 
     if (res.success) {
@@ -144,7 +146,7 @@ export function TrekEditor({ initialTrek, companies = [] }: { initialTrek?: Trek
       {/* Sticky Header */}
       <div className="sticky top-16 z-20 bg-zinc-50/90 backdrop-blur-md py-4 border-b border-zinc-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-4">
-          <Link href="/admin/treks" className="p-2 -ml-2 text-zinc-400 hover:text-zinc-900 transition-colors rounded-full hover:bg-zinc-200">
+          <Link href={isCompanyPortal ? "/company/treks" : "/admin/treks"} className="p-2 -ml-2 text-zinc-400 hover:text-zinc-900 transition-colors rounded-full hover:bg-zinc-200">
             <ArrowLeft className="w-5 h-5" />
           </Link>
           <div>
@@ -192,7 +194,7 @@ export function TrekEditor({ initialTrek, companies = [] }: { initialTrek?: Trek
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
           <AdminCard title="Basic Information">
-            <BasicInfoSection trek={trek} updateField={updateField} companies={companies} />
+            <BasicInfoSection trek={trek} updateField={updateField} companies={companies} isCompanyPortal={isCompanyPortal} />
           </AdminCard>
           
           <AdminCard title="Media & Gallery">
