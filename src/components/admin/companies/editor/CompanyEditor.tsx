@@ -13,8 +13,17 @@ import { BasicInfoSection } from './BasicInfoSection';
 import { ContactSection } from './ContactSection';
 import { SocialSection } from './SocialSection';
 import { VerificationSection } from './VerificationSection';
+import { CredentialsSection } from './CredentialsSection';
 
-export function CompanyEditor({ initialCompany }: { initialCompany?: Company }) {
+export function CompanyEditor({ 
+  initialCompany,
+  isCompanyPortal = false,
+  onSaveOverride
+}: { 
+  initialCompany?: Company,
+  isCompanyPortal?: boolean,
+  onSaveOverride?: (payload: Partial<Company>) => Promise<{success: boolean, error?: string, companyId?: string}>
+}) {
   const router = useRouter();
   const [, startTransition] = useTransition();
   const [isSaving, setIsSaving] = useState(false);
@@ -61,7 +70,9 @@ export function CompanyEditor({ initialCompany }: { initialCompany?: Company }) 
     }
 
     setIsSaving(true);
-    const res = await saveCompanyAction(company);
+    const res = onSaveOverride 
+      ? await onSaveOverride(company)
+      : await saveCompanyAction(company);
     setIsSaving(false);
 
     if (res.success) {
@@ -112,12 +123,17 @@ export function CompanyEditor({ initialCompany }: { initialCompany?: Company }) 
       {/* Sticky Header */}
       <div className="sticky top-16 z-20 bg-zinc-50/90 backdrop-blur-md py-4 border-b border-zinc-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-4">
-          <Link href="/admin/companies" className="p-2 -ml-2 text-zinc-400 hover:text-zinc-900 transition-colors rounded-full hover:bg-zinc-200">
-            <ArrowLeft className="w-5 h-5" />
-          </Link>
+          {!isCompanyPortal && (
+            <Link href="/admin/companies" className="p-2 -ml-2 text-zinc-400 hover:text-zinc-900 transition-colors rounded-full hover:bg-zinc-200">
+              <ArrowLeft className="w-5 h-5" />
+            </Link>
+          )}
           <div>
             <h1 className="text-xl font-bold text-zinc-900">
-              {initialCompany ? `Edit Company: ${initialCompany.name}` : 'Register New Company'}
+              {isCompanyPortal 
+                ? 'Company Profile' 
+                : (initialCompany ? `Edit Company: ${initialCompany.name}` : 'Register New Company')
+              }
             </h1>
             <div className="text-xs font-medium flex items-center gap-2 mt-0.5">
               {isSaving ? (
@@ -160,11 +176,17 @@ export function CompanyEditor({ initialCompany }: { initialCompany?: Company }) 
           </AdminCard>
         </div>
 
-        <div className="lg:col-span-1 space-y-6">
-          <AdminCard title="Status & Verification">
-            <VerificationSection company={company} updateField={updateField} />
-          </AdminCard>
-        </div>
+        {!isCompanyPortal && (
+          <div className="lg:col-span-1 space-y-6">
+            <AdminCard title="Status & Verification">
+              <VerificationSection company={company} updateField={updateField} />
+            </AdminCard>
+
+            <AdminCard title="Partner Access">
+              <CredentialsSection company={company} />
+            </AdminCard>
+          </div>
+        )}
       </div>
     </div>
   );
