@@ -36,14 +36,27 @@ export async function saveCompanyTrek(payload: Partial<Trek>): Promise<Trek> {
   if (!companyId) throw new Error("Unauthorized");
 
   const supabase = await createClient();
-  
-  const dataToSave = {
+
+  // Denormalize the DEPRECATED operator_* fields from the company profile, so
+  // the public UI (which still reads operator_name) shows the real operator,
+  // and so the company can never spoof these via the client payload. The
+  // source of truth for the operator is treks.company_id.
+  const { data: company } = await supabase
+    .from("companies")
+    .select("name, email, phone")
+    .eq("id", companyId)
+    .maybeSingle();
+
+  const dataToSave: Partial<Trek> = {
     ...payload,
-    company_id: companyId, // Force company_id to be the logged-in company
+    company_id: companyId, // Never trust a client-supplied company_id.
+    operator_name: company?.name ?? null,
+    operator_contact: company?.email || company?.phone || null,
   };
 
   if (payload.id) {
-    // Update existing
+    // Update existing — scoped to this company so one company can never edit
+    // another company's trek (defence in depth alongside RLS).
     const { data, error } = await supabase
       .from("treks")
       .update(dataToSave)
@@ -55,7 +68,8 @@ export async function saveCompanyTrek(payload: Partial<Trek>): Promise<Trek> {
     if (error) throw new Error(error.message);
     return data as Trek;
   } else {
-    // Insert new
+    // Insert new — strip any client-injected id so this is always a create.
+    delete dataToSave.id;
     const { data, error } = await supabase
       .from("treks")
       .insert(dataToSave)

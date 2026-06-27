@@ -137,8 +137,9 @@ export type Trek = {
   seo_description: string | null;
   canonical_url: string | null;
   
-  operator_name: string;
-  operator_contact: string;
+  // DEPRECATED: denormalized for public display only. Source of truth is company_id.
+  operator_name: string | null;
+  operator_contact: string | null;
   status: TrekStatus;
   created_at: string;
   updated_at: string;

@@ -95,16 +95,18 @@ export function TrekEditor({ initialTrek, companies = [], isCompanyPortal = fals
       setIsDirty(false);
       if (showToast) toast.success("Saved successfully");
       
-      // If it's a new trek, redirect to edit URL to preserve identity for future saves
+      // If it's a new trek, redirect to edit URL to preserve identity for future saves.
+      // Stay within the correct portal (company vs admin).
       if (!initialTrek && res.trekId) {
+        const basePath = isCompanyPortal ? "/company/treks" : "/admin/treks";
         startTransition(() => {
-          router.replace(`/admin/treks/${res.trekId}/edit`);
+          router.replace(`${basePath}/${res.trekId}/edit`);
         });
       }
     } else {
       if (showToast) toast.error(res.error || "Failed to save");
     }
-  }, [trek, initialTrek, router]);
+  }, [trek, initialTrek, router, isCompanyPortal, onSaveOverride]);
 
   // Keyboard shortcut Ctrl+S
   useEffect(() => {
