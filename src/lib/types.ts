@@ -158,3 +158,29 @@ export interface Enquiry {
   // If we ever join treks
   treks?: { title: string };
 }
+
+export type BookingStatus = "Pending" | "Confirmed" | "Rejected" | "Cancelled" | "Completed";
+
+export interface Booking {
+  id: string;
+  booking_reference: string;
+  departure_id: string;
+  trek_id: string;
+  company_id: string | null;
+  customer_name: string;
+  customer_email: string;
+  customer_phone: string;
+  travellers_count: number;
+  departure_date: string;
+  departure_price: number;
+  total_amount: number;
+  status: BookingStatus;
+  notes: string | null;
+  created_at: string;
+  updated_at: string;
+  
+  // Joined fields for UI
+  departures?: Departure;
+  treks?: { title: string };
+  companies?: { name: string };
+}
