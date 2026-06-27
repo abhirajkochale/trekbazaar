@@ -5,7 +5,7 @@ import type { Booking } from '@/lib/types';
 import { formatPrice } from '@/lib/format';
 import { Search } from 'lucide-react';
 
-export function BookingsTable({ bookings }: { bookings: Booking[] }) {
+export function BookingsTable({ bookings, onStatusChange }: { bookings: Booking[], onStatusChange?: (id: string, newStatus: string) => void }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
 
@@ -95,9 +95,23 @@ export function BookingsTable({ bookings }: { bookings: Booking[] }) {
                       <div className="font-semibold text-zinc-900 text-sm">{formatPrice(booking.total_amount)}</div>
                     </td>
                     <td className="px-4 py-3">
-                      <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${getStatusColor(booking.status)}`}>
-                        {booking.status}
-                      </span>
+                      {onStatusChange ? (
+                        <select
+                          value={booking.status}
+                          onChange={(e) => onStatusChange(booking.id, e.target.value)}
+                          className={`text-xs font-medium px-2 py-1 rounded border-0 cursor-pointer focus:ring-2 focus:ring-tb-primary ${getStatusColor(booking.status)}`}
+                        >
+                          <option value="Pending" className="bg-white text-zinc-900">Pending</option>
+                          <option value="Confirmed" className="bg-white text-zinc-900">Confirmed</option>
+                          <option value="Rejected" className="bg-white text-zinc-900">Rejected</option>
+                          <option value="Cancelled" className="bg-white text-zinc-900">Cancelled</option>
+                          <option value="Completed" className="bg-white text-zinc-900">Completed</option>
+                        </select>
+                      ) : (
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${getStatusColor(booking.status)}`}>
+                          {booking.status}
+                        </span>
+                      )}
                     </td>
                     <td className="px-4 py-3 text-sm text-zinc-500">
                       {new Date(booking.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
