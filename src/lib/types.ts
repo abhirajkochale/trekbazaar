@@ -41,6 +41,7 @@ export interface Company {
   id: string;
   name: string;
   slug: string;
+  owner_id?: string | null;
   logo_url: string | null;
   cover_image_url: string | null;
   description: string | null;
