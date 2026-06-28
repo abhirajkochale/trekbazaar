@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { Search, MapPin, Calendar, Activity, ChevronDown, Clock, TrendingUp } from 'lucide-react';
+import { Search, MapPin, Activity, ChevronDown, Clock, TrendingUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { fetchSearchSuggestions } from '@/app/actions/search';
 
@@ -75,7 +75,9 @@ export function HeroOmnibox() {
       try {
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setRecentSearches(JSON.parse(local));
-      } catch (e) {}
+      } catch {
+        // ignore JSON parse errors
+      }
     }
 
     const handleClickOutside = (e: MouseEvent) => {

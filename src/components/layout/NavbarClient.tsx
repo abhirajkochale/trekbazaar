@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Container } from './Container';
-import { Heart, Bell, User, LogOut, Compass, Settings, HelpCircle, Search } from 'lucide-react';
+import { Heart, Bell, User, LogOut, Compass, Settings, HelpCircle } from 'lucide-react';
 import { logoutAction } from '@/app/actions/auth';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useWishlist } from '@/providers/WishlistProvider';

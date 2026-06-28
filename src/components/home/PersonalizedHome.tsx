@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { useRecentlyViewed } from '@/providers/RecentlyViewedProvider';
-import { useWishlist } from '@/providers/WishlistProvider';
 import { TrekGridSection } from './TrekGridSection';
 
 interface Props {
@@ -12,7 +11,6 @@ interface Props {
 
 export function PersonalizedHome({ masterTreks }: Props) {
   const { viewedIds } = useRecentlyViewed();
-  const { wishlistIds } = useWishlist();
 
   // We filter from the pre-loaded masterTreks for performance.
   // In a massive app, we'd fetch these dynamically.
