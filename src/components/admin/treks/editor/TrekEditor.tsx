@@ -163,13 +163,38 @@ export function TrekEditor({
 
   const [activeSection, setActiveSection] = useState('basic-info');
 
+  // Real-time Sidebar Navigation (ScrollSpy)
+  useEffect(() => {
+    const sectionIds = ['basic-info', 'media-gallery', 'trek-details', 'itinerary', 'inclusions', 'faqs', 'seo'];
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntries = entries.filter(entry => entry.isIntersecting);
+        if (visibleEntries.length > 0) {
+          // Sort by their vertical position to find the uppermost visible one
+          visibleEntries.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+          setActiveSection(visibleEntries[0].target.id);
+        }
+      },
+      {
+        rootMargin: '-120px 0px -60% 0px', // Trigger when a section reaches near the sticky header
+        threshold: 0
+      }
+    );
+
+    sectionIds.forEach(id => {
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   const scrollToSection = (id: string) => {
     setActiveSection(id);
     const element = document.getElementById(id);
     if (element) {
-      const yOffset = -100; // Account for sticky header
-      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: y, behavior: 'smooth' });
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
