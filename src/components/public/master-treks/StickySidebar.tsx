@@ -12,10 +12,12 @@ interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   packages: any[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   allDepartures: any[];
+  isSingleOperator?: boolean;
 }
 
-export function StickySidebar({ masterTrek, packages, allDepartures }: Props) {
+export function StickySidebar({ masterTrek, packages, allDepartures, isSingleOperator }: Props) {
   let minPrice = Infinity;
   packages.forEach(pkg => {
     const pkgMinPrice = pkg.departures?.[0]?.offer_price || pkg.departures?.[0]?.base_price || pkg.price_per_person;
@@ -37,7 +39,7 @@ export function StickySidebar({ masterTrek, packages, allDepartures }: Props) {
             <span className="text-3xl font-bold text-zinc-900 tracking-tight">{formatPrice(minPrice)}</span>
           </div>
         </div>
-        {companiesCount > 0 && (
+        {companiesCount > 0 && !isSingleOperator && (
           <div className="text-right">
             <span className="text-tb-primary font-bold text-lg">{companiesCount}</span>
             <span className="text-zinc-500 text-xs block font-medium">Operators</span>
@@ -99,7 +101,7 @@ export function StickySidebar({ masterTrek, packages, allDepartures }: Props) {
           href="#operators"
           className="w-full h-12 flex items-center justify-center bg-tb-primary hover:bg-tb-primary-hover text-white font-bold rounded-full transition-all active:scale-95 shadow-md"
         >
-          Compare Operators
+          {isSingleOperator ? 'View Details' : 'Compare Operators'}
         </a>
         <button 
           type="button"

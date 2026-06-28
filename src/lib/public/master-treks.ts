@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { searchMasterTreks } from "@/lib/search/master-api";
 
-export async function getMasterTrekPageData(slug: string) {
+export async function getMasterTrekPageData(slug: string, companySlug?: string) {
   const supabase = await createClient();
   
   const { data: masterTrek, error: mtError } = await supabase
@@ -17,7 +17,7 @@ export async function getMasterTrekPageData(slug: string) {
     .from("treks")
     .select(`
       id, title, slug, short_description, difficulty, duration_days, price_per_person, start_point, included, excluded, itinerary,
-      companies(id, name, logo_url, verification_status, years_of_experience, featured, description),
+      companies(id, name, slug, logo_url, verification_status, years_of_experience, featured, description),
       departures(id, departure_date, total_seats, booked_seats, base_price, offer_price, status)
     `)
     .eq("master_trek_id", masterTrek.id)
@@ -32,6 +32,17 @@ export async function getMasterTrekPageData(slug: string) {
     similarTreks: [] 
   };
 
+  // If companySlug is provided, strictly filter packages down to that single operator BEFORE aggregation
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const filteredPackages = companySlug 
+    ? packages.filter((pkg: any) => pkg.companies?.slug === companySlug || pkg.companies?.id === companySlug) 
+    : packages;
+
+  if (companySlug && filteredPackages.length === 0) {
+    // This company does not offer this trek
+    return null;
+  }
+
   const now = new Date();
   
   // Aggregate all departures from all packages
@@ -41,7 +52,7 @@ export async function getMasterTrekPageData(slug: string) {
   const allExclusions = new Set<string>();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const mappedPackages = packages.map((pkg: any) => {
+  const mappedPackages = filteredPackages.map((pkg: any) => {
     const validDepartures = (pkg.departures || [])
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .filter((d: any) => d.status === "Upcoming" && new Date(d.departure_date) >= now)
