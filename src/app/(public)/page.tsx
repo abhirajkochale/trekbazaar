@@ -43,7 +43,7 @@ export default async function Home() {
   return (
     <>
       <main className="flex flex-1 flex-col">
-        <HeroSection masterTreks={masterTreks} />
+        <HeroSection />
         <QuickFilters />
         
         <TrustMetrics 

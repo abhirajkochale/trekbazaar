@@ -4,12 +4,7 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { Search, MapPin, Calendar, Activity, ChevronDown, Clock, TrendingUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Fuse from 'fuse.js';
-
-interface Props {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  masterTreks: any[];
-}
+import { fetchSearchSuggestions } from '@/app/actions/search';
 
 const MONTHS = [
   'Any Month', 'January', 'February', 'March', 'April', 'May', 'June', 
@@ -19,7 +14,7 @@ const MONTHS = [
 
 const DIFFICULTIES = ['Any', 'Easy', 'Moderate', 'Difficult', 'Extreme'];
 
-export function HeroOmnibox({ masterTreks }: Props) {
+export function HeroOmnibox() {
   const router = useRouter();
   
   // State
@@ -32,32 +27,34 @@ export function HeroOmnibox({ masterTreks }: Props) {
   const [activeDropdown, setActiveDropdown] = useState<'destination' | 'month' | 'difficulty' | null>(null);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   
+  // Data State
+  const [suggestions, setSuggestions] = useState<{ destinations: any[], regions: any[] }>({ destinations: [], regions: [] });
+  const [isLoading, setIsLoading] = useState(false);
+  
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Fuse configuration
-  const fuse = useMemo(() => {
-    return new Fuse(masterTreks, {
-      keys: ['name', 'region.name', 'category.name', 'difficulty', 'best_season'],
-      threshold: 0.3,
-      distance: 100,
-      includeScore: true,
-    });
-  }, [masterTreks]);
-
-  // Suggestions logic
-  const suggestions = useMemo(() => {
+  // Fetch suggestions with debouncing
+  useEffect(() => {
     if (!query.trim()) {
-      // Return popular destinations if empty
-      return masterTreks
-        .sort((a, b) => b.aggregated?.companiesCount - a.aggregated?.companiesCount)
-        .slice(0, 5);
+      setSuggestions({ destinations: [], regions: [] });
+      return;
     }
-    
-    // Fuzzy search
-    const results = fuse.search(query).slice(0, 8);
-    return results.map(r => r.item);
-  }, [query, fuse, masterTreks]);
+
+    const timer = setTimeout(async () => {
+      setIsLoading(true);
+      try {
+        const res = await fetchSearchSuggestions(query);
+        setSuggestions(res);
+      } catch (e) {
+        console.error("Failed to fetch suggestions", e);
+      } finally {
+        setIsLoading(false);
+      }
+    }, 200); // 200ms debounce
+
+    return () => clearTimeout(timer);
+  }, [query]);
 
   // Click outside to close and load recent searches
   useEffect(() => {
@@ -84,20 +81,26 @@ export function HeroOmnibox({ masterTreks }: Props) {
     localStorage.setItem('tb_recent_searches', JSON.stringify(updated));
   };
 
-  // Keyboard navigation
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (activeDropdown !== 'destination') return;
 
+    const totalSuggestions = suggestions.destinations.length + suggestions.regions.length;
+
     if (e.key === 'ArrowDown') {
       e.preventDefault();
-      setSelectedIndex(prev => (prev < suggestions.length - 1 ? prev + 1 : prev));
+      setSelectedIndex(prev => (prev < totalSuggestions - 1 ? prev + 1 : prev));
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
       setSelectedIndex(prev => (prev > 0 ? prev - 1 : -1));
     } else if (e.key === 'Enter') {
       e.preventDefault();
-      if (selectedIndex >= 0 && selectedIndex < suggestions.length) {
-        handleSuggestionSelect(suggestions[selectedIndex].slug);
+      if (selectedIndex >= 0 && selectedIndex < totalSuggestions) {
+        if (selectedIndex < suggestions.destinations.length) {
+          handleSuggestionSelect(suggestions.destinations[selectedIndex].slug, 'destination', suggestions.destinations[selectedIndex].name);
+        } else {
+          const region = suggestions.regions[selectedIndex - suggestions.destinations.length];
+          handleSuggestionSelect(region.slug, 'region', region.name);
+        }
       } else {
         submitSearch();
       }
@@ -106,12 +109,14 @@ export function HeroOmnibox({ masterTreks }: Props) {
     }
   };
 
-  const handleSuggestionSelect = (slug: string) => {
-    const trek = masterTreks.find(t => t.slug === slug);
-    if (trek) saveRecentSearch(trek.name);
-    
+  const handleSuggestionSelect = (slug: string, type: 'destination' | 'region', name: string) => {
+    saveRecentSearch(name);
     setActiveDropdown(null);
-    router.push(`/master-treks/${slug}`);
+    if (type === 'destination') {
+      router.push(`/master-treks/${slug}`);
+    } else {
+      router.push(`/regions/${slug}`);
+    }
   };
 
   const submitSearch = (e?: React.FormEvent) => {
@@ -250,31 +255,70 @@ export function HeroOmnibox({ masterTreks }: Props) {
               )}
 
               {!query.trim() && (
-                <div className="px-6 py-2 text-[10px] font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5"><TrendingUp className="w-3 h-3" /> Trending Destinations</div>
+                <div className="px-6 py-2 text-[10px] font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5"><TrendingUp className="w-3 h-3" /> Trending Searches</div>
               )}
-              {suggestions.length > 0 ? (
-                suggestions.map((trek, idx) => (
-                  <li key={trek.id} role="option" aria-selected={selectedIndex === idx}>
-                    <button
-                      type="button"
-                      onClick={() => handleSuggestionSelect(trek.slug)}
-                      onMouseEnter={() => setSelectedIndex(idx)}
-                      className={`w-full px-6 py-4 flex items-center gap-4 transition-colors text-left ${selectedIndex === idx ? 'bg-zinc-50' : 'hover:bg-zinc-50'}`}
-                    >
-                      <div className="w-12 h-12 md:w-10 md:h-10 bg-zinc-100 rounded-xl flex items-center justify-center shrink-0">
-                        <MapPin className="w-6 h-6 md:w-5 md:h-5 text-zinc-400" />
-                      </div>
-                      <div>
-                        <div className="font-bold text-zinc-900 text-lg md:text-base">{trek.name}</div>
-                        <div className="text-sm md:text-xs text-zinc-500 font-medium">{trek.region?.name || 'Himalayas'}</div>
-                      </div>
-                    </button>
-                  </li>
-                ))
-              ) : (
-                <li className="p-8 text-center text-zinc-500 font-medium text-base md:text-sm">
-                  No matches found for &quot;{query}&quot;. Try a different keyword!
+              
+              {query.trim() && isLoading && (
+                <li className="p-8 text-center text-zinc-500 font-medium text-base md:text-sm animate-pulse">
+                  Searching...
                 </li>
+              )}
+              
+              {query.trim() && !isLoading && suggestions.destinations.length === 0 && suggestions.regions.length === 0 && (
+                <li className="p-8 text-center text-zinc-500 font-medium text-base md:text-sm">
+                  No matches found for &quot;{query}&quot;. Natural language search applies filters automatically.
+                </li>
+              )}
+
+              {suggestions.destinations.length > 0 && (
+                <div className="mb-2">
+                  <div className="px-6 py-2 text-[10px] font-bold text-zinc-400 uppercase tracking-wider">Destinations</div>
+                  {suggestions.destinations.map((trek, idx) => (
+                    <li key={`dest-${trek.slug}`} role="option" aria-selected={selectedIndex === idx}>
+                      <button
+                        type="button"
+                        onClick={() => handleSuggestionSelect(trek.slug, 'destination', trek.name)}
+                        onMouseEnter={() => setSelectedIndex(idx)}
+                        className={`w-full px-6 py-4 flex items-center gap-4 transition-colors text-left ${selectedIndex === idx ? 'bg-zinc-50' : 'hover:bg-zinc-50'}`}
+                      >
+                        <div className="w-12 h-12 md:w-10 md:h-10 bg-zinc-100 rounded-xl flex items-center justify-center shrink-0">
+                          <MapPin className="w-6 h-6 md:w-5 md:h-5 text-zinc-400" />
+                        </div>
+                        <div>
+                          <div className="font-bold text-zinc-900 text-lg md:text-base">{trek.name}</div>
+                          <div className="text-sm md:text-xs text-zinc-500 font-medium">{trek.region_name || 'Himalayas'}</div>
+                        </div>
+                      </button>
+                    </li>
+                  ))}
+                </div>
+              )}
+
+              {suggestions.regions.length > 0 && (
+                <div className="mb-2">
+                  <div className="px-6 py-2 text-[10px] font-bold text-zinc-400 uppercase tracking-wider">Regions</div>
+                  {suggestions.regions.map((region, idx) => {
+                    const globalIdx = suggestions.destinations.length + idx;
+                    return (
+                      <li key={`reg-${region.slug}`} role="option" aria-selected={selectedIndex === globalIdx}>
+                        <button
+                          type="button"
+                          onClick={() => handleSuggestionSelect(region.slug, 'region', region.name)}
+                          onMouseEnter={() => setSelectedIndex(globalIdx)}
+                          className={`w-full px-6 py-4 flex items-center gap-4 transition-colors text-left ${selectedIndex === globalIdx ? 'bg-zinc-50' : 'hover:bg-zinc-50'}`}
+                        >
+                          <div className="w-12 h-12 md:w-10 md:h-10 bg-zinc-100 rounded-xl flex items-center justify-center shrink-0">
+                            <Activity className="w-6 h-6 md:w-5 md:h-5 text-zinc-400" />
+                          </div>
+                          <div>
+                            <div className="font-bold text-zinc-900 text-lg md:text-base">{region.name} Region</div>
+                            <div className="text-sm md:text-xs text-zinc-500 font-medium">Explore all treks</div>
+                          </div>
+                        </button>
+                      </li>
+                    );
+                  })}
+                </div>
               )}
             </ul>
           </motion.div>

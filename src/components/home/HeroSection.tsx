@@ -7,12 +7,7 @@ import { Container } from '../layout/Container';
 import { motion } from 'framer-motion';
 import { HeroOmnibox } from './HeroOmnibox';
 
-interface Props {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  masterTreks?: any[];
-}
-
-export function HeroSection({ masterTreks = [] }: Props) {
+export function HeroSection() {
   const [activeTab, setActiveTab] = useState<'search' | 'experiences'>('search');
 
   return (
@@ -76,7 +71,7 @@ export function HeroSection({ masterTreks = [] }: Props) {
           </p>
 
           {/* Airbnb-style Omnibox */}
-          <HeroOmnibox masterTreks={masterTreks} />
+          <HeroOmnibox />
 
           {/* Quick Links / Filter Chips */}
           <div className="mt-8 flex overflow-x-auto snap-x hide-scrollbar whitespace-nowrap items-center justify-start md:justify-center gap-3 text-sm font-medium text-white/80 pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 w-[100vw] md:w-auto relative left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0">
