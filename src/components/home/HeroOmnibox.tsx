@@ -257,7 +257,7 @@ export function HeroOmnibox() {
 
       {/* Mobile Overlay Mask */}
       <AnimatePresence>
-        {activeDropdown && (
+        {activeDropdown && !isMobileModalOpen && (
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -276,10 +276,12 @@ export function HeroOmnibox() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.2 }}
-            className={`fixed inset-x-0 bottom-0 md:absolute md:top-full md:bottom-auto md:left-0 md:mt-4 w-full md:w-[45%] bg-white rounded-t-3xl md:rounded-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.1)] md:shadow-2xl md:border md:border-zinc-100 overflow-hidden text-left ${isMobileModalOpen ? 'z-[110] h-[75vh]' : 'z-50'}`}
+            className={isMobileModalOpen 
+              ? "relative mt-4 w-full flex-1 bg-white rounded-2xl shadow-sm border border-zinc-200 overflow-hidden text-left flex flex-col mb-4" 
+              : "fixed inset-x-0 bottom-0 md:absolute md:top-full md:bottom-auto md:left-0 md:mt-4 w-full md:w-[45%] bg-white rounded-t-3xl md:rounded-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.1)] md:shadow-2xl md:border md:border-zinc-100 overflow-hidden text-left z-50"}
           >
-            <div className="w-12 h-1.5 bg-zinc-200 rounded-full mx-auto mt-3 mb-2 md:hidden" />
-            <ul id="destination-listbox" role="listbox" className="py-2 max-h-[60vh] md:max-h-[50vh] overflow-y-auto overscroll-contain pb-safe">
+            {!isMobileModalOpen && <div className="w-12 h-1.5 bg-zinc-200 rounded-full mx-auto mt-3 mb-2 md:hidden" />}
+            <ul id="destination-listbox" role="listbox" className={isMobileModalOpen ? "py-2 flex-1 overflow-y-auto overscroll-contain" : "py-2 max-h-[60vh] md:max-h-[50vh] overflow-y-auto overscroll-contain pb-safe"}>
               {!query.trim() && recentSearches.length > 0 && (
                 <div className="mb-2">
                   <div className="px-6 py-2 text-[10px] font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5"><Clock className="w-3 h-3" /> Recent Searches</div>
@@ -374,10 +376,12 @@ export function HeroOmnibox() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.2 }}
-            className={`fixed inset-x-0 bottom-0 md:absolute md:top-full md:bottom-auto md:left-[35%] md:mt-4 w-full md:w-[60%] lg:w-64 bg-white rounded-t-3xl md:rounded-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.1)] md:shadow-2xl md:border md:border-zinc-100 overflow-hidden text-left ${isMobileModalOpen ? 'z-[110] h-[65vh]' : 'z-50'}`}
+            className={isMobileModalOpen
+              ? "relative mt-4 w-full flex-1 bg-white rounded-2xl shadow-sm border border-zinc-200 overflow-hidden text-left flex flex-col mb-4"
+              : "fixed inset-x-0 bottom-0 md:absolute md:top-full md:bottom-auto md:left-[35%] md:mt-4 w-full md:w-[60%] lg:w-64 bg-white rounded-t-3xl md:rounded-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.1)] md:shadow-2xl md:border md:border-zinc-100 overflow-hidden text-left z-50"}
           >
-            <div className="w-12 h-1.5 bg-zinc-200 rounded-full mx-auto mt-3 mb-2 md:hidden" />
-            <ul className="py-2 max-h-[60vh] md:max-h-[50vh] overflow-y-auto overscroll-contain hide-scrollbar pb-safe">
+            {!isMobileModalOpen && <div className="w-12 h-1.5 bg-zinc-200 rounded-full mx-auto mt-3 mb-2 md:hidden" />}
+            <ul className={isMobileModalOpen ? "py-2 flex-1 overflow-y-auto overscroll-contain" : "py-2 max-h-[60vh] md:max-h-[50vh] overflow-y-auto overscroll-contain hide-scrollbar pb-safe"}>
               {MONTHS.map(m => (
                 <li key={m}>
                   <button
@@ -400,10 +404,12 @@ export function HeroOmnibox() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.2 }}
-            className={`fixed inset-x-0 bottom-0 md:absolute md:top-full md:bottom-auto md:right-0 md:mt-4 w-full md:w-[60%] lg:w-64 bg-white rounded-t-3xl md:rounded-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.1)] md:shadow-2xl md:border md:border-zinc-100 overflow-hidden text-left ${isMobileModalOpen ? 'z-[110]' : 'z-50'}`}
+            className={isMobileModalOpen
+              ? "relative mt-4 w-full flex-1 bg-white rounded-2xl shadow-sm border border-zinc-200 overflow-hidden text-left flex flex-col mb-4"
+              : "fixed inset-x-0 bottom-0 md:absolute md:top-full md:bottom-auto md:right-0 md:mt-4 w-full md:w-[60%] lg:w-64 bg-white rounded-t-3xl md:rounded-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.1)] md:shadow-2xl md:border md:border-zinc-100 overflow-hidden text-left z-50"}
           >
-            <div className="w-12 h-1.5 bg-zinc-200 rounded-full mx-auto mt-3 mb-2 md:hidden" />
-            <ul className="py-2 max-h-[60vh] md:max-h-[50vh] overflow-y-auto overscroll-contain hide-scrollbar pb-safe">
+            {!isMobileModalOpen && <div className="w-12 h-1.5 bg-zinc-200 rounded-full mx-auto mt-3 mb-2 md:hidden" />}
+            <ul className={isMobileModalOpen ? "py-2 flex-1 overflow-y-auto overscroll-contain" : "py-2 max-h-[60vh] md:max-h-[50vh] overflow-y-auto overscroll-contain hide-scrollbar pb-safe"}>
               {DIFFICULTIES.map(d => (
                 <li key={d}>
                   <button
