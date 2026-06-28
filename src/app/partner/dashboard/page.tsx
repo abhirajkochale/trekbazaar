@@ -27,6 +27,53 @@ export default async function CompanyDashboardPage() {
   const totalUpcomingBooked = upcomingDeparturesList.reduce((acc, d) => acc + (d.booked_seats || 0), 0);
   const upcomingOccupancy = totalUpcomingSeats > 0 ? Math.round((totalUpcomingBooked / totalUpcomingSeats) * 100) : 0;
 
+  // Post-Approval Mandatory Flow
+  if (treks.length === 0) {
+    return (
+      <div className="max-w-3xl mx-auto mt-12 animate-in fade-in zoom-in-95 duration-500">
+        <div className="bg-white rounded-3xl p-10 border border-zinc-200 shadow-xl shadow-zinc-200/40 text-center relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-2 bg-tb-primary" />
+          <div className="w-20 h-20 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-6 border-8 border-white shadow-sm">
+            <span className="text-3xl font-black text-amber-500">1</span>
+          </div>
+          <h1 className="text-3xl font-black text-zinc-900 tracking-tight mb-4">Welcome to TrekBazaar!</h1>
+          <p className="text-zinc-500 text-lg leading-relaxed mb-8">
+            Your partner application has been approved. To start accepting bookings, you need to create your first trek listing.
+          </p>
+          <Link
+            href="/partner/dashboard/treks/new"
+            className="inline-flex items-center gap-2 bg-zinc-900 text-white font-bold px-8 py-4 rounded-xl hover:bg-zinc-800 transition-colors shadow-lg active:scale-95 text-lg"
+          >
+            <Plus className="w-5 h-5" /> Create First Trek
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  if (treks.length > 0 && departures.length === 0) {
+    return (
+      <div className="max-w-3xl mx-auto mt-12 animate-in fade-in zoom-in-95 duration-500">
+        <div className="bg-white rounded-3xl p-10 border border-zinc-200 shadow-xl shadow-zinc-200/40 text-center relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-2 bg-blue-500" />
+          <div className="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6 border-8 border-white shadow-sm">
+            <span className="text-3xl font-black text-blue-500">2</span>
+          </div>
+          <h1 className="text-3xl font-black text-zinc-900 tracking-tight mb-4">Add a Departure Date</h1>
+          <p className="text-zinc-500 text-lg leading-relaxed mb-8">
+            Great job! You've created your first trek. Now, add at least one departure date so customers can start booking it.
+          </p>
+          <Link
+            href="/partner/dashboard/departures/new"
+            className="inline-flex items-center gap-2 bg-blue-600 text-white font-bold px-8 py-4 rounded-xl hover:bg-blue-700 transition-colors shadow-lg active:scale-95 text-lg"
+          >
+            <CalendarDays className="w-5 h-5" /> Add Departure Date
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-7xl mx-auto space-y-6 pb-20 animate-in fade-in duration-700">
       <header className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 pb-4 border-b border-zinc-200">
