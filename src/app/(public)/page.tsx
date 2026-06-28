@@ -4,6 +4,8 @@ import { HeroSection } from "@/components/home/HeroSection";
 import { TrustMetrics } from "@/components/home/TrustMetrics";
 import { TrekGridSection } from "@/components/home/TrekGridSection";
 import { CTASection } from "@/components/home/CTASection";
+import { QuickFilters } from "@/components/home/QuickFilters";
+import { PersonalizedHome } from "@/components/home/PersonalizedHome";
 
 export default async function Home() {
   const supabase = await createClient();
@@ -42,12 +44,15 @@ export default async function Home() {
     <>
       <main className="flex flex-1 flex-col">
         <HeroSection masterTreks={masterTreks} />
+        <QuickFilters />
         
         <TrustMetrics 
           operatorsCount={operatorsCount || 20} 
           departuresCount={departuresCount || 100} 
           destinationsCount={destinationsCount || 5} 
         />
+
+        <PersonalizedHome masterTreks={masterTreks} />
         
         {trendingTreks.length > 0 && (
           <TrekGridSection title="🔥 Trending Treks" subtitle="The most sought-after adventures this week." treks={trendingTreks} />
