@@ -2,28 +2,30 @@ import React from 'react';
 import { Container } from '@/components/layout/Container';
 
 interface Props {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  company: any;
   activeTreksCount: number;
+  totalDepartures: number;
+  startingPrice: number | null;
+  regionsCovered: number;
+  establishedYear: number | null;
 }
 
-export function CompanyStats({ company, activeTreksCount }: Props) {
+export function CompanyStats({ activeTreksCount, totalDepartures, startingPrice, regionsCovered, establishedYear }: Props) {
   const stats = [
     {
       label: "Active Treks",
       value: activeTreksCount,
     },
     {
-      label: "Total Departures",
-      value: activeTreksCount * 12, // Placeholder projection since we don't fetch batches here
+      label: "Upcoming Departures",
+      value: totalDepartures,
     },
     {
-      label: "Verified Since",
-      value: company.created_at ? new Date(company.created_at).getFullYear() : '2023',
+      label: "Starting Price",
+      value: startingPrice ? `₹${startingPrice.toLocaleString('en-IN')}` : '-',
     },
     {
-      label: "Happy Trekkers",
-      value: "5,000+",
+      label: "Regions Covered",
+      value: regionsCovered,
     }
   ];
 

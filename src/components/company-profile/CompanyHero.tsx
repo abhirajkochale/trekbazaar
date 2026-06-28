@@ -7,9 +7,10 @@ interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   company: any;
   totalReviews?: number;
+  averageRating?: number;
 }
 
-export function CompanyHero({ company, totalReviews = 0 }: Props) {
+export function CompanyHero({ company, totalReviews = 0, averageRating = 0 }: Props) {
   const isVerified = company.verification_status === 'verified';
   
   return (
@@ -71,7 +72,7 @@ export function CompanyHero({ company, totalReviews = 0 }: Props) {
               
               <div className="flex items-center gap-1.5">
                 <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
-                <span className="text-zinc-900 font-bold">4.9</span>
+                <span className="text-zinc-900 font-bold">{averageRating}</span>
                 <span className="text-sm">({totalReviews > 0 ? totalReviews : '120+'} reviews)</span>
               </div>
             </div>

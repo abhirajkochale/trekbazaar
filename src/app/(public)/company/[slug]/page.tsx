@@ -48,8 +48,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-export default async function CompanyPublicProfile({ params }: { params: Promise<{ slug: string }> }) {
+export default async function CompanyPublicProfile({ 
+  params,
+  searchParams
+}: { 
+  params: Promise<{ slug: string }>,
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
   const { slug } = await params;
+  const resolvedParams = await searchParams;
   const supabase = await createClient();
 
   // 1. Fetch Company
@@ -63,45 +70,81 @@ export default async function CompanyPublicProfile({ params }: { params: Promise
     notFound();
   }
 
-  // 2. Fetch Active Treks for this operator
-  // First, get all master_trek_ids this company operates
+  // 2. Fetch all unique master_trek_ids operated by this company (active treks)
   const { data: operatorTreks } = await supabase
     .from('treks')
-    .select('master_trek_id')
+    .select('id, master_trek_id')
     .eq('company_id', company.id)
-    .eq('status', 'published');
+    .eq('status', 'active'); // FIXED: 'active' instead of 'published'
 
   const masterTrekIds = Array.from(new Set(operatorTreks?.map(t => t.master_trek_id) || []));
+  const trekIds = operatorTreks?.map(t => t.id) || [];
 
-  // Now fetch the rich master trek objects for the UI
-  let activeMasterTreks = [];
-  if (masterTrekIds.length > 0) {
-    const { masterTreks } = await searchMasterTreks({ limit: 100 });
-    activeMasterTreks = masterTreks.filter((mt: any) => masterTrekIds.includes(mt.id));
+  // 3. Fetch departures to calculate accurate aggregate stats (without displaying them directly)
+  // This aggregates 'Total Departures' across all active treks for this company
+  let totalDepartures = 0;
+  if (trekIds.length > 0) {
+    const { count } = await supabase
+      .from('departures')
+      .select('id', { count: 'exact', head: true })
+      .in('trek_id', trekIds)
+      .in('status', ['Scheduled', 'Open', 'Guaranteed', 'Waitlisted']);
+    totalDepartures = count || 0;
   }
 
-  // 3. Fetch review stats (mocked for now as per instructions "if exists, else elegant placeholder")
-  // Since we don't have a reviews table yet, we'll use a placeholder
+  // 4. Fetch the rich master trek objects for the UI
+  let activeMasterTreks = [];
+  
+  if (masterTrekIds.length > 0) {
+    // We import parseSearchParams from wherever it exists or manually map them
+    const filters: any = {};
+    if (resolvedParams.difficulty) filters.difficulty = resolvedParams.difficulty as string;
+    if (resolvedParams.region) filters.region = resolvedParams.region as string;
+    if (resolvedParams.duration) filters.duration = parseInt(resolvedParams.duration as string);
+    if (resolvedParams.season) filters.season = resolvedParams.season as string;
+    if (resolvedParams.sort) filters.sort = resolvedParams.sort as string;
+    
+    // We set a high limit to get all company treks, then filter
+    const { masterTreks } = await searchMasterTreks({ ...filters, limit: 100 });
+    
+    // Filter the marketplace results to ONLY show this company's treks
+    activeMasterTreks = masterTreks.filter((mt: any) => masterTrekIds.includes(mt.id));
+    
+    // If the user hasn't explicitly sorted, we can provide a default sort here if needed
+    // The marketplace default sort applies (highest rated / popular / cheapest)
+  }
+
+  // Calculate dynamic statistics
+  const startingPrice = activeMasterTreks.length > 0 
+    ? Math.min(...activeMasterTreks.map((mt: any) => mt.aggregated?.lowestPrice || 999999))
+    : 0;
+
+  const distinctRegions = new Set(activeMasterTreks.map((mt: any) => mt.region_name));
+  
+  // Real reviews placeholder (still mocked as per instructions if no DB table exists yet)
+  const averageRating = 4.8;
   const totalReviews = 142; 
+
+  const statsProps = {
+    activeTreksCount: activeMasterTreks.length,
+    totalDepartures: totalDepartures,
+    startingPrice: startingPrice === 999999 ? null : startingPrice,
+    regionsCovered: distinctRegions.size,
+    establishedYear: company.established_year,
+  };
 
   return (
     <main className="min-h-screen bg-white">
-      {/* 1. Hero Banner */}
-      <CompanyHero company={company} totalReviews={totalReviews} />
+      <CompanyHero company={company} totalReviews={totalReviews} averageRating={averageRating} />
 
-      {/* 2. Key Statistics */}
-      <CompanyStats company={company} activeTreksCount={activeMasterTreks.length} />
+      <CompanyStats {...statsProps} />
 
-      {/* 3. Company Overview */}
       <CompanyOverview company={company} />
 
-      {/* 4. Active Treks (Reuses existing marketplace grid) */}
-      <ActiveTreks treks={activeMasterTreks} />
+      <ActiveTreks treks={activeMasterTreks} companyName={company.name} />
 
-      {/* 5. Why Choose This Operator */}
       <TrustSection />
 
-      {/* 6. Share Section */}
       <ShareOperator company={company} />
     </main>
   );
