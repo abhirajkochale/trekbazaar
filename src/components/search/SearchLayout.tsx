@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { Container } from '../layout/Container';
 import { FilterSidebar } from './FilterSidebar';
 import { MobileFilterSheet } from './MobileFilterSheet';
+import { ActiveFiltersChips } from './ActiveFiltersChips';
 
 interface SearchLayoutProps {
   children: React.ReactNode;
@@ -29,6 +30,9 @@ export function SearchLayout({ children }: SearchLayoutProps) {
           
           {/* Main Content (ResultsGrid) */}
           <main className="flex-1 w-full min-w-0">
+            <Suspense fallback={<div className="h-8 w-64 bg-zinc-100 rounded-lg animate-pulse mb-6"></div>}>
+              <ActiveFiltersChips />
+            </Suspense>
             {children}
           </main>
         </div>
