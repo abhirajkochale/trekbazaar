@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
 import { createClient } from '@/lib/supabase/client';
 
 type WishlistContextType = {
@@ -23,6 +23,7 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
     const local = localStorage.getItem('tb_wishlist');
     if (local) {
       try {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setWishlistIds(JSON.parse(local));
       } catch (e) {
         console.error("Failed to parse wishlist from local storage", e);
@@ -61,7 +62,7 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
     syncWithDb();
   }, [supabase]);
 
-  const addToWishlist = async (trekId: string) => {
+  const addToWishlist = useCallback(async (trekId: string) => {
     // Optimistic UI
     const newIds = [...new Set([...wishlistIds, trekId])];
     setWishlistIds(newIds);
@@ -77,9 +78,9 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
         localStorage.setItem('tb_wishlist', JSON.stringify(reverted));
       }
     }
-  };
+  }, [wishlistIds, supabase]);
 
-  const removeFromWishlist = async (trekId: string) => {
+  const removeFromWishlist = useCallback(async (trekId: string) => {
     // Optimistic UI
     const previousIds = [...wishlistIds];
     const newIds = wishlistIds.filter(id => id !== trekId);
@@ -95,9 +96,9 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
         localStorage.setItem('tb_wishlist', JSON.stringify(previousIds));
       }
     }
-  };
+  }, [wishlistIds, supabase]);
 
-  const isInWishlist = (trekId: string) => wishlistIds.includes(trekId);
+  const isInWishlist = useCallback((trekId: string) => wishlistIds.includes(trekId), [wishlistIds]);
 
   return (
     <WishlistContext.Provider value={{ wishlistIds, addToWishlist, removeFromWishlist, isInWishlist, isLoading }}>

@@ -12,7 +12,7 @@ export default async function WishlistPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   
-  let wishlistItems: any[] = [];
+  let wishlistItems: Record<string, unknown>[] = [];
   if (user) {
     const { data } = await supabase
       .from('wishlists')
@@ -48,14 +48,14 @@ export default async function WishlistPage() {
               <p className="text-zinc-500 mt-2 mb-8 max-w-sm mx-auto">
                 Explore the marketplace and save treks you love to easily find them later.
               </p>
-              <Link href="/search" className="inline-flex items-center gap-2 bg-tb-primary text-white font-bold py-3 px-8 rounded-2xl hover:bg-tb-primary-hover transition-colors shadow-sm shadow-tb-primary/20">
+              <Link href="/search" className="inline-flex items-center gap-2 bg-tb-primary text-white font-bold py-3 px-8 rounded-full hover:bg-tb-primary-hover transition-colors shadow-sm shadow-tb-primary/20 active:scale-95">
                 <Compass className="w-4 h-4" /> Explore Treks
               </Link>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {wishlistItems.map(pkg => (
-                <MarketplaceCard key={pkg.id} pkg={pkg} />
+                <MarketplaceCard key={pkg.id as string} pkg={pkg} />
               ))}
             </div>
           )}

@@ -28,7 +28,7 @@ export function HeroOmnibox() {
   const [selectedIndex, setSelectedIndex] = useState(-1);
   
   // Data State
-  const [suggestions, setSuggestions] = useState<{ destinations: any[], regions: any[] }>({ destinations: [], regions: [] });
+  const [suggestions, setSuggestions] = useState<{ destinations: {slug: string; name: string; region_name?: string}[], regions: {slug: string; name: string}[] }>({ destinations: [], regions: [] });
   const [isLoading, setIsLoading] = useState(false);
   
   const containerRef = useRef<HTMLDivElement>(null);
@@ -37,6 +37,7 @@ export function HeroOmnibox() {
   // Fetch suggestions with debouncing
   useEffect(() => {
     if (!query.trim()) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSuggestions({ destinations: [], regions: [] });
       return;
     }
@@ -61,6 +62,7 @@ export function HeroOmnibox() {
     const local = localStorage.getItem('tb_recent_searches');
     if (local) {
       try {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setRecentSearches(JSON.parse(local));
       } catch (e) {}
     }
@@ -202,7 +204,7 @@ export function HeroOmnibox() {
           
           <button 
             type="submit" 
-            className="bg-tb-primary hover:bg-tb-primary-hover text-white py-3 px-4 md:p-4 rounded-xl md:rounded-full transition-transform active:scale-95 shadow-md flex items-center justify-center w-full md:w-auto md:ml-4 shrink-0 gap-2"
+            className="bg-tb-primary hover:bg-tb-primary-hover text-white py-3 px-4 md:p-4 rounded-full transition-transform active:scale-95 shadow-md flex items-center justify-center w-full md:w-auto md:ml-4 shrink-0 gap-2"
             aria-label="Search"
           >
             <Search className="w-5 h-5" />

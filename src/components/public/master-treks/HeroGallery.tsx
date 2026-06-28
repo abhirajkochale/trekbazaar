@@ -15,8 +15,8 @@ export function HeroGallery({ masterTrek }: Props) {
   const defaultImage = 'https://images.unsplash.com/photo-1522163182402-834f871fd851?auto=format&fit=crop&q=80&w=2000';
   let rawImages: string[] = [];
   
-  if (Array.isArray(masterTrek.gallery_images) && masterTrek.gallery_images.length > 0) {
-    rawImages = masterTrek.gallery_images;
+  if (Array.isArray(masterTrek.gallery) && masterTrek.gallery.length > 0) {
+    rawImages = masterTrek.gallery;
   } else if (masterTrek.cover_image) {
     rawImages = [masterTrek.cover_image];
   } else {

@@ -47,7 +47,7 @@ export function MobileStickyCTA({ packages }: Props) {
             
             <a 
               href="#operators"
-              className="flex-1 max-w-[200px] h-12 flex items-center justify-center bg-tb-primary active:bg-tb-primary-hover text-white font-bold rounded-xl shadow-md transition-colors"
+              className="flex-1 max-w-[200px] h-12 flex items-center justify-center bg-tb-primary active:bg-tb-primary-hover text-white font-bold rounded-full shadow-md transition-all active:scale-95"
             >
               Compare
             </a>

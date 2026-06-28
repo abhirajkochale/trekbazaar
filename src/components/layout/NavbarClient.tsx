@@ -102,7 +102,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
                 <div className="relative">
                   <button 
                     onClick={() => setIsAvatarDropdownOpen(!isAvatarDropdownOpen)}
-                    className="w-9 h-9 rounded-full bg-tb-primary text-white flex items-center justify-center font-bold text-sm shadow-sm hover:scale-105 transition-transform"
+                    className="w-10 h-10 rounded-full bg-tb-primary text-white flex items-center justify-center font-bold text-sm shadow-sm hover:scale-105 transition-transform"
                   >
                     {user.firstName[0]?.toUpperCase()}
                   </button>

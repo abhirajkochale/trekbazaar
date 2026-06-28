@@ -14,7 +14,7 @@ export default async function CompanyBookingsPage() {
         </div>
       </div>
 
-      <div className="bg-white border border-zinc-200 rounded-xl shadow-sm">
+      <div className="animate-in fade-in slide-in-from-bottom-4 duration-500 delay-150">
         <BookingsClientWrapper initialBookings={bookings} />
       </div>
     </div>

@@ -1,23 +1,19 @@
 import React from "react";
 import { CompanySidebar } from "@/components/company/layout/CompanySidebar";
 import { CompanyNotLinked } from "@/components/company/layout/CompanyNotLinked";
+import { CommandMenu } from "@/components/company/layout/CommandMenu";
 import { logoutCompany } from "@/app/actions/company-auth";
-import { LogOut } from "lucide-react";
+import { LogOut, LayoutDashboard, Map, CalendarDays, BookOpen, Menu } from "lucide-react";
 import Link from "next/link";
 import { getCompanyContext } from "@/lib/company/auth";
 
 export default async function CompanyLayout({ children }: { children: React.ReactNode }) {
   const ctx = await getCompanyContext();
 
-  // Unauthenticated (e.g. the /company/login page). Middleware already
-  // redirects logged-out users away from protected routes, so just render the
-  // page bare without the portal chrome.
   if (ctx.status === "unauthenticated") {
     return <>{children}</>;
   }
 
-  // Authenticated but not cleanly linked to exactly one company: show a clean
-  // explanatory screen instead of an empty dashboard or a raw Supabase error.
   if (ctx.status !== "ok") {
     return <CompanyNotLinked variant={ctx.status} />;
   }
@@ -25,19 +21,21 @@ export default async function CompanyLayout({ children }: { children: React.Reac
   const companyName = ctx.company.name || "Partner Portal";
 
   return (
-    <div className="flex h-screen bg-zinc-50 overflow-hidden">
+    <div className="flex h-[100dvh] bg-white md:bg-zinc-50 overflow-hidden">
       {/* Sidebar */}
-      <div className="w-64 flex-shrink-0 border-r border-zinc-200 bg-white hidden md:block">
+      <div className="w-[260px] flex-shrink-0 border-r border-zinc-200/80 bg-white hidden md:block">
         <CompanySidebar />
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 bg-white rounded-l-none md:rounded-l-2xl md:border-l border-zinc-200/50 md:shadow-[-4px_0_24px_-8px_rgba(0,0,0,0.05)] md:my-2 md:mr-2 overflow-hidden relative">
         {/* Top Header */}
-        <header className="h-16 flex-shrink-0 bg-white border-b border-zinc-200 flex items-center justify-between px-6">
-          <div className="flex items-center gap-4">
-            {/* Mobile menu trigger could go here */}
-            <div className="text-sm font-medium text-zinc-500">
+        <header className="h-14 md:h-16 flex-shrink-0 bg-white/80 backdrop-blur-md border-b border-zinc-100 flex items-center justify-between px-4 md:px-8 z-20">
+          <div className="flex items-center gap-3">
+            <div className="md:hidden w-8 h-8 bg-zinc-900 rounded-lg flex items-center justify-center text-white font-bold shadow-sm">
+              T
+            </div>
+            <div className="text-sm font-bold text-zinc-900 tracking-tight">
               {companyName}
             </div>
           </div>
@@ -45,20 +43,20 @@ export default async function CompanyLayout({ children }: { children: React.Reac
             <Link 
               href="/" 
               target="_blank"
-              className="text-sm font-medium text-zinc-600 hover:text-tb-primary transition-colors flex items-center gap-2"
+              className="text-xs font-bold uppercase tracking-wider text-zinc-500 hover:text-zinc-900 transition-colors hidden sm:flex items-center gap-2"
             >
-              View Website
+              View Storefront
             </Link>
             
-            <div className="h-6 w-px bg-zinc-200" />
+            <div className="hidden sm:block h-4 w-px bg-zinc-200" />
             
             <form action={logoutCompany}>
               <button 
                 type="submit"
-                className="p-2 text-zinc-400 hover:text-red-600 transition-colors rounded-full hover:bg-red-50"
+                className="w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-red-600 transition-colors rounded-full hover:bg-red-50"
                 title="Log out"
               >
-                <LogOut className="w-5 h-5" />
+                <LogOut className="w-4 h-4" />
               </button>
             </form>
           </div>
@@ -66,11 +64,37 @@ export default async function CompanyLayout({ children }: { children: React.Reac
 
         {/* Scrollable Main Area */}
         <main className="flex-1 overflow-y-auto">
-          <div className="p-6 md:p-8">
+          <div className="p-4 md:p-8 pb-24 md:pb-8">
             {children}
           </div>
         </main>
       </div>
+
+      {/* Mobile Bottom Navigation */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-white border-t border-zinc-200 flex items-center justify-around px-2 pb-safe z-30 shadow-[0_-4px_24px_rgba(0,0,0,0.04)]">
+        <Link href="/company" className="flex flex-col items-center gap-1 p-2 text-zinc-500 hover:text-zinc-900 w-16">
+          <LayoutDashboard className="w-5 h-5" />
+          <span className="text-[9px] font-bold uppercase tracking-wider">Home</span>
+        </Link>
+        <Link href="/company/treks" className="flex flex-col items-center gap-1 p-2 text-zinc-500 hover:text-zinc-900 w-16">
+          <Map className="w-5 h-5" />
+          <span className="text-[9px] font-bold uppercase tracking-wider">Treks</span>
+        </Link>
+        <Link href="/company/departures" className="flex flex-col items-center gap-1 p-2 text-zinc-500 hover:text-zinc-900 w-16">
+          <CalendarDays className="w-5 h-5" />
+          <span className="text-[9px] font-bold uppercase tracking-wider">Dates</span>
+        </Link>
+        <Link href="/company/bookings" className="flex flex-col items-center gap-1 p-2 text-zinc-500 hover:text-zinc-900 w-16">
+          <BookOpen className="w-5 h-5" />
+          <span className="text-[9px] font-bold uppercase tracking-wider">Books</span>
+        </Link>
+        <Link href="/company/profile" className="flex flex-col items-center gap-1 p-2 text-zinc-500 hover:text-zinc-900 w-16">
+          <Menu className="w-5 h-5" />
+          <span className="text-[9px] font-bold uppercase tracking-wider">More</span>
+        </Link>
+      </div>
+
+      <CommandMenu />
     </div>
   );
 }

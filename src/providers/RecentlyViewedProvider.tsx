@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
 
 type RecentlyViewedContextType = {
   viewedIds: string[];
@@ -16,6 +16,7 @@ export function RecentlyViewedProvider({ children }: { children: ReactNode }) {
     const local = localStorage.getItem('tb_recently_viewed');
     if (local) {
       try {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setViewedIds(JSON.parse(local));
       } catch (e) {
         console.error("Failed to parse recently viewed", e);
@@ -23,7 +24,7 @@ export function RecentlyViewedProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  const addViewedItem = (id: string) => {
+  const addViewedItem = useCallback((id: string) => {
     setViewedIds(prev => {
       // Remove if it exists to move it to the front
       const filtered = prev.filter(item => item !== id);
@@ -31,7 +32,7 @@ export function RecentlyViewedProvider({ children }: { children: ReactNode }) {
       localStorage.setItem('tb_recently_viewed', JSON.stringify(updated));
       return updated;
     });
-  };
+  }, []);
 
   return (
     <RecentlyViewedContext.Provider value={{ viewedIds, addViewedItem }}>

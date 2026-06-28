@@ -108,7 +108,7 @@ export async function searchMasterTreks(filters: MasterSearchFilters = {}): Prom
     });
 
     if (!rpcError && rpcData) {
-      const matchedIds = rpcData.map((d: any) => d.id);
+      const matchedIds = rpcData.map((d: { id: string }) => d.id);
       if (matchedIds.length === 0) {
         return { masterTreks: [], totalCount: 0, page, hasMore: false };
       }
@@ -194,7 +194,7 @@ export async function searchMasterTreks(filters: MasterSearchFilters = {}): Prom
   const hasMore = from + data.length < totalCount;
 
   // Map the results
-  const mappedData = data.map((d: any) => ({
+  const mappedData = data.map((d: Record<string, unknown>) => ({
     ...d,
     region: { name: d.region_name },
     category: { name: d.category_name },

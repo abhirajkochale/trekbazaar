@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { formatPrice } from '@/lib/format';
 import { difficultyLabel, difficultyBadgeClasses } from '@/lib/format';
 import { Heart, CalendarDays } from 'lucide-react';
+import { useWishlist } from '@/providers/WishlistProvider';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -16,6 +17,7 @@ interface Props {
 export function MasterTrekSearchCard({ masterTrek, className = '' }: Props) {
   const [imgSrc, setImgSrc] = useState(masterTrek.cover_image || 'https://images.unsplash.com/photo-1522163182402-834f871fd851?auto=format&fit=crop&q=80&w=800');
   const stats = masterTrek.aggregated || { lowestPrice: 0, companiesCount: 0, upcomingDeparturesCount: 0 };
+  const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist();
 
   return (
     <Link 
@@ -35,11 +37,18 @@ export function MasterTrekSearchCard({ masterTrek, className = '' }: Props) {
         
         {/* Wishlist Button */}
         <button 
-          onClick={(e) => { e.preventDefault(); /* TODO: Add wishlist logic */ }}
+          onClick={(e) => { 
+            e.preventDefault(); 
+            if (isInWishlist(masterTrek.id)) {
+              removeFromWishlist(masterTrek.id);
+            } else {
+              addToWishlist(masterTrek.id);
+            }
+          }}
           className="absolute top-2 right-2 md:top-3 md:right-3 z-20 text-white drop-shadow-md hover:scale-110 active:scale-95 transition-transform w-11 h-11 flex items-center justify-center rounded-full hover:bg-black/10"
-          aria-label="Add to wishlist"
+          aria-label={isInWishlist(masterTrek.id) ? "Remove from wishlist" : "Add to wishlist"}
         >
-          <Heart className="w-6 h-6 hover:fill-white transition-colors" />
+          <Heart className={`w-6 h-6 hover:fill-white transition-colors ${isInWishlist(masterTrek.id) ? 'fill-white' : ''}`} />
         </button>
         
         {/* Badges on Image */}

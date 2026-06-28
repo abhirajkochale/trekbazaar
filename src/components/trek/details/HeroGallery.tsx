@@ -8,7 +8,7 @@ import { formatPrice, formatDuration, difficultyLabel, difficultyBadgeClasses } 
 import type { Trek } from '@/lib/types';
 
 interface HeroGalleryProps {
-  trek: Trek & { gallery_images?: string[] };
+  trek: Trek & { gallery?: string[] };
 }
 
 export function HeroGallery({ trek }: HeroGalleryProps) {
@@ -16,13 +16,18 @@ export function HeroGallery({ trek }: HeroGalleryProps) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
   // Realistic fallback images if no gallery provided
-  const images = trek.gallery_images?.length ? trek.gallery_images : [
-    trek.cover_image_url || 'https://images.unsplash.com/photo-1522163182402-834f871fd851?auto=format&fit=crop&q=80&w=1920',
-    'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=1920',
-    'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&q=80&w=1920',
-    'https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?auto=format&fit=crop&q=80&w=1920',
-    'https://images.unsplash.com/photo-1516466723877-e4ec1d736c8a?auto=format&fit=crop&q=80&w=1920',
-  ];
+  let images: string[];
+  if (Array.isArray(trek.gallery) && trek.gallery.length > 0) {
+    images = trek.gallery;
+  } else {
+    images = [
+      trek.cover_image_url || 'https://images.unsplash.com/photo-1522163182402-834f871fd851?auto=format&fit=crop&q=80&w=1920',
+      'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=1920',
+      'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&q=80&w=1920',
+      'https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?auto=format&fit=crop&q=80&w=1920',
+      'https://images.unsplash.com/photo-1516466723877-e4ec1d736c8a?auto=format&fit=crop&q=80&w=1920',
+    ];
+  }
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (!lightboxOpen) return;

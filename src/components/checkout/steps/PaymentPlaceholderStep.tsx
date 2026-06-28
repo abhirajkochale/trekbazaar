@@ -95,7 +95,7 @@ export function PaymentPlaceholderStep() {
           id="checkout-submit-btn"
           onClick={handleSimulatePayment}
           disabled={isSubmitting}
-          className="bg-zinc-900 hover:bg-black text-white font-bold py-3 px-8 rounded-xl shadow-lg transition-all active:scale-[0.98] w-full sm:w-auto disabled:opacity-70 flex items-center justify-center gap-2"
+          className="bg-zinc-900 hover:bg-black text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all active:scale-[0.98] w-full sm:w-auto disabled:opacity-70 flex items-center justify-center gap-2"
         >
           {isSubmitting ? (
             <>

@@ -62,7 +62,7 @@ export function TrekEditor({
     operator_name: "",
     operator_contact: "",
     cover_image_url: "",
-    gallery_images: [],
+    gallery: [],
     altitude: "",
     distance: "",
     base_camp: "",
@@ -161,99 +161,159 @@ export function TrekEditor({
     return () => window.removeEventListener('beforeunload', handleBeforeUnload);
   }, [isDirty]);
 
+  const [activeSection, setActiveSection] = useState('basic-info');
+
+  const scrollToSection = (id: string) => {
+    setActiveSection(id);
+    const element = document.getElementById(id);
+    if (element) {
+      const yOffset = -100; // Account for sticky header
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className="max-w-5xl mx-auto space-y-6 pb-24">
-      {/* Sticky Header */}
-      <div className="sticky top-16 z-20 bg-zinc-50/90 backdrop-blur-md py-4 border-b border-zinc-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-4">
-          <Link href={isCompanyPortal ? "/company/treks" : "/admin/treks"} className="p-2 -ml-2 text-zinc-400 hover:text-zinc-900 transition-colors rounded-full hover:bg-zinc-200">
-            <ArrowLeft className="w-5 h-5" />
-          </Link>
-          <div>
-            <h1 className="text-xl font-bold text-zinc-900">
-              {initialTrek ? `Edit: ${initialTrek.title}` : 'Create New Trek'}
-            </h1>
-            <div className="text-xs font-medium flex items-center gap-2 mt-0.5">
-              {isSaving ? (
-                <span className="text-tb-primary">Saving...</span>
-              ) : isDirty ? (
-                <span className="text-amber-600">Unsaved changes</span>
-              ) : lastSaved ? (
-                <span className="text-zinc-500">Last saved at {lastSaved.toLocaleTimeString()}</span>
-              ) : (
-                <span className="text-zinc-500">Draft</span>
-              )}
+    <div className="max-w-7xl mx-auto pb-32 animate-in fade-in duration-500">
+      {/* Premium Sticky Header */}
+      <div className="sticky top-0 z-30 bg-zinc-50/80 backdrop-blur-xl border-b border-zinc-200/80 shadow-sm -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 mb-8 transition-all">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <Link href={isCompanyPortal ? "/company/treks" : "/admin/treks"} className="w-8 h-8 flex items-center justify-center text-zinc-500 hover:text-zinc-900 bg-white border border-zinc-200 rounded-lg hover:bg-zinc-50 transition-colors shadow-sm">
+              <ArrowLeft className="w-4 h-4" />
+            </Link>
+            <div>
+              <h1 className="text-lg font-bold text-zinc-900 tracking-tight leading-none">
+                {initialTrek ? initialTrek.title || 'Untitled Trek' : 'Create New Trek'}
+              </h1>
+              <div className="text-xs font-medium flex items-center gap-2 mt-1">
+                {isSaving ? (
+                  <span className="text-tb-primary flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-tb-primary animate-pulse"></span> Saving...</span>
+                ) : isDirty ? (
+                  <span className="text-amber-600 flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Unsaved changes</span>
+                ) : lastSaved ? (
+                  <span className="text-zinc-500 flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-zinc-300"></span> Saved just now</span>
+                ) : (
+                  <span className="text-zinc-500 flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-zinc-300"></span> Draft</span>
+                )}
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="flex items-center gap-3">
-          {initialTrek?.slug && (
-            <Link 
-              href={`/treks/${initialTrek.slug}`} 
-              target="_blank"
-              className="px-3 py-2 text-sm font-medium text-zinc-700 bg-white border border-zinc-300 rounded-lg hover:bg-zinc-50 transition-colors flex items-center gap-2"
+          <div className="flex items-center gap-3">
+            {initialTrek?.slug && (
+              <Link 
+                href={`/treks/${initialTrek.slug}`} 
+                target="_blank"
+                className="h-9 px-4 text-sm font-bold text-zinc-700 bg-white border border-zinc-200 rounded-lg hover:bg-zinc-50 transition-colors flex items-center gap-2 shadow-sm"
+              >
+                <Eye className="w-4 h-4" />
+                <span className="hidden sm:inline">Preview</span>
+              </Link>
+            )}
+            
+            <button
+              onClick={() => handleSave(true)}
+              disabled={isSaving}
+              className="h-9 px-6 text-sm font-bold text-white bg-zinc-900 rounded-lg hover:bg-zinc-800 transition-colors disabled:opacity-50 flex items-center gap-2 shadow-[0_1px_2px_rgba(0,0,0,0.05)] active:scale-95"
             >
-              <Eye className="w-4 h-4" />
-              <span className="hidden sm:inline">Preview</span>
-            </Link>
-          )}
-          
-          <button
-            onClick={() => handleSave(true)}
-            disabled={isSaving}
-            className="px-4 py-2 text-sm font-medium text-white bg-tb-primary rounded-lg hover:bg-tb-primary/90 transition-colors disabled:opacity-50 flex items-center gap-2 shadow-sm"
-          >
-            <Save className="w-4 h-4" />
-            <span className="hidden sm:inline">{isSaving ? 'Saving...' : 'Save Changes'}</span>
-          </button>
+              <Save className="w-4 h-4" />
+              <span className="hidden sm:inline">{isSaving ? 'Saving...' : 'Save Changes'}</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Editor Layout Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 space-y-6">
-          <AdminCard title="Basic Information">
-            <BasicInfoSection trek={trek} updateField={updateField} companies={companies} masterTreks={masterTreks} isCompanyPortal={isCompanyPortal} />
-          </AdminCard>
-          
-          <AdminCard title="Media & Gallery">
-            <MediaSection trek={trek} updateField={updateField} />
-          </AdminCard>
-
-          <AdminCard title="Itinerary Builder">
-            <ItineraryBuilder trek={trek} updateField={updateField} />
-          </AdminCard>
-
-          <AdminCard title="FAQ Builder">
-            <FAQBuilder trek={trek} updateField={updateField} />
-          </AdminCard>
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        {/* Navigation Sidebar */}
+        <div className="hidden lg:block lg:col-span-1">
+          <nav className="sticky top-32 space-y-1">
+            {[
+              { id: 'basic-info', label: 'Overview' },
+              { id: 'media-gallery', label: 'Media' },
+              { id: 'trek-details', label: 'Trek Details' },
+              { id: 'itinerary', label: 'Itinerary' },
+              { id: 'inclusions', label: 'Inclusions & Exclusions' },
+              { id: 'faqs', label: 'FAQs' },
+              { id: 'seo', label: 'SEO' },
+            ].map(item => (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className={`w-full text-left px-3 py-2 rounded-lg text-sm font-bold transition-colors ${
+                  activeSection === item.id 
+                    ? 'bg-zinc-100 text-zinc-900' 
+                    : 'text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900'
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </nav>
         </div>
 
-        <div className="lg:col-span-1 space-y-6">
-          <AdminCard title="Trek Details">
-            <DetailsSection trek={trek} updateField={updateField} />
-          </AdminCard>
+        {/* Content Area */}
+        <div className="lg:col-span-3 space-y-8">
+          <div id="basic-info" className="scroll-mt-32">
+            <AdminCard title="Overview" description="Basic information about the trek.">
+              <BasicInfoSection trek={trek} updateField={updateField} companies={companies} masterTreks={masterTreks} isCompanyPortal={isCompanyPortal} />
+            </AdminCard>
+          </div>
+          
+          <div id="media-gallery" className="scroll-mt-32">
+            <AdminCard title="Media & Gallery" description="Manage cover image and gallery photos. Drag and drop is supported.">
+              <MediaSection trek={trek} updateField={updateField} />
+            </AdminCard>
+          </div>
 
-          <AdminCard title="Highlights">
-            <DynamicListSection trek={trek} field="highlights" updateField={updateField} placeholder="e.g. Walk on a frozen river" />
-          </AdminCard>
+          <div id="trek-details" className="scroll-mt-32">
+            <AdminCard title="Trek Details" description="Logistics, difficulty, and physical requirements.">
+              <DetailsSection trek={trek} updateField={updateField} />
+            </AdminCard>
+          </div>
 
-          <AdminCard title="What's Included">
-            <DynamicListSection trek={trek} field="included" updateField={updateField} placeholder="e.g. All meals during trek" />
-          </AdminCard>
+          <div id="itinerary" className="scroll-mt-32">
+            <AdminCard title="Itinerary Builder" description="Day by day schedule.">
+              <ItineraryBuilder trek={trek} updateField={updateField} />
+            </AdminCard>
+          </div>
 
-          <AdminCard title="What's Excluded">
-            <DynamicListSection trek={trek} field="excluded" updateField={updateField} placeholder="e.g. Travel insurance" />
-          </AdminCard>
+          <div id="inclusions" className="scroll-mt-32 space-y-6">
+            <AdminCard title="Inclusions & Exclusions" description="What is covered in the price and what is not.">
+              <div className="space-y-6">
+                <div>
+                  <h4 className="text-sm font-bold text-zinc-900 mb-3">Highlights</h4>
+                  <DynamicListSection trek={trek} field="highlights" updateField={updateField} placeholder="e.g. Walk on a frozen river" />
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <h4 className="text-sm font-bold text-zinc-900 mb-3">What&apos;s Included</h4>
+                    <DynamicListSection trek={trek} field="included" updateField={updateField} placeholder="e.g. All meals during trek" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-zinc-900 mb-3">What&apos;s Excluded</h4>
+                    <DynamicListSection trek={trek} field="excluded" updateField={updateField} placeholder="e.g. Travel insurance" />
+                  </div>
+                </div>
+                <div>
+                  <h4 className="text-sm font-bold text-zinc-900 mb-3">Things To Carry</h4>
+                  <DynamicListSection trek={trek} field="things_to_carry" updateField={updateField} placeholder="e.g. Trekking shoes" />
+                </div>
+              </div>
+            </AdminCard>
+          </div>
 
-          <AdminCard title="Things To Carry">
-            <DynamicListSection trek={trek} field="things_to_carry" updateField={updateField} placeholder="e.g. Trekking shoes" />
-          </AdminCard>
+          <div id="faqs" className="scroll-mt-32">
+            <AdminCard title="FAQ Builder" description="Commonly asked questions.">
+              <FAQBuilder trek={trek} updateField={updateField} />
+            </AdminCard>
+          </div>
 
-          <AdminCard title="SEO Configuration">
-            <SEOSection trek={trek} updateField={updateField} />
-          </AdminCard>
+          <div id="seo" className="scroll-mt-32">
+            <AdminCard title="SEO Configuration" description="Optimize for search engines.">
+              <SEOSection trek={trek} updateField={updateField} />
+            </AdminCard>
+          </div>
         </div>
       </div>
     </div>

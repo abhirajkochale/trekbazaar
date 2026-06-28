@@ -66,7 +66,7 @@ export default async function TripsPage() {
 
             <div className="flex flex-row sm:flex-col items-center sm:items-end justify-between sm:justify-start gap-3 sm:gap-2 border-t sm:border-t-0 pt-4 sm:pt-0">
               <div className="text-xl font-black text-zinc-900">{formatPrice(trip.total_amount)}</div>
-              <button className="flex items-center gap-1 text-sm font-semibold text-tb-primary bg-tb-primary/5 hover:bg-tb-primary/10 border border-tb-primary/20 py-2 px-4 rounded-xl transition-colors group-hover:border-tb-primary/40">
+              <button className="flex items-center gap-1 text-sm font-semibold text-tb-primary bg-tb-primary/5 hover:bg-tb-primary/10 border border-tb-primary/20 py-2 px-4 rounded-full transition-colors group-hover:border-tb-primary/40">
                 Details <ChevronRight className="w-3.5 h-3.5" />
               </button>
             </div>
@@ -102,7 +102,7 @@ export default async function TripsPage() {
               <p className="text-zinc-500 mt-2 mb-8 max-w-sm mx-auto">
                 Looks like you haven&apos;t booked anything yet. Find your next adventure!
               </p>
-              <Link href="/search" className="inline-flex items-center gap-2 bg-tb-primary text-white font-bold py-3 px-8 rounded-2xl hover:bg-tb-primary-hover transition-colors shadow-sm shadow-tb-primary/20">
+              <Link href="/search" className="inline-flex items-center gap-2 bg-tb-primary text-white font-bold py-3 px-8 rounded-full hover:bg-tb-primary-hover transition-colors shadow-sm shadow-tb-primary/20 active:scale-95">
                 <Compass className="w-4 h-4" /> Explore Treks
               </Link>
             </div>

@@ -56,7 +56,11 @@ export function MarketplaceCard({ pkg, isSelectedForCompare, onCompareToggle }: 
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
-          isInWishlist(pkg.id) ? removeFromWishlist(pkg.id) : addToWishlist(pkg.id);
+          if (isInWishlist(pkg.id)) {
+            removeFromWishlist(pkg.id);
+          } else {
+            addToWishlist(pkg.id);
+          }
         }}
         className={`absolute top-4 right-4 z-10 w-9 h-9 bg-white/90 backdrop-blur-sm hover:bg-white text-zinc-400 hover:text-red-500 rounded-full flex items-center justify-center shadow-sm border border-zinc-200 transition-colors ${onCompareToggle ? 'mt-4' : ''}`}
         aria-label={isInWishlist(pkg.id) ? "Remove from wishlist" : "Add to wishlist"}

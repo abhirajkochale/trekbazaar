@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useCheckout } from '../CheckoutContext';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 export function TravellerInformationStep() {
   const { step, setStep, formData, setFormData, selectedDeparture } = useCheckout();
@@ -67,9 +68,9 @@ export function TravellerInformationStep() {
         <div className="text-sm text-zinc-700">
           <span className="font-bold text-zinc-900">Have an account?</span> Log in for faster checkout and to save this trip to your portal.
         </div>
-        <a href="/login" className="text-sm font-bold text-tb-primary hover:underline whitespace-nowrap ml-4">
+        <Link href="/login" className="text-sm font-bold text-tb-primary hover:underline whitespace-nowrap ml-4">
           Log In
-        </a>
+        </Link>
       </div>
 
       <div className="space-y-6">
@@ -152,7 +153,7 @@ export function TravellerInformationStep() {
         <button
           id="checkout-submit-btn"
           onClick={handleContinue}
-          className="bg-tb-primary hover:bg-tb-primary-hover text-white font-bold py-3 px-8 rounded-xl shadow-lg shadow-tb-primary/20 transition-all active:scale-[0.98] w-full sm:w-auto"
+          className="bg-tb-primary hover:bg-tb-primary-hover text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-tb-primary/20 transition-all active:scale-[0.98] w-full sm:w-auto"
         >
           Review Booking
         </button>

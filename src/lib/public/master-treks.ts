@@ -42,7 +42,6 @@ export async function getMasterTrekPageData(slug: string) {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const mappedPackages = packages.map((pkg: any) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const validDepartures = (pkg.departures || [])
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .filter((d: any) => d.status === "Upcoming" && new Date(d.departure_date) >= now)

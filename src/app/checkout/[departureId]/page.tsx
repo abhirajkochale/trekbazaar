@@ -72,7 +72,7 @@ export default async function CheckoutPage({ params }: PageProps) {
             <div className="flex-1 w-full max-w-[700px]">
               <CheckoutProgress />
               
-              <div className="mt-8 bg-white rounded-2xl border border-tb-border shadow-tb-subtle overflow-hidden">
+              <div className="mt-8 bg-white rounded-3xl border border-zinc-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden">
                 <DepartureSelectionStep />
                 <TravellerInformationStep />
                 <BookingReviewStep />

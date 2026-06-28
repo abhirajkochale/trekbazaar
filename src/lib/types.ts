@@ -148,7 +148,7 @@ export type Trek = {
   slug: string;
   short_description: string | null;
   description: string;
-  gallery_images: string[];
+  gallery: string[];
   region: string;
   difficulty: Difficulty;
   duration_days: number;

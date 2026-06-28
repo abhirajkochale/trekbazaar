@@ -4,6 +4,7 @@ import React from 'react';
 import { formatPrice } from '@/lib/format';
 import { CalendarDays, MapPin, Mountain, Clock } from 'lucide-react';
 import { difficultyLabel, difficultyBadgeClasses } from '@/lib/format';
+import { useWishlist } from '@/providers/WishlistProvider';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -24,6 +25,7 @@ export function StickySidebar({ masterTrek, packages, allDepartures }: Props) {
 
   const companiesCount = new Set(packages.map(p => p.companies?.id)).size;
   const nextDeparture = allDepartures.length > 0 ? allDepartures[0] : null;
+  const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist();
 
   return (
     <div className="bg-white rounded-3xl border border-zinc-200 p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] sticky top-28">
@@ -95,15 +97,27 @@ export function StickySidebar({ masterTrek, packages, allDepartures }: Props) {
       <div className="space-y-3">
         <a 
           href="#operators"
-          className="w-full h-12 flex items-center justify-center bg-tb-primary hover:bg-tb-primary-hover text-white font-bold rounded-xl transition-all hover:scale-[1.02] active:scale-95 shadow-md"
+          className="w-full h-12 flex items-center justify-center bg-tb-primary hover:bg-tb-primary-hover text-white font-bold rounded-full transition-all active:scale-95 shadow-md"
         >
           Compare Operators
         </a>
         <button 
           type="button"
-          className="w-full h-12 flex items-center justify-center bg-zinc-100 hover:bg-zinc-200 text-zinc-900 font-bold rounded-xl transition-all"
+          onClick={(e) => {
+            e.preventDefault();
+            if (isInWishlist(masterTrek.id)) {
+              removeFromWishlist(masterTrek.id);
+            } else {
+              addToWishlist(masterTrek.id);
+            }
+          }}
+          className={`w-full h-12 flex items-center justify-center font-bold rounded-full transition-all active:scale-95 border ${
+            isInWishlist(masterTrek.id) 
+              ? 'bg-rose-50 text-rose-600 border-rose-200 hover:bg-rose-100' 
+              : 'bg-white text-zinc-900 border-zinc-200 hover:bg-zinc-50'
+          }`}
         >
-          Save to Wishlist
+          {isInWishlist(masterTrek.id) ? 'Saved to Wishlist' : 'Save to Wishlist'}
         </button>
       </div>
 
