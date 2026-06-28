@@ -11,12 +11,14 @@ import {
   Users, 
   Settings,
   Building2,
-  CalendarDays
+  CalendarDays,
+  ShieldCheck
 } from 'lucide-react';
 
 const navItems = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
   { name: 'Companies', href: '/admin/companies', icon: Building2 },
+  { name: 'Partner Applications', href: '/admin/partner-applications', icon: ShieldCheck },
   { name: 'Treks', href: '/admin/treks', icon: Mountain },
   { name: 'Departures', href: '/admin/departures', icon: CalendarDays },
   { name: 'Regions', href: '/admin/regions', icon: Map },

@@ -3,13 +3,14 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, LayoutDashboard, Mountain, Map, MessageSquare, CalendarCheck, Users, Settings, Building2 } from 'lucide-react';
+import { Menu, X, LayoutDashboard, Mountain, Map, MessageSquare, CalendarCheck, Users, Settings, Building2, ShieldCheck } from 'lucide-react';
 
 const navItems = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
   { name: 'Companies', href: '/admin/companies', icon: Building2 },
+  { name: 'Partner Applications', href: '/admin/partner-applications', icon: ShieldCheck },
   { name: 'Treks', href: '/admin/treks', icon: Mountain },
-  { name: 'Departures', href: '/admin/departures', icon: CalendarCheck }, // Using CalendarCheck here as it's already imported
+  { name: 'Departures', href: '/admin/departures', icon: CalendarCheck },
   { name: 'Regions', href: '/admin/regions', icon: Map },
   { name: 'Enquiries', href: '/admin/enquiries', icon: MessageSquare },
   { name: 'Bookings', href: '/admin/bookings', icon: CalendarCheck },
