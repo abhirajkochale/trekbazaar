@@ -2,6 +2,7 @@ import React from 'react';
 import { getMasterTrekPageData } from '@/lib/public/master-treks';
 import { notFound } from 'next/navigation';
 import { HeroGallery } from '@/components/public/master-treks/HeroGallery';
+import { ViewTracker } from '@/components/public/master-treks/ViewTracker';
 import { StickySidebar } from '@/components/public/master-treks/StickySidebar';
 import { MobileStickyCTA } from '@/components/public/master-treks/MobileStickyCTA';
 import { StickyNav } from '@/components/public/master-treks/StickyNav';
@@ -26,6 +27,7 @@ export default async function MasterTrekMarketplacePage({ params }: { params: Pr
 
   return (
     <main className="min-h-screen bg-zinc-50 pb-24 lg:pb-12">
+      <ViewTracker id={data.masterTrek.id} />
       <HeroGallery masterTrek={data.masterTrek} />
       
       {/* Sticky Navigation Tabs */}

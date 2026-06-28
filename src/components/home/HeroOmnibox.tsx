@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import { Search, MapPin, Calendar, Activity, ChevronDown } from 'lucide-react';
+import { Search, MapPin, Calendar, Activity, ChevronDown, Clock, TrendingUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Fuse from 'fuse.js';
 
@@ -26,6 +26,7 @@ export function HeroOmnibox({ masterTreks }: Props) {
   const [query, setQuery] = useState('');
   const [month, setMonth] = useState('Any Month');
   const [difficulty, setDifficulty] = useState('Any');
+  const [recentSearches, setRecentSearches] = useState<string[]>([]);
   
   // UI State
   const [activeDropdown, setActiveDropdown] = useState<'destination' | 'month' | 'difficulty' | null>(null);
@@ -58,8 +59,15 @@ export function HeroOmnibox({ masterTreks }: Props) {
     return results.map(r => r.item);
   }, [query, fuse, masterTreks]);
 
-  // Click outside to close
+  // Click outside to close and load recent searches
   useEffect(() => {
+    const local = localStorage.getItem('tb_recent_searches');
+    if (local) {
+      try {
+        setRecentSearches(JSON.parse(local));
+      } catch (e) {}
+    }
+
     const handleClickOutside = (e: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
         setActiveDropdown(null);
@@ -68,6 +76,13 @@ export function HeroOmnibox({ masterTreks }: Props) {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  const saveRecentSearch = (term: string) => {
+    if (!term.trim()) return;
+    const updated = [term, ...recentSearches.filter(s => s !== term)].slice(0, 5);
+    setRecentSearches(updated);
+    localStorage.setItem('tb_recent_searches', JSON.stringify(updated));
+  };
 
   // Keyboard navigation
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -92,6 +107,9 @@ export function HeroOmnibox({ masterTreks }: Props) {
   };
 
   const handleSuggestionSelect = (slug: string) => {
+    const trek = masterTreks.find(t => t.slug === slug);
+    if (trek) saveRecentSearch(trek.name);
+    
     setActiveDropdown(null);
     router.push(`/master-treks/${slug}`);
   };
@@ -99,6 +117,8 @@ export function HeroOmnibox({ masterTreks }: Props) {
   const submitSearch = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     setActiveDropdown(null);
+    
+    if (query.trim()) saveRecentSearch(query.trim());
     
     const params = new URLSearchParams();
     if (query.trim()) params.set('q', query.trim());
@@ -211,8 +231,26 @@ export function HeroOmnibox({ masterTreks }: Props) {
           >
             <div className="w-12 h-1.5 bg-zinc-200 rounded-full mx-auto mt-3 mb-2 md:hidden" />
             <ul id="destination-listbox" role="listbox" className="py-2 max-h-[60vh] md:max-h-[50vh] overflow-y-auto overscroll-contain pb-safe">
+              {!query.trim() && recentSearches.length > 0 && (
+                <div className="mb-2">
+                  <div className="px-6 py-2 text-[10px] font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5"><Clock className="w-3 h-3" /> Recent Searches</div>
+                  {recentSearches.map((term, idx) => (
+                    <li key={`recent-${idx}`}>
+                      <button
+                        type="button"
+                        onClick={() => { setQuery(term); setActiveDropdown('destination'); }}
+                        className="w-full px-6 py-3 flex items-center gap-3 transition-colors text-left hover:bg-zinc-50"
+                      >
+                        <Clock className="w-4 h-4 text-zinc-300" />
+                        <span className="font-medium text-zinc-700 text-sm">{term}</span>
+                      </button>
+                    </li>
+                  ))}
+                </div>
+              )}
+
               {!query.trim() && (
-                <div className="px-6 py-3 text-xs font-bold text-zinc-400 uppercase tracking-wider">Popular Treks</div>
+                <div className="px-6 py-2 text-[10px] font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5"><TrendingUp className="w-3 h-3" /> Trending Destinations</div>
               )}
               {suggestions.length > 0 ? (
                 suggestions.map((trek, idx) => (
