@@ -66,7 +66,7 @@ export function DeparturesClientList({ departures }: Props) {
               className="w-full pl-9 pr-4 h-10 bg-white border border-zinc-200 rounded-lg text-sm focus:ring-2 focus:ring-tb-primary focus:border-tb-primary transition-shadow outline-none shadow-sm"
             />
           </div>
-          <Link href="/partner/departures/new" className="shrink-0">
+          <Link href="/partner/dashboard/departures/new" className="shrink-0">
             <Button variant="primary" className="gap-2 h-10 shadow-sm">
               <Plus className="w-4 h-4" />
               <span className="hidden sm:inline">Add Departure</span>
@@ -84,7 +84,7 @@ export function DeparturesClientList({ departures }: Props) {
           <p className="text-base text-zinc-500 mb-8 max-w-md mx-auto leading-relaxed">
             Create dates for your treks so customers can start booking them. You can duplicate existing dates easily.
           </p>
-          <Link href="/partner/departures/new">
+          <Link href="/partner/dashboard/departures/new">
             <Button variant="primary" className="gap-2 px-8 h-12 text-base shadow-sm active:scale-95 transition-transform">
               <Plus className="w-5 h-5" />
               Add Your First Departure
@@ -136,7 +136,7 @@ export function DeparturesClientList({ departures }: Props) {
                           </div>
                         </td>
                         <td className="px-6 py-4">
-                          <Link href={`/partner/treks/${dep.trek_id}/edit`} className="font-bold text-sm text-zinc-900 hover:text-tb-primary transition-colors">
+                          <Link href={`/partner/dashboard/treks/${dep.trek_id}/edit`} className="font-bold text-sm text-zinc-900 hover:text-tb-primary transition-colors">
                             {dep.treks?.title}
                           </Link>
                         </td>
@@ -166,10 +166,10 @@ export function DeparturesClientList({ departures }: Props) {
                         </td>
                         <td className="px-6 py-4 text-right">
                           <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <Link href={`/partner/departures/${dep.id}/edit`} className="w-8 h-8 rounded-lg bg-white border border-zinc-200 flex items-center justify-center text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50 shadow-sm transition-all" title="Edit">
+                            <Link href={`/partner/dashboard/departures/${dep.id}/edit`} className="w-8 h-8 rounded-lg bg-white border border-zinc-200 flex items-center justify-center text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50 shadow-sm transition-all" title="Edit">
                               <Edit2 className="w-4 h-4" />
                             </Link>
-                            <Link href={`/partner/departures/new?duplicate=${dep.id}`} className="w-8 h-8 rounded-lg bg-white border border-zinc-200 flex items-center justify-center text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50 shadow-sm transition-all" title="Duplicate">
+                            <Link href={`/partner/dashboard/departures/new?duplicate=${dep.id}`} className="w-8 h-8 rounded-lg bg-white border border-zinc-200 flex items-center justify-center text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50 shadow-sm transition-all" title="Duplicate">
                               <Copy className="w-4 h-4" />
                             </Link>
                           </div>
@@ -234,10 +234,10 @@ export function DeparturesClientList({ departures }: Props) {
                   </div>
 
                   <div className="flex items-center gap-2 mt-1">
-                    <Link href={`/partner/departures/${dep.id}/edit`} className="flex-1 text-center text-xs font-bold text-zinc-700 bg-white border border-zinc-200 hover:bg-zinc-50 px-3 py-2 rounded-lg transition-colors">
+                    <Link href={`/partner/dashboard/departures/${dep.id}/edit`} className="flex-1 text-center text-xs font-bold text-zinc-700 bg-white border border-zinc-200 hover:bg-zinc-50 px-3 py-2 rounded-lg transition-colors">
                       Edit
                     </Link>
-                    <Link href={`/partner/departures/new?duplicate=${dep.id}`} className="flex-1 text-center text-xs font-bold text-zinc-700 bg-white border border-zinc-200 hover:bg-zinc-50 px-3 py-2 rounded-lg transition-colors flex items-center justify-center gap-1">
+                    <Link href={`/partner/dashboard/departures/new?duplicate=${dep.id}`} className="flex-1 text-center text-xs font-bold text-zinc-700 bg-white border border-zinc-200 hover:bg-zinc-50 px-3 py-2 rounded-lg transition-colors flex items-center justify-center gap-1">
                       <Copy className="w-3.5 h-3.5" /> Duplicate
                     </Link>
                   </div>

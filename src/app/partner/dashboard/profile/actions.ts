@@ -7,7 +7,7 @@ import type { Company } from "@/lib/types";
 export async function saveCompanyProfileAction(payload: Partial<Company>) {
   try {
     await updateCompanyProfile(payload);
-    revalidatePath("/partner/profile");
+    revalidatePath("/partner/dashboard/profile");
     revalidatePath("/partner"); // To update the layout header name if changed
     return { success: true };
   } catch (error: unknown) {

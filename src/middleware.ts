@@ -21,17 +21,18 @@ export async function middleware(request: NextRequest) {
 
   const { supabaseResponse, user } = await updateSession(request);
 
-  if (pathname.startsWith("/partner")) {
-    if (pathname === "/partner/login") {
-      if (user) {
-        return NextResponse.redirect(new URL("/partner", request.url));
-      }
-      return supabaseResponse;
-    }
-    
+  if (pathname.startsWith("/partner/dashboard")) {
     if (!user) {
       return NextResponse.redirect(new URL("/partner/login", request.url));
     }
+  }
+
+  // Still handle /partner/login separately
+  if (pathname === "/partner/login") {
+    if (user) {
+      return NextResponse.redirect(new URL("/partner/dashboard", request.url));
+    }
+    return supabaseResponse;
   }
 
   return supabaseResponse;

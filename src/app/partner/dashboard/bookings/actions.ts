@@ -6,7 +6,7 @@ import { updateCompanyBookingStatus } from "@/lib/company/bookings";
 export async function updateBookingStatusAction(id: string, status: string) {
   try {
     await updateCompanyBookingStatus(id, status);
-    revalidatePath("/partner/bookings");
+    revalidatePath("/partner/dashboard/bookings");
     revalidatePath("/partner"); // update dashboard stats
     return { success: true };
   } catch (error: unknown) {

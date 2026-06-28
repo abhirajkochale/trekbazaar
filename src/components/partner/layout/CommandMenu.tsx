@@ -26,13 +26,13 @@ export function CommandMenu() {
   if (!open) return null;
 
   const actions = [
-    { name: "Dashboard Overview", href: "/partner", icon: LayoutDashboard },
-    { name: "Create New Trek", href: "/partner/treks/new", icon: Map },
-    { name: "View All Treks", href: "/partner/treks", icon: Map },
-    { name: "Add Departure", href: "/partner/departures/new", icon: CalendarDays },
-    { name: "View Schedule", href: "/partner/departures", icon: CalendarDays },
-    { name: "Recent Bookings", href: "/partner/bookings", icon: BookOpen },
-    { name: "Company Settings", href: "/partner/profile", icon: Settings },
+    { name: "Dashboard Overview", href: "/partner/dashboard", icon: LayoutDashboard },
+    { name: "Create New Trek", href: "/partner/dashboard/treks/new", icon: Map },
+    { name: "View All Treks", href: "/partner/dashboard/treks", icon: Map },
+    { name: "Add Departure", href: "/partner/dashboard/departures/new", icon: CalendarDays },
+    { name: "View Schedule", href: "/partner/dashboard/departures", icon: CalendarDays },
+    { name: "Recent Bookings", href: "/partner/dashboard/bookings", icon: BookOpen },
+    { name: "Company Settings", href: "/partner/dashboard/profile", icon: Settings },
   ];
 
   const filteredActions = actions.filter((action) =>

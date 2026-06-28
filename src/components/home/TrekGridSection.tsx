@@ -31,18 +31,24 @@ export function TrekGridSection({ title, subtitle, treks }: Props) {
 
         <div className="relative group">
           <div className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth hide-scrollbar gap-4 md:gap-6 pb-8 -mx-4 px-4 scroll-pl-4 md:mx-0 md:px-0 md:scroll-pl-0">
-            {treks.map((trek, idx) => (
-              <motion.div
-                key={trek.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="shrink-0 w-[65vw] sm:w-[45vw] md:w-[30vw] lg:w-[22vw] snap-start snap-always"
-              >
-                <MasterTrekSearchCard masterTrek={trek} className="h-full w-full" />
-              </motion.div>
-            ))}
+            {treks.map((trek, idx) => {
+              const href = trek.company_slug 
+                ? `/company/${trek.company_slug}/${trek.slug}` 
+                : `/master-treks/${trek.slug}`;
+
+              return (
+                <motion.div
+                  key={trek.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
+                  className="shrink-0 w-[65vw] sm:w-[45vw] md:w-[30vw] lg:w-[22vw] snap-start snap-always"
+                >
+                  <MasterTrekSearchCard masterTrek={trek} className="h-full w-full" href={href} />
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </Container>

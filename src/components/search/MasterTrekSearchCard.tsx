@@ -12,16 +12,19 @@ interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   masterTrek: any;
   className?: string;
+  href?: string;
 }
 
-export function MasterTrekSearchCard({ masterTrek, className = '' }: Props) {
+export function MasterTrekSearchCard({ masterTrek, className = '', href }: Props) {
   const [imgSrc, setImgSrc] = useState(masterTrek.cover_image || 'https://images.unsplash.com/photo-1522163182402-834f871fd851?auto=format&fit=crop&q=80&w=800');
   const stats = masterTrek.aggregated || { lowestPrice: 0, companiesCount: 0, upcomingDeparturesCount: 0 };
   const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist();
 
+  const cardHref = href || `/master-treks/${masterTrek.slug}`;
+
   return (
     <Link 
-      href={`/master-treks/${masterTrek.slug}`} 
+      href={cardHref} 
       className={`group flex flex-col overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tb-primary ${className}`}
     >
       {/* 1. Hero Image (Airbnb style square/4:3) */}

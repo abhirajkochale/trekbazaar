@@ -114,7 +114,7 @@ export function DepartureEditor({ initialDeparture, companies, treks, isCompanyP
       {/* Sticky Header */}
       <div className="sticky top-16 z-20 bg-zinc-50/90 backdrop-blur-md py-4 border-b border-zinc-200 flex items-center justify-between gap-4 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-4">
-          <Link href={isCompanyPortal ? "/partner/departures" : "/admin/departures"} className="p-2 -ml-2 text-zinc-400 hover:text-zinc-900 transition-colors rounded-full hover:bg-zinc-200">
+          <Link href={isCompanyPortal ? "/partner/dashboard/departures" : "/admin/departures"} className="p-2 -ml-2 text-zinc-400 hover:text-zinc-900 transition-colors rounded-full hover:bg-zinc-200">
             <ArrowLeft className="w-5 h-5" />
           </Link>
           <div>

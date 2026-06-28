@@ -19,7 +19,7 @@ export async function loginCompany(formData: FormData) {
   }
 
   // Redirect to company portal dashboard
-  redirect("/partner");
+  redirect("/partner/dashboard");
 }
 
 export async function logoutCompany() {

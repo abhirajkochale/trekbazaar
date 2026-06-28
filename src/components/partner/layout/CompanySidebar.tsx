@@ -14,10 +14,10 @@ import {
 } from "lucide-react";
 
 const navItems = [
-  { name: "Overview", href: "/partner", icon: LayoutDashboard },
-  { name: "Treks", href: "/partner/treks", icon: Map },
-  { name: "Departures", href: "/partner/departures", icon: CalendarDays },
-  { name: "Bookings", href: "/partner/bookings", icon: BookOpen },
+  { name: "Overview", href: "/partner/dashboard", icon: LayoutDashboard },
+  { name: "Treks", href: "/partner/dashboard/treks", icon: Map },
+  { name: "Departures", href: "/partner/dashboard/departures", icon: CalendarDays },
+  { name: "Bookings", href: "/partner/dashboard/bookings", icon: BookOpen },
 ];
 
 export function CompanySidebar() {
@@ -35,7 +35,7 @@ export function CompanySidebar() {
     <div className="h-full flex flex-col bg-zinc-50/50">
       {/* Brand */}
       <div className="h-16 flex-shrink-0 flex items-center px-6">
-        <Link href="/partner" className="flex items-center gap-3 text-zinc-900 group">
+        <Link href="/partner/dashboard" className="flex items-center gap-3 text-zinc-900 group">
           <div className="w-8 h-8 bg-zinc-900 rounded-lg flex items-center justify-center text-white font-bold transition-transform group-hover:scale-105 shadow-sm">
             T
           </div>
@@ -63,7 +63,7 @@ export function CompanySidebar() {
           <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">Menu</p>
         </div>
         {navItems.map((item) => {
-          const isActive = pathname === item.href || (item.href !== '/partner' && pathname.startsWith(`${item.href}/`));
+          const isActive = pathname === item.href || (item.href !== '/partner/dashboard' && pathname.startsWith(`${item.href}/`));
           const Icon = item.icon;
           
           return (
@@ -86,14 +86,14 @@ export function CompanySidebar() {
           <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">Settings</p>
         </div>
         <Link
-          href="/partner/profile"
+          href="/partner/dashboard/profile"
           className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-semibold transition-all ${
-            pathname.startsWith('/partner/profile')
+            pathname.startsWith('/partner/dashboard/profile')
               ? 'bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)] text-zinc-900 border border-zinc-200/60' 
               : 'text-zinc-500 hover:bg-white hover:text-zinc-900 border border-transparent'
           }`}
         >
-          <Building2 className={`w-4 h-4 ${pathname.startsWith('/partner/profile') ? 'text-tb-primary' : 'text-zinc-400'}`} />
+          <Building2 className={`w-4 h-4 ${pathname.startsWith('/partner/dashboard/profile') ? 'text-tb-primary' : 'text-zinc-400'}`} />
           Company Profile
         </Link>
       </nav>
