@@ -31,8 +31,19 @@ export function HeroOmnibox() {
   const [suggestions, setSuggestions] = useState<{ destinations: {slug: string; name: string; region_name?: string}[], regions: {slug: string; name: string}[] }>({ destinations: [], regions: [] });
   const [isLoading, setIsLoading] = useState(false);
   
+  const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Lock body scroll when mobile modal is open
+  useEffect(() => {
+    if (isMobileModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [isMobileModalOpen]);
 
   // Fetch suggestions with debouncing
   useEffect(() => {
@@ -136,11 +147,42 @@ export function HeroOmnibox() {
   };
 
   return (
-    <div ref={containerRef} className="relative w-full max-w-4xl mx-auto z-50">
-      <form 
-        onSubmit={submitSearch}
-        className={`bg-white rounded-3xl md:rounded-full flex flex-col md:flex-row items-center shadow-2xl transition-all duration-300 divide-y md:divide-y-0 md:divide-x divide-zinc-200 ${activeDropdown ? 'ring-4 ring-white/20' : 'hover:shadow-tb-medium'}`}
+    <>
+      {/* Mobile Sticky-Style Search Pill */}
+      <button
+        type="button"
+        onClick={() => { setIsMobileModalOpen(true); setTimeout(() => { setActiveDropdown('destination'); inputRef.current?.focus(); }, 100); }}
+        className="md:hidden flex items-center justify-start gap-4 w-[90vw] max-w-[360px] bg-white rounded-full py-3.5 px-6 shadow-2xl mx-auto mb-6 active:scale-95 transition-transform border border-zinc-100"
       >
+        <Search className="w-5 h-5 text-zinc-900 font-bold" strokeWidth={2.5} />
+        <div className="flex flex-col items-start">
+          <span className="text-[15px] font-bold text-zinc-900 leading-tight mb-0.5">Start your search</span>
+          <span className="text-[12px] font-medium text-zinc-500 leading-tight">Anywhere • Any month</span>
+        </div>
+      </button>
+
+      {/* Main Search Interface (Desktop Inline, Mobile Modal) */}
+      <div className={`${isMobileModalOpen ? 'fixed inset-0 z-[100] bg-[#f7f7f7] flex flex-col' : 'hidden md:block'} transition-opacity duration-300`}>
+        
+        {isMobileModalOpen && (
+          <div className="flex items-center justify-start p-4 bg-[#f7f7f7] md:hidden shrink-0">
+            <button 
+              type="button"
+              onClick={() => { setIsMobileModalOpen(false); setActiveDropdown(null); }}
+              className="w-10 h-10 bg-white border border-zinc-200 rounded-full flex items-center justify-center shadow-sm active:scale-95 transition-transform"
+            >
+              <svg className="w-5 h-5 text-zinc-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        )}
+
+        <div ref={containerRef} className={isMobileModalOpen ? 'px-4 relative flex-1 flex flex-col' : 'relative w-full max-w-4xl mx-auto z-50'}>
+          <form 
+            onSubmit={submitSearch}
+            className={`bg-white rounded-3xl md:rounded-full flex flex-col md:flex-row items-center shadow-xl md:shadow-2xl transition-all duration-300 divide-y md:divide-y-0 md:divide-x divide-zinc-200 ${activeDropdown ? 'md:ring-4 md:ring-white/20' : 'md:hover:shadow-tb-medium'}`}
+          >
         {/* 1. Destination Input */}
         <div 
           className={`flex-[1.5] w-full px-6 py-4 md:px-8 md:py-3.5 transition-colors rounded-t-3xl md:rounded-t-none md:rounded-l-full group cursor-text relative text-left bg-transparent hover:bg-zinc-100/50 ${activeDropdown === 'destination' ? 'bg-white shadow-xl z-10 md:rounded-full' : ''}`}
@@ -234,7 +276,7 @@ export function HeroOmnibox() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-x-0 bottom-0 md:absolute md:top-full md:bottom-auto md:left-0 md:mt-4 w-full md:w-[45%] bg-white rounded-t-3xl md:rounded-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.1)] md:shadow-2xl border border-zinc-100 overflow-hidden text-left z-50"
+            className={`fixed inset-x-0 bottom-0 md:absolute md:top-full md:bottom-auto md:left-0 md:mt-4 w-full md:w-[45%] bg-white rounded-t-3xl md:rounded-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.1)] md:shadow-2xl md:border md:border-zinc-100 overflow-hidden text-left ${isMobileModalOpen ? 'z-[110] h-[75vh]' : 'z-50'}`}
           >
             <div className="w-12 h-1.5 bg-zinc-200 rounded-full mx-auto mt-3 mb-2 md:hidden" />
             <ul id="destination-listbox" role="listbox" className="py-2 max-h-[60vh] md:max-h-[50vh] overflow-y-auto overscroll-contain pb-safe">
@@ -332,7 +374,7 @@ export function HeroOmnibox() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-x-0 bottom-0 md:absolute md:top-full md:bottom-auto md:left-[35%] md:mt-4 w-full md:w-[60%] lg:w-64 bg-white rounded-t-3xl md:rounded-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.1)] md:shadow-2xl border border-zinc-100 overflow-hidden text-left z-50"
+            className={`fixed inset-x-0 bottom-0 md:absolute md:top-full md:bottom-auto md:left-[35%] md:mt-4 w-full md:w-[60%] lg:w-64 bg-white rounded-t-3xl md:rounded-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.1)] md:shadow-2xl md:border md:border-zinc-100 overflow-hidden text-left ${isMobileModalOpen ? 'z-[110] h-[65vh]' : 'z-50'}`}
           >
             <div className="w-12 h-1.5 bg-zinc-200 rounded-full mx-auto mt-3 mb-2 md:hidden" />
             <ul className="py-2 max-h-[60vh] md:max-h-[50vh] overflow-y-auto overscroll-contain hide-scrollbar pb-safe">
@@ -358,7 +400,7 @@ export function HeroOmnibox() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-x-0 bottom-0 md:absolute md:top-full md:bottom-auto md:right-0 md:mt-4 w-full md:w-[60%] lg:w-64 bg-white rounded-t-3xl md:rounded-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.1)] md:shadow-2xl border border-zinc-100 overflow-hidden text-left z-50"
+            className={`fixed inset-x-0 bottom-0 md:absolute md:top-full md:bottom-auto md:right-0 md:mt-4 w-full md:w-[60%] lg:w-64 bg-white rounded-t-3xl md:rounded-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.1)] md:shadow-2xl md:border md:border-zinc-100 overflow-hidden text-left ${isMobileModalOpen ? 'z-[110]' : 'z-50'}`}
           >
             <div className="w-12 h-1.5 bg-zinc-200 rounded-full mx-auto mt-3 mb-2 md:hidden" />
             <ul className="py-2 max-h-[60vh] md:max-h-[50vh] overflow-y-auto overscroll-contain hide-scrollbar pb-safe">
@@ -378,6 +420,8 @@ export function HeroOmnibox() {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+        </div>
+      </div>
+    </>
   );
 }

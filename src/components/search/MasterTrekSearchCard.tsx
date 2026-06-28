@@ -25,7 +25,7 @@ export function MasterTrekSearchCard({ masterTrek, className = '' }: Props) {
       className={`group flex flex-col overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tb-primary ${className}`}
     >
       {/* 1. Hero Image (Airbnb style square/4:3) */}
-      <div className="relative aspect-[4/3] w-full bg-zinc-200 overflow-hidden rounded-2xl mb-3 shadow-sm group-hover:shadow-md transition-shadow">
+      <div className="relative aspect-square md:aspect-[4/3] w-full bg-zinc-200 overflow-hidden rounded-2xl mb-3 md:mb-4 shadow-sm group-hover:shadow-md transition-shadow">
         <Image 
           src={imgSrc} 
           alt={`Scenery from ${masterTrek.name}`}
@@ -68,20 +68,20 @@ export function MasterTrekSearchCard({ masterTrek, className = '' }: Props) {
 
       <div className="flex flex-col">
         {/* 2. Destination Name & Location */}
-        <div className="flex items-start justify-between gap-2 mb-1">
-          <h3 className="text-base font-bold text-zinc-900 line-clamp-1 group-hover:text-tb-primary transition-colors">
+        <div className="flex items-start justify-between gap-2 mb-0.5 md:mb-1">
+          <h3 className="text-[15px] md:text-base font-bold text-zinc-900 line-clamp-1 group-hover:text-tb-primary transition-colors leading-tight">
             {masterTrek.name}
           </h3>
-          <div className="flex items-center gap-1 text-sm font-medium text-zinc-900 shrink-0">
+          <div className="flex items-center gap-1 text-[13px] md:text-sm font-medium text-zinc-900 shrink-0">
             ★ <span className="font-semibold">4.8</span>
           </div>
         </div>
         
-        <p className="text-sm text-zinc-500 line-clamp-1 mb-1">
+        <p className="text-[13px] md:text-sm text-zinc-500 line-clamp-1 mb-0.5 md:mb-1">
           {masterTrek.region?.name || 'Himalayas, India'} • {masterTrek.duration_min === masterTrek.duration_max ? `${masterTrek.duration_min} Days` : `${masterTrek.duration_min}-${masterTrek.duration_max} Days`}
         </p>
         
-        <div className="flex items-center gap-4 text-sm text-zinc-500 mb-2">
+        <div className="flex items-center gap-3 md:gap-4 text-[13px] md:text-sm text-zinc-500 mb-1.5 md:mb-2">
           <span>{stats.companiesCount} verified operators</span>
           {stats.upcomingDeparturesCount > 0 && (
             <span className="flex items-center gap-1">
@@ -92,14 +92,14 @@ export function MasterTrekSearchCard({ masterTrek, className = '' }: Props) {
         </div>
 
         {/* 5. Starting Price */}
-        <div className="mt-1 flex items-baseline gap-1">
+        <div className="mt-0.5 md:mt-1 flex items-baseline gap-1">
           {stats.lowestPrice > 0 ? (
             <>
-              <span className="text-base font-bold text-zinc-900">{formatPrice(stats.lowestPrice)}</span>
-              <span className="text-sm text-zinc-500">onwards</span>
+              <span className="text-[15px] md:text-base font-bold text-zinc-900">{formatPrice(stats.lowestPrice)}</span>
+              <span className="text-[13px] md:text-sm text-zinc-500">onwards</span>
             </>
           ) : (
-            <span className="text-sm font-medium text-zinc-500">Price not available</span>
+            <span className="text-[13px] md:text-sm font-medium text-zinc-500">Price not available</span>
           )}
         </div>
       </div>

@@ -38,7 +38,7 @@ export function TrekGridSection({ title, subtitle, treks }: Props) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="shrink-0 w-[80vw] sm:w-[45vw] md:w-[30vw] lg:w-[22vw] snap-start snap-always"
+                className="shrink-0 w-[65vw] sm:w-[45vw] md:w-[30vw] lg:w-[22vw] snap-start snap-always"
               >
                 <MasterTrekSearchCard masterTrek={trek} className="h-full w-full" />
               </motion.div>
