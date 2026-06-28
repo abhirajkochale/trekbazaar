@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Container } from '../layout/Container';
@@ -8,7 +8,6 @@ import { motion } from 'framer-motion';
 import { HeroOmnibox } from './HeroOmnibox';
 
 export function HeroSection() {
-  const [activeTab, setActiveTab] = useState<'search' | 'experiences'>('search');
 
   return (
     <section className="relative z-[45] w-full min-h-[65vh] md:min-h-[90vh] flex items-center justify-center bg-black">
@@ -36,22 +35,7 @@ export function HeroSection() {
 
       {/* Content */}
       <Container className="relative z-10 w-full pt-32 pb-20 flex flex-col items-center">
-        
-        {/* Toggle (Stays vs Experiences style) */}
-        <div className="flex items-center gap-6 mb-8 text-white/90 font-medium">
-          <button 
-            onClick={() => setActiveTab('search')}
-            className={`pb-2 border-b-2 transition-colors ${activeTab === 'search' ? 'border-white text-white' : 'border-transparent hover:text-white hover:border-white/50'}`}
-          >
-            Find a Trek
-          </button>
-          <button 
-            onClick={() => setActiveTab('experiences')}
-            className={`pb-2 border-b-2 transition-colors ${activeTab === 'experiences' ? 'border-white text-white' : 'border-transparent hover:text-white hover:border-white/50'}`}
-          >
-            Custom Groups
-          </button>
-        </div>
+
 
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
