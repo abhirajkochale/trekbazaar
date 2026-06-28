@@ -324,7 +324,6 @@ export function MarketplaceSection({ packages }: Props) {
           </motion.div>
         )}
       </div>
-      </div>
 
       {/* Compare Floating Action Bar */}
       <AnimatePresence>
