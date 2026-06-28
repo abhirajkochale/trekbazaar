@@ -19,7 +19,7 @@ export default async function Home() {
   const { data: verifiedOperators } = await supabase
     .from("companies")
     .select("*")
-    .eq("approval_status", "verified")
+    .eq("approval_status", "approved")
     .limit(4);
 
   // Fetch a minimal set of treks (we significantly reduced the amount of data needed on the homepage)
