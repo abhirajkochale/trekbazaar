@@ -303,13 +303,13 @@ export function MarketplaceSection({ packages }: Props) {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="py-20 text-center bg-white rounded-2xl border border-zinc-200 shadow-sm"
+            className="py-24 text-center bg-white rounded-3xl border border-zinc-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
           >
-            <div className="w-16 h-16 bg-zinc-50 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-20 h-20 bg-zinc-50 rounded-full flex items-center justify-center mx-auto mb-6 border border-zinc-100/60 shadow-sm">
               <Filter className="w-8 h-8 text-zinc-300" />
             </div>
-            <h3 className="text-lg font-bold text-zinc-900 mb-2">No packages found</h3>
-            <p className="text-zinc-500">Try adjusting your filters to see more results.</p>
+            <h3 className="text-2xl font-bold text-zinc-900 mb-2 tracking-tight">No packages found</h3>
+            <p className="text-zinc-500 font-medium">Try adjusting your filters to see more results.</p>
             <button
               onClick={() => {
                 setDifficultyFilter("all");
@@ -317,7 +317,7 @@ export function MarketplaceSection({ packages }: Props) {
                 setPriceFilter("all");
                 setDurationFilter("all");
               }}
-              className="mt-6 text-tb-primary font-medium hover:underline"
+              className="mt-6 text-tb-primary font-bold hover:underline"
             >
               Clear all filters
             </button>

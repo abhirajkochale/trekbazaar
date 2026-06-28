@@ -66,8 +66,8 @@ export function QuickFacts({ masterTrek }: Props) {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
       {facts.map((fact, idx) => (
-        <div key={idx} className="bg-white rounded-2xl p-5 border border-zinc-100 shadow-sm flex flex-col items-start gap-3 hover:shadow-md transition-shadow">
-          <div className={`w-10 h-10 rounded-full flex items-center justify-center ${fact.bg}`}>
+        <div key={idx} className="bg-white rounded-3xl p-6 border border-zinc-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] flex flex-col items-start gap-4 hover:shadow-xl hover:shadow-black/5 hover:-translate-y-1 transition-all">
+          <div className={`w-12 h-12 rounded-full flex items-center justify-center ${fact.bg}`}>
             <fact.icon className={`w-5 h-5 ${fact.color}`} />
           </div>
           <div>

@@ -60,7 +60,7 @@ export function HeroSection() {
           className="text-center w-full max-w-4xl px-4 md:px-0"
         >
           {/* Main Headline */}
-          <h1 className="text-display text-white mb-4 md:mb-6 drop-shadow-lg">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white mb-4 md:mb-6 drop-shadow-lg">
             Find your next <br className="hidden md:block" />
             <span className="text-white/90">Himalayan adventure.</span>
           </h1>
@@ -76,11 +76,11 @@ export function HeroSection() {
           {/* Quick Links / Filter Chips */}
           <div className="mt-8 flex overflow-x-auto snap-x hide-scrollbar whitespace-nowrap items-center justify-start md:justify-center gap-3 text-sm font-medium text-white/80 pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 w-[100vw] md:w-auto relative left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0">
             <span className="opacity-70 uppercase tracking-widest text-xs mr-2 shrink-0 snap-start">Quick Filters</span>
-            <Link href="/search?difficulty=Easy" className="shrink-0 snap-start bg-black/20 hover:bg-white/20 backdrop-blur-sm border border-white/20 px-4 py-1.5 rounded-full transition-colors">Easy</Link>
-            <Link href="/search?season=Winter" className="shrink-0 snap-start bg-black/20 hover:bg-white/20 backdrop-blur-sm border border-white/20 px-4 py-1.5 rounded-full transition-colors">Winter</Link>
-            <Link href="/search?maxPrice=10000" className="shrink-0 snap-start bg-black/20 hover:bg-white/20 backdrop-blur-sm border border-white/20 px-4 py-1.5 rounded-full transition-colors">Under ₹10000</Link>
-            <Link href="/search?category=weekend-treks" className="shrink-0 snap-start bg-black/20 hover:bg-white/20 backdrop-blur-sm border border-white/20 px-4 py-1.5 rounded-full transition-colors">Weekend</Link>
-            <Link href="/search?category=high-altitude" className="shrink-0 snap-start bg-black/20 hover:bg-white/20 backdrop-blur-sm border border-white/20 px-4 py-1.5 rounded-full transition-colors">High Altitude</Link>
+            <Link href="/search?difficulty=Easy" className="shrink-0 snap-start bg-black/20 hover:bg-white/20 backdrop-blur-sm border border-white/20 px-4 py-1.5 rounded-full transition-all active:scale-95">Easy</Link>
+            <Link href="/search?season=Winter" className="shrink-0 snap-start bg-black/20 hover:bg-white/20 backdrop-blur-sm border border-white/20 px-4 py-1.5 rounded-full transition-all active:scale-95">Winter</Link>
+            <Link href="/search?maxPrice=10000" className="shrink-0 snap-start bg-black/20 hover:bg-white/20 backdrop-blur-sm border border-white/20 px-4 py-1.5 rounded-full transition-all active:scale-95">Under ₹10000</Link>
+            <Link href="/search?category=weekend-treks" className="shrink-0 snap-start bg-black/20 hover:bg-white/20 backdrop-blur-sm border border-white/20 px-4 py-1.5 rounded-full transition-all active:scale-95">Weekend</Link>
+            <Link href="/search?category=high-altitude" className="shrink-0 snap-start bg-black/20 hover:bg-white/20 backdrop-blur-sm border border-white/20 px-4 py-1.5 rounded-full transition-all active:scale-95">High Altitude</Link>
           </div>
         </motion.div>
       </Container>

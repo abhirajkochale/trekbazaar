@@ -28,7 +28,7 @@ export function QuickFilters() {
             >
               <Link 
                 href={filter.url}
-                className="whitespace-nowrap px-4 py-2 rounded-full border border-zinc-200 text-sm font-semibold text-zinc-700 bg-zinc-50 hover:bg-white hover:border-tb-primary hover:text-tb-primary hover:shadow-sm transition-all block"
+                className="whitespace-nowrap px-4 py-2 rounded-full border border-zinc-200 text-sm font-semibold text-zinc-700 bg-zinc-50 hover:bg-white hover:border-tb-primary hover:text-tb-primary hover:shadow-sm transition-all active:scale-95 block"
               >
                 {filter.name}
               </Link>
