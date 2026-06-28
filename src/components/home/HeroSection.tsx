@@ -11,7 +11,7 @@ export function HeroSection() {
   const [activeTab, setActiveTab] = useState<'search' | 'experiences'>('search');
 
   return (
-    <section className="relative w-full min-h-[65vh] md:min-h-[90vh] flex items-center justify-center bg-black">
+    <section className="relative z-[45] w-full min-h-[65vh] md:min-h-[90vh] flex items-center justify-center bg-black">
       {/* Background Image Wrapper to prevent scrollbars while allowing dropdown to overflow section */}
       <div className="absolute inset-0 overflow-hidden z-0 pointer-events-none">
         <motion.div 
