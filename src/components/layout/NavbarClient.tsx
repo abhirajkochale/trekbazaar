@@ -48,14 +48,15 @@ export function NavbarClient({ user }: NavbarClientProps) {
   ];
 
   return (
-    <header 
-      className={`fixed top-0 z-50 w-full transition-all duration-500 ${
-        scrolled 
-          ? 'bg-white/95 backdrop-blur-md border-b border-tb-border shadow-tb-subtle py-2' 
-          : 'bg-transparent border-transparent py-4'
-      }`}
-    >
-      <Container>
+    <>
+      <header 
+        className={`fixed top-0 z-50 w-full transition-all duration-500 ${
+          scrolled 
+            ? 'bg-white/95 backdrop-blur-md border-b border-tb-border shadow-tb-subtle py-2' 
+            : 'bg-transparent border-transparent py-4'
+        }`}
+      >
+        <Container>
         <div className="flex h-12 md:h-14 items-center justify-between">
           <div className="flex items-center gap-10">
             <Link 
@@ -191,6 +192,8 @@ export function NavbarClient({ user }: NavbarClientProps) {
         </div>
       </Container>
 
+      </header>
+
       {/* Mobile Menu Side Drawer */}
       {isMobileMenuOpen && (
         <div className="md:hidden fixed inset-0 z-[100]">
@@ -229,7 +232,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
               {user ? (
                 <div className="pt-6 mt-6 border-t border-zinc-100 flex flex-col space-y-2">
                   <div className="flex items-center gap-3 py-2 mb-2">
-                    <div className="w-10 h-10 rounded-full bg-tb-primary text-white flex items-center justify-center font-bold">
+                     <div className="w-10 h-10 rounded-full bg-tb-primary text-white flex items-center justify-center font-bold text-sm shadow-sm">
                       {user.firstName[0]?.toUpperCase()}
                     </div>
                     <div>
@@ -279,6 +282,6 @@ export function NavbarClient({ user }: NavbarClientProps) {
           </div>
         </div>
       )}
-    </header>
+    </>
   );
 }

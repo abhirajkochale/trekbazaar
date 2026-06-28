@@ -30,7 +30,7 @@ export function TrekGridSection({ title, subtitle, treks }: Props) {
         </div>
 
         <div className="relative group">
-          <div className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth hide-scrollbar gap-4 md:gap-6 pb-8 -mx-4 px-4 md:mx-0 md:px-0">
+          <div className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth hide-scrollbar gap-4 md:gap-6 pb-8 -mx-4 px-4 scroll-pl-4 md:mx-0 md:px-0 md:scroll-pl-0">
             {treks.map((trek, idx) => (
               <motion.div
                 key={trek.id}

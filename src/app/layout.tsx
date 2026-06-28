@@ -69,7 +69,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col overflow-x-hidden">
         {/* Analytics Foundation */}
         {process.env.NEXT_PUBLIC_GA_ID && (
           <>
