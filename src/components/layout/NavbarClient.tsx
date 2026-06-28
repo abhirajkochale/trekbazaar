@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Container } from './Container';
 import { Heart, Bell, User, LogOut, Compass, Settings, HelpCircle } from 'lucide-react';
 import { logoutAction } from '@/app/actions/auth';
@@ -18,9 +19,14 @@ interface NavbarClientProps {
 
 export function NavbarClient({ user }: NavbarClientProps) {
   const { wishlistIds } = useWishlist();
+  const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isAvatarDropdownOpen, setIsAvatarDropdownOpen] = useState(false);
+
+  // Determine if this page should have a transparent navbar initially
+  const isHeroPage = pathname === '/' || pathname?.startsWith('/master-treks/');
+  const isSolid = !isHeroPage || scrolled;
 
   // Handle scroll effect
   useEffect(() => {
@@ -51,7 +57,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
     <>
       <header 
         className={`fixed top-0 z-50 w-full transition-all duration-500 ${
-          scrolled 
+          isSolid 
             ? 'bg-white/95 backdrop-blur-md border-b border-tb-border shadow-tb-subtle py-2' 
             : 'bg-transparent border-transparent py-4'
         }`}
@@ -62,7 +68,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
             <Link 
               href="/" 
               className={`text-2xl font-bold tracking-tight transition-colors duration-300 ${
-                scrolled ? 'text-tb-text-primary' : 'text-white drop-shadow-md'
+                isSolid ? 'text-tb-text-primary' : 'text-white drop-shadow-md'
               }`}
             >
               TrekBazaar.
@@ -74,7 +80,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
                   key={link.name} 
                   href={link.href}
                   className={`text-sm font-medium transition-colors duration-300 ${
-                    scrolled 
+                    isSolid 
                       ? 'text-tb-text-secondary hover:text-tb-primary' 
                       : 'text-white/80 hover:text-white drop-shadow-sm'
                   }`}
@@ -88,7 +94,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
           <div className="hidden md:flex items-center gap-4">
             {user ? (
               <div className="flex items-center gap-5">
-                <Link href="/account/wishlist" className={`relative transition-colors hover:text-tb-primary ${scrolled ? 'text-zinc-600' : 'text-white'}`}>
+                <Link href="/account/wishlist" className={`relative transition-colors hover:text-tb-primary ${isSolid ? 'text-zinc-600' : 'text-white'}`}>
                   <Heart className="w-5 h-5" />
                   {wishlistIds.length > 0 && (
                     <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center border border-white">
@@ -96,7 +102,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
                     </span>
                   )}
                 </Link>
-                <button className={`relative transition-colors hover:text-tb-primary ${scrolled ? 'text-zinc-600' : 'text-white'}`}>
+                <button className={`relative transition-colors hover:text-tb-primary ${isSolid ? 'text-zinc-600' : 'text-white'}`}>
                   <Bell className="w-5 h-5" />
                   <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full border border-white"></span>
                 </button>
@@ -155,7 +161,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
                 <Link 
                   href="/login"
                   className={`text-sm font-bold transition-colors duration-300 ${
-                    scrolled 
+                    isSolid 
                       ? 'text-tb-text-secondary hover:text-tb-primary' 
                       : 'text-white/80 hover:text-white drop-shadow-sm'
                   }`}
@@ -165,7 +171,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
                 <Link 
                   href="/signup"
                   className={`text-sm font-bold px-5 py-2 rounded-full transition-colors duration-300 shadow-sm ${
-                    scrolled 
+                    isSolid 
                       ? 'bg-tb-primary text-white hover:bg-tb-primary-hover' 
                       : 'bg-white text-tb-primary hover:bg-zinc-100'
                   }`}
@@ -180,7 +186,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
           <button 
             type="button"
             className={`md:hidden flex items-center justify-center w-11 h-11 transition-colors duration-300 ${
-              scrolled ? 'text-tb-text-primary hover:bg-zinc-100' : 'text-white hover:bg-white/10'
+              isSolid ? 'text-tb-text-primary hover:bg-zinc-100' : 'text-white hover:bg-white/10'
             } rounded-full`}
             onClick={() => setIsMobileMenuOpen(true)}
             aria-label="Open menu"
