@@ -38,10 +38,10 @@ export function CTASection() {
           className="max-w-3xl mx-auto"
         >
           <h2 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-6 leading-tight">
-            Ready for the ascent?
+            Find the perfect operator.
           </h2>
           <p className="text-xl text-white/80 mb-12 max-w-2xl mx-auto font-medium">
-            Join thousands of trekkers who have found their perfect Himalayan adventure through TrekBazaar. Your next great story starts here.
+            Join thousands of trekkers who use India&apos;s leading trekking marketplace to compare operators, find the best prices, and book their Himalayan adventures.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link 

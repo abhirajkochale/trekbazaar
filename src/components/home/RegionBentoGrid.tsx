@@ -47,7 +47,7 @@ export function RegionBentoGrid() {
               Explore by Region
             </h2>
             <p className="text-lg text-zinc-500 font-medium">
-              Discover the most breathtaking terrains across the Himalayas.
+              Find and compare treks across the most breathtaking terrains in the Himalayas.
             </p>
           </div>
           <Link 

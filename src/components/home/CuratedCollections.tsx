@@ -39,10 +39,10 @@ export function CuratedCollections() {
       <Container>
         <div className="max-w-2xl mb-12 md:mb-16">
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-zinc-900 mb-4">
-            Curated Experiences
+            Discover by Category
           </h2>
           <p className="text-lg text-zinc-500 font-medium">
-            Handpicked collections for every type of adventurer.
+            Browse aggregated itineraries from dozens of verified operators.
           </p>
         </div>
 

@@ -8,19 +8,19 @@ import { motion } from 'framer-motion';
 export function ValuePropSection() {
   const steps = [
     {
-      icon: <Compass className="w-8 h-8 text-tb-primary" strokeWidth={1.5} />,
-      title: "Discover",
-      description: "Explore 50+ curated Himalayan treks and hidden gems.",
+      icon: <ShieldCheck className="w-8 h-8 text-tb-primary" strokeWidth={1.5} />,
+      title: "Verified Companies",
+      description: "We handpick and verify every trekking operator before they can list on TrekBazaar, ensuring your safety.",
     },
     {
-      icon: <ShieldCheck className="w-8 h-8 text-tb-primary" strokeWidth={1.5} />,
-      title: "Compare",
-      description: "Compare itineraries, reviews, and prices from 20+ verified operators.",
+      icon: <Compass className="w-8 h-8 text-tb-primary" strokeWidth={1.5} />,
+      title: "Compare Operators",
+      description: "Don't settle for the first quote. Compare prices, itineraries, and reviews across multiple operators for the same trek.",
     },
     {
       icon: <CreditCard className="w-8 h-8 text-tb-primary" strokeWidth={1.5} />,
-      title: "Book Securely",
-      description: "Book instantly with our lowest price guarantee and 24/7 support.",
+      title: "Lowest Available Price",
+      description: "Book directly with operators at their lowest available prices, secured instantly by our payment platform.",
     }
   ];
 
@@ -34,7 +34,7 @@ export function ValuePropSection() {
             viewport={{ once: true }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-zinc-900 mb-6 leading-tight"
           >
-            The smartest way to book <br className="hidden md:block" /> your next adventure.
+            India&apos;s marketplace for <br className="hidden md:block" /> Himalayan trekking.
           </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}

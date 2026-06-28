@@ -20,10 +20,10 @@ export function TrustedOperators({ companies }: Props) {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-16 gap-4">
           <div className="max-w-2xl">
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-zinc-900 mb-4">
-              Trusted Partners
+              Our Operator Network
             </h2>
             <p className="text-lg text-zinc-500 font-medium">
-              We exclusively work with vetted, highly-rated trekking operators.
+              We connect you exclusively with verified, highly-rated trekking companies.
             </p>
           </div>
         </div>

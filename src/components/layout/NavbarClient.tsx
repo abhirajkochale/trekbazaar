@@ -42,7 +42,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
   }, [isMobileMenuOpen]);
 
   const navLinks = [
-    { name: 'Explore Treks', href: '#featured-treks' },
+    { name: 'Compare Treks', href: '#featured-treks' },
     { name: 'Regions', href: '#featured-regions' },
     { name: 'About', href: '#why-choose-us' },
   ];

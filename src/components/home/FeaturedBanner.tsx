@@ -43,13 +43,13 @@ export function FeaturedBanner() {
             Winter <br className="hidden md:block"/> Expeditions.
           </h2>
           <p className="text-xl md:text-3xl text-white/90 font-medium max-w-2xl mb-10 leading-snug drop-shadow-md">
-            Experience the raw beauty of the Himalayas under snow. Handpicked high-altitude challenges.
+            Compare winter itineraries and secure your spot with the most trusted Himalayan operators.
           </p>
           <Link 
             href="/search?season=Winter"
             className="inline-flex items-center justify-center px-10 py-5 bg-white text-zinc-900 text-lg font-bold rounded-full hover:bg-zinc-100 hover:scale-105 active:scale-95 transition-all shadow-xl"
           >
-            Explore Winter Treks
+            Compare Winter Treks
           </Link>
         </motion.div>
       </div>

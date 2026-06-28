@@ -198,7 +198,7 @@ export function HeroOmnibox() {
             ref={inputRef}
             id="hero-destination"
             type="text" 
-            placeholder="Search treks, regions..."
+            placeholder="Search treks or operators..."
             value={query}
             onChange={(e) => {
               setQuery(e.target.value);

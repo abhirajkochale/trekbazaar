@@ -61,13 +61,13 @@ export function HeroSection() {
         >
           {/* Main Headline */}
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white mb-4 md:mb-6 drop-shadow-lg">
-            Find your next <br className="hidden md:block" />
-            <span className="text-white/90">Himalayan adventure.</span>
+            One adventure. <br className="hidden md:block" />
+            <span className="text-white/90">Multiple operators.</span>
           </h1>
           
           {/* Subheading */}
           <p className="text-base md:text-xl text-white/90 mb-8 md:mb-10 max-w-2xl mx-auto font-medium drop-shadow-md">
-            Compare verified operators, find the best prices, and book your departure in minutes.
+            Compare prices, reviews, and itineraries from verified trekking companies across the Himalayas.
           </p>
 
           {/* Airbnb-style Omnibox */}

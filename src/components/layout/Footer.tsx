@@ -12,8 +12,8 @@ export function Footer() {
               TrekBazaar.
             </Link>
             <p className="text-tb-text-secondary text-sm">
-              Discover handpicked Himalayan treks from trusted operators. 
-              Compare regions, difficulty and price in one place.
+              India&apos;s marketplace for Himalayan trekking. 
+              Connecting trekkers with verified operators to compare itineraries and book securely.
             </p>
           </div>
           
