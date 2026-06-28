@@ -4,8 +4,9 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { formatPrice, formatDuration } from '@/lib/format';
-import { Calendar, MapPin, Users, ShieldCheck, CheckCircle2, Navigation, Coffee, Star, Clock } from 'lucide-react';
+import { Calendar, MapPin, Users, ShieldCheck, CheckCircle2, Navigation, Coffee, Star, Clock, Heart } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useWishlist } from '@/providers/WishlistProvider';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -13,6 +14,7 @@ interface Props {
 }
 
 export function MarketplaceCard({ pkg }: Props) {
+  const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist();
   const company = pkg.companies;
   const departures = pkg.departures || [];
   const earliestDeparture = departures[0];
@@ -47,6 +49,17 @@ export function MarketplaceCard({ pkg }: Props) {
           Featured Partner
         </div>
       )}
+
+      <button 
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          isInWishlist(pkg.id) ? removeFromWishlist(pkg.id) : addToWishlist(pkg.id);
+        }}
+        className="absolute top-4 right-4 z-10 w-9 h-9 bg-white/90 backdrop-blur-sm hover:bg-white text-zinc-400 hover:text-red-500 rounded-full flex items-center justify-center shadow-sm border border-zinc-200 transition-colors"
+      >
+        <Heart className={`w-4 h-4 ${isInWishlist(pkg.id) ? 'fill-red-500 text-red-500' : ''}`} />
+      </button>
 
       {/* Left: Company & Basic Info */}
       <div className="p-6 md:p-8 flex-1 flex flex-col pt-10 md:pt-8">

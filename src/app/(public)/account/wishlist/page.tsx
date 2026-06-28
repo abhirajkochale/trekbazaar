@@ -2,22 +2,27 @@ import React from 'react';
 import { Heart, Compass } from 'lucide-react';
 import Link from 'next/link';
 import { Container } from '@/components/layout/Container';
-// import { createClient } from '@/lib/supabase/server';
-// import { MarketplaceCard } from '@/components/public/master-treks/MarketplaceCard';
+import { createClient } from '@/lib/supabase/server';
+import { MarketplaceCard } from '@/components/public/master-treks/MarketplaceCard';
 
 export const metadata = { title: 'Wishlist — TrekBazaar' };
 
 export default async function WishlistPage() {
   // In a full implementation, we query the `wishlists` relational table
-  // const supabase = await createClient();
-  // const { data: { user } } = await supabase.auth.getUser();
-  // const { data: wishlistItems } = await supabase
-  //   .from('wishlists')
-  //   .select('*, treks(*)')
-  //   .eq('customer_id', user?.id);
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const wishlistItems: any[] = []; // Empty for MVP UI showcase
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  
+  let wishlistItems: any[] = [];
+  if (user) {
+    const { data } = await supabase
+      .from('wishlists')
+      .select('*, treks(*, companies(*), departures(*))')
+      .eq('customer_id', user.id);
+    
+    if (data) {
+      wishlistItems = data.map(item => item.treks).filter(Boolean);
+    }
+  }
 
   return (
     <div className="min-h-screen bg-zinc-50">
@@ -49,7 +54,9 @@ export default async function WishlistPage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {/* Wishlist rendering logic goes here. Relies on the same MarketplaceCard for UX consistency. */}
+              {wishlistItems.map(pkg => (
+                <MarketplaceCard key={pkg.id} pkg={pkg} />
+              ))}
             </div>
           )}
         </div>
