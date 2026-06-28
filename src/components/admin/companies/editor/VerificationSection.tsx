@@ -17,13 +17,15 @@ export function VerificationSection({ company, updateField }: Props) {
       <div>
         <label className={labelClasses}>Verification Status</label>
         <select
-          value={company.verification_status || 'pending'}
-          onChange={(e) => updateField('verification_status', e.target.value as Company['verification_status'])}
+          value={company.approval_status || 'pending'}
+          onChange={(e) => updateField('approval_status', e.target.value as Company['approval_status'])}
           className={inputClasses}
         >
-          <option value="pending">Pending Review</option>
-          <option value="verified">Verified Partner</option>
+          <option value="pending">Pending</option>
+          <option value="approved">Approved</option>
           <option value="rejected">Rejected</option>
+          <option value="changes_requested">Changes Requested</option>
+          <option value="suspended">Suspended</option>
         </select>
       </div>
 

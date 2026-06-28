@@ -79,7 +79,7 @@ export function CompanyHeroMicrosite({ company, stats }: Props) {
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-none">
                   {company.name}
                 </h1>
-                {company.verification_status === 'verified' && (
+                {company.approval_status === 'approved' && (
                   <div className="flex items-center gap-1.5 bg-tb-primary/20 backdrop-blur-md text-white border border-tb-primary/30 px-3 py-1 rounded-full text-sm font-bold shadow-sm">
                     <ShieldCheck className="w-4 h-4 text-tb-primary fill-white" />
                     Verified

@@ -20,7 +20,7 @@ export async function getCompanies(
   }
   
   if (verificationFilter && verificationFilter !== 'all') {
-    query = query.eq('verification_status', verificationFilter);
+    query = query.eq('approval_status', verificationFilter);
   }
   
   switch (sortBy) {
@@ -64,8 +64,8 @@ export async function getCompanyStats() {
     { count: totalTreks }
   ] = await Promise.all([
     supabase.from("companies").select("*", { count: "exact", head: true }),
-    supabase.from("companies").select("*", { count: "exact", head: true }).eq("verification_status", "verified"),
-    supabase.from("companies").select("*", { count: "exact", head: true }).eq("verification_status", "pending"),
+    supabase.from("companies").select("*", { count: "exact", head: true }).eq("approval_status", "verified"),
+    supabase.from("companies").select("*", { count: "exact", head: true }).eq("approval_status", "pending"),
     supabase.from("companies").select("*", { count: "exact", head: true }).eq("featured", true),
     supabase.from("treks").select("*", { count: "exact", head: true })
   ]);

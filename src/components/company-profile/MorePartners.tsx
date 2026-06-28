@@ -43,7 +43,7 @@ export function MorePartners({ partners }: Props) {
               <div className="pt-10 pb-5 px-5">
                 <h3 className="font-bold text-zinc-900 group-hover:text-tb-primary transition-colors flex items-center gap-1.5 line-clamp-1">
                   {partner.name}
-                  {partner.verification_status === 'verified' && <ShieldCheck className="w-4 h-4 text-tb-primary shrink-0" />}
+                  {partner.approval_status === 'approved' && <ShieldCheck className="w-4 h-4 text-tb-primary shrink-0" />}
                 </h3>
               </div>
             </Link>

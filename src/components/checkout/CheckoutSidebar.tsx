@@ -32,7 +32,7 @@ export function CheckoutSidebar() {
           <h2 className="text-xl font-bold text-zinc-900 leading-tight mb-2">{trek.title}</h2>
           
           <div className="flex items-center gap-2 mt-3 text-sm text-zinc-600">
-            {company?.verification_status === 'verified' && (
+            {company?.approval_status === 'approved' && (
               <span className="flex items-center gap-1 text-tb-primary bg-tb-primary/10 px-2 py-0.5 rounded font-medium">
                 <CheckCircle2 className="w-3.5 h-3.5" /> Verified Operator
               </span>

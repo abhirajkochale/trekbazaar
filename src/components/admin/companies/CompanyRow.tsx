@@ -10,9 +10,11 @@ import { toggleCompanyFeaturedAction } from '@/app/admin/(dashboard)/companies/a
 import toast from 'react-hot-toast';
 
 const verificationBadge = {
-  verified: { icon: ShieldCheck, class: "bg-emerald-50 text-emerald-700" },
+  approved: { icon: ShieldCheck, class: "bg-emerald-50 text-emerald-700" },
   pending: { icon: Clock, class: "bg-amber-50 text-amber-700" },
+  changes_requested: { icon: Clock, class: "bg-amber-50 text-amber-700" },
   rejected: { icon: XCircle, class: "bg-red-50 text-red-700" },
+  suspended: { icon: XCircle, class: "bg-red-50 text-red-700" },
 };
 
 const statusBadge = {
@@ -36,7 +38,7 @@ export function CompanyRow({ company }: { company: Company }) {
     });
   };
 
-  const VerBadge = verificationBadge[company.verification_status];
+  const VerBadge = verificationBadge[company.approval_status];
 
   return (
     <>
@@ -70,7 +72,7 @@ export function CompanyRow({ company }: { company: Company }) {
         <td className="px-6 py-4 whitespace-nowrap">
           <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium capitalize border border-transparent ${VerBadge.class}`}>
             <VerBadge.icon className="w-3.5 h-3.5" />
-            {company.verification_status}
+            {company.approval_status}
           </span>
         </td>
         <td className="px-6 py-4 whitespace-nowrap">

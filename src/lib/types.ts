@@ -73,7 +73,7 @@ export interface MasterTrek {
   region?: Region;
 }
 
-export type VerificationStatus = "pending" | "verified" | "rejected";
+export type ApprovalStatus = "pending" | "approved" | "rejected" | "changes_requested" | "suspended";
 export type CompanyStatus = "active" | "suspended";
 
 export interface Company {
@@ -106,7 +106,7 @@ export interface Company {
   pan_document_url: string | null;
   registration_document_url: string | null;
   
-  verification_status: VerificationStatus;
+  approval_status: ApprovalStatus;
   status: CompanyStatus;
   featured: boolean;
   

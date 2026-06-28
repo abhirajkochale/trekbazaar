@@ -5,6 +5,7 @@ import { CommandMenu } from "@/components/partner/layout/CommandMenu";
 import { logoutCompany } from "@/app/actions/company-auth";
 import { LogOut, LayoutDashboard, Map, CalendarDays, BookOpen, Menu } from "lucide-react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { getCompanyContext } from "@/lib/company/auth";
 
 export default async function CompanyLayout({ children }: { children: React.ReactNode }) {
@@ -16,6 +17,10 @@ export default async function CompanyLayout({ children }: { children: React.Reac
 
   if (ctx.status !== "ok") {
     return <CompanyNotLinked variant={ctx.status} />;
+  }
+
+  if (ctx.company.approval_status !== "approved") {
+    redirect("/partner/onboarding/status");
   }
 
   const companyName = ctx.company.name || "Partner Portal";

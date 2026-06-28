@@ -51,7 +51,7 @@ export function CompanyEditor({
     gst_document_url: "",
     pan_document_url: "",
     registration_document_url: "",
-    verification_status: "pending",
+    approval_status: "pending",
     status: "active",
     featured: false,
   });
