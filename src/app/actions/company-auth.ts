@@ -19,11 +19,11 @@ export async function loginCompany(formData: FormData) {
   }
 
   // Redirect to company portal dashboard
-  redirect("/company");
+  redirect("/partner");
 }
 
 export async function logoutCompany() {
   const supabase = await createClient();
   await supabase.auth.signOut();
-  redirect("/company/login");
+  redirect("/partner/login");
 }

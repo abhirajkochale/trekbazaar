@@ -8,7 +8,7 @@ import type { Company } from "@/lib/types";
  * Rule: one authenticated company user must be linked to exactly one company
  * (auth.users.id -> companies.owner_id). This module is the single source of
  * truth for resolving that link. It never throws a raw Supabase error into the
- * Company Portal; instead it returns a discriminated CompanyContext so callers
+ * Partner Portal; instead it returns a discriminated CompanyContext so callers
  * (and the layout) can render a controlled state.
  */
 export type CompanyContext =

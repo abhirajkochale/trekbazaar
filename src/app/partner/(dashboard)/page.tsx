@@ -35,10 +35,10 @@ export default async function CompanyDashboardPage() {
           <p className="text-sm text-zinc-500 mt-1 font-medium">Welcome back. Here&apos;s what&apos;s happening today.</p>
         </div>
         <div className="flex items-center gap-3">
-          <Link href="/company/departures/new" className="h-9 px-4 inline-flex items-center justify-center text-sm font-semibold text-zinc-700 bg-white border border-zinc-200 rounded-lg hover:bg-zinc-50 shadow-sm transition-all active:scale-95">
+          <Link href="/partner/departures/new" className="h-9 px-4 inline-flex items-center justify-center text-sm font-semibold text-zinc-700 bg-white border border-zinc-200 rounded-lg hover:bg-zinc-50 shadow-sm transition-all active:scale-95">
             Add Departure
           </Link>
-          <Link href="/company/treks/new" className="h-9 px-4 inline-flex items-center justify-center text-sm font-semibold text-white bg-zinc-900 rounded-lg hover:bg-zinc-800 shadow-sm transition-all active:scale-95 gap-2">
+          <Link href="/partner/treks/new" className="h-9 px-4 inline-flex items-center justify-center text-sm font-semibold text-white bg-zinc-900 rounded-lg hover:bg-zinc-800 shadow-sm transition-all active:scale-95 gap-2">
             <Plus className="w-4 h-4" /> New Trek
           </Link>
         </div>
@@ -80,7 +80,7 @@ export default async function CompanyDashboardPage() {
           <div className="flex items-baseline gap-2">
             <h3 className="text-3xl font-black text-amber-500 tracking-tight">{pendingBookings.length}</h3>
           </div>
-          <Link href="/company/bookings" className="text-xs font-semibold text-zinc-600 hover:text-zinc-900 mt-2 inline-flex items-center gap-1 transition-colors">
+          <Link href="/partner/bookings" className="text-xs font-semibold text-zinc-600 hover:text-zinc-900 mt-2 inline-flex items-center gap-1 transition-colors">
             Review bookings <ChevronRight className="w-3 h-3" />
           </Link>
         </div>
@@ -106,7 +106,7 @@ export default async function CompanyDashboardPage() {
               <h2 className="text-sm font-bold text-zinc-900 uppercase tracking-wider flex items-center gap-2">
                 <CalendarDays className="w-4 h-4 text-tb-primary" /> Upcoming Departures
               </h2>
-              <Link href="/company/departures" className="text-xs font-bold text-zinc-500 hover:text-zinc-900 transition-colors uppercase tracking-wider">
+              <Link href="/partner/departures" className="text-xs font-bold text-zinc-500 hover:text-zinc-900 transition-colors uppercase tracking-wider">
                 View Calendar
               </Link>
             </div>
@@ -137,7 +137,7 @@ export default async function CompanyDashboardPage() {
                           </div>
                         </div>
                       </div>
-                      <Link href={`/company/departures/${dep.id}/edit`} className="opacity-0 group-hover:opacity-100 text-sm font-semibold text-tb-primary transition-opacity">
+                      <Link href={`/partner/departures/${dep.id}/edit`} className="opacity-0 group-hover:opacity-100 text-sm font-semibold text-tb-primary transition-opacity">
                         Manage
                       </Link>
                     </div>
@@ -157,7 +157,7 @@ export default async function CompanyDashboardPage() {
               <h2 className="text-sm font-bold text-zinc-900 uppercase tracking-wider flex items-center gap-2">
                 <BookOpen className="w-4 h-4 text-blue-500" /> Recent Bookings
               </h2>
-              <Link href="/company/bookings" className="text-xs font-bold text-zinc-500 hover:text-zinc-900 transition-colors uppercase tracking-wider">
+              <Link href="/partner/bookings" className="text-xs font-bold text-zinc-500 hover:text-zinc-900 transition-colors uppercase tracking-wider">
                 View All
               </Link>
             </div>
@@ -180,7 +180,7 @@ export default async function CompanyDashboardPage() {
               {draftTreks.length > 0 ? (
                 <div className="divide-y divide-zinc-100">
                   {draftTreks.slice(0, 4).map(trek => (
-                    <Link key={trek.id} href={`/company/treks/${trek.id}/edit`} className="flex flex-col p-4 hover:bg-zinc-50 transition-colors group">
+                    <Link key={trek.id} href={`/partner/treks/${trek.id}/edit`} className="flex flex-col p-4 hover:bg-zinc-50 transition-colors group">
                       <span className="font-bold text-sm text-zinc-900 group-hover:text-tb-primary transition-colors">{trek.title || "Untitled Trek"}</span>
                       <span className="text-xs text-zinc-500 mt-1 font-medium">Last updated {new Date(trek.updated_at).toLocaleDateString()}</span>
                     </Link>

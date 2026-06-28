@@ -21,16 +21,16 @@ export async function middleware(request: NextRequest) {
 
   const { supabaseResponse, user } = await updateSession(request);
 
-  if (pathname.startsWith("/company")) {
-    if (pathname === "/company/login") {
+  if (pathname.startsWith("/partner")) {
+    if (pathname === "/partner/login") {
       if (user) {
-        return NextResponse.redirect(new URL("/company", request.url));
+        return NextResponse.redirect(new URL("/partner", request.url));
       }
       return supabaseResponse;
     }
     
     if (!user) {
-      return NextResponse.redirect(new URL("/company/login", request.url));
+      return NextResponse.redirect(new URL("/partner/login", request.url));
     }
   }
 

@@ -68,7 +68,7 @@ export function TreksClientList({ treks }: Props) {
               className="w-full pl-9 pr-4 h-10 bg-white border border-zinc-200 rounded-lg text-sm focus:ring-2 focus:ring-tb-primary focus:border-tb-primary transition-shadow outline-none shadow-sm"
             />
           </div>
-          <Link href="/company/treks/new" className="shrink-0">
+          <Link href="/partner/treks/new" className="shrink-0">
             <Button variant="primary" className="gap-2 h-10 shadow-sm">
               <Plus className="w-4 h-4" />
               <span className="hidden sm:inline">Create Trek</span>
@@ -86,7 +86,7 @@ export function TreksClientList({ treks }: Props) {
           <p className="text-base text-zinc-500 mb-8 max-w-md mx-auto leading-relaxed">
             Get started by creating your first trek listing. You can add pricing, itineraries, and gorgeous photos to attract bookings.
           </p>
-          <Link href="/company/treks/new">
+          <Link href="/partner/treks/new">
             <Button variant="primary" className="gap-2 px-8 h-12 text-base shadow-sm active:scale-95 transition-transform">
               <Plus className="w-5 h-5" />
               Create Your First Trek
@@ -127,7 +127,7 @@ export function TreksClientList({ treks }: Props) {
                             )}
                           </div>
                           <div>
-                            <Link href={`/company/treks/${trek.id}/edit`} className="font-bold text-sm text-zinc-900 hover:text-tb-primary transition-colors line-clamp-1">
+                            <Link href={`/partner/treks/${trek.id}/edit`} className="font-bold text-sm text-zinc-900 hover:text-tb-primary transition-colors line-clamp-1">
                               {trek.title}
                             </Link>
                             <p className="text-xs text-zinc-500 font-medium mt-0.5">{trek.duration_days} days</p>
@@ -147,7 +147,7 @@ export function TreksClientList({ treks }: Props) {
                       </td>
                       <td className="px-6 py-4 text-right">
                         <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <Link href={`/company/treks/${trek.id}/edit`} className="w-8 h-8 rounded-lg bg-white border border-zinc-200 flex items-center justify-center text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50 shadow-sm transition-all" title="Edit">
+                          <Link href={`/partner/treks/${trek.id}/edit`} className="w-8 h-8 rounded-lg bg-white border border-zinc-200 flex items-center justify-center text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50 shadow-sm transition-all" title="Edit">
                             <Edit2 className="w-4 h-4" />
                           </Link>
                           <button className="w-8 h-8 rounded-lg bg-white border border-zinc-200 flex items-center justify-center text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50 shadow-sm transition-all" title="Duplicate">
@@ -194,7 +194,7 @@ export function TreksClientList({ treks }: Props) {
                   <p className="text-xs text-zinc-500 font-medium mb-2">{trek.region || 'No region'} • {trek.duration_days} days</p>
                   <div className="flex items-center justify-between mt-auto">
                     <span className="font-bold text-zinc-900 text-sm">{formatPrice(trek.price_per_person)}</span>
-                    <Link href={`/company/treks/${trek.id}/edit`} className="text-xs font-bold text-tb-primary bg-tb-primary/10 px-3 py-1.5 rounded-lg">
+                    <Link href={`/partner/treks/${trek.id}/edit`} className="text-xs font-bold text-tb-primary bg-tb-primary/10 px-3 py-1.5 rounded-lg">
                       Edit
                     </Link>
                   </div>

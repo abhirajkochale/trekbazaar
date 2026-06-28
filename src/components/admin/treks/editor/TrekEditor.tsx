@@ -116,7 +116,7 @@ export function TrekEditor({
       // If it's a new trek, redirect to edit URL to preserve identity for future saves.
       // Stay within the correct portal (company vs admin).
       if (!initialTrek && res.trekId) {
-        const basePath = isCompanyPortal ? "/company/treks" : "/admin/treks";
+        const basePath = isCompanyPortal ? "/partner/treks" : "/admin/treks";
         startTransition(() => {
           router.replace(`${basePath}/${res.trekId}/edit`);
         });
@@ -204,7 +204,7 @@ export function TrekEditor({
       <div className="sticky top-0 z-30 bg-zinc-50/80 backdrop-blur-xl border-b border-zinc-200/80 shadow-sm -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 mb-8 transition-all">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
-            <Link href={isCompanyPortal ? "/company/treks" : "/admin/treks"} className="w-8 h-8 flex items-center justify-center text-zinc-500 hover:text-zinc-900 bg-white border border-zinc-200 rounded-lg hover:bg-zinc-50 transition-colors shadow-sm">
+            <Link href={isCompanyPortal ? "/partner/treks" : "/admin/treks"} className="w-8 h-8 flex items-center justify-center text-zinc-500 hover:text-zinc-900 bg-white border border-zinc-200 rounded-lg hover:bg-zinc-50 transition-colors shadow-sm">
               <ArrowLeft className="w-4 h-4" />
             </Link>
             <div>

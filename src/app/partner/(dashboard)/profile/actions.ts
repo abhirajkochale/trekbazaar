@@ -7,8 +7,8 @@ import type { Company } from "@/lib/types";
 export async function saveCompanyProfileAction(payload: Partial<Company>) {
   try {
     await updateCompanyProfile(payload);
-    revalidatePath("/company/profile");
-    revalidatePath("/company"); // To update the layout header name if changed
+    revalidatePath("/partner/profile");
+    revalidatePath("/partner"); // To update the layout header name if changed
     return { success: true };
   } catch (error: unknown) {
     const msg = error instanceof Error ? error.message : "Failed to update profile";

@@ -1,6 +1,6 @@
 import React from "react";
 import { getCompanyDepartures } from "@/lib/company/departures";
-import { DeparturesClientList } from "@/components/company/departures/DeparturesClientList";
+import { DeparturesClientList } from "@/components/partner/departures/DeparturesClientList";
 
 export default async function CompanyDeparturesPage() {
   const departures = await getCompanyDepartures();
