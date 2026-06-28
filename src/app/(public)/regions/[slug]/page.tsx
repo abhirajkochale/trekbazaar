@@ -1,6 +1,7 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
+import Script from 'next/script';
 import { getRegionBySlug } from '@/lib/treks';
 import { searchTreks } from '@/lib/search/api';
 import { Container } from '@/components/layout/Container';
@@ -64,8 +65,22 @@ export default async function RegionDetailsPage({ params, searchParams }: Region
 
   return (
     <>
-      
       <main className="flex-1 w-full pb-20">
+        <Script
+          id={`breadcrumb-region-${region.id}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000" },
+                { "@type": "ListItem", "position": 2, "name": "Regions", "item": `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/regions` },
+                { "@type": "ListItem", "position": 3, "name": region.name, "item": `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/regions/${slug}` }
+              ]
+            })
+          }}
+        />
         <RegionHero region={region} trekCount={totalCount} />
         
         <Container className="mt-8 md:mt-12">

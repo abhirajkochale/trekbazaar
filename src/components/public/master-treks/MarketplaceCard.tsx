@@ -59,6 +59,7 @@ export function MarketplaceCard({ pkg, isSelectedForCompare, onCompareToggle }: 
           isInWishlist(pkg.id) ? removeFromWishlist(pkg.id) : addToWishlist(pkg.id);
         }}
         className={`absolute top-4 right-4 z-10 w-9 h-9 bg-white/90 backdrop-blur-sm hover:bg-white text-zinc-400 hover:text-red-500 rounded-full flex items-center justify-center shadow-sm border border-zinc-200 transition-colors ${onCompareToggle ? 'mt-4' : ''}`}
+        aria-label={isInWishlist(pkg.id) ? "Remove from wishlist" : "Add to wishlist"}
       >
         <Heart className={`w-4 h-4 ${isInWishlist(pkg.id) ? 'fill-red-500 text-red-500' : ''}`} />
       </button>
@@ -83,7 +84,7 @@ export function MarketplaceCard({ pkg, isSelectedForCompare, onCompareToggle }: 
         <div className={`flex items-start gap-5 mb-6 ${onCompareToggle ? 'mt-4' : ''}`}>
           {company?.logo_url ? (
             <div className="w-16 h-16 relative rounded-2xl overflow-hidden border border-zinc-100 bg-white shrink-0 shadow-sm">
-              <Image src={company.logo_url} alt={company.name} fill className="object-cover" />
+              <Image src={company.logo_url} alt={company.name} fill sizes="64px" className="object-cover" />
             </div>
           ) : (
             <div className="w-16 h-16 rounded-2xl bg-zinc-100 flex items-center justify-center text-zinc-500 font-bold text-2xl shrink-0 shadow-sm border border-zinc-200/50">

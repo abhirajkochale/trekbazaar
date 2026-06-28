@@ -5,10 +5,23 @@ import { SearchEmptyState } from '@/components/search/SearchEmptyState';
 import { searchMasterTreks } from '@/lib/search/master-api';
 import { MasterTrekSearchCard } from '@/components/search/MasterTrekSearchCard';
 import { Metadata } from 'next';
+import Script from 'next/script';
 
-export const metadata: Metadata = {
-  title: 'Search Treks | TrekBazaar',
-};
+export async function generateMetadata({ searchParams }: SearchPageProps): Promise<Metadata> {
+  const params = await searchParams;
+  const q = typeof params.q === 'string' ? params.q : '';
+  const title = q ? `Search Results for "${q}" | TrekBazaar` : 'Search Treks | TrekBazaar';
+  
+  return {
+    title,
+    description: `Browse and compare verified trekking packages in the Himalayas. ${q ? `Showing results for ${q}.` : ''}`,
+    openGraph: {
+      title,
+      description: `Browse and compare verified trekking packages. ${q ? `Showing results for ${q}.` : ''}`,
+      url: `/search?q=${q}`,
+    },
+  };
+}
 
 interface SearchPageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -43,6 +56,20 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
   return (
     <>
       <main className="flex-1 flex flex-col">
+        <Script
+          id="breadcrumb-search"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Home", "item": process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000" },
+                { "@type": "ListItem", "position": 2, "name": "Search Treks", "item": `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/search` }
+              ]
+            })
+          }}
+        />
         <SearchHeader totalCount={totalCount} />
         <SearchLayout>
           {masterTreks.length > 0 ? (

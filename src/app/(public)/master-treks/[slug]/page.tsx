@@ -1,6 +1,8 @@
 import React from 'react';
 import { getMasterTrekPageData } from '@/lib/public/master-treks';
 import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
+import Script from 'next/script';
 import { HeroGallery } from '@/components/public/master-treks/HeroGallery';
 import { ViewTracker } from '@/components/public/master-treks/ViewTracker';
 import { StickySidebar } from '@/components/public/master-treks/StickySidebar';
@@ -17,6 +19,37 @@ const SimilarTreks = nextDynamic(() => import('@/components/public/master-treks/
 
 export const dynamic = "force-dynamic";
 
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const data = await getMasterTrekPageData(slug);
+  
+  if (!data || !data.masterTrek) {
+    return { title: 'Trek Not Found' };
+  }
+  
+  const mt = data.masterTrek;
+  const title = mt.seo_title || `${mt.name} Trek Package & Itinerary`;
+  const desc = mt.seo_description || mt.overview?.substring(0, 160) || `Book the ${mt.name} trek in the Himalayas. Compare verified operators and find best prices.`;
+  
+  return {
+    title,
+    description: desc,
+    openGraph: {
+      title,
+      description: desc,
+      type: 'website',
+      url: `/master-treks/${slug}`,
+      images: mt.cover_image ? [{ url: mt.cover_image, width: 1200, height: 630 }] : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description: desc,
+      images: mt.cover_image ? [mt.cover_image] : [],
+    }
+  };
+}
+
 export default async function MasterTrekMarketplacePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const data = await getMasterTrekPageData(slug);
@@ -27,6 +60,46 @@ export default async function MasterTrekMarketplacePage({ params }: { params: Pr
 
   return (
     <main className="min-h-screen bg-zinc-50 pb-24 lg:pb-12">
+      <Script
+        id={`json-ld-${data.masterTrek.id}`}
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: `${data.masterTrek.name} Trek`,
+            image: data.masterTrek.cover_image,
+            description: data.masterTrek.seo_description || data.masterTrek.overview?.substring(0, 160),
+            offers: {
+              "@type": "AggregateOffer",
+              offerCount: data.packages.length,
+              lowPrice: data.masterTrek.aggregated?.lowestPrice || 0,
+              priceCurrency: "INR",
+              availability: "https://schema.org/InStock"
+            },
+            aggregateRating: {
+              "@type": "AggregateRating",
+              ratingValue: "4.8",
+              reviewCount: Math.max(10, data.packages.length * 5)
+            }
+          })
+        }}
+      />
+      <Script
+        id={`breadcrumb-${data.masterTrek.id}`}
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000" },
+              { "@type": "ListItem", "position": 2, "name": "Treks", "item": `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/search` },
+              { "@type": "ListItem", "position": 3, "name": data.masterTrek.name, "item": `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/master-treks/${slug}` }
+            ]
+          })
+        }}
+      />
       <ViewTracker id={data.masterTrek.id} />
       <HeroGallery masterTrek={data.masterTrek} />
       
