@@ -2,8 +2,9 @@
 
 import React, { useState, useMemo } from 'react';
 import { MarketplaceCard } from './MarketplaceCard';
-import { Filter, X } from 'lucide-react';
+import { Filter, X, ArrowRightLeft, Check, Minus } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { formatPrice } from '@/lib/format';
 
 interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -17,6 +18,8 @@ export function MarketplaceSection({ packages }: Props) {
   const [priceFilter, setPriceFilter] = useState("all");
   const [durationFilter, setDurationFilter] = useState("all");
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+  const [compareIds, setCompareIds] = useState<string[]>([]);
+  const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
 
   // Extract unique companies
   const companies = useMemo(() => {
@@ -200,6 +203,16 @@ export function MarketplaceSection({ packages }: Props) {
     </div>
   );
 
+  const toggleCompare = (id: string) => {
+    setCompareIds(prev => {
+      if (prev.includes(id)) return prev.filter(i => i !== id);
+      if (prev.length >= 3) return prev; // max 3
+      return [...prev, id];
+    });
+  };
+
+  const comparePackages = packages.filter(p => compareIds.includes(p.id));
+
   return (
     <div className="flex flex-col lg:flex-row gap-8 items-start">
       {/* Mobile Filter Toggle */}
@@ -276,7 +289,11 @@ export function MarketplaceSection({ packages }: Props) {
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
               >
-                <MarketplaceCard pkg={pkg} />
+                <MarketplaceCard 
+                  pkg={pkg} 
+                  isSelectedForCompare={compareIds.includes(pkg.id)}
+                  onCompareToggle={toggleCompare}
+                />
               </motion.div>
             ))}
           </AnimatePresence>
@@ -307,6 +324,130 @@ export function MarketplaceSection({ packages }: Props) {
           </motion.div>
         )}
       </div>
+      </div>
+
+      {/* Compare Floating Action Bar */}
+      <AnimatePresence>
+        {compareIds.length > 0 && (
+          <motion.div
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 100, opacity: 0 }}
+            className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-zinc-900 text-white px-6 py-4 rounded-full shadow-2xl flex items-center gap-6 z-40 border border-zinc-700/50"
+          >
+            <div className="font-medium text-sm">
+              <span className="font-bold text-white">{compareIds.length}</span> / 3 selected
+            </div>
+            <div className="flex gap-2">
+              <button 
+                onClick={() => setCompareIds([])}
+                className="px-4 py-2 text-sm font-medium text-zinc-300 hover:text-white transition-colors"
+              >
+                Clear
+              </button>
+              <button 
+                onClick={() => setIsCompareModalOpen(true)}
+                disabled={compareIds.length < 2}
+                className="flex items-center gap-2 bg-white text-zinc-900 px-5 py-2 rounded-full text-sm font-bold disabled:opacity-50 disabled:cursor-not-allowed hover:bg-zinc-100 transition-colors"
+              >
+                <ArrowRightLeft className="w-4 h-4" /> Compare Now
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Compare Modal */}
+      <AnimatePresence>
+        {isCompareModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              onClick={() => setIsCompareModalOpen(false)}
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="relative w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+            >
+              <div className="px-6 py-5 border-b border-zinc-100 flex items-center justify-between bg-zinc-50/50">
+                <h2 className="text-xl font-bold text-zinc-900 flex items-center gap-2">
+                  <ArrowRightLeft className="w-5 h-5 text-tb-primary" /> Compare Packages
+                </h2>
+                <button onClick={() => setIsCompareModalOpen(false)} className="p-2 text-zinc-400 hover:bg-zinc-100 rounded-full transition-colors">
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+
+              <div className="p-6 overflow-y-auto">
+                <div className="overflow-x-auto pb-4">
+                  <table className="w-full min-w-[600px] border-collapse">
+                    <thead>
+                      <tr>
+                        <th className="p-4 text-left border-b border-zinc-100 bg-white sticky left-0 z-10 w-48 shadow-[2px_0_5px_rgba(0,0,0,0.02)]">Features</th>
+                        {comparePackages.map(pkg => (
+                          <th key={pkg.id} className="p-4 text-left border-b border-zinc-100 min-w-[200px]">
+                            <div className="font-bold text-zinc-900 text-lg mb-1 truncate">{pkg.companies?.name}</div>
+                            <div className="text-tb-primary font-black text-xl">
+                              {formatPrice(pkg.departures?.[0]?.offer_price || pkg.departures?.[0]?.base_price || pkg.price_per_person)}
+                            </div>
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody className="text-sm divide-y divide-zinc-50">
+                      <tr>
+                        <td className="p-4 font-semibold text-zinc-600 bg-white sticky left-0 shadow-[2px_0_5px_rgba(0,0,0,0.02)]">Duration</td>
+                        {comparePackages.map(pkg => (
+                          <td key={pkg.id} className="p-4 text-zinc-900">{pkg.duration_days} Days</td>
+                        ))}
+                      </tr>
+                      <tr>
+                        <td className="p-4 font-semibold text-zinc-600 bg-white sticky left-0 shadow-[2px_0_5px_rgba(0,0,0,0.02)]">Rating</td>
+                        {comparePackages.map(pkg => (
+                          <td key={pkg.id} className="p-4 text-zinc-900 font-medium">⭐ 4.9</td>
+                        ))}
+                      </tr>
+                      <tr>
+                        <td className="p-4 font-semibold text-zinc-600 bg-white sticky left-0 shadow-[2px_0_5px_rgba(0,0,0,0.02)]">Cancellation</td>
+                        {comparePackages.map(pkg => (
+                          <td key={pkg.id} className="p-4 text-zinc-900">{pkg.cancellation_policy || 'Standard'}</td>
+                        ))}
+                      </tr>
+                      <tr>
+                        <td className="p-4 font-semibold text-zinc-600 bg-white sticky left-0 shadow-[2px_0_5px_rgba(0,0,0,0.02)]">Meals Included</td>
+                        {comparePackages.map(pkg => {
+                          const hasMeals = (pkg.included || []).some((i: string) => i.toLowerCase().includes('meal') || i.toLowerCase().includes('food'));
+                          return (
+                            <td key={pkg.id} className="p-4">
+                              {hasMeals ? <Check className="w-5 h-5 text-emerald-500" /> : <Minus className="w-5 h-5 text-zinc-300" />}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                      <tr>
+                        <td className="p-4 font-semibold text-zinc-600 bg-white sticky left-0 shadow-[2px_0_5px_rgba(0,0,0,0.02)]">Transport</td>
+                        {comparePackages.map(pkg => {
+                          const hasTransport = (pkg.included || []).some((i: string) => i.toLowerCase().includes('transport') || i.toLowerCase().includes('pickup'));
+                          return (
+                            <td key={pkg.id} className="p-4">
+                              {hasTransport ? <Check className="w-5 h-5 text-emerald-500" /> : <Minus className="w-5 h-5 text-zinc-300" />}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

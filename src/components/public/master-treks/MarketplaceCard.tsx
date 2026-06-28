@@ -11,9 +11,11 @@ import { useWishlist } from '@/providers/WishlistProvider';
 interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   pkg: any;
+  isSelectedForCompare?: boolean;
+  onCompareToggle?: (id: string) => void;
 }
 
-export function MarketplaceCard({ pkg }: Props) {
+export function MarketplaceCard({ pkg, isSelectedForCompare, onCompareToggle }: Props) {
   const { isInWishlist, addToWishlist, removeFromWishlist } = useWishlist();
   const company = pkg.companies;
   const departures = pkg.departures || [];
@@ -44,26 +46,30 @@ export function MarketplaceCard({ pkg }: Props) {
       transition={{ duration: 0.2 }}
       className="bg-white rounded-3xl border border-zinc-100 shadow-sm overflow-hidden hover:shadow-tb-medium flex flex-col md:flex-row transition-all relative"
     >
-      {company?.featured && (
-        <div className="absolute top-4 left-4 bg-zinc-900/90 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full z-10 shadow-sm">
-          Featured Partner
-        </div>
-      )}
-
-      <button 
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          isInWishlist(pkg.id) ? removeFromWishlist(pkg.id) : addToWishlist(pkg.id);
-        }}
-        className="absolute top-4 right-4 z-10 w-9 h-9 bg-white/90 backdrop-blur-sm hover:bg-white text-zinc-400 hover:text-red-500 rounded-full flex items-center justify-center shadow-sm border border-zinc-200 transition-colors"
-      >
-        <Heart className={`w-4 h-4 ${isInWishlist(pkg.id) ? 'fill-red-500 text-red-500' : ''}`} />
-      </button>
-
       {/* Left: Company & Basic Info */}
       <div className="p-6 md:p-8 flex-1 flex flex-col pt-10 md:pt-8">
-        <div className="flex items-start gap-5 mb-6">
+        {onCompareToggle && (
+          <div className="absolute top-4 left-4 z-10 flex items-center gap-2">
+            <input 
+              type="checkbox" 
+              checked={isSelectedForCompare}
+              onChange={() => onCompareToggle(pkg.id)}
+              className="w-5 h-5 rounded text-tb-primary border-zinc-300 focus:ring-tb-primary cursor-pointer shadow-sm"
+              id={`compare-${pkg.id}`}
+            />
+            <label htmlFor={`compare-${pkg.id}`} className="text-xs font-bold text-zinc-500 uppercase tracking-wider cursor-pointer bg-white/80 backdrop-blur-sm px-2 py-1 rounded-full">
+              Compare
+            </label>
+          </div>
+        )}
+
+        {company?.featured && !onCompareToggle && (
+          <div className="absolute top-4 left-4 bg-zinc-900/90 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full z-10 shadow-sm">
+            Featured Partner
+          </div>
+        )}
+
+        <div className={`flex items-start gap-5 mb-6 ${onCompareToggle ? 'mt-4' : ''}`}>
           {company?.logo_url ? (
             <div className="w-16 h-16 relative rounded-2xl overflow-hidden border border-zinc-100 bg-white shrink-0 shadow-sm">
               <Image src={company.logo_url} alt={company.name} fill className="object-cover" />
