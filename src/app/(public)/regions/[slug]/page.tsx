@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { getRegionBySlug } from '@/lib/treks';
 import { searchTreks } from '@/lib/search/api';
-import { getRegionBySlug } from '@/lib/public/master-treks';
 import { Container } from '@/components/layout/Container';
 import { RegionHero } from '@/components/region/RegionHero';
 import { RegionMainContent } from '@/components/region/RegionMainContent';
