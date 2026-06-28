@@ -1,6 +1,6 @@
 "use server";
 
-import { createAdminClient } from "@/lib/supabase/admin";
+import { createClient } from "@/lib/supabase/server";
 
 interface CreateBookingInput {
   departureId: string;
@@ -13,7 +13,7 @@ interface CreateBookingInput {
 
 export async function createBookingAction(input: CreateBookingInput) {
   try {
-    const supabase = await createAdminClient();
+    const supabase = await createClient();
     
     // Check if user is logged in
     const { data: { user } } = await supabase.auth.getUser();

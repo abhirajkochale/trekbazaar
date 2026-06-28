@@ -14,7 +14,7 @@ export default async function TripsPage() {
   const { data: trips } = await supabase
     .from('bookings')
     .select('*, treks(title, slug), companies(name)')
-    .eq('customer_email', user?.email)
+    .eq('customer_id', user?.id)
     .order('departure_date', { ascending: false });
 
   const upcoming = trips?.filter(t => new Date(t.departure_date) >= new Date() && t.status !== 'Cancelled') || [];

@@ -60,6 +60,20 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
     };
 
     syncWithDb();
+
+    // Listen for auth state changes (e.g. Logout) to clear local state
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+      if (event === 'SIGNED_OUT') {
+        setWishlistIds([]);
+        localStorage.removeItem('tb_wishlist');
+      } else if (event === 'SIGNED_IN') {
+        syncWithDb();
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
   }, [supabase]);
 
   const addToWishlist = useCallback(async (trekId: string) => {

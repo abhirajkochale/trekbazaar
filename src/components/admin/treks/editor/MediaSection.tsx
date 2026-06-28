@@ -89,10 +89,18 @@ export function MediaSection({ trek, updateField }: Props) {
     }
   };
 
-  const handleRemoveGallery = (index: number) => {
+  const handleRemoveGallery = async (index: number) => {
+    const urlToRemove = gallery[index];
     const newGallery = [...gallery];
     newGallery.splice(index, 1);
     updateField('gallery', newGallery);
+
+    // Physically delete from bucket to prevent orphan files
+    try {
+      await uploadService.delete(urlToRemove);
+    } catch (e) {
+      console.error("Failed to delete orphaned file from storage", e);
+    }
   };
 
   // Drag Reordering Logic
@@ -155,7 +163,17 @@ export function MediaSection({ trek, updateField }: Props) {
                   <Maximize2 className="w-4 h-4" /> Preview
                 </button>
                 <button
-                  onClick={() => updateField('cover_image_url', '')}
+                  onClick={async () => {
+                    const urlToDrop = trek.cover_image_url;
+                    updateField('cover_image_url', '');
+                    if (urlToDrop) {
+                      try {
+                        await uploadService.delete(urlToDrop);
+                      } catch (e) {
+                        console.error("Failed to delete orphaned cover", e);
+                      }
+                    }
+                  }}
                   className="px-4 py-2 bg-red-500/80 hover:bg-red-500 backdrop-blur-md rounded-lg text-white font-bold text-sm transition-colors flex items-center gap-2"
                 >
                   <Trash2 className="w-4 h-4" /> Remove
