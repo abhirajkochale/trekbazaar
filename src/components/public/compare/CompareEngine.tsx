@@ -112,7 +112,7 @@ export function CompareEngine({ masterTrek, packages }: Props) {
                           <div>
                             <h3 className="font-bold text-zinc-900 text-xl flex items-center gap-1.5 line-clamp-1">
                               {pkg.companies?.name}
-                              {pkg.companies?.approval_status === 'approved' && (
+                              {pkg.companies?.verification_status === 'approved' && (
                                 <ShieldCheck className="w-4 h-4 text-tb-primary shrink-0" />
                               )}
                             </h3>

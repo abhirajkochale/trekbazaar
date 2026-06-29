@@ -106,7 +106,7 @@ export interface Company {
   pan_document_url: string | null;
   registration_document_url: string | null;
   
-  approval_status: ApprovalStatus;
+  verification_status: ApprovalStatus;
   status: CompanyStatus;
   featured: boolean;
   

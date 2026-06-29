@@ -17,7 +17,7 @@ export async function getMasterTrekPageData(slug: string, companySlug?: string) 
     .from("treks")
     .select(`
       id, title, slug, short_description, difficulty, duration_days, price_per_person, start_point, included, excluded, itinerary,
-      companies(id, name, slug, logo_url, approval_status, years_of_experience, featured, description),
+      companies(id, name, slug, logo_url, verification_status, years_of_experience, featured, description),
       departures(id, departure_date, total_seats, booked_seats, base_price, offer_price, status)
     `)
     .eq("master_trek_id", masterTrek.id)

@@ -32,7 +32,7 @@ export async function updateCompanyProfile(payload: Partial<Company>): Promise<C
   const safePayload = { ...payload };
   delete safePayload.id;
   delete safePayload.owner_id;
-  delete safePayload.approval_status;
+  delete safePayload.verification_status;
   delete safePayload.status;
   delete safePayload.featured;
 

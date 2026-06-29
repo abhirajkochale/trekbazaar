@@ -125,7 +125,7 @@ export function DepartureCalendar({ allDepartures }: Props) {
                     <div>
                       <div className="flex items-center gap-2 mb-1">
                         <span className="font-bold text-zinc-900 text-lg">{d.company?.name}</span>
-                        {d.company?.approval_status === 'approved' && (
+                        {d.company?.verification_status === 'approved' && (
                           <ShieldCheck className="w-4 h-4 text-tb-primary" />
                         )}
                       </div>

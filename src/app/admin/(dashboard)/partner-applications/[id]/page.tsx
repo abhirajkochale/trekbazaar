@@ -21,7 +21,7 @@ export default async function PartnerApplicationDetails({ params }: { params: Pr
           <h1 className="text-2xl font-bold text-zinc-900">Partner Application</h1>
           <p className="text-sm text-zinc-500 mt-1">Review and manage this trekking company's application.</p>
         </div>
-        <ApplicationActions companyId={company.id} initialStatus={company.approval_status} />
+        <ApplicationActions companyId={company.id} initialStatus={company.verification_status} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -44,7 +44,7 @@ export default async function PartnerApplicationDetails({ params }: { params: Pr
                   {company.city || "No City"}, {company.state || "No State"}
                 </div>
                 <div className="mt-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-zinc-100 text-zinc-700">
-                  Status: {company.approval_status}
+                  Status: {company.verification_status}
                 </div>
               </div>
             </div>

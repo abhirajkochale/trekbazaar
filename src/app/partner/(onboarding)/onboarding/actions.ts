@@ -27,7 +27,7 @@ export async function submitCompanyApplication(formData: FormData) {
       contact_person,
       phone,
       email,
-      approval_status: "pending",
+      verification_status: "pending",
       status: "suspended", // Needs admin approval to become active
     })
     .select()

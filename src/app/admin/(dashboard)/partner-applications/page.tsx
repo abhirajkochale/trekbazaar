@@ -20,8 +20,8 @@ export default async function PartnerApplicationsPage() {
   
   // Sort pending to top, then approved
   const sortedCompanies = [...companies].sort((a, b) => {
-    if (a.approval_status === "pending" && b.approval_status !== "pending") return -1;
-    if (a.approval_status !== "pending" && b.approval_status === "pending") return 1;
+    if (a.verification_status === "pending" && b.verification_status !== "pending") return -1;
+    if (a.verification_status !== "pending" && b.verification_status === "pending") return 1;
     return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
   });
 
@@ -53,7 +53,7 @@ export default async function PartnerApplicationsPage() {
                 </tr>
               )}
               {sortedCompanies.map(company => {
-                const Badge = badgeMap[company.approval_status as ApprovalStatus] || badgeMap.pending;
+                const Badge = badgeMap[company.verification_status as ApprovalStatus] || badgeMap.pending;
                 return (
                   <tr key={company.id} className="hover:bg-zinc-50 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -78,7 +78,7 @@ export default async function PartnerApplicationsPage() {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${Badge.class}`}>
                         <Badge.icon className="w-3.5 h-3.5" />
-                        {company.approval_status}
+                        {company.verification_status}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-zinc-500 font-medium">

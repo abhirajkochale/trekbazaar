@@ -16,7 +16,7 @@ export default async function PartnerStatusPage() {
   }
 
   const { company } = ctx;
-  const status = company.approval_status;
+  const status = company.verification_status;
 
   if (status === "approved") {
     redirect("/partner/dashboard");

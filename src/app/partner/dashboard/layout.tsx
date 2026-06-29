@@ -19,7 +19,7 @@ export default async function CompanyLayout({ children }: { children: React.Reac
     return <CompanyNotLinked variant={ctx.status} />;
   }
 
-  if (ctx.company.approval_status !== "approved") {
+  if (ctx.company.verification_status !== "approved") {
     redirect("/partner/onboarding/status");
   }
 

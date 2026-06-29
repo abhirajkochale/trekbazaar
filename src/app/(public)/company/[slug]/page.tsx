@@ -88,7 +88,7 @@ export default async function CompanyPublicProfile({
   // QUERY 3: Fetch more verified partners
   const { data: partners } = await supabase
     .from('companies')
-    .select('id, name, slug, logo_url, cover_image_url, approval_status')
+    .select('id, name, slug, logo_url, cover_image_url, verification_status')
     .eq('status', 'active')
     .neq('id', company.id)
     .limit(6);

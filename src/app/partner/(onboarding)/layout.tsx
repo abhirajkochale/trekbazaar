@@ -13,7 +13,7 @@ export default async function PartnerOnboardingLayout({ children }: { children: 
   }
 
   // If already approved, redirect to dashboard or post-approval flow
-  if (ctx.status === "ok" && ctx.company.approval_status === "approved") {
+  if (ctx.status === "ok" && ctx.company.verification_status === "approved") {
     redirect("/partner/dashboard");
   }
 

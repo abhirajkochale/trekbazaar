@@ -38,7 +38,7 @@ export function CompanyRow({ company }: { company: Company }) {
     });
   };
 
-  const VerBadge = verificationBadge[company.approval_status];
+  const VerBadge = verificationBadge[company.verification_status];
 
   return (
     <>
@@ -72,7 +72,7 @@ export function CompanyRow({ company }: { company: Company }) {
         <td className="px-6 py-4 whitespace-nowrap">
           <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium capitalize border border-transparent ${VerBadge.class}`}>
             <VerBadge.icon className="w-3.5 h-3.5" />
-            {company.approval_status}
+            {company.verification_status}
           </span>
         </td>
         <td className="px-6 py-4 whitespace-nowrap">

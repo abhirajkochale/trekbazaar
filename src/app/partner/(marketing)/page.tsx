@@ -9,7 +9,7 @@ export default async function PartnerLandingPage() {
 
   // Redirect users who already have an account based on their approval status
   if (ctx.status === "ok") {
-    if (ctx.company.approval_status === "approved") {
+    if (ctx.company.verification_status === "approved") {
       redirect("/partner/dashboard");
     } else {
       redirect("/partner/onboarding/status");

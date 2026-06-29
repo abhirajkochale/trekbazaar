@@ -9,7 +9,7 @@ export default async function PartnerOnboardingWizard() {
 
   // If they already have a company, redirect to status or dashboard
   if (ctx.status === "ok") {
-    if (ctx.company.approval_status === "approved") {
+    if (ctx.company.verification_status === "approved") {
       redirect("/partner/dashboard");
     } else {
       redirect("/partner/onboarding/status");

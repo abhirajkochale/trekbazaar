@@ -14,7 +14,7 @@ export async function updateApplicationStatusAction(companyId: string, status: A
   const { error } = await supabase
     .from("companies")
     .update({ 
-      approval_status: status,
+      verification_status: status,
       status: accountStatus,
       updated_at: new Date().toISOString()
     })

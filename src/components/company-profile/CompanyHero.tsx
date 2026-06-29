@@ -11,7 +11,7 @@ interface Props {
 }
 
 export function CompanyHero({ company, totalReviews = 0, averageRating = 0 }: Props) {
-  const isVerified = company.approval_status === 'approved';
+  const isVerified = company.verification_status === 'approved';
   
   return (
     <div className="relative pt-24 pb-12 overflow-hidden bg-white">
