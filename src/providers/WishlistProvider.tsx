@@ -43,13 +43,12 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
         const dbIds = data.map(d => d.trek_id);
         
         // Merge local storage items that aren't in DB yet (if they logged in for the first time on this device)
-        const localIds = local ? JSON.parse(local) : [];
+        const localIds = local ? [...new Set(JSON.parse(local))] : [];
         const toInsert = localIds.filter((id: string) => !dbIds.includes(id));
         
         if (toInsert.length > 0) {
           const insertData = toInsert.map((id: string) => ({ customer_id: user.id, trek_id: id }));
-          // We can ignore errors on insert (e.g. if the trek_id is invalid)
-          await supabase.from('wishlists').insert(insertData).select();
+          await supabase.from('wishlists').upsert(insertData, { onConflict: 'customer_id,trek_id', ignoreDuplicates: true });
         }
 
         const mergedIds = [...new Set([...dbIds, ...toInsert])];
@@ -84,7 +83,7 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
 
     const { data: { user } } = await supabase.auth.getUser();
     if (user) {
-      const { error } = await supabase.from('wishlists').insert({ customer_id: user.id, trek_id: trekId });
+      const { error } = await supabase.from('wishlists').upsert({ customer_id: user.id, trek_id: trekId }, { onConflict: 'customer_id,trek_id', ignoreDuplicates: true });
       if (error) {
         // Revert on error
         const reverted = wishlistIds.filter(id => id !== trekId);
