@@ -48,155 +48,159 @@ export function NavbarClient({ user }: NavbarClientProps) {
   }, [isMobileMenuOpen]);
 
   const navLinks = [
-    { name: 'Compare Treks', href: '#featured-treks' },
-    { name: 'Regions', href: '#featured-regions' },
-    { name: 'About', href: '#why-choose-us' },
+    { name: 'Companies', href: '/companies' },
+    { name: 'Explore', href: '/search' },
+    { name: 'Treks', href: '/treks' },
+    { name: 'Regions', href: '/regions' },
   ];
 
   return (
     <>
-      <header 
-        className={`fixed top-0 z-50 w-full transition-all duration-500 ${
-          isSolid 
-            ? 'bg-white/95 backdrop-blur-md border-b border-tb-border shadow-tb-subtle py-2' 
+      <header
+        className={`fixed top-0 z-50 w-full transition-all duration-500 ${isSolid
+            ? 'bg-white/95 backdrop-blur-md border-b border-tb-border shadow-tb-subtle py-2'
             : 'bg-transparent border-transparent py-4'
-        }`}
+          }`}
       >
         <Container>
-        <div className="flex h-12 md:h-14 items-center justify-between">
-          <div className="flex items-center gap-10">
-            <Link 
-              href="/" 
-              className={`text-2xl font-bold tracking-tight transition-colors duration-300 ${
-                isSolid ? 'text-tb-text-primary' : 'text-white drop-shadow-md'
-              }`}
-            >
-              TrekBazaar.
-            </Link>
-            
-            <nav className="hidden md:flex items-center gap-8">
-              {navLinks.map((link) => (
-                <Link 
-                  key={link.name} 
-                  href={link.href}
-                  className={`text-sm font-medium transition-colors duration-300 ${
-                    isSolid 
-                      ? 'text-tb-text-secondary hover:text-tb-primary' 
-                      : 'text-white/80 hover:text-white drop-shadow-sm'
+          <div className="flex h-12 md:h-14 items-center justify-between">
+            <div className="flex items-center gap-10">
+              <Link
+                href="/"
+                className={`text-2xl font-bold tracking-tight transition-colors duration-300 ${isSolid ? 'text-tb-text-primary' : 'text-white drop-shadow-md'
                   }`}
-                >
-                  {link.name}
-                </Link>
-              ))}
-            </nav>
-          </div>
+              >
+                TrekBazaar.
+              </Link>
 
-          <div className="hidden md:flex items-center gap-4">
-            {user ? (
-              <div className="flex items-center gap-5">
-                <Link href="/account/wishlist" className={`relative transition-colors hover:text-tb-primary ${isSolid ? 'text-zinc-600' : 'text-white'}`}>
-                  <Heart className="w-5 h-5" />
-                  {wishlistIds.length > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center border border-white">
-                      {wishlistIds.length}
-                    </span>
-                  )}
-                </Link>
-                <button className={`relative transition-colors hover:text-tb-primary ${isSolid ? 'text-zinc-600' : 'text-white'}`}>
-                  <Bell className="w-5 h-5" />
-                  <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full border border-white"></span>
-                </button>
-                <div className="relative">
-                  <button 
-                    onClick={() => setIsAvatarDropdownOpen(!isAvatarDropdownOpen)}
-                    className="w-10 h-10 rounded-full bg-tb-primary text-white flex items-center justify-center font-bold text-sm shadow-sm hover:scale-105 transition-transform"
+              <nav className="hidden md:flex items-center gap-8">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    className={`text-sm font-medium transition-colors duration-300 ${isSolid
+                        ? 'text-tb-text-secondary hover:text-tb-primary'
+                        : 'text-white/80 hover:text-white drop-shadow-sm'
+                      }`}
                   >
-                    {user.firstName[0]?.toUpperCase()}
-                  </button>
+                    {link.name}
+                  </Link>
+                ))}
+              </nav>
+            </div>
 
-                  <AnimatePresence>
-                    {isAvatarDropdownOpen && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                        transition={{ duration: 0.15 }}
-                        className="absolute right-0 mt-3 w-56 bg-white rounded-2xl shadow-tb-large border border-zinc-100 overflow-hidden"
-                      >
-                        <div className="p-4 border-b border-zinc-100 bg-zinc-50/50">
-                          <div className="font-bold text-zinc-900">{user.firstName}</div>
-                          <div className="text-xs text-zinc-500 truncate">{user.email}</div>
-                        </div>
-                        <div className="py-2 flex flex-col">
-                          <Link href="/account/trips" onClick={() => setIsAvatarDropdownOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50 hover:text-tb-primary transition-colors">
-                            <Compass className="w-4 h-4" /> My Trips
-                          </Link>
-                          <Link href="/account/wishlist" onClick={() => setIsAvatarDropdownOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50 hover:text-tb-primary transition-colors">
-                            <Heart className="w-4 h-4" /> Wishlist
-                          </Link>
-                          <Link href="/account/profile" onClick={() => setIsAvatarDropdownOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50 hover:text-tb-primary transition-colors">
-                            <User className="w-4 h-4" /> Profile
-                          </Link>
-                          <Link href="/account/settings" onClick={() => setIsAvatarDropdownOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50 hover:text-tb-primary transition-colors">
-                            <Settings className="w-4 h-4" /> Settings
-                          </Link>
-                        </div>
-                        <div className="border-t border-zinc-100 py-2">
-                          <Link href="/help" className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors">
-                            <HelpCircle className="w-4 h-4" /> Help Center
-                          </Link>
-                          <form action={logoutAction} className="w-full">
-                            <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 transition-colors">
-                              <LogOut className="w-4 h-4" /> Logout
-                            </button>
-                          </form>
-                        </div>
-                      </motion.div>
+            <div className="hidden md:flex items-center gap-4">
+              {user ? (
+                <div className="flex items-center gap-5">
+                  <Link href="/account/wishlist" className={`relative transition-colors hover:text-tb-primary ${isSolid ? 'text-zinc-600' : 'text-white'}`}>
+                    <Heart className="w-5 h-5" />
+                    {wishlistIds.length > 0 && (
+                      <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center border border-white">
+                        {wishlistIds.length}
+                      </span>
                     )}
-                  </AnimatePresence>
-                </div>
-              </div>
-            ) : (
-              <>
-                <Link 
-                  href="/login"
-                  className={`text-sm font-bold transition-colors duration-300 ${
-                    isSolid 
-                      ? 'text-tb-text-secondary hover:text-tb-primary' 
-                      : 'text-white/80 hover:text-white drop-shadow-sm'
-                  }`}
-                >
-                  Log In
-                </Link>
-                <Link 
-                  href="/signup"
-                  className={`text-sm font-bold px-5 py-2 rounded-full transition-colors duration-300 shadow-sm ${
-                    isSolid 
-                      ? 'bg-tb-primary text-white hover:bg-tb-primary-hover' 
-                      : 'bg-white text-tb-primary hover:bg-zinc-100'
-                  }`}
-                >
-                  Sign Up
-                </Link>
-              </>
-            )}
-          </div>
+                  </Link>
+                  <button className={`relative transition-colors hover:text-tb-primary ${isSolid ? 'text-zinc-600' : 'text-white'}`}>
+                    <Bell className="w-5 h-5" />
+                    <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full border border-white"></span>
+                  </button>
+                  <div className="relative">
+                    <button
+                      onClick={() => setIsAvatarDropdownOpen(!isAvatarDropdownOpen)}
+                      className="w-10 h-10 rounded-full bg-tb-primary text-white flex items-center justify-center font-bold text-sm shadow-sm hover:scale-105 transition-transform"
+                    >
+                      {user.firstName[0]?.toUpperCase()}
+                    </button>
 
-          {/* Mobile Menu Button */}
-          <button 
-            type="button"
-            className={`md:hidden flex items-center justify-center w-11 h-11 transition-colors duration-300 ${
-              isSolid ? 'text-tb-text-primary hover:bg-zinc-100' : 'text-white hover:bg-white/10'
-            } rounded-full`}
-            onClick={() => setIsMobileMenuOpen(true)}
-            aria-label="Open menu"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
-        </div>
-      </Container>
+                    <AnimatePresence>
+                      {isAvatarDropdownOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                          transition={{ duration: 0.15 }}
+                          className="absolute right-0 mt-3 w-56 bg-white rounded-2xl shadow-tb-large border border-zinc-100 overflow-hidden"
+                        >
+                          <div className="p-4 border-b border-zinc-100 bg-zinc-50/50">
+                            <div className="font-bold text-zinc-900">{user.firstName}</div>
+                            <div className="text-xs text-zinc-500 truncate">{user.email}</div>
+                          </div>
+                          <div className="py-2 flex flex-col">
+                            <Link href="/account/trips" onClick={() => setIsAvatarDropdownOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50 hover:text-tb-primary transition-colors">
+                              <Compass className="w-4 h-4" /> My Trips
+                            </Link>
+                            <Link href="/account/wishlist" onClick={() => setIsAvatarDropdownOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50 hover:text-tb-primary transition-colors">
+                              <Heart className="w-4 h-4" /> Wishlist
+                            </Link>
+                            <Link href="/account/profile" onClick={() => setIsAvatarDropdownOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50 hover:text-tb-primary transition-colors">
+                              <User className="w-4 h-4" /> Profile
+                            </Link>
+                            <Link href="/account/settings" onClick={() => setIsAvatarDropdownOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50 hover:text-tb-primary transition-colors">
+                              <Settings className="w-4 h-4" /> Settings
+                            </Link>
+                          </div>
+                          <div className="border-t border-zinc-100 py-2">
+                            <Link href="/help" className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors">
+                              <HelpCircle className="w-4 h-4" /> Help Center
+                            </Link>
+                            <form action={logoutAction} className="w-full">
+                              <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 transition-colors">
+                                <LogOut className="w-4 h-4" /> Logout
+                              </button>
+                            </form>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <Link
+                    href="/partner"
+                    className={`hidden lg:block text-sm font-bold transition-colors duration-300 mr-4 ${isSolid
+                        ? 'text-tb-text-secondary hover:text-tb-primary'
+                        : 'text-white/80 hover:text-white drop-shadow-sm'
+                      }`}
+                  >
+                    Become a Partner
+                  </Link>
+                  <Link
+                    href="/login"
+                    className={`text-sm font-bold transition-colors duration-300 ${isSolid
+                        ? 'text-tb-text-secondary hover:text-tb-primary'
+                        : 'text-white/80 hover:text-white drop-shadow-sm'
+                      }`}
+                  >
+                    Log In
+                  </Link>
+                  <Link
+                    href="/signup"
+                    className={`text-sm font-bold px-5 py-2 rounded-full transition-colors duration-300 shadow-sm ${isSolid
+                        ? 'bg-tb-primary text-white hover:bg-tb-primary-hover'
+                        : 'bg-white text-tb-primary hover:bg-zinc-100'
+                      }`}
+                  >
+                    Sign Up
+                  </Link>
+                </>
+              )}
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              type="button"
+              className={`md:hidden flex items-center justify-center w-11 h-11 transition-colors duration-300 ${isSolid ? 'text-tb-text-primary hover:bg-zinc-100' : 'text-white hover:bg-white/10'
+                } rounded-full`}
+              onClick={() => setIsMobileMenuOpen(true)}
+              aria-label="Open menu"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
+        </Container>
 
       </header>
 
@@ -204,16 +208,16 @@ export function NavbarClient({ user }: NavbarClientProps) {
       {isMobileMenuOpen && (
         <div className="md:hidden fixed inset-0 z-[100]">
           {/* Backdrop */}
-          <div 
-            className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity" 
+          <div
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
             onClick={() => setIsMobileMenuOpen(false)}
           />
-          
+
           {/* Drawer */}
           <div className="absolute top-0 right-0 bottom-0 w-4/5 max-w-sm bg-white shadow-2xl flex flex-col transition-transform transform translate-x-0">
             <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-100">
               <span className="text-xl font-bold text-zinc-900">Menu</span>
-              <button 
+              <button
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="w-11 h-11 flex items-center justify-center rounded-full hover:bg-zinc-100 text-zinc-600 transition-colors -mr-2"
                 aria-label="Close menu"
@@ -223,7 +227,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
                 </svg>
               </button>
             </div>
-            
+
             <div className="flex flex-col py-4 px-6 space-y-2 overflow-y-auto">
               {navLinks.map((link) => (
                 <Link
@@ -238,7 +242,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
               {user ? (
                 <div className="pt-6 mt-6 border-t border-zinc-100 flex flex-col space-y-2">
                   <div className="flex items-center gap-3 py-2 mb-2">
-                     <div className="w-10 h-10 rounded-full bg-tb-primary text-white flex items-center justify-center font-bold text-sm shadow-sm">
+                    <div className="w-10 h-10 rounded-full bg-tb-primary text-white flex items-center justify-center font-bold text-sm shadow-sm">
                       {user.firstName[0]?.toUpperCase()}
                     </div>
                     <div>
@@ -268,15 +272,22 @@ export function NavbarClient({ user }: NavbarClientProps) {
                 </div>
               ) : (
                 <div className="pt-6 mt-6 border-t border-zinc-100 flex flex-col space-y-2">
-                  <Link 
-                    href="/login" 
+                  <Link
+                    href="/partner"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block text-lg font-bold text-zinc-900 py-2 hover:text-tb-primary transition-colors"
+                  >
+                    Become a Partner
+                  </Link>
+                  <Link
+                    href="/login"
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="block text-lg font-bold text-zinc-900 py-2 hover:text-tb-primary transition-colors"
                   >
                     Log In
                   </Link>
-                  <Link 
-                    href="/signup" 
+                  <Link
+                    href="/signup"
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="block text-lg font-bold text-tb-primary py-2 hover:text-tb-primary-hover transition-colors"
                   >
