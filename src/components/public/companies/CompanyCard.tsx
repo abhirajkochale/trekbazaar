@@ -60,7 +60,7 @@ export function CompanyCard({ company }: CompanyCardProps) {
         </div>
         
         <p className="mt-4 text-sm text-zinc-600 line-clamp-2 leading-relaxed flex-1">
-          {company.short_description || company.description || "A trusted trekking operator verified by TrekBazaar."}
+          {company.description || "A trusted trekking operator verified by TrekBazaar."}
         </p>
         
         <div className="grid grid-cols-2 gap-4 mt-6 pt-5 border-t border-zinc-100">

@@ -12,8 +12,25 @@ export const metadata = {
 
 export default async function CompaniesDirectoryPage(props: { searchParams: Promise<Record<string, string>> }) {
   const searchParams = await props.searchParams;
+  
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": metadata.title,
+    "description": metadata.description,
+    "url": "https://trekbazaar.com/companies",
+    "about": {
+      "@type": "Thing",
+      "name": "Trekking Operators in India"
+    }
+  };
+
   return (
     <main className="flex flex-col min-h-screen pt-20 pb-20 bg-zinc-50">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <HeroSection />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full mt-8">
