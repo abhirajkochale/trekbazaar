@@ -48,17 +48,30 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
         const dbIds = data.map(d => d.trek_id);
         
         // Merge local storage items that aren't in DB yet (if they logged in for the first time on this device)
-        const localIds = local ? [...new Set(JSON.parse(local))] : [];
-        const toInsert = localIds.filter((id: string) => !dbIds.includes(id));
+        const parsedLocal: string[] = local ? JSON.parse(local) : [];
+        const localIds: string[] = [...new Set(parsedLocal)];
+        const toInsertCandidates = localIds.filter((id) => !dbIds.includes(id));
         
-        if (toInsert.length > 0) {
-          const insertData = toInsert.map((id: string) => ({ customer_id: user.id, trek_id: id }));
-          // Insert safely since toInsert is strictly filtered against dbIds
-          const { error: insertError } = await supabase.from('wishlists').insert(insertData);
-          if (insertError) console.error("Wishlist sync error", insertError);
+        let validToInsert: string[] = [];
+        
+        if (toInsertCandidates.length > 0) {
+          // Validate against treks table to prevent foreign key constraint violations from stale local storage
+          const { data: validTreks } = await supabase
+            .from('treks')
+            .select('id')
+            .in('id', toInsertCandidates);
+            
+          validToInsert = validTreks ? validTreks.map(t => t.id) : [];
+
+          if (validToInsert.length > 0) {
+            const insertData = validToInsert.map((id) => ({ customer_id: user.id, trek_id: id }));
+            // Insert safely since validToInsert is strictly filtered against dbIds and treks
+            const { error: insertError } = await supabase.from('wishlists').insert(insertData);
+            if (insertError) console.error("Wishlist sync error", insertError);
+          }
         }
 
-        const mergedIds = [...new Set([...dbIds, ...toInsert])];
+        const mergedIds = [...new Set([...dbIds, ...validToInsert])];
         setWishlistIds(mergedIds);
         localStorage.setItem('tb_wishlist', JSON.stringify(mergedIds));
       }
