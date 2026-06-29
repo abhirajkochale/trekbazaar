@@ -58,8 +58,8 @@ export function NavbarClient({ user }: NavbarClientProps) {
     <>
       <header
         className={`fixed top-0 z-50 w-full transition-all duration-500 ${isSolid
-            ? 'bg-white/95 backdrop-blur-md border-b border-tb-border shadow-tb-subtle py-2'
-            : 'bg-transparent border-transparent py-4'
+          ? 'bg-white/95 backdrop-blur-md border-b border-tb-border shadow-tb-subtle py-2'
+          : 'bg-transparent border-transparent py-4'
           }`}
       >
         <Container>
@@ -79,8 +79,8 @@ export function NavbarClient({ user }: NavbarClientProps) {
                     key={link.name}
                     href={link.href}
                     className={`text-sm font-medium transition-colors duration-300 ${isSolid
-                        ? 'text-tb-text-secondary hover:text-tb-primary'
-                        : 'text-white/80 hover:text-white drop-shadow-sm'
+                      ? 'text-tb-text-secondary hover:text-tb-primary'
+                      : 'text-white/80 hover:text-white drop-shadow-sm'
                       }`}
                   >
                     {link.name}
@@ -159,8 +159,8 @@ export function NavbarClient({ user }: NavbarClientProps) {
                   <Link
                     href="/partner"
                     className={`hidden lg:block text-sm font-bold transition-colors duration-300 mr-4 ${isSolid
-                        ? 'text-tb-text-secondary hover:text-tb-primary'
-                        : 'text-white/80 hover:text-white drop-shadow-sm'
+                      ? 'text-tb-text-secondary hover:text-tb-primary'
+                      : 'text-white/80 hover:text-white drop-shadow-sm'
                       }`}
                   >
                     Become a Partner
@@ -168,8 +168,8 @@ export function NavbarClient({ user }: NavbarClientProps) {
                   <Link
                     href="/login"
                     className={`text-sm font-bold transition-colors duration-300 ${isSolid
-                        ? 'text-tb-text-secondary hover:text-tb-primary'
-                        : 'text-white/80 hover:text-white drop-shadow-sm'
+                      ? 'text-tb-text-secondary hover:text-tb-primary'
+                      : 'text-white/80 hover:text-white drop-shadow-sm'
                       }`}
                   >
                     Log In
@@ -177,8 +177,8 @@ export function NavbarClient({ user }: NavbarClientProps) {
                   <Link
                     href="/signup"
                     className={`text-sm font-bold px-5 py-2 rounded-full transition-colors duration-300 shadow-sm ${isSolid
-                        ? 'bg-tb-primary text-white hover:bg-tb-primary-hover'
-                        : 'bg-white text-tb-primary hover:bg-zinc-100'
+                      ? 'bg-tb-primary text-white hover:bg-tb-primary-hover'
+                      : 'bg-white text-tb-primary hover:bg-zinc-100'
                       }`}
                   >
                     Sign Up

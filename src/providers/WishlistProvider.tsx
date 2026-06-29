@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useRef, ReactNode } from 'react';
 import { createClient } from '@/lib/supabase/client';
 
 type WishlistContextType = {
@@ -18,6 +18,8 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const supabase = createClient();
 
+  const hasSynced = useRef(false);
+
   useEffect(() => {
     // 1. Load from local storage immediately for fast UI
     const local = localStorage.getItem('tb_wishlist');
@@ -32,6 +34,9 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
 
     // 2. Sync with Supabase if logged in
     const syncWithDb = async () => {
+      if (hasSynced.current) return;
+      hasSynced.current = true;
+      
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
         setIsLoading(false);
