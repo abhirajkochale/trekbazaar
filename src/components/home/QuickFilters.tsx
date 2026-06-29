@@ -11,7 +11,7 @@ const QUICK_FILTERS = [
   { name: '🏕️ Weekend', url: '/search?duration=4' },
   { name: '🧗 Beginner', url: '/search?difficulty=Easy' },
   { name: '❄️ Winter', url: '/search?season=Winter' },
-  { name: '🏔️ High Altitude', url: '/search?difficulty=Extreme' },
+  { name: '🏔️ High Altitude', url: '/search?difficulty=Difficult' },
 ];
 
 export function QuickFilters() {
