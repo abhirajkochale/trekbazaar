@@ -120,7 +120,7 @@ export function FilterSidebar() {
   const formatPrice = (val: number) => `₹${val.toLocaleString('en-IN')}`;
 
   return (
-    <div className="bg-white border border-zinc-200 rounded-2xl p-6 md:p-8 h-max sticky top-[100px] shadow-sm">
+    <div className="bg-white border border-zinc-200 rounded-2xl p-6 md:p-8 sticky top-[180px] shadow-sm overflow-y-auto max-h-[calc(100vh-200px)] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-zinc-200 [&::-webkit-scrollbar-thumb]:rounded-full">
       <div className="flex items-center justify-between mb-8">
         <h3 className="text-xl font-bold text-zinc-900">Filters</h3>
         {/* Clear Filters could go here */}
