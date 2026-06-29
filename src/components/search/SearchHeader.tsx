@@ -9,7 +9,7 @@ interface SearchHeaderProps {
 
 export function SearchHeader({ totalCount }: SearchHeaderProps) {
   return (
-    <div className="border-b border-tb-border bg-white/90 backdrop-blur-md sticky top-[64px] md:top-[72px] z-40 shadow-sm transition-all">
+    <div className="border-b border-tb-border bg-white sticky top-[64px] md:top-[72px] z-40 shadow-sm transition-all">
       <Container>
         <div className="py-4 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <OmniSearchBar />
