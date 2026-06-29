@@ -53,7 +53,9 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
         
         if (toInsert.length > 0) {
           const insertData = toInsert.map((id: string) => ({ customer_id: user.id, trek_id: id }));
-          await supabase.from('wishlists').upsert(insertData, { onConflict: 'customer_id,trek_id', ignoreDuplicates: true });
+          // Insert safely since toInsert is strictly filtered against dbIds
+          const { error: insertError } = await supabase.from('wishlists').insert(insertData);
+          if (insertError) console.error("Wishlist sync error", insertError);
         }
 
         const mergedIds = [...new Set([...dbIds, ...toInsert])];
@@ -88,12 +90,21 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
 
     const { data: { user } } = await supabase.auth.getUser();
     if (user) {
-      const { error } = await supabase.from('wishlists').upsert({ customer_id: user.id, trek_id: trekId }, { onConflict: 'customer_id,trek_id', ignoreDuplicates: true });
-      if (error) {
-        // Revert on error
-        const reverted = wishlistIds.filter(id => id !== trekId);
-        setWishlistIds(reverted);
-        localStorage.setItem('tb_wishlist', JSON.stringify(reverted));
+      // Check if already exists to prevent 409 error in browser console
+      const { data: existing } = await supabase
+        .from('wishlists')
+        .select('id')
+        .match({ customer_id: user.id, trek_id: trekId })
+        .maybeSingle();
+
+      if (!existing) {
+        const { error } = await supabase.from('wishlists').insert({ customer_id: user.id, trek_id: trekId });
+        if (error) {
+          // Revert on error
+          const reverted = wishlistIds.filter(id => id !== trekId);
+          setWishlistIds(reverted);
+          localStorage.setItem('tb_wishlist', JSON.stringify(reverted));
+        }
       }
     }
   }, [wishlistIds, supabase]);
