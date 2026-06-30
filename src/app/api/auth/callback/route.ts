@@ -12,10 +12,12 @@ export async function GET(request: Request) {
     const { data, error } = await supabase.auth.exchangeCodeForSession(code);
     
     if (!error && data?.user) {
-      // Check if user is brand new (created within the last 15 seconds)
-      const now = new Date().getTime();
+      // Check if user is brand new by comparing created_at and last_sign_in_at
+      // This avoids server clock skew issues between Vercel and Supabase
       const createdAt = new Date(data.user.created_at).getTime();
-      const isBrandNewUser = (now - createdAt) < 15000;
+      const lastSignIn = new Date(data.user.last_sign_in_at || data.user.created_at).getTime();
+      // If last_sign_in_at is within 5 seconds of created_at, it's their first time signing in
+      const isBrandNewUser = Math.abs(lastSignIn - createdAt) < 5000;
 
       if (isBrandNewUser) {
         // Redirect to setup password page for first-time OAuth users
