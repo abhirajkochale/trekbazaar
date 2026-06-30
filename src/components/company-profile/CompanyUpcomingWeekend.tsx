@@ -20,10 +20,10 @@ export function CompanyUpcomingWeekend({ departures, companySlug }: Props) {
       <Container>
         <div className="flex items-center gap-3 mb-8">
           <div className="w-12 h-12 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center shadow-sm">
-            <Zap className="w-6 h-6 fill-amber-500" />
+            <Zap className="w-4 h-4 fill-amber-500" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-zinc-900 tracking-tight">Upcoming This Weekend ⭐</h2>
+            <h2 className="text-2xl font-bold text-zinc-900 tracking-tight">Upcoming This Weekend</h2>
             <p className="text-zinc-500 text-sm font-medium">Last minute spots for the upcoming weekend</p>
           </div>
         </div>

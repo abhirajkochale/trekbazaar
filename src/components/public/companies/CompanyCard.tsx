@@ -23,7 +23,7 @@ export function CompanyCard({ company }: CompanyCardProps) {
           />
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-zinc-100 to-zinc-200 flex items-center justify-center">
-            <Mountain className="w-12 h-12 text-zinc-300" />
+            <Mountain className="w-4 h-4 text-zinc-300" />
           </div>
         )}
         

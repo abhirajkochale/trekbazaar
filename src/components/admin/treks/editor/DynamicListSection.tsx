@@ -57,7 +57,7 @@ export function DynamicListSection({ trek, field, updateField, placeholder }: Pr
                   disabled={index === 0}
                   className="hover:text-zinc-600 disabled:opacity-0"
                 >
-                  <GripVertical className="w-3 h-3 rotate-90" />
+                  <GripVertical className="w-4 h-4 rotate-90" />
                 </button>
               </div>
               <span className="flex-1 text-sm text-zinc-700">{item}</span>

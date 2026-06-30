@@ -11,22 +11,22 @@ export async function DeparturesStats() {
       <StatCard 
         title="Total Departures" 
         value={stats.total} 
-        icon={<CalendarDays className="w-5 h-5 text-zinc-600" />} 
+        icon={<CalendarDays className="w-4 h-4 text-zinc-600" />} 
       />
       <StatCard 
         title="Upcoming" 
         value={stats.upcoming} 
-        icon={<PlaneTakeoff className="w-5 h-5 text-emerald-500" />} 
+        icon={<PlaneTakeoff className="w-4 h-4 text-zinc-500" />} 
       />
       <StatCard 
         title="Seats Available" 
         value={stats.availableSeats} 
-        icon={<Users className="w-5 h-5 text-blue-500" />} 
+        icon={<Users className="w-4 h-4 text-zinc-500" />} 
       />
       <StatCard 
         title="Occupancy" 
         value={`${stats.occupancy}%`} 
-        icon={<Percent className="w-5 h-5 text-amber-500" />} 
+        icon={<Percent className="w-4 h-4 text-zinc-500" />} 
       />
     </div>
   );

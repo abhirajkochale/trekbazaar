@@ -62,7 +62,7 @@ export function ActiveTreks({ treks, companyName }: Props) {
               ) : (
                 <div className="flex flex-col items-center justify-center text-center py-20 px-4 bg-white border border-zinc-100 rounded-3xl shadow-sm">
                   <div className="w-16 h-16 bg-zinc-50 rounded-full flex items-center justify-center mb-6 shadow-sm border border-zinc-100">
-                    <Map className="w-8 h-8 text-zinc-300" />
+                    <Map className="w-4 h-4 text-zinc-300" />
                   </div>
                   <h3 className="text-xl font-bold text-zinc-900 mb-2">No treks found</h3>
                   <p className="text-zinc-500 max-w-sm font-medium">

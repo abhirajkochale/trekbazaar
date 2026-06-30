@@ -24,14 +24,14 @@ export function InclusionsExclusions({ inclusions, exclusions }: Props) {
         {/* Inclusions */}
         <div>
           <h3 className="text-xl font-bold text-emerald-800 mb-6 flex items-center gap-2">
-            <CheckCircle2 className="w-6 h-6 text-emerald-500" />
+            <CheckCircle2 className="w-4 h-4 text-zinc-500" />
             Included in most packages
           </h3>
           {inclusions.length > 0 ? (
             <ul className="space-y-4">
               {inclusions.map((item, idx) => (
                 <li key={idx} className="flex items-start gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
+                  <CheckCircle2 className="w-4 h-4 text-zinc-500 shrink-0 mt-0.5" />
                   <span className="text-zinc-700 font-medium leading-relaxed">{item}</span>
                 </li>
               ))}
@@ -44,14 +44,14 @@ export function InclusionsExclusions({ inclusions, exclusions }: Props) {
         {/* Exclusions */}
         <div>
           <h3 className="text-xl font-bold text-red-800 mb-6 flex items-center gap-2">
-            <XCircle className="w-6 h-6 text-red-500" />
+            <XCircle className="w-4 h-4 text-zinc-500" />
             Not Included
           </h3>
           {exclusions.length > 0 ? (
             <ul className="space-y-4">
               {exclusions.map((item, idx) => (
                 <li key={idx} className="flex items-start gap-3">
-                  <XCircle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
+                  <XCircle className="w-4 h-4 text-zinc-500 shrink-0 mt-0.5" />
                   <span className="text-zinc-600 font-medium leading-relaxed">{item}</span>
                 </li>
               ))}

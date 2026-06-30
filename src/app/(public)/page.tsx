@@ -40,7 +40,7 @@ export default async function Home() {
         {/* Section 4 & 5: High-Intent Treks (Personalized & Trending) */}
         <PersonalizedHome masterTreks={masterTreks} />
         {trendingTreks.length > 0 && (
-          <TrekGridSection title="🔥 Popular Across Operators" subtitle="The most sought-after itineraries on our marketplace this week." treks={trendingTreks} />
+          <TrekGridSection title="Popular Across Operators" subtitle="The most sought-after itineraries on our marketplace this week." treks={trendingTreks} />
         )}
         
         {/* Section 6: Explore by Region (Airbnb-style Bento Grid) */}

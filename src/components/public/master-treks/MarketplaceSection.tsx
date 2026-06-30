@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import { MarketplaceCard } from './MarketplaceCard';
-import { Filter, X, ArrowRightLeft, Check, Minus } from 'lucide-react';
+import { Filter, X, ArrowRightLeft, Check, Minus, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { formatPrice } from '@/lib/format';
 
@@ -247,7 +247,7 @@ export function MarketplaceSection({ packages }: Props) {
               <div className="flex items-center justify-between mb-8">
                 <h3 className="font-bold text-lg text-zinc-900">Filters & Sort</h3>
                 <button onClick={() => setIsMobileFilterOpen(false)} className="p-2 -mr-2 text-zinc-500">
-                  <X className="w-5 h-5" />
+                  <X className="w-4 h-4" />
                 </button>
               </div>
               {filterContent}
@@ -306,7 +306,7 @@ export function MarketplaceSection({ packages }: Props) {
             className="py-24 text-center bg-white rounded-3xl border border-zinc-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
           >
             <div className="w-20 h-20 bg-zinc-50 rounded-full flex items-center justify-center mx-auto mb-6 border border-zinc-100/60 shadow-sm">
-              <Filter className="w-8 h-8 text-zinc-300" />
+              <Filter className="w-4 h-4 text-zinc-300" />
             </div>
             <h3 className="text-2xl font-bold text-zinc-900 mb-2 tracking-tight">No packages found</h3>
             <p className="text-zinc-500 font-medium">Try adjusting your filters to see more results.</p>
@@ -375,10 +375,10 @@ export function MarketplaceSection({ packages }: Props) {
             >
               <div className="px-6 py-5 border-b border-zinc-100 flex items-center justify-between bg-zinc-50/50">
                 <h2 className="text-xl font-bold text-zinc-900 flex items-center gap-2">
-                  <ArrowRightLeft className="w-5 h-5 text-tb-primary" /> Compare Packages
+                  <ArrowRightLeft className="w-4 h-4 text-tb-primary" /> Compare Packages
                 </h2>
                 <button onClick={() => setIsCompareModalOpen(false)} className="p-2 text-zinc-400 hover:bg-zinc-100 rounded-full transition-colors">
-                  <X className="w-6 h-6" />
+                  <X className="w-4 h-4" />
                 </button>
               </div>
 
@@ -408,7 +408,9 @@ export function MarketplaceSection({ packages }: Props) {
                       <tr>
                         <td className="p-4 font-semibold text-zinc-600 bg-white sticky left-0 shadow-[2px_0_5px_rgba(0,0,0,0.02)]">Rating</td>
                         {comparePackages.map(pkg => (
-                          <td key={pkg.id} className="p-4 text-zinc-900 font-medium">⭐ 4.9</td>
+                          <td key={pkg.id} className="p-4 text-zinc-900 font-medium flex items-center gap-1">
+                            <Star className="w-4 h-4 fill-zinc-400 text-zinc-400" /> 4.9
+                          </td>
                         ))}
                       </tr>
                       <tr>
@@ -423,7 +425,7 @@ export function MarketplaceSection({ packages }: Props) {
                           const hasMeals = (pkg.included || []).some((i: string) => i.toLowerCase().includes('meal') || i.toLowerCase().includes('food'));
                           return (
                             <td key={pkg.id} className="p-4">
-                              {hasMeals ? <Check className="w-5 h-5 text-emerald-500" /> : <Minus className="w-5 h-5 text-zinc-300" />}
+                              {hasMeals ? <Check className="w-4 h-4 text-zinc-500" /> : <Minus className="w-4 h-4 text-zinc-300" />}
                             </td>
                           );
                         })}
@@ -434,7 +436,7 @@ export function MarketplaceSection({ packages }: Props) {
                           const hasTransport = (pkg.included || []).some((i: string) => i.toLowerCase().includes('transport') || i.toLowerCase().includes('pickup'));
                           return (
                             <td key={pkg.id} className="p-4">
-                              {hasTransport ? <Check className="w-5 h-5 text-emerald-500" /> : <Minus className="w-5 h-5 text-zinc-300" />}
+                              {hasTransport ? <Check className="w-4 h-4 text-zinc-500" /> : <Minus className="w-4 h-4 text-zinc-300" />}
                             </td>
                           );
                         })}

@@ -97,7 +97,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
               {user ? (
                 <div className="flex items-center gap-5">
                   <Link href="/account/wishlist" className={`relative transition-colors hover:text-tb-primary ${isSolid ? 'text-zinc-600' : 'text-white'}`}>
-                    <Heart className="w-5 h-5" />
+                    <Heart className="w-4 h-4" />
                     {totalWishlistCount > 0 && (
                       <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center border border-white">
                         {totalWishlistCount > 9 ? '9+' : totalWishlistCount}
@@ -105,7 +105,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
                     )}
                   </Link>
                   <button className={`relative transition-colors hover:text-tb-primary ${isSolid ? 'text-zinc-600' : 'text-white'}`}>
-                    <Bell className="w-5 h-5" />
+                    <Bell className="w-4 h-4" />
                     <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full border border-white"></span>
                   </button>
                   <div className="relative">
@@ -255,21 +255,21 @@ export function NavbarClient({ user }: NavbarClientProps) {
                     </div>
                   </div>
                   <Link href="/account/trips" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 text-lg font-medium text-zinc-700 py-3 hover:text-tb-primary transition-colors">
-                    <Compass className="w-5 h-5" /> My Trips
+                    <Compass className="w-4 h-4" /> My Trips
                   </Link>
                   <Link href="/account/wishlist" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 text-lg font-medium text-zinc-700 py-3 hover:text-tb-primary transition-colors">
-                    <Heart className="w-5 h-5" /> Wishlist
+                    <Heart className="w-4 h-4" /> Wishlist
                   </Link>
                   <Link href="/account/profile" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 text-lg font-medium text-zinc-700 py-3 hover:text-tb-primary transition-colors">
-                    <User className="w-5 h-5" /> Profile
+                    <User className="w-4 h-4" /> Profile
                   </Link>
                   <Link href="/account/settings" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 text-lg font-medium text-zinc-700 py-3 hover:text-tb-primary transition-colors">
-                    <Settings className="w-5 h-5" /> Settings
+                    <Settings className="w-4 h-4" /> Settings
                   </Link>
                   <div className="pt-4 mt-4 border-t border-zinc-100">
                     <form action={logoutAction}>
                       <button onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 text-lg font-medium text-red-600 py-3 w-full text-left hover:bg-red-50 transition-colors">
-                        <LogOut className="w-5 h-5" /> Logout
+                        <LogOut className="w-4 h-4" /> Logout
                       </button>
                     </form>
                   </div>

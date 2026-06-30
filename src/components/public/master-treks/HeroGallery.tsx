@@ -194,7 +194,7 @@ export function HeroGallery({ masterTrek }: Props) {
                 className="w-12 h-12 flex items-center justify-center bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors"
                 aria-label="Close Gallery"
               >
-                <X className="w-6 h-6" />
+                <X className="w-4 h-4" />
               </button>
             </div>
 
@@ -225,14 +225,14 @@ export function HeroGallery({ masterTrek }: Props) {
                     className="absolute left-4 top-1/2 -translate-y-1/2 w-14 h-14 flex items-center justify-center bg-black/50 hover:bg-white hover:text-black border border-white/10 text-white rounded-full transition-all"
                     aria-label="Previous image"
                   >
-                    <ChevronLeft className="w-8 h-8 ml-[-2px]" />
+                    <ChevronLeft className="w-4 h-4 ml-[-2px]" />
                   </button>
                   <button 
                     onClick={nextImage}
                     className="absolute right-4 top-1/2 -translate-y-1/2 w-14 h-14 flex items-center justify-center bg-black/50 hover:bg-white hover:text-black border border-white/10 text-white rounded-full transition-all"
                     aria-label="Next image"
                   >
-                    <ChevronRight className="w-8 h-8 mr-[-2px]" />
+                    <ChevronRight className="w-4 h-4 mr-[-2px]" />
                   </button>
                 </>
               )}

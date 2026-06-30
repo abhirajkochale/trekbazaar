@@ -99,7 +99,7 @@ export function ItineraryTimeline({ packages }: Props) {
                         <div className="mt-4 pt-4 border-t border-zinc-100 flex flex-wrap gap-6">
                           {day.meals && (
                             <div className="flex items-start gap-2">
-                              <Utensils className="w-4 h-4 text-emerald-600 mt-0.5" />
+                              <Utensils className="w-4 h-4 text-zinc-500 mt-0.5" />
                               <div>
                                 <span className="block text-xs font-bold text-zinc-400 uppercase tracking-wider">Meals</span>
                                 <span className="text-sm font-medium text-zinc-700">{day.meals}</span>
@@ -108,7 +108,7 @@ export function ItineraryTimeline({ packages }: Props) {
                           )}
                           {day.accommodation && (
                             <div className="flex items-start gap-2">
-                              <Home className="w-4 h-4 text-blue-600 mt-0.5" />
+                              <Home className="w-4 h-4 text-zinc-500 mt-0.5" />
                               <div>
                                 <span className="block text-xs font-bold text-zinc-400 uppercase tracking-wider">Stay</span>
                                 <span className="text-sm font-medium text-zinc-700">{day.accommodation}</span>

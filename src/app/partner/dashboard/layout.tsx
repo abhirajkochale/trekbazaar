@@ -77,23 +77,23 @@ export default async function CompanyLayout({ children }: { children: React.Reac
 
       <div className="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-white border-t border-zinc-200 flex items-center justify-around px-2 pb-safe z-30 shadow-[0_-4px_24px_rgba(0,0,0,0.04)]">
         <Link href="/partner/dashboard" className="flex flex-col items-center gap-1 p-2 text-zinc-500 hover:text-zinc-900 w-16">
-          <LayoutDashboard className="w-5 h-5" />
+          <LayoutDashboard className="w-4 h-4" />
           <span className="text-[9px] font-bold uppercase tracking-wider">Home</span>
         </Link>
         <Link href="/partner/dashboard/treks" className="flex flex-col items-center gap-1 p-2 text-zinc-500 hover:text-zinc-900 w-16">
-          <Map className="w-5 h-5" />
+          <Map className="w-4 h-4" />
           <span className="text-[9px] font-bold uppercase tracking-wider">Treks</span>
         </Link>
         <Link href="/partner/dashboard/departures" className="flex flex-col items-center gap-1 p-2 text-zinc-500 hover:text-zinc-900 w-16">
-          <CalendarDays className="w-5 h-5" />
+          <CalendarDays className="w-4 h-4" />
           <span className="text-[9px] font-bold uppercase tracking-wider">Dates</span>
         </Link>
         <Link href="/partner/dashboard/bookings" className="flex flex-col items-center gap-1 p-2 text-zinc-500 hover:text-zinc-900 w-16">
-          <BookOpen className="w-5 h-5" />
+          <BookOpen className="w-4 h-4" />
           <span className="text-[9px] font-bold uppercase tracking-wider">Books</span>
         </Link>
         <Link href="/partner/dashboard/profile" className="flex flex-col items-center gap-1 p-2 text-zinc-500 hover:text-zinc-900 w-16">
-          <Menu className="w-5 h-5" />
+          <Menu className="w-4 h-4" />
           <span className="text-[9px] font-bold uppercase tracking-wider">More</span>
         </Link>
       </div>

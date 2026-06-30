@@ -12,22 +12,22 @@ export async function TreksStats() {
       <StatCard 
         title="Total Treks" 
         value={stats.totalTreks} 
-        icon={<Mountain className="w-5 h-5" />} 
+        icon={<Mountain className="w-4 h-4" />} 
       />
       <StatCard 
         title="Active" 
         value={stats.activeTreks} 
-        icon={<CheckCircle className="w-5 h-5 text-emerald-500" />} 
+        icon={<CheckCircle className="w-4 h-4 text-zinc-500" />} 
       />
       <StatCard 
         title="Drafts" 
         value={stats.draftTreks} 
-        icon={<FileEdit className="w-5 h-5 text-zinc-500" />} 
+        icon={<FileEdit className="w-4 h-4 text-zinc-500" />} 
       />
       <StatCard 
         title="Avg. Price" 
         value={formatPrice(stats.avgPrice)} 
-        icon={<DollarSign className="w-5 h-5" />} 
+        icon={<DollarSign className="w-4 h-4" />} 
       />
     </div>
   );

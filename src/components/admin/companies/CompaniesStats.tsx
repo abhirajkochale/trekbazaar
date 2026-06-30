@@ -11,22 +11,22 @@ export async function CompaniesStats() {
       <StatCard 
         title="Total Companies" 
         value={stats.totalCompanies} 
-        icon={<Building2 className="w-5 h-5 text-zinc-600" />} 
+        icon={<Building2 className="w-4 h-4 text-zinc-600" />} 
       />
       <StatCard 
         title="Verified" 
         value={stats.verifiedCompanies} 
-        icon={<ShieldCheck className="w-5 h-5 text-emerald-500" />} 
+        icon={<ShieldCheck className="w-4 h-4 text-zinc-500" />} 
       />
       <StatCard 
         title="Pending Approval" 
         value={stats.pendingCompanies} 
-        icon={<Clock className="w-5 h-5 text-amber-500" />} 
+        icon={<Clock className="w-4 h-4 text-zinc-500" />} 
       />
       <StatCard 
         title="Featured Partners" 
         value={stats.featuredCompanies} 
-        icon={<Star className="w-5 h-5 text-yellow-500" />} 
+        icon={<Star className="w-4 h-4 text-zinc-500" />} 
       />
     </div>
   );

@@ -5,22 +5,22 @@ import { ShieldCheck, HeartPulse, Leaf, Users, CheckCircle } from 'lucide-react'
 export function TrustSection() {
   const trustItems = [
     {
-      icon: <ShieldCheck className="w-6 h-6 text-emerald-600" />,
+      icon: <ShieldCheck className="w-4 h-4 text-zinc-500" />,
       title: "Verified Operator",
       desc: "Fully registered and verified by TrekBazaar."
     },
     {
-      icon: <HeartPulse className="w-6 h-6 text-rose-500" />,
+      icon: <HeartPulse className="w-4 h-4 text-rose-500" />,
       title: "Medical Support",
       desc: "Oxygen cylinders & first-aid equipped."
     },
     {
-      icon: <Users className="w-6 h-6 text-blue-500" />,
+      icon: <Users className="w-4 h-4 text-zinc-500" />,
       title: "Certified Leaders",
       desc: "BMC/AMC certified trek leaders."
     },
     {
-      icon: <Leaf className="w-6 h-6 text-green-500" />,
+      icon: <Leaf className="w-4 h-4 text-zinc-500" />,
       title: "Eco Friendly",
       desc: "Strict leave-no-trace policy enforced."
     }

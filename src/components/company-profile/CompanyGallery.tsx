@@ -18,7 +18,7 @@ export function CompanyGallery({ images, companyName }: Props) {
       <Container>
         <div className="flex items-center gap-3 mb-12">
           <div className="w-12 h-12 bg-zinc-800 rounded-xl flex items-center justify-center shadow-sm">
-            <Camera className="w-6 h-6 text-zinc-300" />
+            <Camera className="w-4 h-4 text-zinc-300" />
           </div>
           <div>
             <h2 className="text-3xl font-black tracking-tight">Photos From Our Adventures</h2>

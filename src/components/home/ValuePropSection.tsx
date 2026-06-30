@@ -8,17 +8,17 @@ import { motion } from 'framer-motion';
 export function ValuePropSection() {
   const steps = [
     {
-      icon: <ShieldCheck className="w-8 h-8 text-tb-primary" strokeWidth={1.5} />,
+      icon: <ShieldCheck className="w-4 h-4 text-tb-primary" strokeWidth={1.5} />,
       title: "Verified Companies",
       description: "We handpick and verify every trekking operator before they can list on TrekBazaar, ensuring your safety.",
     },
     {
-      icon: <Compass className="w-8 h-8 text-tb-primary" strokeWidth={1.5} />,
+      icon: <Compass className="w-4 h-4 text-tb-primary" strokeWidth={1.5} />,
       title: "Compare Operators",
       description: "Don't settle for the first quote. Compare prices, itineraries, and reviews across multiple operators for the same trek.",
     },
     {
-      icon: <CreditCard className="w-8 h-8 text-tb-primary" strokeWidth={1.5} />,
+      icon: <CreditCard className="w-4 h-4 text-tb-primary" strokeWidth={1.5} />,
       title: "Lowest Available Price",
       description: "Book directly with operators at their lowest available prices, secured instantly by our payment platform.",
     }

@@ -106,7 +106,7 @@ export function Modal({ isOpen, onClose, title, children, maxWidth = "md" }: Mod
             className="p-2 text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 rounded-md transition-colors"
             aria-label="Close modal"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
         <div className="p-6 overflow-y-auto">

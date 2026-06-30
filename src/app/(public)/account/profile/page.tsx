@@ -65,18 +65,18 @@ export default async function ProfilePage() {
               <div>
                 <label className="block text-xs font-semibold text-zinc-500 uppercase tracking-wide mb-1.5">Email Address</label>
                 <div className="relative">
-                  <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
+                  <Mail className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400" />
                   <input type="email" defaultValue={email} disabled className={`${disabledClass} pl-10`} />
                 </div>
                 <p className="text-xs text-zinc-400 mt-1.5 flex items-center gap-1">
-                  <Shield className="w-3 h-3 text-emerald-500" /> Verified email — cannot be changed here
+                  <Shield className="w-4 h-4 text-zinc-500" /> Verified email — cannot be changed here
                 </p>
               </div>
 
               <div>
                 <label className="block text-xs font-semibold text-zinc-500 uppercase tracking-wide mb-1.5">Phone Number</label>
                 <div className="relative">
-                  <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
+                  <Phone className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400" />
                   <input type="tel" defaultValue={phone} placeholder="+91 98765 43210" className={`${inputClass} pl-10`} />
                 </div>
               </div>
@@ -91,7 +91,7 @@ export default async function ProfilePage() {
           <div className="bg-white rounded-2xl border border-zinc-100 shadow-sm overflow-hidden">
             <div className="px-6 py-5 border-b border-zinc-50 flex items-center gap-3">
               <div className="w-9 h-9 rounded-xl bg-blue-50 flex items-center justify-center">
-                <User className="w-4 h-4 text-blue-500" />
+                <User className="w-4 h-4 text-zinc-500" />
               </div>
               <div>
                 <h2 className="text-base font-bold text-zinc-900">Saved Travellers</h2>
@@ -100,7 +100,7 @@ export default async function ProfilePage() {
 
             <div className="p-6">
               <div className="flex items-start gap-3 bg-blue-50 border border-blue-100 rounded-xl p-4 mb-6">
-                <Info className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                <Info className="w-4 h-4 text-zinc-500 mt-0.5 flex-shrink-0" />
                 <p className="text-xs text-blue-700 leading-relaxed">
                   Save details for family and friends to auto-fill bookings faster. <span className="font-semibold">MVP — stored securely as JSONB, migrating to relational schema soon.</span>
                 </p>

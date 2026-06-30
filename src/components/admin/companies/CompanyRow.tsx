@@ -53,13 +53,13 @@ export function CompanyRow({ company }: { company: Company }) {
                   className="w-full h-full object-cover" 
                 />
               ) : (
-                <Building2 className="w-5 h-5 text-zinc-400" />
+                <Building2 className="w-4 h-4 text-zinc-400" />
               )}
             </div>
             <div>
               <Link href={`/admin/companies/${company.id}/edit`} className="font-semibold text-zinc-900 hover:text-tb-primary hover:underline flex items-center gap-1.5">
                 {company.name}
-                {company.featured && <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />}
+                {company.featured && <Star className="w-4 h-4 .5 .5 text-zinc-500 fill-amber-500" />}
               </Link>
               <div className="text-xs text-zinc-500">{company.city || 'No Location'} {company.state && `, ${company.state}`}</div>
             </div>

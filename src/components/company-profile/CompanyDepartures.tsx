@@ -64,7 +64,7 @@ export function CompanyDepartures({ departures, companySlug }: Props) {
                     className="w-10 h-10 bg-white border border-zinc-200 group-hover:bg-tb-primary group-hover:border-tb-primary group-hover:text-white text-zinc-400 rounded-full flex items-center justify-center transition-all"
                     aria-label="Book Departure"
                   >
-                    <ArrowRight className="w-5 h-5" />
+                    <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
               </div>

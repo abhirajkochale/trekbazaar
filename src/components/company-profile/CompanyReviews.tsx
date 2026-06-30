@@ -29,7 +29,7 @@ export function CompanyReviews({ company }: Props) {
             <div>
               <div className="flex text-amber-500 mb-1">
                 {[1, 2, 3, 4, 5].map((s) => (
-                  <Star key={s} className="w-5 h-5 fill-current" />
+                  <Star key={s} className="w-4 h-4 fill-current" />
                 ))}
               </div>
               <div className="text-sm font-bold text-zinc-500 uppercase tracking-wider">Based on {totalReviews} reviews</div>

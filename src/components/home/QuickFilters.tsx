@@ -6,12 +6,12 @@ import { motion } from 'framer-motion';
 import { Container } from '../layout/Container';
 
 const QUICK_FILTERS = [
-  { name: '🔥 Popular', url: '/search?sort=most-companies' },
-  { name: '💰 Budget', url: '/search?maxPrice=12000' },
-  { name: '🏕️ Weekend', url: '/search?duration=4' },
-  { name: '🧗 Beginner', url: '/search?difficulty=Easy' },
-  { name: '❄️ Winter', url: '/search?season=Winter' },
-  { name: '🏔️ High Altitude', url: '/search?difficulty=Difficult' },
+  { name: 'Popular', url: '/search?sort=most-companies' },
+  { name: 'Budget', url: '/search?maxPrice=12000' },
+  { name: 'Weekend', url: '/search?duration=4' },
+  { name: 'Beginner', url: '/search?difficulty=Easy' },
+  { name: 'Winter', url: '/search?season=Winter' },
+  { name: 'High Altitude', url: '/search?difficulty=Difficult' },
 ];
 
 export function QuickFilters() {

@@ -34,7 +34,7 @@ export function CheckoutSidebar() {
           <div className="flex items-center gap-2 mt-3 text-sm text-zinc-600">
             {company?.verification_status === 'approved' && (
               <span className="flex items-center gap-1 text-tb-primary bg-tb-primary/10 px-2 py-0.5 rounded font-medium">
-                <CheckCircle2 className="w-3.5 h-3.5" /> Verified Operator
+                <CheckCircle2 className="w-4 h-4 .5 .5" /> Verified Operator
               </span>
             )}
             <span className="font-semibold text-zinc-800">{company?.name || 'TrekBazaar'}</span>
@@ -91,7 +91,7 @@ export function CheckoutSidebar() {
       <div className="bg-white rounded-2xl border border-tb-border p-5 space-y-4 shadow-sm">
         <div className="flex items-start gap-3">
           <div className="mt-0.5 bg-green-100 text-green-700 p-1.5 rounded-full">
-            <ShieldCheck className="w-5 h-5" />
+            <ShieldCheck className="w-4 h-4" />
           </div>
           <div>
             <h4 className="font-bold text-sm text-zinc-900">Secure Booking</h4>
@@ -101,7 +101,7 @@ export function CheckoutSidebar() {
         
         <div className="flex items-start gap-3">
           <div className="mt-0.5 bg-amber-100 text-amber-700 p-1.5 rounded-full">
-            <Zap className="w-5 h-5" />
+            <Zap className="w-4 h-4" />
           </div>
           <div>
             <h4 className="font-bold text-sm text-zinc-900">Instant Confirmation</h4>

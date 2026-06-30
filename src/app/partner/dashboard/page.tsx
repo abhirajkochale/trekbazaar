@@ -44,7 +44,7 @@ export default async function CompanyDashboardPage() {
             href="/partner/dashboard/treks/new"
             className="inline-flex items-center gap-2 bg-zinc-900 text-white font-bold px-8 py-4 rounded-xl hover:bg-zinc-800 transition-colors shadow-lg active:scale-95 text-lg"
           >
-            <Plus className="w-5 h-5" /> Create First Trek
+            <Plus className="w-4 h-4" /> Create First Trek
           </Link>
         </div>
       </div>
@@ -67,7 +67,7 @@ export default async function CompanyDashboardPage() {
             href="/partner/dashboard/departures/new"
             className="inline-flex items-center gap-2 bg-blue-600 text-white font-bold px-8 py-4 rounded-xl hover:bg-blue-700 transition-colors shadow-lg active:scale-95 text-lg"
           >
-            <CalendarDays className="w-5 h-5" /> Add Departure Date
+            <CalendarDays className="w-4 h-4" /> Add Departure Date
           </Link>
         </div>
       </div>
@@ -96,21 +96,21 @@ export default async function CompanyDashboardPage() {
         {/* Revenue Card */}
         <div className="bg-white p-5 rounded-2xl border border-zinc-200 shadow-[0_2px_8px_rgba(0,0,0,0.04)] relative overflow-hidden group">
           <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-            <CreditCard className="w-16 h-16" />
+            <CreditCard className="w-4 h-4" />
           </div>
           <p className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2 relative z-10">Total Revenue</p>
           <div className="flex items-baseline gap-2 relative z-10">
             <h3 className="text-3xl font-black text-zinc-900 tracking-tight">{formatPrice(totalRevenue)}</h3>
           </div>
           <p className="text-xs font-medium text-emerald-600 mt-2 relative z-10 flex items-center gap-1">
-            <TrendingUp className="w-3 h-3" /> +12% this month
+            <TrendingUp className="w-4 h-4" /> +12% this month
           </p>
         </div>
 
         {/* Occupancy Card */}
         <div className="bg-white p-5 rounded-2xl border border-zinc-200 shadow-[0_2px_8px_rgba(0,0,0,0.04)] relative overflow-hidden group">
           <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-            <Activity className="w-16 h-16" />
+            <Activity className="w-4 h-4" />
           </div>
           <p className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2 relative z-10">Occupancy</p>
           <div className="flex items-baseline gap-2 relative z-10">
@@ -128,7 +128,7 @@ export default async function CompanyDashboardPage() {
             <h3 className="text-3xl font-black text-amber-500 tracking-tight">{pendingBookings.length}</h3>
           </div>
           <Link href="/partner/dashboard/bookings" className="text-xs font-semibold text-zinc-600 hover:text-zinc-900 mt-2 inline-flex items-center gap-1 transition-colors">
-            Review bookings <ChevronRight className="w-3 h-3" />
+            Review bookings <ChevronRight className="w-4 h-4" />
           </Link>
         </div>
 
@@ -202,7 +202,7 @@ export default async function CompanyDashboardPage() {
           <div className="bg-white rounded-2xl border border-zinc-200 shadow-[0_2px_8px_rgba(0,0,0,0.04)] overflow-hidden">
             <div className="px-5 py-4 border-b border-zinc-100 flex justify-between items-center bg-zinc-50/50">
               <h2 className="text-sm font-bold text-zinc-900 uppercase tracking-wider flex items-center gap-2">
-                <BookOpen className="w-4 h-4 text-blue-500" /> Recent Bookings
+                <BookOpen className="w-4 h-4 text-zinc-500" /> Recent Bookings
               </h2>
               <Link href="/partner/dashboard/bookings" className="text-xs font-bold text-zinc-500 hover:text-zinc-900 transition-colors uppercase tracking-wider">
                 View All

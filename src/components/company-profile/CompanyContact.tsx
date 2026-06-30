@@ -24,7 +24,7 @@ export function CompanyContact({ company }: Props) {
             {company.phone && (
               <a href={`tel:${company.phone}`} className="flex items-center gap-4 bg-zinc-800 hover:bg-zinc-700 px-6 py-5 rounded-2xl transition-colors group">
                 <div className="w-12 h-12 rounded-full bg-tb-primary/20 text-tb-primary flex items-center justify-center shrink-0">
-                  <Phone className="w-6 h-6" />
+                  <Phone className="w-4 h-4" />
                 </div>
                 <div className="text-left">
                   <div className="text-sm font-bold text-zinc-400 uppercase tracking-wider mb-0.5">Call Us</div>
@@ -36,7 +36,7 @@ export function CompanyContact({ company }: Props) {
             {company.email && (
               <a href={`mailto:${company.email}`} className="flex items-center gap-4 bg-zinc-800 hover:bg-zinc-700 px-6 py-5 rounded-2xl transition-colors group">
                 <div className="w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
-                  <Mail className="w-6 h-6" />
+                  <Mail className="w-4 h-4" />
                 </div>
                 <div className="text-left">
                   <div className="text-sm font-bold text-zinc-400 uppercase tracking-wider mb-0.5">Email Us</div>
@@ -48,7 +48,7 @@ export function CompanyContact({ company }: Props) {
             {company.website && (
               <a href={company.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 bg-zinc-800 hover:bg-zinc-700 px-6 py-5 rounded-2xl transition-colors group">
                 <div className="w-12 h-12 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center shrink-0">
-                  <Globe className="w-6 h-6" />
+                  <Globe className="w-4 h-4" />
                 </div>
                 <div className="text-left">
                   <div className="text-sm font-bold text-zinc-400 uppercase tracking-wider mb-0.5">Website</div>
@@ -60,7 +60,7 @@ export function CompanyContact({ company }: Props) {
             {company.instagram && (
               <a href={company.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 bg-zinc-800 hover:bg-zinc-700 px-6 py-5 rounded-2xl transition-colors group">
                 <div className="w-12 h-12 rounded-full bg-pink-500/20 text-pink-400 flex items-center justify-center shrink-0">
-                  <Camera className="w-6 h-6" />
+                  <Camera className="w-4 h-4" />
                 </div>
                 <div className="text-left">
                   <div className="text-sm font-bold text-zinc-400 uppercase tracking-wider mb-0.5">Instagram</div>
@@ -72,7 +72,7 @@ export function CompanyContact({ company }: Props) {
             {company.facebook && (
               <a href={company.facebook} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 bg-zinc-800 hover:bg-zinc-700 px-6 py-5 rounded-2xl transition-colors group">
                 <div className="w-12 h-12 rounded-full bg-blue-600/20 text-blue-500 flex items-center justify-center shrink-0">
-                  <Users className="w-6 h-6" />
+                  <Users className="w-4 h-4" />
                 </div>
                 <div className="text-left">
                   <div className="text-sm font-bold text-zinc-400 uppercase tracking-wider mb-0.5">Facebook</div>
@@ -84,7 +84,7 @@ export function CompanyContact({ company }: Props) {
             {company.youtube && (
               <a href={company.youtube} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 bg-zinc-800 hover:bg-zinc-700 px-6 py-5 rounded-2xl transition-colors group">
                 <div className="w-12 h-12 rounded-full bg-red-500/20 text-red-500 flex items-center justify-center shrink-0">
-                  <Video className="w-6 h-6" />
+                  <Video className="w-4 h-4" />
                 </div>
                 <div className="text-left">
                   <div className="text-sm font-bold text-zinc-400 uppercase tracking-wider mb-0.5">YouTube</div>

@@ -58,7 +58,7 @@ export function CompanyFilters() {
     <div className="bg-white rounded-3xl p-6 shadow-sm border border-zinc-200 sticky top-24">
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg font-black text-zinc-900 flex items-center gap-2">
-          <SlidersHorizontal className="w-5 h-5 text-tb-primary" />
+          <SlidersHorizontal className="w-4 h-4 text-tb-primary" />
           Filter Partners
         </h3>
         {hasActiveFilters && (
@@ -78,7 +78,7 @@ export function CompanyFilters() {
             Search
           </label>
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
+            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
             <input
               type="text"
               placeholder="Company name or city..."
@@ -100,7 +100,7 @@ export function CompanyFilters() {
         {/* State Filter */}
         <div>
           <label className="block text-xs font-bold uppercase tracking-wider text-zinc-500 mb-2 flex items-center gap-1.5">
-            <MapPin className="w-3.5 h-3.5" /> State
+            <MapPin className="w-4 h-4 .5 .5" /> State
           </label>
           <select
             value={state}
@@ -117,7 +117,7 @@ export function CompanyFilters() {
         {/* Sort */}
         <div>
           <label className="block text-xs font-bold uppercase tracking-wider text-zinc-500 mb-2 flex items-center gap-1.5">
-            <Compass className="w-3.5 h-3.5" /> Sort By
+            <Compass className="w-4 h-4 .5 .5" /> Sort By
           </label>
           <div className="flex flex-col gap-2">
             <label className="flex items-center gap-3 cursor-pointer group">

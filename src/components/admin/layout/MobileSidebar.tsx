@@ -32,7 +32,7 @@ export function MobileSidebar() {
         className="lg:hidden p-2 text-zinc-500 hover:text-zinc-900 focus:outline-none"
         aria-label="Open sidebar"
       >
-        <Menu className="w-6 h-6" />
+        <Menu className="w-4 h-4" />
       </button>
 
       {/* Overlay */}
@@ -52,12 +52,12 @@ export function MobileSidebar() {
         <div className="flex items-center justify-between p-6 border-b border-zinc-200">
           <Link href="/admin" onClick={() => setIsOpen(false)} className="text-xl font-bold text-zinc-900 flex items-center gap-2">
             <div className="w-8 h-8 bg-tb-primary rounded-lg flex items-center justify-center">
-              <Mountain className="w-5 h-5 text-white" />
+              <Mountain className="w-4 h-4 text-white" />
             </div>
             TrekBazaar
           </Link>
           <button onClick={() => setIsOpen(false)} className="p-2 text-zinc-500 hover:text-zinc-900 rounded-md">
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
         

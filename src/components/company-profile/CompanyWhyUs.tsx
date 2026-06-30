@@ -17,12 +17,12 @@ export function CompanyWhyUs({ company }: Props) {
   // Simple icon mapper based on string content
   const getIcon = (text: string) => {
     const t = text.toLowerCase();
-    if (t.includes('certif') || t.includes('qualif')) return <Award className="w-6 h-6 text-tb-primary" />;
-    if (t.includes('medic') || t.includes('safe')) return <Shield className="w-6 h-6 text-blue-500" />;
-    if (t.includes('equip') || t.includes('gear')) return <Zap className="w-6 h-6 text-amber-500" />;
-    if (t.includes('exper')) return <Star className="w-6 h-6 text-purple-500" />;
-    if (t.includes('care') || t.includes('support')) return <Heart className="w-6 h-6 text-rose-500" />;
-    return <CheckCircle className="w-6 h-6 text-emerald-500" />;
+    if (t.includes('certif') || t.includes('qualif')) return <Award className="w-4 h-4 text-tb-primary" />;
+    if (t.includes('medic') || t.includes('safe')) return <Shield className="w-4 h-4 text-zinc-500" />;
+    if (t.includes('equip') || t.includes('gear')) return <Zap className="w-4 h-4 text-zinc-500" />;
+    if (t.includes('exper')) return <Star className="w-4 h-4 text-zinc-500" />;
+    if (t.includes('care') || t.includes('support')) return <Heart className="w-4 h-4 text-rose-500" />;
+    return <CheckCircle className="w-4 h-4 text-zinc-500" />;
   };
 
   return (

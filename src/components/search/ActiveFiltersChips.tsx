@@ -41,7 +41,7 @@ export function ActiveFiltersChips() {
           >
             Search: {q}
             <button onClick={() => removeFilter('q')} className="hover:bg-zinc-700 rounded-full p-0.5 transition-colors">
-              <X className="w-3 h-3" />
+              <X className="w-4 h-4" />
             </button>
           </motion.div>
         )}
@@ -62,7 +62,7 @@ export function ActiveFiltersChips() {
             >
               {displayLabel}
               <button onClick={() => removeFilter(key)} className="hover:bg-tb-primary/10 rounded-full p-0.5 transition-colors text-tb-primary/70 hover:text-tb-primary">
-                <X className="w-3 h-3" />
+                <X className="w-4 h-4" />
               </button>
             </motion.div>
           );

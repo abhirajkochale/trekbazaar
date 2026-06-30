@@ -73,7 +73,7 @@ export function PaymentPlaceholderStep() {
 
         <div className="bg-zinc-50 border border-zinc-200 rounded-xl p-8 flex flex-col items-center justify-center text-center space-y-4">
           <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-sm text-zinc-400 mb-2">
-            <CreditCard className="w-8 h-8" />
+            <CreditCard className="w-4 h-4" />
           </div>
           <h3 className="font-bold text-lg text-zinc-900">Payment Gateway Integration Placeholder</h3>
           <p className="text-zinc-500 text-sm max-w-md mx-auto">
@@ -82,7 +82,7 @@ export function PaymentPlaceholderStep() {
         </div>
         
         <div className="flex items-center justify-center gap-2 text-xs text-zinc-500 font-medium bg-zinc-50 py-3 rounded-lg border border-zinc-100">
-          <Lock className="w-3.5 h-3.5" />
+          <Lock className="w-4 h-4 .5 .5" />
           Payments are securely encrypted
         </div>
       </div>

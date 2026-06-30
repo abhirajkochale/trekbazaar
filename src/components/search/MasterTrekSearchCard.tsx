@@ -5,7 +5,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { formatPrice } from '@/lib/format';
 import { difficultyLabel } from '@/lib/format';
-import { Heart, CalendarDays } from 'lucide-react';
+import { Heart, CalendarDays, Star } from 'lucide-react';
+import { Badge } from '@/components/ui/Badge';
 import { useMasterWishlist } from '@/providers/MasterWishlistProvider';
 
 interface Props {
@@ -57,14 +58,14 @@ export function MasterTrekSearchCard({ masterTrek, className = '', href }: Props
         {/* Badges on Image */}
         <div className="absolute top-3 left-3 flex flex-wrap gap-2 z-10">
           {masterTrek.difficulty && (
-            <span className={`px-2.5 py-1 text-[11px] uppercase tracking-wider font-bold rounded-full shadow-sm backdrop-blur-md ${masterTrek.difficulty.toLowerCase() === 'easy' ? 'bg-green-100/90 text-green-800' : masterTrek.difficulty.toLowerCase() === 'moderate' ? 'bg-amber-100/90 text-amber-800' : 'bg-red-100/90 text-red-800'}`}>
+            <Badge variant="outline" className="bg-white/95 shadow-sm">
               {difficultyLabel(masterTrek.difficulty)}
-            </span>
+            </Badge>
           )}
           {masterTrek.category?.name && (
-            <span className="px-2.5 py-1 bg-white/90 backdrop-blur-md text-zinc-900 text-[11px] uppercase tracking-wider font-bold rounded-full shadow-sm">
+            <Badge variant="outline" className="bg-white/95 shadow-sm">
               {masterTrek.category.name}
-            </span>
+            </Badge>
           )}
         </div>
       </div>
@@ -75,8 +76,9 @@ export function MasterTrekSearchCard({ masterTrek, className = '', href }: Props
           <h3 className="text-[17px] font-bold text-zinc-900 line-clamp-1 group-hover:text-tb-primary transition-colors leading-tight">
             {masterTrek.name}
           </h3>
-          <div className="flex items-center gap-1 text-[14px] font-bold text-zinc-900 shrink-0">
-            ★ <span className="font-semibold">4.8</span>
+          <div className="flex items-center gap-1 text-[13px] font-medium text-zinc-600 shrink-0">
+            <Star className="w-4 h-4 .5 .5 fill-zinc-400 text-zinc-400" />
+            <span>4.8</span>
           </div>
         </div>
         
@@ -88,7 +90,7 @@ export function MasterTrekSearchCard({ masterTrek, className = '', href }: Props
           <span>{stats.companiesCount} verified operators</span>
           {stats.upcomingDeparturesCount > 0 && (
             <span className="flex items-center gap-1">
-              <CalendarDays className="w-3.5 h-3.5 text-tb-primary" />
+              <CalendarDays className="w-4 h-4 .5 .5 text-tb-primary" />
               {stats.upcomingDeparturesCount} departures
             </span>
           )}

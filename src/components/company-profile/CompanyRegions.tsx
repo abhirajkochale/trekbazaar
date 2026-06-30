@@ -19,7 +19,7 @@ export function CompanyRegions({ regionsCovered }: Props) {
           <div className="flex flex-wrap justify-center gap-4">
             {regionsCovered.map((region, idx) => (
               <div key={idx} className="flex items-center gap-2 bg-zinc-50 border border-zinc-200 px-6 py-4 rounded-2xl text-lg font-bold text-zinc-800 shadow-sm hover:border-tb-primary hover:text-tb-primary transition-colors cursor-default">
-                <MapPin className="w-5 h-5 text-tb-primary" /> {region}
+                <MapPin className="w-4 h-4 text-tb-primary" /> {region}
               </div>
             ))}
           </div>

@@ -76,7 +76,7 @@ export function DepartureCalendar({ allDepartures }: Props) {
           onClick={handlePrevMonth}
           className="w-12 h-12 flex items-center justify-center rounded-xl bg-white border border-zinc-200 hover:bg-zinc-100 transition-colors shadow-sm"
         >
-          <ChevronLeft className="w-6 h-6 text-zinc-700" />
+          <ChevronLeft className="w-4 h-4 text-zinc-700" />
         </button>
         <span className="text-xl font-bold text-zinc-900 tracking-wide">
           {currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
@@ -85,7 +85,7 @@ export function DepartureCalendar({ allDepartures }: Props) {
           onClick={handleNextMonth}
           className="w-12 h-12 flex items-center justify-center rounded-xl bg-white border border-zinc-200 hover:bg-zinc-100 transition-colors shadow-sm"
         >
-          <ChevronRight className="w-6 h-6 text-zinc-700" />
+          <ChevronRight className="w-4 h-4 text-zinc-700" />
         </button>
       </div>
 

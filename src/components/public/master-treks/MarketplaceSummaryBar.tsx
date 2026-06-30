@@ -38,7 +38,7 @@ export function MarketplaceSummaryBar({ packages }: Props) {
           
           <div className="flex items-center gap-3 shrink-0 snap-start">
             <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center">
-              <Building2 className="w-5 h-5 text-blue-600" />
+              <Building2 className="w-4 h-4 text-zinc-500" />
             </div>
             <div>
               <p className="text-xs text-zinc-500 font-medium uppercase tracking-wider">Operators</p>
@@ -50,7 +50,7 @@ export function MarketplaceSummaryBar({ packages }: Props) {
 
           <div className="flex items-center gap-3 shrink-0 snap-start">
             <div className="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center">
-              <IndianRupee className="w-5 h-5 text-emerald-600" />
+              <IndianRupee className="w-4 h-4 text-zinc-500" />
             </div>
             <div>
               <p className="text-xs text-zinc-500 font-medium uppercase tracking-wider">Lowest Price</p>
@@ -62,7 +62,7 @@ export function MarketplaceSummaryBar({ packages }: Props) {
 
           <div className="flex items-center gap-3 shrink-0 snap-start">
             <div className="w-10 h-10 rounded-full bg-purple-50 flex items-center justify-center">
-              <CalendarDays className="w-5 h-5 text-purple-600" />
+              <CalendarDays className="w-4 h-4 text-zinc-500" />
             </div>
             <div>
               <p className="text-xs text-zinc-500 font-medium uppercase tracking-wider">Departures</p>
@@ -74,7 +74,7 @@ export function MarketplaceSummaryBar({ packages }: Props) {
 
           <div className="flex items-center gap-3 shrink-0 snap-start">
             <div className="w-10 h-10 rounded-full bg-amber-50 flex items-center justify-center">
-              <Star className="w-5 h-5 text-amber-500" fill="currentColor" />
+              <Star className="w-4 h-4 text-zinc-500" fill="currentColor" />
             </div>
             <div>
               <p className="text-xs text-zinc-500 font-medium uppercase tracking-wider">Avg Rating</p>
@@ -86,7 +86,7 @@ export function MarketplaceSummaryBar({ packages }: Props) {
 
           <div className="flex items-center gap-3 shrink-0 snap-start">
             <div className="w-10 h-10 rounded-full bg-orange-50 flex items-center justify-center">
-              <Clock className="w-5 h-5 text-orange-600" />
+              <Clock className="w-4 h-4 text-zinc-500" />
             </div>
             <div>
               <p className="text-xs text-zinc-500 font-medium uppercase tracking-wider">Avg Duration</p>

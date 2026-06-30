@@ -34,7 +34,7 @@ export default async function PartnerApplicationDetails({ params }: { params: Pr
                 {company.logo_url ? (
                   <img src={company.logo_url} alt={company.name} className="w-full h-full object-cover rounded-xl" />
                 ) : (
-                  <Building2 className="w-8 h-8 text-zinc-400" />
+                  <Building2 className="w-4 h-4 text-zinc-400" />
                 )}
               </div>
               <div>

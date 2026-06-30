@@ -17,29 +17,21 @@ export function MarketplaceMetrics({ metrics }: MarketplaceMetricsProps) {
       label: "Verified Partners",
       value: metrics.totalCompanies,
       icon: ShieldCheck,
-      color: "text-emerald-500",
-      bg: "bg-emerald-50",
     },
     {
       label: "Upcoming Departures",
       value: metrics.upcomingDepartures,
       icon: CalendarDays,
-      color: "text-blue-500",
-      bg: "bg-blue-50",
     },
     {
       label: "Treks Available",
       value: metrics.treksAvailable,
       icon: Users,
-      color: "text-tb-primary",
-      bg: "bg-orange-50",
     },
     {
       label: "States Covered",
       value: metrics.statesCovered,
       icon: MapPin,
-      color: "text-purple-500",
-      bg: "bg-purple-50",
     },
   ];
 
@@ -49,8 +41,8 @@ export function MarketplaceMetrics({ metrics }: MarketplaceMetricsProps) {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
           {stats.map((stat, idx) => (
             <div key={idx} className="flex flex-col items-center text-center">
-              <div className={`w-12 h-12 rounded-2xl ${stat.bg} ${stat.color} flex items-center justify-center mb-4`}>
-                <stat.icon className="w-6 h-6" />
+              <div className="w-10 h-10 rounded-full border border-zinc-200 bg-white text-zinc-500 flex items-center justify-center mb-4 shadow-sm">
+                <stat.icon className="w-4 h-4" />
               </div>
               <div className="text-3xl font-black text-zinc-900 mb-1">
                 {stat.value.toLocaleString()}{stat.value > 10 ? '+' : ''}

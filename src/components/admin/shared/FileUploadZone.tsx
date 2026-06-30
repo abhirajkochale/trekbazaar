@@ -148,7 +148,7 @@ export function FileUploadZone({
                       strokeLinecap="round"
                     />
                   </svg>
-                  <FileImage className="w-6 h-6 text-tb-primary animate-pulse" />
+                  <FileImage className="w-4 h-4 text-tb-primary animate-pulse" />
                 </div>
                 <h4 className="text-sm font-bold text-zinc-900 mb-1">Uploading...</h4>
                 <p className="text-xs text-zinc-500 font-medium mb-3">Please wait while we process your files</p>
@@ -170,7 +170,7 @@ export function FileUploadZone({
                 className="flex flex-col items-center"
               >
                 <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-3">
-                  <AlertCircle className="w-6 h-6 text-red-600" />
+                  <AlertCircle className="w-4 h-4 text-zinc-500" />
                 </div>
                 <p className="text-sm font-bold text-red-600 mb-1">Upload Failed</p>
                 <p className="text-xs text-red-500 max-w-sm">{error}</p>
@@ -190,7 +190,7 @@ export function FileUploadZone({
                 className="flex flex-col items-center"
               >
                 <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-4 transition-colors ${isDragging ? 'bg-tb-primary text-white scale-110' : 'bg-white shadow-sm border border-zinc-100 text-zinc-400'}`}>
-                  <UploadCloud className="w-7 h-7" />
+                  <UploadCloud className="w-4 h-4" />
                 </div>
                 <h4 className="text-base font-bold text-zinc-900 mb-1">{title}</h4>
                 <p className="text-sm text-zinc-500 font-medium mb-4">{subtitle}</p>

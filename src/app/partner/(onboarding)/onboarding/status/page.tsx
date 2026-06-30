@@ -30,7 +30,7 @@ export default async function PartnerStatusPage() {
           <>
             <div className="absolute top-0 left-0 w-full h-2 bg-amber-400" />
             <div className="w-20 h-20 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-6 border-8 border-white shadow-sm">
-              <Clock className="w-8 h-8 text-amber-500" />
+              <Clock className="w-4 h-4 text-zinc-500" />
             </div>
             <h1 className="text-3xl font-black text-zinc-900 tracking-tight mb-4">Application Under Review</h1>
             <p className="text-zinc-500 text-lg leading-relaxed mb-8">
@@ -51,7 +51,7 @@ export default async function PartnerStatusPage() {
           <>
             <div className="absolute top-0 left-0 w-full h-2 bg-red-500" />
             <div className="w-20 h-20 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-6 border-8 border-white shadow-sm">
-              <XCircle className="w-8 h-8 text-red-500" />
+              <XCircle className="w-4 h-4 text-zinc-500" />
             </div>
             <h1 className="text-3xl font-black text-zinc-900 tracking-tight mb-4">Application Declined</h1>
             <p className="text-zinc-500 text-lg leading-relaxed mb-8">
@@ -67,7 +67,7 @@ export default async function PartnerStatusPage() {
           <>
             <div className="absolute top-0 left-0 w-full h-2 bg-blue-500" />
             <div className="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6 border-8 border-white shadow-sm">
-              <AlertCircle className="w-8 h-8 text-blue-500" />
+              <AlertCircle className="w-4 h-4 text-zinc-500" />
             </div>
             <h1 className="text-3xl font-black text-zinc-900 tracking-tight mb-4">Changes Requested</h1>
             <p className="text-zinc-500 text-lg leading-relaxed mb-8">
@@ -80,7 +80,7 @@ export default async function PartnerStatusPage() {
           <>
             <div className="absolute top-0 left-0 w-full h-2 bg-zinc-900" />
             <div className="w-20 h-20 bg-zinc-100 rounded-full flex items-center justify-center mx-auto mb-6 border-8 border-white shadow-sm">
-              <ShieldCheck className="w-8 h-8 text-zinc-500" />
+              <ShieldCheck className="w-4 h-4 text-zinc-500" />
             </div>
             <h1 className="text-3xl font-black text-zinc-900 tracking-tight mb-4">Account Suspended</h1>
             <p className="text-zinc-500 text-lg leading-relaxed mb-8">

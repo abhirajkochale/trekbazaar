@@ -45,7 +45,7 @@ export function CompareEngine({ masterTrek, packages }: Props) {
       <Container className="py-24">
         <div className="max-w-2xl mx-auto text-center bg-white p-12 rounded-3xl border border-zinc-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
           <div className="w-20 h-20 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center mx-auto mb-6">
-            <Info className="w-8 h-8" />
+            <Info className="w-4 h-4" />
           </div>
           <h2 className="text-3xl font-bold text-zinc-900 mb-4 tracking-tight">One Operator Available</h2>
           <p className="text-lg text-zinc-600 mb-8 leading-relaxed">
@@ -56,7 +56,7 @@ export function CompareEngine({ masterTrek, packages }: Props) {
               href={`/company/${singlePackage.companies?.slug}/${masterTrek.slug}`}
               className="inline-flex items-center gap-2 bg-tb-primary hover:bg-tb-primary-hover text-white font-bold px-8 py-4 rounded-full transition-all active:scale-95 shadow-md"
             >
-              View {singlePackage.companies?.name} Package <ArrowRight className="w-5 h-5" />
+              View {singlePackage.companies?.name} Package <ArrowRight className="w-4 h-4" />
             </Link>
           )}
         </div>
@@ -117,7 +117,7 @@ export function CompareEngine({ masterTrek, packages }: Props) {
                               )}
                             </h3>
                             <div className="flex items-center gap-1 text-sm font-medium text-amber-500 mt-0.5">
-                              <Star className="w-3.5 h-3.5 fill-current" /> 4.9 <span className="text-zinc-400 text-xs">(Verified)</span>
+                              <Star className="w-4 h-4 .5 .5 fill-current" /> 4.9 <span className="text-zinc-400 text-xs">(Verified)</span>
                             </div>
                           </div>
                         </div>
@@ -176,9 +176,9 @@ export function CompareEngine({ masterTrek, packages }: Props) {
                   return (
                     <td key={pkg.id} className="p-5">
                       {hasMeals ? (
-                        <div className="flex items-center gap-2 text-emerald-600 font-medium"><Check className="w-5 h-5" /> All Meals</div>
+                        <div className="flex items-center gap-2 text-emerald-600 font-medium"><Check className="w-4 h-4" /> All Meals</div>
                       ) : (
-                        <div className="flex items-center gap-2 text-zinc-400 font-medium"><Minus className="w-5 h-5" /> Not Included</div>
+                        <div className="flex items-center gap-2 text-zinc-400 font-medium"><Minus className="w-4 h-4" /> Not Included</div>
                       )}
                     </td>
                   );
@@ -191,9 +191,9 @@ export function CompareEngine({ masterTrek, packages }: Props) {
                   return (
                     <td key={pkg.id} className="p-5">
                       {hasTransport ? (
-                        <div className="flex items-center gap-2 text-emerald-600 font-medium"><Navigation className="w-5 h-5" /> Included</div>
+                        <div className="flex items-center gap-2 text-emerald-600 font-medium"><Navigation className="w-4 h-4" /> Included</div>
                       ) : (
-                        <div className="flex items-center gap-2 text-zinc-400 font-medium"><Minus className="w-5 h-5" /> Extra</div>
+                        <div className="flex items-center gap-2 text-zinc-400 font-medium"><Minus className="w-4 h-4" /> Extra</div>
                       )}
                     </td>
                   );
@@ -206,9 +206,9 @@ export function CompareEngine({ masterTrek, packages }: Props) {
                   return (
                     <td key={pkg.id} className="p-5">
                       {hasGuide ? (
-                        <div className="flex items-center gap-2 text-emerald-600 font-medium"><Check className="w-5 h-5" /> Certified Leader</div>
+                        <div className="flex items-center gap-2 text-emerald-600 font-medium"><Check className="w-4 h-4" /> Certified Leader</div>
                       ) : (
-                        <div className="flex items-center gap-2 text-zinc-400 font-medium"><Minus className="w-5 h-5" /> None</div>
+                        <div className="flex items-center gap-2 text-zinc-400 font-medium"><Minus className="w-4 h-4" /> None</div>
                       )}
                     </td>
                   );

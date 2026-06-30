@@ -109,13 +109,13 @@ export function CompanyHeroMicrosite({ company, stats }: Props) {
                 onClick={handleScrollToTreks}
                 className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-tb-primary hover:bg-tb-primary-hover text-white font-bold px-8 py-4 rounded-xl transition-all active:scale-95 shadow-[0_0_20px_rgba(11,193,132,0.3)]"
               >
-                <Compass className="w-5 h-5" /> Browse Treks
+                <Compass className="w-4 h-4" /> Browse Treks
               </button>
               <button 
                 onClick={handleShare}
                 className="flex-1 sm:flex-none flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/20 font-bold px-8 py-4 rounded-xl transition-all active:scale-95"
               >
-                <Share2 className="w-5 h-5" /> Share
+                <Share2 className="w-4 h-4" /> Share
               </button>
             </div>
           </div>
@@ -130,7 +130,7 @@ export function CompanyHeroMicrosite({ company, stats }: Props) {
           
           <div className="bg-zinc-50 border border-zinc-100 p-6 rounded-2xl flex flex-col justify-center shadow-sm">
             <span className="text-3xl font-black text-zinc-900 mb-1 flex items-center gap-2">
-              {stats.upcomingDepartures} <CalendarDays className="w-6 h-6 text-tb-primary" />
+              {stats.upcomingDepartures} <CalendarDays className="w-4 h-4 text-tb-primary" />
             </span>
             <span className="text-sm font-bold text-zinc-500 uppercase tracking-wider">Upcoming Departures</span>
           </div>
@@ -145,7 +145,7 @@ export function CompanyHeroMicrosite({ company, stats }: Props) {
           </div>
           
           <div className="bg-tb-primary/10 border border-tb-primary/20 p-6 rounded-2xl flex flex-col justify-center shadow-sm relative overflow-hidden">
-            <ShieldCheck className="absolute -right-4 -bottom-4 w-24 h-24 text-tb-primary/10 rotate-12" />
+            <ShieldCheck className="w-4 h-4 absolute -right-4 -bottom-4 text-tb-primary/10 rotate-12" />
             <span className="text-3xl font-black text-tb-primary mb-1 relative z-10">100%</span>
             <span className="text-sm font-bold text-tb-primary/80 uppercase tracking-wider relative z-10">Verified Partner</span>
           </div>

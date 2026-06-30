@@ -51,7 +51,7 @@ export function StickySidebar({ masterTrek, packages, allDepartures, isSingleOpe
       <div className="space-y-4 mb-8">
         {nextDeparture && (
           <div className="flex items-start gap-3">
-            <CalendarDays className="w-5 h-5 text-zinc-400 shrink-0 mt-0.5" />
+            <CalendarDays className="w-4 h-4 text-zinc-400 shrink-0 mt-0.5" />
             <div>
               <span className="block text-sm font-bold text-zinc-900">Next Departure</span>
               <span className="block text-sm text-zinc-600 font-medium">
@@ -63,7 +63,7 @@ export function StickySidebar({ masterTrek, packages, allDepartures, isSingleOpe
 
         {(masterTrek.duration_min || masterTrek.duration_max) && (
           <div className="flex items-start gap-3">
-            <Clock className="w-5 h-5 text-zinc-400 shrink-0 mt-0.5" />
+            <Clock className="w-4 h-4 text-zinc-400 shrink-0 mt-0.5" />
             <div>
               <span className="block text-sm font-bold text-zinc-900">Duration</span>
               <span className="block text-sm text-zinc-600 font-medium">
@@ -75,7 +75,7 @@ export function StickySidebar({ masterTrek, packages, allDepartures, isSingleOpe
 
         {masterTrek.difficulty && (
           <div className="flex items-start gap-3">
-            <Mountain className="w-5 h-5 text-zinc-400 shrink-0 mt-0.5" />
+            <Mountain className="w-4 h-4 text-zinc-400 shrink-0 mt-0.5" />
             <div>
               <span className="block text-sm font-bold text-zinc-900">Difficulty</span>
               <span className={`inline-block px-2 py-0.5 mt-1 rounded text-xs font-bold uppercase tracking-wider ${difficultyBadgeClasses(masterTrek.difficulty)}`}>
@@ -87,7 +87,7 @@ export function StickySidebar({ masterTrek, packages, allDepartures, isSingleOpe
 
         {masterTrek.region?.name && (
           <div className="flex items-start gap-3">
-            <MapPin className="w-5 h-5 text-zinc-400 shrink-0 mt-0.5" />
+            <MapPin className="w-4 h-4 text-zinc-400 shrink-0 mt-0.5" />
             <div>
               <span className="block text-sm font-bold text-zinc-900">Region</span>
               <span className="block text-sm text-zinc-600 font-medium">{masterTrek.region.name}</span>

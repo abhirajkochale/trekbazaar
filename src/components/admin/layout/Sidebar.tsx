@@ -37,7 +37,7 @@ export function Sidebar() {
       <div className="p-6 border-b border-zinc-200">
         <Link href="/admin" className="text-xl font-bold text-zinc-900 flex items-center gap-2">
           <div className="w-8 h-8 bg-tb-primary rounded-lg flex items-center justify-center">
-            <Mountain className="w-5 h-5 text-white" />
+            <Mountain className="w-4 h-4 text-white" />
           </div>
           TrekBazaar
         </Link>

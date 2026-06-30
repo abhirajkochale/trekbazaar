@@ -144,7 +144,7 @@ export function TrekRow({ trek }: { trek: Trek }) {
                     {trek.status === 'active' ? (
                       <><EyeOff className="w-4 h-4 text-zinc-500" /> Unpublish</>
                     ) : (
-                      <><Globe className="w-4 h-4 text-emerald-600" /> Publish</>
+                      <><Globe className="w-4 h-4 text-zinc-500" /> Publish</>
                     )}
                   </button>
                   <button
@@ -152,7 +152,7 @@ export function TrekRow({ trek }: { trek: Trek }) {
                     disabled={isPending}
                     className="w-full text-left px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-50 flex items-center gap-2"
                   >
-                    <Copy className="w-4 h-4 text-blue-500" /> Duplicate
+                    <Copy className="w-4 h-4 text-zinc-500" /> Duplicate
                   </button>
                   <div className="h-px bg-zinc-200 my-1"></div>
                   <button

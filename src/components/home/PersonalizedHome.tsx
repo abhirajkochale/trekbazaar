@@ -26,7 +26,7 @@ export function PersonalizedHome({ masterTreks }: Props) {
 
   return (
     <TrekGridSection 
-      title="👀 Recently Viewed" 
+      title="Recently Viewed" 
       subtitle="Pick up where you left off." 
       treks={recentlyViewedTreks} 
     />

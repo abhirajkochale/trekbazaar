@@ -27,7 +27,7 @@ export default async function BookingsPage() {
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-medium text-zinc-500">Total Bookings</h3>
             <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center">
-              <BookOpen className="w-4 h-4 text-blue-600" />
+              <BookOpen className="w-4 h-4 text-zinc-500" />
             </div>
           </div>
           <div className="text-2xl font-bold text-zinc-900">{stats.totalBookings}</div>
@@ -37,7 +37,7 @@ export default async function BookingsPage() {
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-medium text-zinc-500">Pending</h3>
             <div className="w-8 h-8 rounded-full bg-amber-50 flex items-center justify-center">
-              <Clock className="w-4 h-4 text-amber-600" />
+              <Clock className="w-4 h-4 text-zinc-500" />
             </div>
           </div>
           <div className="text-2xl font-bold text-zinc-900">{stats.pendingBookings}</div>
@@ -47,7 +47,7 @@ export default async function BookingsPage() {
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-medium text-zinc-500">Confirmed</h3>
             <div className="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center">
-              <CheckCircle className="w-4 h-4 text-green-600" />
+              <CheckCircle className="w-4 h-4 text-zinc-500" />
             </div>
           </div>
           <div className="text-2xl font-bold text-zinc-900">{stats.confirmedBookings}</div>

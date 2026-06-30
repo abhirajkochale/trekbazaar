@@ -96,7 +96,7 @@ export function FAQBuilder({ trek, updateField }: Props) {
                   </button>
                   
                   <div className="text-zinc-400">
-                    {isExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+                    {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                   </div>
                 </div>
 

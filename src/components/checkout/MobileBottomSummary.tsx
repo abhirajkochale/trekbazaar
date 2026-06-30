@@ -90,7 +90,7 @@ export function MobileBottomSummary() {
           <div className="flex flex-col items-start">
             <div className="flex items-center gap-1 text-zinc-500 text-xs font-medium uppercase tracking-wider">
               {isOpen ? 'Hide Summary' : 'Show Summary'}
-              {isOpen ? <ChevronDown className="w-3 h-3" /> : <ChevronUp className="w-3 h-3" />}
+              {isOpen ? <ChevronDown className="w-4 h-4" /> : <ChevronUp className="w-4 h-4" />}
             </div>
             <div className="text-xl font-bold text-zinc-900">
               {formatPrice(totalAmount)}

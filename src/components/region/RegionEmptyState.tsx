@@ -13,7 +13,7 @@ export function RegionEmptyState() {
       className="flex flex-col items-center justify-center text-center py-32 px-4 bg-white border border-zinc-100 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] h-full w-full"
     >
       <div className="w-20 h-20 bg-zinc-50 rounded-full flex items-center justify-center mb-6 border border-zinc-100/60 shadow-sm">
-        <Map className="w-8 h-8 text-zinc-300" />
+        <Map className="w-4 h-4 text-zinc-300" />
       </div>
 
       <h2 className="text-2xl font-bold text-zinc-900 mb-2 tracking-tight">

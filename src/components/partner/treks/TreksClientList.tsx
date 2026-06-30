@@ -59,7 +59,7 @@ export function TreksClientList({ treks }: Props) {
         </div>
         <div className="flex items-center gap-3 w-full sm:w-auto">
           <div className="relative flex-1 sm:w-64">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
+            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
             <input 
               type="text" 
               placeholder="Search treks..."
@@ -80,7 +80,7 @@ export function TreksClientList({ treks }: Props) {
       {treks.length === 0 ? (
         <div className="bg-white border border-zinc-200 rounded-2xl shadow-[0_2px_8px_rgba(0,0,0,0.04)] text-center py-24 px-6 flex flex-col items-center justify-center">
           <div className="w-20 h-20 rounded-3xl bg-zinc-50 flex items-center justify-center border border-zinc-100 mb-6 shadow-sm">
-            <Map className="w-10 h-10 text-zinc-300" />
+            <Map className="w-4 h-4 text-zinc-300" />
           </div>
           <h3 className="text-xl font-bold text-zinc-900 mb-2">No treks in your catalog</h3>
           <p className="text-base text-zinc-500 mb-8 max-w-md mx-auto leading-relaxed">
@@ -88,7 +88,7 @@ export function TreksClientList({ treks }: Props) {
           </p>
           <Link href="/partner/dashboard/treks/new">
             <Button variant="primary" className="gap-2 px-8 h-12 text-base shadow-sm active:scale-95 transition-transform">
-              <Plus className="w-5 h-5" />
+              <Plus className="w-4 h-4" />
               Create Your First Trek
             </Button>
           </Link>
@@ -102,13 +102,13 @@ export function TreksClientList({ treks }: Props) {
                 <thead className="bg-zinc-50/80 border-b border-zinc-200 sticky top-0 z-10 backdrop-blur-sm">
                   <tr>
                     <th className="px-6 py-4 text-xs font-bold text-zinc-500 uppercase tracking-wider cursor-pointer hover:bg-zinc-100 transition-colors" onClick={() => handleSort('title')}>
-                      <div className="flex items-center gap-2">Trek {sortConfig?.key === 'title' && (sortConfig.direction === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />)}</div>
+                      <div className="flex items-center gap-2">Trek {sortConfig?.key === 'title' && (sortConfig.direction === 'asc' ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />)}</div>
                     </th>
                     <th className="px-6 py-4 text-xs font-bold text-zinc-500 uppercase tracking-wider cursor-pointer hover:bg-zinc-100 transition-colors" onClick={() => handleSort('region')}>
-                      <div className="flex items-center gap-2">Region {sortConfig?.key === 'region' && (sortConfig.direction === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />)}</div>
+                      <div className="flex items-center gap-2">Region {sortConfig?.key === 'region' && (sortConfig.direction === 'asc' ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />)}</div>
                     </th>
                     <th className="px-6 py-4 text-xs font-bold text-zinc-500 uppercase tracking-wider cursor-pointer hover:bg-zinc-100 transition-colors" onClick={() => handleSort('price')}>
-                      <div className="flex items-center gap-2">Price {sortConfig?.key === 'price' && (sortConfig.direction === 'asc' ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />)}</div>
+                      <div className="flex items-center gap-2">Price {sortConfig?.key === 'price' && (sortConfig.direction === 'asc' ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />)}</div>
                     </th>
                     <th className="px-6 py-4 text-xs font-bold text-zinc-500 uppercase tracking-wider">Status</th>
                     <th className="px-6 py-4 text-xs font-bold text-zinc-500 uppercase tracking-wider text-right">Actions</th>
@@ -123,7 +123,7 @@ export function TreksClientList({ treks }: Props) {
                             {trek.cover_image_url ? (
                               <Image src={trek.cover_image_url} alt={trek.title} fill className="object-cover" sizes="48px" />
                             ) : (
-                              <Map className="w-5 h-5 text-zinc-300 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+                              <Map className="w-4 h-4 text-zinc-300 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
                             )}
                           </div>
                           <div>
@@ -177,7 +177,7 @@ export function TreksClientList({ treks }: Props) {
                   {trek.cover_image_url ? (
                     <Image src={trek.cover_image_url} alt={trek.title} fill className="object-cover" sizes="80px" />
                   ) : (
-                    <Map className="w-6 h-6 text-zinc-300 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+                    <Map className="w-4 h-4 text-zinc-300 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
                   )}
                 </div>
                 <div className="flex-1 min-w-0">

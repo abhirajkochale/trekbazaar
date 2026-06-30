@@ -233,7 +233,7 @@ export function MediaSection({ trek, updateField }: Props) {
                       onClick={() => setLightboxIndex(trek.cover_image_url ? index + 1 : index)}
                       className="w-7 h-7 rounded-lg bg-white/20 hover:bg-white/40 backdrop-blur-md flex items-center justify-center text-white transition-colors"
                     >
-                      <Maximize2 className="w-3.5 h-3.5" />
+                      <Maximize2 className="w-4 h-4 .5 .5" />
                     </button>
                   </div>
                 </div>

@@ -20,7 +20,7 @@ export async function CompanyGrid({ searchParams }: CompanyGridProps) {
     return (
       <div className="flex flex-col items-center justify-center py-20 px-4 text-center bg-white rounded-3xl border border-zinc-100 shadow-sm">
         <div className="w-20 h-20 bg-zinc-50 rounded-full flex items-center justify-center mb-6">
-          <SearchX className="w-10 h-10 text-zinc-300" />
+          <SearchX className="w-4 h-4 text-zinc-300" />
         </div>
         <h3 className="text-2xl font-black text-zinc-900 mb-2">No partners found</h3>
         <p className="text-zinc-500 max-w-md mx-auto">

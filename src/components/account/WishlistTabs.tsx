@@ -53,7 +53,7 @@ export function WishlistTabs({ wishlistItems, masterWishlistItems }: WishlistTab
               description="Explore the marketplace and save destinations you want to visit in the future."
               href="/search"
               buttonText="Explore Destinations"
-              icon={<MapPin className="w-8 h-8 text-tb-primary" />}
+              icon={<MapPin className="w-4 h-4 text-tb-primary" />}
             />
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -73,7 +73,7 @@ export function WishlistTabs({ wishlistItems, masterWishlistItems }: WishlistTab
               description="Found a specific operator and date you like? Save it here to book later."
               href="/search"
               buttonText="Find Packages"
-              icon={<Heart className="w-8 h-8 text-red-500" />}
+              icon={<Heart className="w-4 h-4 text-zinc-500" />}
             />
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

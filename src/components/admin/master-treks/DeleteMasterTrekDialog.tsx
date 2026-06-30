@@ -50,7 +50,7 @@ export function DeleteMasterTrekDialog({ isOpen, onClose, id, name, packagesCoun
     <Modal isOpen={isOpen} onClose={onClose} title="Delete Master Trek">
       <div className="space-y-4">
         <div className="flex items-start gap-4 p-4 bg-red-50 text-red-900 rounded-lg">
-          <AlertTriangle className="w-5 h-5 mt-0.5 text-red-600 shrink-0" />
+          <AlertTriangle className="w-4 h-4 mt-0.5 text-zinc-500 shrink-0" />
           <div className="text-sm space-y-1">
             <p className="font-medium">Are you sure you want to delete {name}?</p>
             {canDelete ? (

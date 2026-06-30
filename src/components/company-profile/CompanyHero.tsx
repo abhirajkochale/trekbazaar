@@ -71,7 +71,7 @@ export function CompanyHero({ company, totalReviews = 0, averageRating = 0 }: Pr
               <div className="w-1.5 h-1.5 rounded-full bg-zinc-300 hidden md:block"></div>
               
               <div className="flex items-center gap-1.5">
-                <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+                <Star className="w-4 h-4 text-zinc-500 fill-amber-400" />
                 <span className="text-zinc-900 font-bold">{averageRating}</span>
                 <span className="text-sm">({totalReviews > 0 ? totalReviews : '120+'} reviews)</span>
               </div>

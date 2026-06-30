@@ -34,7 +34,7 @@ export function TopBar() {
         {/* Search Input */}
         <div className="hidden md:flex relative max-w-sm w-full">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <Search className="h-4 w-4 text-zinc-400" />
+            <Search className="w-4 h-4 text-zinc-400" />
           </div>
           <input
             type="text"
@@ -54,7 +54,7 @@ export function TopBar() {
         </Link>
 
         <button className="text-zinc-500 hover:text-zinc-900 relative p-1 transition-colors">
-          <Bell className="w-5 h-5" />
+          <Bell className="w-4 h-4" />
           <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white" />
         </button>
 

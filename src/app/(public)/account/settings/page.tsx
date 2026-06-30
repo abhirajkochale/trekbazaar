@@ -63,7 +63,7 @@ export default function SettingsPage() {
           <div className="bg-white rounded-2xl border border-red-100 shadow-sm overflow-hidden">
             <div className="px-6 py-5 border-b border-red-50 flex items-center gap-3 bg-red-50/30">
               <div className="w-9 h-9 rounded-xl bg-red-100 flex items-center justify-center">
-                <Trash2 className="w-4 h-4 text-red-600" />
+                <Trash2 className="w-4 h-4 text-zinc-500" />
               </div>
               <h2 className="text-base font-bold text-red-600">Danger Zone</h2>
             </div>

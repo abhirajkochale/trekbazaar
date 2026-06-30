@@ -152,7 +152,7 @@ export function HeroOmnibox() {
         onClick={() => { setIsMobileModalOpen(true); setTimeout(() => { setActiveDropdown('destination'); inputRef.current?.focus(); }, 100); }}
         className="md:hidden flex items-center justify-start gap-4 w-[90vw] max-w-[360px] bg-white rounded-full py-3.5 px-6 shadow-2xl mx-auto mb-6 active:scale-95 transition-transform border border-zinc-100"
       >
-        <Search className="w-5 h-5 text-zinc-900 font-bold" strokeWidth={2.5} />
+        <Search className="w-4 h-4 text-zinc-900 font-bold" strokeWidth={2.5} />
         <div className="flex flex-col items-start">
           <span className="text-[15px] font-bold text-zinc-900 leading-tight mb-0.5">Start your search</span>
           <span className="text-[12px] font-medium text-zinc-500 leading-tight">Anywhere • Any month</span>
@@ -221,7 +221,7 @@ export function HeroOmnibox() {
               <div className="block text-[10px] md:text-xs font-bold text-zinc-900 tracking-wide uppercase">When</div>
               <div className="text-base text-zinc-500 font-medium truncate mt-0.5">{month}</div>
             </div>
-            <ChevronDown className="w-5 h-5 md:w-4 md:h-4 text-zinc-400 group-hover:text-zinc-600 transition-colors" />
+            <ChevronDown className="w-4 h-4 md: md: text-zinc-400 group-hover:text-zinc-600 transition-colors" />
           </div>
         </div>
 
@@ -239,7 +239,7 @@ export function HeroOmnibox() {
               <div className="block text-[10px] md:text-xs font-bold text-zinc-900 tracking-wide uppercase">Difficulty</div>
               <div className="text-base text-zinc-500 font-medium truncate mt-0.5">{difficulty}</div>
             </div>
-            <ChevronDown className="w-5 h-5 md:hidden text-zinc-400 group-hover:text-zinc-600 transition-colors" />
+            <ChevronDown className="w-4 h-4 md:hidden text-zinc-400 group-hover:text-zinc-600 transition-colors" />
           </div>
           
           <button 
@@ -247,7 +247,7 @@ export function HeroOmnibox() {
             className="bg-tb-primary hover:bg-tb-primary-hover text-white py-3 px-4 md:p-4 rounded-full transition-transform active:scale-95 shadow-md flex items-center justify-center w-full md:w-auto md:ml-4 shrink-0 gap-2"
             aria-label="Search"
           >
-            <Search className="w-5 h-5" />
+            <Search className="w-4 h-4" />
             <span className="md:hidden font-semibold">Search</span>
           </button>
         </div>
@@ -282,7 +282,7 @@ export function HeroOmnibox() {
             <ul id="destination-listbox" role="listbox" className={isMobileModalOpen ? "py-2 flex-1 overflow-y-auto overscroll-contain" : "py-2 max-h-[60vh] md:max-h-[50vh] overflow-y-auto overscroll-contain pb-safe"}>
               {!query.trim() && recentSearches.length > 0 && (
                 <div className="mb-2">
-                  <div className="px-6 py-2 text-[10px] font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5"><Clock className="w-3 h-3" /> Recent Searches</div>
+                  <div className="px-6 py-2 text-[10px] font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5"><Clock className="w-4 h-4" /> Recent Searches</div>
                   {recentSearches.map((term, idx) => (
                     <li key={`recent-${idx}`}>
                       <button
@@ -299,7 +299,7 @@ export function HeroOmnibox() {
               )}
 
               {!query.trim() && (
-                <div className="px-6 py-2 text-[10px] font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5"><TrendingUp className="w-3 h-3" /> Trending Searches</div>
+                <div className="px-6 py-2 text-[10px] font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5"><TrendingUp className="w-4 h-4" /> Trending Searches</div>
               )}
               
               {query.trim() && isLoading && (
@@ -326,7 +326,7 @@ export function HeroOmnibox() {
                         className={`w-full px-6 py-4 flex items-center gap-4 transition-colors text-left ${selectedIndex === idx ? 'bg-zinc-50' : 'hover:bg-zinc-50'}`}
                       >
                         <div className="w-12 h-12 md:w-10 md:h-10 bg-zinc-100 rounded-xl flex items-center justify-center shrink-0">
-                          <MapPin className="w-6 h-6 md:w-5 md:h-5 text-zinc-400" />
+                          <MapPin className="w-4 h-4 md: md: text-zinc-400" />
                         </div>
                         <div>
                           <div className="font-bold text-zinc-900 text-lg md:text-base">{trek.name}</div>
@@ -352,7 +352,7 @@ export function HeroOmnibox() {
                           className={`w-full px-6 py-4 flex items-center gap-4 transition-colors text-left ${selectedIndex === globalIdx ? 'bg-zinc-50' : 'hover:bg-zinc-50'}`}
                         >
                           <div className="w-12 h-12 md:w-10 md:h-10 bg-zinc-100 rounded-xl flex items-center justify-center shrink-0">
-                            <Activity className="w-6 h-6 md:w-5 md:h-5 text-zinc-400" />
+                            <Activity className="w-4 h-4 md: md: text-zinc-400" />
                           </div>
                           <div>
                             <div className="font-bold text-zinc-900 text-lg md:text-base">{region.name} Region</div>

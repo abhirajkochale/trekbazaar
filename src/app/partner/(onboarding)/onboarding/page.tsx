@@ -30,7 +30,7 @@ export default async function PartnerOnboardingWizard() {
             {/* Basic Info */}
             <div className="space-y-5">
               <div className="flex items-center gap-3 pb-2 border-b border-zinc-100">
-                <Building2 className="w-5 h-5 text-tb-primary" />
+                <Building2 className="w-4 h-4 text-tb-primary" />
                 <h2 className="text-lg font-bold text-zinc-900">Company Details</h2>
               </div>
               
@@ -53,7 +53,7 @@ export default async function PartnerOnboardingWizard() {
             {/* Contact Info */}
             <div className="space-y-5">
               <div className="flex items-center gap-3 pb-2 border-b border-zinc-100">
-                <Briefcase className="w-5 h-5 text-tb-primary" />
+                <Briefcase className="w-4 h-4 text-tb-primary" />
                 <h2 className="text-lg font-bold text-zinc-900">Primary Contact</h2>
               </div>
               
@@ -79,7 +79,7 @@ export default async function PartnerOnboardingWizard() {
             <div className="pt-6 border-t border-zinc-200">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3 text-sm text-zinc-500 font-medium">
-                  <FileCheck className="w-5 h-5 text-emerald-500" />
+                  <FileCheck className="w-4 h-4 text-zinc-500" />
                   Your application will be reviewed manually.
                 </div>
                 <button type="submit" className="inline-flex items-center gap-2 bg-zinc-900 text-white font-bold px-6 py-3 rounded-xl hover:bg-zinc-800 transition-colors shadow-md active:scale-95">

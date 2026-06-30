@@ -12,22 +12,22 @@ export async function DashboardStats() {
       <StatCard 
         title="Total Treks" 
         value={stats.totalTreks} 
-        icon={<Mountain className="w-5 h-5" />} 
+        icon={<Mountain className="w-4 h-4" />} 
       />
       <StatCard 
         title="Active Regions" 
         value={stats.activeRegions} 
-        icon={<Map className="w-5 h-5" />} 
+        icon={<Map className="w-4 h-4" />} 
       />
       <StatCard 
         title="Avg. Trek Price" 
         value={formatPrice(stats.avgTrekPrice)} 
-        icon={<DollarSign className="w-5 h-5" />} 
+        icon={<DollarSign className="w-4 h-4" />} 
       />
       <StatCard 
         title="Avg. Duration" 
         value={`${stats.avgTrekDuration} days`} 
-        icon={<Clock className="w-5 h-5" />} 
+        icon={<Clock className="w-4 h-4" />} 
       />
     </div>
   );

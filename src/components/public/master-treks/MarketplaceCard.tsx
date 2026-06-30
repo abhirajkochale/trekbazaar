@@ -100,7 +100,7 @@ export function MarketplaceCard({ pkg, isSelectedForCompare, onCompareToggle }: 
               {company?.name || 'Unknown Operator'}
               {company?.verification_status === 'approved' && (
                 <span title="Verified Operator" className="text-tb-primary">
-                  <ShieldCheck className="w-5 h-5" />
+                  <ShieldCheck className="w-4 h-4" />
                 </span>
               )}
             </h3>
@@ -184,7 +184,7 @@ export function MarketplaceCard({ pkg, isSelectedForCompare, onCompareToggle }: 
 
         <div className="space-y-4 mb-8 bg-zinc-50 md:bg-white p-5 rounded-2xl border border-zinc-200/60 shadow-sm">
           <div className="flex items-start gap-3 text-sm">
-            <Calendar className="w-5 h-5 text-zinc-400 shrink-0 mt-0.5" />
+            <Calendar className="w-4 h-4 text-zinc-400 shrink-0 mt-0.5" />
             <div>
               <span className="font-bold text-zinc-900 block mb-1">Next Departure</span>
               <span className="text-zinc-600 font-medium block">
@@ -202,7 +202,7 @@ export function MarketplaceCard({ pkg, isSelectedForCompare, onCompareToggle }: 
 
           {earliestDeparture && (
             <div className="flex items-center gap-3 text-sm pt-4 border-t border-zinc-100">
-              <Users className="w-5 h-5 text-zinc-400 shrink-0" />
+              <Users className="w-4 h-4 text-zinc-400 shrink-0" />
               <div className="text-zinc-600 font-medium">
                 <span className="font-bold text-red-600">{availableSeats} seats</span> left
               </div>

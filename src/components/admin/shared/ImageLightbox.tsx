@@ -47,7 +47,7 @@ export function ImageLightbox({ images, currentIndex, onClose, onNavigate }: Ima
           onClick={onClose}
           className="absolute top-6 right-6 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-colors z-10"
         >
-          <X className="w-5 h-5" />
+          <X className="w-4 h-4" />
         </button>
 
         {images.length > 1 && (
@@ -55,7 +55,7 @@ export function ImageLightbox({ images, currentIndex, onClose, onNavigate }: Ima
             onClick={() => onNavigate((currentIndex - 1 + images.length) % images.length)}
             className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-colors z-10"
           >
-            <ChevronLeft className="w-6 h-6" />
+            <ChevronLeft className="w-4 h-4" />
           </button>
         )}
 
@@ -64,7 +64,7 @@ export function ImageLightbox({ images, currentIndex, onClose, onNavigate }: Ima
             onClick={() => onNavigate((currentIndex + 1) % images.length)}
             className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-colors z-10"
           >
-            <ChevronRight className="w-6 h-6" />
+            <ChevronRight className="w-4 h-4" />
           </button>
         )}
 

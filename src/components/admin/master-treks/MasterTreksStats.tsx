@@ -11,12 +11,12 @@ export async function MasterTreksStats() {
       <StatCard 
         title="Total Master Treks" 
         value={stats.total} 
-        icon={<Map className="w-5 h-5" />} 
+        icon={<Map className="w-4 h-4" />} 
       />
       <StatCard 
         title="Active Master Treks" 
         value={stats.active} 
-        icon={<CheckCircle className="w-5 h-5" />} 
+        icon={<CheckCircle className="w-4 h-4" />} 
       />
       <StatCard 
         title="Linked Company Packages" 

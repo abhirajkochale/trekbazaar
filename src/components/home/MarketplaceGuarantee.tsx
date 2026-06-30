@@ -8,27 +8,27 @@ import { motion } from 'framer-motion';
 export function MarketplaceGuarantee() {
   const features = [
     {
-      icon: <CheckCircle className="w-8 h-8 text-white" strokeWidth={1.5} />,
+      icon: <CheckCircle className="w-4 h-4 text-white" strokeWidth={1.5} />,
       title: "Vetted Operators",
       description: "Every operator passes a strict 10-point quality check."
     },
     {
-      icon: <Search className="w-8 h-8 text-white" strokeWidth={1.5} />,
+      icon: <Search className="w-4 h-4 text-white" strokeWidth={1.5} />,
       title: "Compare Prices",
       description: "Transparent pricing with no hidden fees."
     },
     {
-      icon: <Shield className="w-8 h-8 text-white" strokeWidth={1.5} />,
+      icon: <Shield className="w-4 h-4 text-white" strokeWidth={1.5} />,
       title: "Secure Booking",
       description: "Bank-grade encryption for all your payments."
     },
     {
-      icon: <Banknote className="w-8 h-8 text-white" strokeWidth={1.5} />,
+      icon: <Banknote className="w-4 h-4 text-white" strokeWidth={1.5} />,
       title: "Best Value",
       description: "Lowest price guarantee across all itineraries."
     },
     {
-      icon: <Headphones className="w-8 h-8 text-white" strokeWidth={1.5} />,
+      icon: <Headphones className="w-4 h-4 text-white" strokeWidth={1.5} />,
       title: "Expert Support",
       description: "24/7 assistance from real Himalayan trekkers."
     }

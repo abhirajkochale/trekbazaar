@@ -48,7 +48,7 @@ export default async function PartnerLandingPage() {
                 href="/partner/register"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-tb-primary text-zinc-900 font-bold rounded-xl hover:bg-tb-primary/90 transition-all text-lg shadow-lg active:scale-95"
               >
-                List Your Company <ArrowRight className="w-5 h-5" />
+                List Your Company <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 href="/partner/login"
@@ -73,7 +73,7 @@ export default async function PartnerLandingPage() {
             {/* Feature 1 */}
             <div className="bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm hover:shadow-md transition-shadow">
               <div className="w-14 h-14 bg-blue-50 rounded-2xl flex items-center justify-center mb-6">
-                <Mountain className="w-7 h-7 text-blue-600" />
+                <Mountain className="w-4 h-4 text-zinc-500" />
               </div>
               <h3 className="text-xl font-bold text-zinc-900 mb-3">Free Professional Website</h3>
               <p className="text-zinc-500 leading-relaxed">
@@ -84,7 +84,7 @@ export default async function PartnerLandingPage() {
             {/* Feature 2 */}
             <div className="bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm hover:shadow-md transition-shadow">
               <div className="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center mb-6">
-                <Users className="w-7 h-7 text-emerald-600" />
+                <Users className="w-4 h-4 text-zinc-500" />
               </div>
               <h3 className="text-xl font-bold text-zinc-900 mb-3">Reach More Customers</h3>
               <p className="text-zinc-500 leading-relaxed">
@@ -95,7 +95,7 @@ export default async function PartnerLandingPage() {
             {/* Feature 3 */}
             <div className="bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm hover:shadow-md transition-shadow">
               <div className="w-14 h-14 bg-amber-50 rounded-2xl flex items-center justify-center mb-6">
-                <TrendingUp className="w-7 h-7 text-amber-600" />
+                <TrendingUp className="w-4 h-4 text-zinc-500" />
               </div>
               <h3 className="text-xl font-bold text-zinc-900 mb-3">Manage Operations</h3>
               <p className="text-zinc-500 leading-relaxed">
@@ -110,7 +110,7 @@ export default async function PartnerLandingPage() {
       <section className="py-24 bg-white border-t border-zinc-100">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-zinc-900 rounded-full mb-8">
-            <Shield className="w-8 h-8 text-tb-primary" />
+            <Shield className="w-4 h-4 text-tb-primary" />
           </div>
           <h2 className="text-3xl font-black text-zinc-900 tracking-tight mb-6">Verified Operators Only</h2>
           <p className="text-xl text-zinc-500 max-w-2xl mx-auto mb-10 leading-relaxed">

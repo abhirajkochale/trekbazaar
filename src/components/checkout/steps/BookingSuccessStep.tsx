@@ -41,7 +41,7 @@ export function BookingSuccessStep() {
         transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
         className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6"
       >
-        <CheckCircle2 className="w-10 h-10 text-green-600" />
+        <CheckCircle2 className="w-4 h-4 text-zinc-500" />
       </motion.div>
 
       <h2 className="text-3xl font-bold text-zinc-900 mb-2">Booking Confirmed!</h2>
@@ -60,14 +60,14 @@ export function BookingSuccessStep() {
               className="text-zinc-400 hover:text-zinc-900 transition-colors bg-white border border-zinc-200 p-2 rounded-lg shadow-sm"
               title="Copy to clipboard"
             >
-              {copied ? <CheckCircle2 className="w-5 h-5 text-green-500" /> : <Copy className="w-5 h-5" />}
+              {copied ? <CheckCircle2 className="w-4 h-4 text-zinc-500" /> : <Copy className="w-4 h-4" />}
             </button>
           </div>
         </div>
 
         <div className="grid grid-cols-2 gap-y-6 gap-x-4">
           <div className="flex gap-3">
-            <MapPin className="w-5 h-5 text-zinc-400 shrink-0" />
+            <MapPin className="w-4 h-4 text-zinc-400 shrink-0" />
             <div>
               <div className="text-xs text-zinc-500 font-medium">Destination</div>
               <div className="font-semibold text-zinc-900 text-sm mt-0.5 line-clamp-1">{trek.title}</div>
@@ -75,7 +75,7 @@ export function BookingSuccessStep() {
           </div>
           
           <div className="flex gap-3">
-            <Calendar className="w-5 h-5 text-zinc-400 shrink-0" />
+            <Calendar className="w-4 h-4 text-zinc-400 shrink-0" />
             <div>
               <div className="text-xs text-zinc-500 font-medium">Departure</div>
               <div className="font-semibold text-zinc-900 text-sm mt-0.5 line-clamp-1">{depDate}</div>
@@ -83,7 +83,7 @@ export function BookingSuccessStep() {
           </div>
           
           <div className="flex gap-3">
-            <Users className="w-5 h-5 text-zinc-400 shrink-0" />
+            <Users className="w-4 h-4 text-zinc-400 shrink-0" />
             <div>
               <div className="text-xs text-zinc-500 font-medium">Travellers</div>
               <div className="font-semibold text-zinc-900 text-sm mt-0.5 line-clamp-1">{formData.travellers} Person{formData.travellers > 1 ? 's' : ''}</div>
@@ -91,7 +91,7 @@ export function BookingSuccessStep() {
           </div>
           
           <div className="flex gap-3">
-            <Home className="w-5 h-5 text-zinc-400 shrink-0" />
+            <Home className="w-4 h-4 text-zinc-400 shrink-0" />
             <div>
               <div className="text-xs text-zinc-500 font-medium">Operator</div>
               <div className="font-semibold text-zinc-900 text-sm mt-0.5 line-clamp-1">{company?.name || 'TrekBazaar'}</div>

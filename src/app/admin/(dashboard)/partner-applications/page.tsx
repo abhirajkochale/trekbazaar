@@ -62,7 +62,7 @@ export default async function PartnerApplicationsPage() {
                           {company.logo_url ? (
                             <img src={company.logo_url} alt="" className="w-full h-full object-cover rounded-lg" />
                           ) : (
-                            <Building2 className="w-5 h-5 text-zinc-400" />
+                            <Building2 className="w-4 h-4 text-zinc-400" />
                           )}
                         </div>
                         <div>

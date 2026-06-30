@@ -64,7 +64,7 @@ export function BookingsTable({ bookings, onStatusChange }: { bookings: Booking[
       {/* Toolbar */}
       <div className="flex flex-col sm:flex-row gap-3 justify-between">
         <div className="relative w-full sm:max-w-xs">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400" />
+          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
           <input 
             type="text" 
             placeholder="Search bookings..." 
@@ -164,7 +164,7 @@ export function BookingsTable({ bookings, onStatusChange }: { bookings: Booking[
               {filtered.length === 0 && (
                 <tr>
                   <td colSpan={6} className="px-6 py-16 text-center">
-                    <FileText className="w-8 h-8 text-zinc-300 mx-auto mb-3" />
+                    <FileText className="w-4 h-4 text-zinc-300 mx-auto mb-3" />
                     <p className="text-zinc-900 font-bold text-sm">No bookings found</p>
                     <p className="text-zinc-500 text-sm mt-1 max-w-sm mx-auto">Try adjusting your filters or search term to find what you&apos;re looking for.</p>
                   </td>

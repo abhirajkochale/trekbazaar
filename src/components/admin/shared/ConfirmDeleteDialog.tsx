@@ -41,7 +41,7 @@ export function ConfirmDeleteDialog({
     <Modal isOpen={isOpen} onClose={onClose} title={title} maxWidth="sm">
       <div className="flex flex-col items-center text-center pb-6 pt-2">
         <div className="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center text-red-600 mb-4">
-          <AlertTriangle className="w-6 h-6" />
+          <AlertTriangle className="w-4 h-4" />
         </div>
         <h3 className="text-lg font-semibold text-zinc-900 mb-2">Are you sure?</h3>
         

@@ -125,7 +125,7 @@ export function CompanyEditor({
         <div className="flex items-center gap-4">
           {!isCompanyPortal && (
             <Link href="/admin/companies" className="p-2 -ml-2 text-zinc-400 hover:text-zinc-900 transition-colors rounded-full hover:bg-zinc-200">
-              <ArrowLeft className="w-5 h-5" />
+              <ArrowLeft className="w-4 h-4" />
             </Link>
           )}
           <div>
