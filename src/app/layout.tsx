@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { WishlistProvider } from "@/providers/WishlistProvider";
+import { MasterWishlistProvider } from "@/providers/MasterWishlistProvider";
 import { RecentlyViewedProvider } from "@/providers/RecentlyViewedProvider";
 
 const geistSans = Geist({
@@ -101,7 +102,9 @@ export default function RootLayout({
 
         <RecentlyViewedProvider>
           <WishlistProvider>
-            {children}
+            <MasterWishlistProvider>
+              {children}
+            </MasterWishlistProvider>
           </WishlistProvider>
         </RecentlyViewedProvider>
       </body>

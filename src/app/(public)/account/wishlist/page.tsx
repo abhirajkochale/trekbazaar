@@ -1,26 +1,36 @@
 import React from 'react';
-import { Heart, Compass } from 'lucide-react';
-import Link from 'next/link';
 import { Container } from '@/components/layout/Container';
 import { createClient } from '@/lib/supabase/server';
-import { MarketplaceCard } from '@/components/public/master-treks/MarketplaceCard';
+import { WishlistTabs } from '@/components/account/WishlistTabs';
 
 export const metadata = { title: 'Wishlist — TrekBazaar' };
 
 export default async function WishlistPage() {
-  // In a full implementation, we query the `wishlists` relational table
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   
-  let wishlistItems: Record<string, unknown>[] = [];
+  let wishlistItems: any[] = [];
+  let masterWishlistItems: any[] = [];
+  
   if (user) {
-    const { data } = await supabase
+    // 1. Fetch Specific Bookings (Operator Treks)
+    const { data: specificData } = await supabase
       .from('wishlists')
       .select('*, treks(*, companies(*), departures(*))')
       .eq('customer_id', user.id);
     
-    if (data) {
-      wishlistItems = data.map(item => item.treks).filter(Boolean);
+    if (specificData) {
+      wishlistItems = specificData.map(item => item.treks).filter(Boolean);
+    }
+
+    // 2. Fetch Destinations (Master Treks)
+    const { data: masterData } = await supabase
+      .from('master_wishlists')
+      .select('*, master_treks(*, category:categories(*), region:regions(*))')
+      .eq('customer_id', user.id);
+      
+    if (masterData) {
+      masterWishlistItems = masterData.map(item => item.master_treks).filter(Boolean);
     }
   }
 
@@ -39,26 +49,10 @@ export default async function WishlistPage() {
 
       <Container>
         <div className="py-10">
-          {wishlistItems.length === 0 ? (
-            <div className="bg-white rounded-3xl border border-zinc-100 p-16 text-center shadow-sm max-w-4xl mx-auto">
-              <div className="w-16 h-16 bg-red-50 rounded-2xl flex items-center justify-center mx-auto mb-5">
-                <Heart className="w-8 h-8 text-red-500" />
-              </div>
-              <h3 className="text-xl font-bold text-zinc-900">Your wishlist is empty</h3>
-              <p className="text-zinc-500 mt-2 mb-8 max-w-sm mx-auto">
-                Explore the marketplace and save treks you love to easily find them later.
-              </p>
-              <Link href="/search" className="inline-flex items-center gap-2 bg-tb-primary text-white font-bold py-3 px-8 rounded-full hover:bg-tb-primary-hover transition-colors shadow-sm shadow-tb-primary/20 active:scale-95">
-                <Compass className="w-4 h-4" /> Explore Treks
-              </Link>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {wishlistItems.map(pkg => (
-                <MarketplaceCard key={pkg.id as string} pkg={pkg} />
-              ))}
-            </div>
-          )}
+          <WishlistTabs 
+            wishlistItems={wishlistItems} 
+            masterWishlistItems={masterWishlistItems} 
+          />
         </div>
       </Container>
     </div>
