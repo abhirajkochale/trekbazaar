@@ -2,12 +2,12 @@
 
 import React from 'react';
 import { motion, useReducedMotion, Variants } from 'framer-motion';
-import { TrekCard } from '@/components/trek/TrekCard';
+import { MasterTrekSearchCard } from '@/components/search/MasterTrekSearchCard';
 import { SearchHeader } from '@/components/search/SearchHeader';
-import type { Trek } from '@/lib/types';
 
 interface RegionTreksGridProps {
-  treks: Trek[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  treks: any[];
   totalCount: number;
 }
 
@@ -58,7 +58,7 @@ export function RegionTreksGrid({ treks, totalCount }: RegionTreksGridProps) {
         >
           {treks.map((trek) => (
             <motion.div key={trek.id} variants={itemVariants} className="h-full">
-              <TrekCard trek={trek} className="h-full" />
+              <MasterTrekSearchCard masterTrek={trek} className="h-full" />
             </motion.div>
           ))}
         </motion.div>

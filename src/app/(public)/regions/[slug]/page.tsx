@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import Script from 'next/script';
 import { getRegionBySlug } from '@/lib/treks';
-import { searchTreks } from '@/lib/search/api';
+import { searchMasterTreks } from '@/lib/search/master-api';
 import { Container } from '@/components/layout/Container';
 import { RegionHero } from '@/components/region/RegionHero';
 import { RegionMainContent } from '@/components/region/RegionMainContent';
@@ -51,12 +51,12 @@ export default async function RegionDetailsPage({ params, searchParams }: Region
   const q = typeof sp.q === 'string' ? sp.q : undefined;
   const sort = typeof sp.sort === 'string' ? (sp.sort as "popular" | "price_low" | "price_high" | "duration" | "newest") : undefined;
 
-  // Fetch treks scoped specifically to this region's name
-  const { treks, totalCount } = await searchTreks({
+  // Fetch master treks (Destinations) scoped specifically to this region's name
+  const { masterTreks, totalCount } = await searchMasterTreks({
     q,
     sort,
     region: region.name,
-    limit: 50 // Fetch all for the region for now
+    limit: 50 // Fetch all destinations for the region for now
   });
 
   // Check if there are no search filters applied
@@ -88,17 +88,17 @@ export default async function RegionDetailsPage({ params, searchParams }: Region
             <RegionEmptyState />
           ) : (
             <>
-              {!hasActiveFilters && <RegionFeaturedTreks treks={treks} />}
+              {!hasActiveFilters && <RegionFeaturedTreks treks={masterTreks} />}
               <div className="flex flex-col lg:flex-row gap-8 items-start relative">
                 {/* Main Content Area */}
                 <div className="flex-1 w-full min-w-0 flex flex-col">
                   <RegionMainContent region={region} />
-                  <RegionTreksGrid treks={treks} totalCount={totalCount} />
+                  <RegionTreksGrid treks={masterTreks} totalCount={totalCount} />
                 </div>
                 
                 {/* Sticky Sidebar Area */}
                 <aside className="w-full lg:w-[360px] shrink-0 order-first lg:order-last">
-                  <RegionSidebar region={region} treks={treks} />
+                  <RegionSidebar region={region} treks={masterTreks} />
                 </aside>
               </div>
             </>

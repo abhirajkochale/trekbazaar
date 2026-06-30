@@ -2,11 +2,11 @@
 
 import React from 'react';
 import { motion, useReducedMotion, Variants } from 'framer-motion';
-import { TrekCard } from '@/components/trek/TrekCard';
-import type { Trek } from '@/lib/types';
+import { MasterTrekSearchCard } from '@/components/search/MasterTrekSearchCard';
 
 interface RegionFeaturedTreksProps {
-  treks: Trek[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  treks: any[];
 }
 
 export function RegionFeaturedTreks({ treks }: RegionFeaturedTreksProps) {
@@ -16,7 +16,7 @@ export function RegionFeaturedTreks({ treks }: RegionFeaturedTreksProps) {
 
   // We sort by highest price as requested (or newest if price is tied)
   const featuredTreks = [...treks]
-    .sort((a, b) => b.price_per_person - a.price_per_person || new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+    .sort((a, b) => (b.aggregated?.lowestPrice || 0) - (a.aggregated?.lowestPrice || 0) || new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
     .slice(0, 3);
 
   const containerVariants: Variants = {
@@ -54,7 +54,7 @@ export function RegionFeaturedTreks({ treks }: RegionFeaturedTreksProps) {
               <div className="absolute top-4 left-4 z-20 bg-tb-primary text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
                 Featured
               </div>
-              <TrekCard trek={trek} className="h-full border-0 shadow-none ring-0" />
+              <MasterTrekSearchCard masterTrek={trek} className="h-full border-0 shadow-none ring-0" />
             </div>
           </motion.div>
         ))}

@@ -18,7 +18,7 @@ const REGIONS = [
     id: 'uttarakhand',
     name: 'Uttarakhand',
     slug: 'uttarakhand',
-    image: 'https://images.unsplash.com/photo-1588691517409-5c400490b4d4?auto=format&fit=crop&q=80&w=1200',
+    image: 'https://images.unsplash.com/photo-1593322138379-05f42e4ec3c2?auto=format&fit=crop&q=80&w=1200',
     gridClass: 'col-span-1 md:col-span-6 md:row-span-1 h-[300px] md:h-auto',
   },
   {

@@ -2,13 +2,14 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import type { Region, Trek } from '@/lib/types';
+import type { Region } from '@/lib/types';
 import { formatPrice } from '@/lib/format';
 import { SmoothCounter } from '@/components/ui/SmoothCounter';
 
 interface RegionSidebarProps {
   region: Region;
-  treks: Trek[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  treks: any[];
 }
 
 export function RegionSidebar({ region, treks }: RegionSidebarProps) {
@@ -20,12 +21,14 @@ export function RegionSidebar({ region, treks }: RegionSidebarProps) {
   const difficultyCounts = { easy: 0, moderate: 0, difficult: 0, extreme: 0 };
   
   if (totalTreks > 0) {
-    avgDuration = Math.round(treks.reduce((acc, t) => acc + t.duration_days, 0) / totalTreks);
-    avgPrice = Math.round(treks.reduce((acc, t) => acc + t.price_per_person, 0) / totalTreks);
+    avgDuration = Math.round(treks.reduce((acc, t) => acc + (t.duration_max || 0), 0) / totalTreks);
+    avgPrice = Math.round(treks.reduce((acc, t) => acc + (t.aggregated?.lowestPrice || 0), 0) / totalTreks);
     
     treks.forEach(t => {
-      if (difficultyCounts[t.difficulty] !== undefined) {
-        difficultyCounts[t.difficulty]++;
+      // master_treks use Title Case for difficulty (e.g., 'Easy', 'Moderate')
+      const diff = t.difficulty?.toLowerCase();
+      if (diff && difficultyCounts[diff as keyof typeof difficultyCounts] !== undefined) {
+        difficultyCounts[diff as keyof typeof difficultyCounts]++;
       }
     });
   }
