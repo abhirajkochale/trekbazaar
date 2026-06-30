@@ -8,6 +8,7 @@ import { Heart, Bell, User, LogOut, Compass, Settings, HelpCircle } from 'lucide
 import { logoutAction } from '@/app/actions/auth';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useWishlist } from '@/providers/WishlistProvider';
+import { useMasterWishlist } from '@/providers/MasterWishlistProvider';
 
 interface NavbarClientProps {
   user: {
@@ -19,6 +20,9 @@ interface NavbarClientProps {
 
 export function NavbarClient({ user }: NavbarClientProps) {
   const { wishlistIds } = useWishlist();
+  const { masterWishlistIds } = useMasterWishlist();
+  const totalWishlistCount = wishlistIds.length + masterWishlistIds.length;
+  
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -94,9 +98,9 @@ export function NavbarClient({ user }: NavbarClientProps) {
                 <div className="flex items-center gap-5">
                   <Link href="/account/wishlist" className={`relative transition-colors hover:text-tb-primary ${isSolid ? 'text-zinc-600' : 'text-white'}`}>
                     <Heart className="w-5 h-5" />
-                    {wishlistIds.length > 0 && (
+                    {totalWishlistCount > 0 && (
                       <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center border border-white">
-                        {wishlistIds.length}
+                        {totalWishlistCount > 9 ? '9+' : totalWishlistCount}
                       </span>
                     )}
                   </Link>
