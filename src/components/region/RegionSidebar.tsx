@@ -138,9 +138,9 @@ export function RegionSidebar({ region, treks }: RegionSidebarProps) {
         </div>
       )}
 
-      <div className="bg-tb-sys-background p-4 rounded-xl border border-tb-border">
-        <h4 className="text-xs font-bold text-tb-text-tertiary uppercase tracking-wider mb-2">Why Trek Here?</h4>
-        <p className="text-sm text-tb-text-secondary">
+      <div className="bg-gradient-to-br from-tb-primary to-emerald-700 p-6 rounded-2xl shadow-md text-white mt-8">
+        <h4 className="text-sm font-black uppercase tracking-widest mb-3 text-white/90">Why Trek Here?</h4>
+        <p className="text-base text-white/95 leading-relaxed">
           {region.name} offers some of the most spectacular high-altitude trekking in India, with well-established routes and rich local culture.
         </p>
       </div>
