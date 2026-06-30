@@ -167,7 +167,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
                       : 'text-white/80 hover:text-white drop-shadow-sm'
                       }`}
                   >
-                    Become a Partner
+                    List Your Company
                   </Link>
                   <Link
                     href="/login"
@@ -281,7 +281,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="block text-lg font-bold text-zinc-900 py-2 hover:text-tb-primary transition-colors"
                   >
-                    Become a Partner
+                    List Your Company
                   </Link>
                   <Link
                     href="/login"

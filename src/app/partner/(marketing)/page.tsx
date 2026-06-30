@@ -48,7 +48,7 @@ export default async function PartnerLandingPage() {
                 href="/partner/register"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-tb-primary text-zinc-900 font-bold rounded-xl hover:bg-tb-primary/90 transition-all text-lg shadow-lg active:scale-95"
               >
-                Become a Partner <ArrowRight className="w-5 h-5" />
+                List Your Company <ArrowRight className="w-5 h-5" />
               </Link>
               <Link
                 href="/partner/login"

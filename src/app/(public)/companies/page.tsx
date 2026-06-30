@@ -46,7 +46,7 @@ export default async function CompaniesDirectoryPage(props: { searchParams: Prom
               <CompanyGrid searchParams={searchParams} />
             </Suspense>
             
-            {/* Become a Partner CTA */}
+            {/* List Your Company CTA */}
             <div className="mt-16 bg-white rounded-3xl p-10 border border-zinc-200 text-center shadow-sm relative overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-tb-primary to-tb-secondary" />
               <h3 className="text-2xl font-black text-zinc-900 mb-4">Are you a trekking operator?</h3>
@@ -57,7 +57,7 @@ export default async function CompaniesDirectoryPage(props: { searchParams: Prom
                 href="/partner"
                 className="inline-flex items-center justify-center px-8 py-3 bg-zinc-900 text-white font-bold rounded-xl hover:bg-zinc-800 transition-colors shadow-lg hover:shadow-xl hover:-translate-y-0.5"
               >
-                Become a Partner Today
+                List Your Company Today
               </Link>
             </div>
           </div>

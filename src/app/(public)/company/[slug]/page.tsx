@@ -247,7 +247,7 @@ export default async function CompanyPublicProfile({
       {/* 13. More Verified Partners */}
       <MorePartners partners={partners || []} />
 
-      {/* 14. Become a Partner CTA */}
+      {/* 14. List Your Company CTA */}
       <BecomePartnerCTA />
     </main>
   );

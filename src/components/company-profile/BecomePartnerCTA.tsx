@@ -19,7 +19,7 @@ export function BecomePartnerCTA() {
             href="/partner"
             className="inline-flex items-center justify-center gap-2 bg-tb-primary hover:bg-tb-primary-hover text-white font-bold px-8 py-4 rounded-xl transition-transform active:scale-95 shadow-lg"
           >
-            Become a TrekBazaar Partner <ArrowRight className="w-5 h-5" />
+            List Your Company <ArrowRight className="w-5 h-5" />
           </Link>
         </div>
       </Container>
