@@ -12,7 +12,7 @@ export function CompanyCard({ company }: CompanyCardProps) {
   const { metrics } = company;
   
   return (
-    <Link href={`/company/${company.slug}`} className="group flex flex-col bg-white rounded-2xl overflow-hidden border border-zinc-200 shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+    <Link href={`/company/${company.slug}`} className="group flex flex-col bg-white rounded-2xl overflow-hidden border border-zinc-200 shadow-sm hover:border-zinc-300 hover:shadow-md transition-all duration-300">
       {/* Cover Image & Badges */}
       <div className="relative h-48 w-full bg-zinc-100 overflow-hidden">
         {company.cover_image_url ? (

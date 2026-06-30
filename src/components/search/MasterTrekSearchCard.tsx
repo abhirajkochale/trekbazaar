@@ -29,7 +29,7 @@ export function MasterTrekSearchCard({ masterTrek, className = '', href }: Props
       className={`group flex flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tb-primary ${className}`}
     >
       {/* 1. Hero Image (Airbnb style) */}
-      <div className="relative aspect-[4/3] w-full bg-zinc-200 overflow-hidden rounded-2xl mb-4 transition-all duration-300 border border-zinc-100 group-hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)]">
+      <div className="relative aspect-[4/3] w-full bg-zinc-100 overflow-hidden rounded-2xl mb-4 transition-all duration-300 border border-zinc-200 group-hover:border-zinc-300">
         <Image 
           src={imgSrc} 
           alt={`Scenery from ${masterTrek.name}`}
