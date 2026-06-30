@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { loginAction } from '@/app/actions/auth';
 import { Button } from '@/components/ui/Button';
+import { GoogleAuthButton } from '@/components/auth/GoogleAuthButton';
 
 export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
@@ -85,6 +86,21 @@ export default function LoginPage() {
             {loading ? "Signing in..." : "Sign In"}
           </Button>
         </form>
+
+        <div className="mt-6">
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-zinc-200" />
+            </div>
+            <div className="relative flex justify-center text-sm font-medium">
+              <span className="bg-white px-4 text-zinc-500">or continue with</span>
+            </div>
+          </div>
+
+          <div className="mt-6">
+            <GoogleAuthButton mode="login" />
+          </div>
+        </div>
 
         <p className="text-center text-sm text-zinc-500 mt-8">
           Don&apos;t have an account?{' '}

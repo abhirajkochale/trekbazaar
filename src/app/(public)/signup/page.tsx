@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { signupAction } from '@/app/actions/auth';
 import { Button } from '@/components/ui/Button';
+import { GoogleAuthButton } from '@/components/auth/GoogleAuthButton';
 
 export default function SignupPage() {
   const [error, setError] = useState<string | null>(null);
@@ -107,6 +108,21 @@ export default function SignupPage() {
             By signing up, you agree to our Terms of Service and Privacy Policy. Any existing bookings using this email will automatically be linked.
           </p>
         </form>
+
+        <div className="mt-6">
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-zinc-200" />
+            </div>
+            <div className="relative flex justify-center text-sm font-medium">
+              <span className="bg-white px-4 text-zinc-500">or continue with</span>
+            </div>
+          </div>
+
+          <div className="mt-6">
+            <GoogleAuthButton mode="signup" />
+          </div>
+        </div>
 
         <p className="text-center text-sm text-zinc-500 mt-8">
           Already have an account?{' '}
