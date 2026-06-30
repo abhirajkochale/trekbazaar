@@ -21,7 +21,10 @@ export default function SetupPasswordPage() {
         setLoading(false);
       }
       // If success, server action redirects to /account
-    } catch (err) {
+    } catch (err: any) {
+      if (err?.message?.includes('NEXT_REDIRECT') || err?.digest?.includes('NEXT_REDIRECT')) {
+        throw err;
+      }
       console.error(err);
       setError("An unexpected error occurred.");
       setLoading(false);
