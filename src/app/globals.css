@@ -37,22 +37,19 @@ body {
  */
 :root {
   /* Colors */
-  --tb-primary: #10B981;
-  --tb-primary-hover: #059669;
-  --tb-secondary: #475569;
-  --tb-secondary-hover: #334155;
-
-  --tb-success: #34D399;
-  --tb-warning: #F59E0B;
-  --tb-danger: #EF4444;
+  --tb-primary: #2F5233; /* Forest Green Accent */
+  --tb-primary-hover: #1A3620; /* Deep Forest */
+  
+  --tb-secondary: #52525B; /* Zinc-600 */
+  --tb-secondary-hover: #3F3F46; /* Zinc-700 */
 
   --tb-surface: #FFFFFF;
-  --tb-sys-background: #F9FAFB;
-  --tb-border: #E5E7EB;
+  --tb-sys-background: #FAFAFA; /* Zinc-50 */
+  --tb-border: #E4E4E7; /* Zinc-200 */
 
-  --tb-text-primary: #1F2937;
-  --tb-text-secondary: #000000;
-  --tb-text-tertiary: #000000;
+  --tb-text-primary: #09090B; /* Zinc-950 */
+  --tb-text-secondary: #71717A; /* Zinc-500 */
+  --tb-text-tertiary: #A1A1AA; /* Zinc-400 */
 
   /* Spacing Scale */
   --tb-space-micro: 4px;
@@ -93,13 +90,9 @@ body {
   --color-tb-primary-hover: var(--tb-primary-hover);
   --color-tb-secondary: var(--tb-secondary);
   --color-tb-secondary-hover: var(--tb-secondary-hover);
-  --color-tb-success: var(--tb-success);
-  --color-tb-warning: var(--tb-warning);
-  --color-tb-danger: var(--tb-danger);
 
   --color-tb-surface: var(--tb-surface);
   --color-tb-sys-background: var(--tb-sys-background);
-  /* Isolated from original --color-background */
   --color-tb-border: var(--tb-border);
 
   --color-tb-text-primary: var(--tb-text-primary);

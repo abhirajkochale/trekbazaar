@@ -19,11 +19,11 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary: 'bg-tb-primary text-white hover:bg-tb-primary-hover shadow-tb-subtle border border-transparent',
-  secondary: 'bg-transparent text-tb-secondary border border-tb-secondary hover:bg-tb-sys-background',
-  outline: 'bg-transparent text-tb-text-primary border border-tb-border hover:bg-tb-sys-background',
-  ghost: 'bg-transparent text-tb-text-primary hover:bg-tb-sys-background border border-transparent',
-  danger: 'bg-tb-danger text-white hover:bg-red-600 shadow-tb-subtle border border-transparent',
+  primary: 'bg-tb-primary text-white hover:bg-tb-primary-hover shadow-sm border border-transparent',
+  secondary: 'bg-white text-zinc-700 border border-zinc-200 shadow-sm hover:bg-zinc-50 hover:text-zinc-900',
+  outline: 'bg-transparent text-zinc-700 border border-zinc-200 hover:bg-zinc-50 hover:text-zinc-900',
+  ghost: 'bg-transparent text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900 border border-transparent',
+  danger: 'bg-white text-red-600 border border-zinc-200 shadow-sm hover:bg-red-50 hover:border-red-200',
   link: 'bg-transparent text-tb-primary hover:underline border-transparent p-0 h-auto',
 };
 
@@ -56,7 +56,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     // Base styles guarantee accessibility (focus rings) and micro-interactions
-    const baseStyles = 'inline-flex items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tb-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none rounded-tb-md active:scale-[0.98]';
+    const baseStyles = 'inline-flex items-center justify-center font-medium transition-all duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tb-primary focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none rounded-md active:scale-[0.98]';
     
     const widthStyle = fullWidth ? 'w-full' : '';
     const appliedSizeStyle = variant === 'link' ? '' : sizeStyles[size];
