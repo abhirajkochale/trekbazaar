@@ -12,7 +12,7 @@ export function RegionHero({ region, trekCount }: RegionHeroProps) {
   const imageUrl = region.hero_image_url || 'https://images.unsplash.com/photo-1522163182402-834f871fd851?auto=format&fit=crop&q=80&w=1920';
 
   return (
-    <section className="relative w-full h-[50vh] min-h-[400px] max-h-[600px] bg-tb-sys-background flex items-end overflow-hidden">
+    <section className="relative w-full h-[60vh] min-h-[500px] max-h-[700px] bg-tb-sys-background flex items-end overflow-hidden">
       <Image
         src={imageUrl}
         alt={`Trekking in ${region.name}`}
@@ -22,7 +22,7 @@ export function RegionHero({ region, trekCount }: RegionHeroProps) {
         sizes="100vw"
       />
       
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent pointer-events-none" />
 
       <Container className="relative z-10 pb-12 w-full text-white">
         <div className="max-w-4xl">
@@ -48,11 +48,11 @@ export function RegionHero({ region, trekCount }: RegionHeroProps) {
             )}
           </div>
 
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-white leading-tight">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-black mb-6 text-white leading-tight tracking-tight drop-shadow-sm">
             {region.name}
           </h1>
 
-          <p className="text-lg text-white/90 max-w-2xl line-clamp-2 md:line-clamp-3">
+          <p className="text-xl md:text-2xl text-white/95 max-w-3xl line-clamp-2 md:line-clamp-3 font-medium drop-shadow-sm">
             {region.description || `Discover the best trekking routes in ${region.name}.`}
           </p>
         </div>
