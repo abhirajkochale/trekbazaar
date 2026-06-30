@@ -49,7 +49,7 @@ export default async function RegionDetailsPage({ params, searchParams }: Region
 
   // Parse URL search params safely
   const q = typeof sp.q === 'string' ? sp.q : undefined;
-  const sort = typeof sp.sort === 'string' ? (sp.sort as "popular" | "price_low" | "price_high" | "duration" | "newest") : undefined;
+  const sort = typeof sp.sort === 'string' ? sp.sort as import('@/lib/search/master-api').MasterSearchFilters['sort'] : undefined;
 
   // Fetch master treks (Destinations) scoped specifically to this region's name
   const { masterTreks, totalCount } = await searchMasterTreks({
