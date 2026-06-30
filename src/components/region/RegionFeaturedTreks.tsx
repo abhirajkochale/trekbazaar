@@ -33,7 +33,15 @@ export function RegionFeaturedTreks({ treks }: RegionFeaturedTreksProps) {
   };
 
   return (
-    <section className="mt-4 mb-16 relative z-20 -top-8 md:-top-12">
+    <section className="mt-12 mb-16 relative z-20">
+      <div className="flex items-center justify-between mb-8">
+        <div>
+          <h2 className="text-2xl md:text-3xl font-bold text-zinc-900">
+            Top Rated Destinations
+          </h2>
+          <p className="text-zinc-500 mt-1">Highest rated and most booked adventures in this region.</p>
+        </div>
+      </div>
       <motion.div 
         className="grid grid-cols-1 md:grid-cols-3 gap-6"
         variants={containerVariants}
@@ -45,16 +53,13 @@ export function RegionFeaturedTreks({ treks }: RegionFeaturedTreksProps) {
           <motion.div 
             key={trek.id} 
             variants={itemVariants} 
-            className={`h-full ${index === 0 ? 'md:-mt-4' : ''}`}
+            className="h-full"
           >
-            {/* We render it slightly larger by wrapping it in a scaling div, 
-                or passing a variant if TrekCard supports it. Since we reuse TrekCard, 
-                we can use CSS transforms or just rely on the layout. */}
-            <div className="relative group h-full shadow-lg rounded-2xl overflow-hidden ring-1 ring-tb-border bg-white">
-              <div className="absolute top-4 left-4 z-20 bg-tb-primary text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
+            <div className="relative group shadow-md hover:shadow-xl transition-shadow duration-300 rounded-2xl overflow-hidden ring-1 ring-zinc-200 bg-white">
+              <div className="absolute top-4 left-4 z-20 bg-tb-primary text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">
                 Featured
               </div>
-              <MasterTrekSearchCard masterTrek={trek} className="h-full border-0 shadow-none ring-0" />
+              <MasterTrekSearchCard masterTrek={trek} className="border-0 shadow-none ring-0" />
             </div>
           </motion.div>
         ))}
