@@ -85,6 +85,31 @@ export type OnboardingStatus =
   | "CHANGES_REQUESTED"
   | "SUSPENDED";
 
+export type DocumentType = "PAN" | "GST" | "COMPANY_REGISTRATION" | "OWNER_ID" | "BANK_PROOF" | "OTHER";
+export type DocumentStatus = "PENDING" | "APPROVED" | "REJECTED";
+
+export interface PartnerDocument {
+  id: string;
+  company_id: string;
+  document_type: DocumentType;
+  file_url: string;
+  status: DocumentStatus;
+  review_notes: string | null;
+  uploaded_at: string;
+  reviewed_at: string | null;
+  reviewed_by: string | null;
+}
+
+export interface PartnerApplicationHistory {
+  id: string;
+  company_id: string;
+  from_status: OnboardingStatus | null;
+  to_status: OnboardingStatus;
+  changed_by: string | null;
+  notes: string | null;
+  created_at: string;
+}
+
 export type CompanyStatus = "active" | "suspended";
 
 export interface Company {
@@ -113,12 +138,8 @@ export interface Company {
   gst_number: string | null;
   pan_number: string | null;
   years_of_experience: number;
-  
-  gst_document_url: string | null;
-  pan_document_url: string | null;
-  registration_document_url: string | null;
-  owner_id_document_url: string | null;
 
+  bank_account_type: string | null;
   bank_account_holder_name: string | null;
   bank_account_number: string | null;
   bank_ifsc_code: string | null;
@@ -127,6 +148,7 @@ export interface Company {
   
   onboarding_status: OnboardingStatus;
   terms_accepted_at: string | null;
+  terms_version: string | null;
   status: CompanyStatus;
   featured: boolean;
   

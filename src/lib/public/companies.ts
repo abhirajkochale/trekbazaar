@@ -26,22 +26,17 @@ export async function getPublicCompanies(filters: CompanySearchFilters = {}): Pr
   const supabase = await createClient();
   
   // We fetch companies along with their treks and departures to aggregate metrics dynamically.
-  let query = supabase
+  const query = supabase
     .from('companies')
     .select(`
       *,
-      treks (
-        id, status, price_per_person, region, difficulty,
-        departures (
-          id, status, departure_date, base_price, offer_price
-        )
-      )
+      treks(
+        id,
+        master_treks(id, name, region_id, difficulty, category_id, regions(id, name), master_trek_categories(id, name))
+      ),
+      departures(id, departure_date)
     `)
-    .eq('status', 'active');
-    
-  if (filters.verifiedOnly !== false) {
-    query = query.eq('onboarding_status', 'APPROVED');
-  }
+    .eq('onboarding_status', 'APPROVED');
   
   const { data, error } = await query;
   
@@ -206,7 +201,7 @@ export async function getPublicMarketplaceStats() {
     { count: treksAvailable },
     { count: upcomingDepartures }
   ] = await Promise.all([
-    supabase.from("companies").select("*", { count: "exact", head: true }).eq("status", "active").eq("onboarding_status", "APPROVED"),
+    supabase.from("companies").select("*", { count: "exact", head: true }).eq("onboarding_status", "APPROVED"),
     supabase.from("treks").select("*", { count: "exact", head: true }).eq("status", "active"),
     supabase.from("departures").select("*", { count: "exact", head: true }).eq("status", "Upcoming").gte("departure_date", new Date().toISOString())
   ]);

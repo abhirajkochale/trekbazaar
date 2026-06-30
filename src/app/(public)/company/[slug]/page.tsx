@@ -89,7 +89,7 @@ export default async function CompanyPublicProfile({
   const { data: partners } = await supabase
     .from('companies')
     .select('id, name, slug, logo_url, cover_image_url, onboarding_status')
-    .eq('status', 'active')
+    .eq('onboarding_status', 'APPROVED')
     .neq('id', company.id)
     .limit(6);
 

@@ -80,17 +80,6 @@ export function VerificationSection({ company, updateField }: Props) {
             className={inputClasses}
           />
         </div>
-
-        <div>
-          <label className={labelClasses}>Registration Document URL</label>
-          <input
-            type="url"
-            value={company.registration_document_url || ''}
-            onChange={(e) => updateField('registration_document_url', e.target.value)}
-            className={inputClasses}
-            placeholder="Internal link to drive/S3"
-          />
-        </div>
       </div>
     </div>
   );
