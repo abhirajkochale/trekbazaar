@@ -38,7 +38,7 @@ export function MasterTrekView({ data, slug, companySlug }: MasterTrekViewProps)
   const operatorName = isSingleOperator && data.packages.length > 0 ? data.packages[0].companies?.name : null;
 
   return (
-    <main className="min-h-screen bg-zinc-50 pb-24 lg:pb-12">
+    <main className="min-h-screen bg-white pb-24 lg:pb-12">
       <Script
         id={`json-ld-${data.masterTrek.id}`}
         type="application/ld+json"
@@ -89,9 +89,9 @@ export function MasterTrekView({ data, slug, companySlug }: MasterTrekViewProps)
           
           <div className="flex-1 w-full space-y-24">
             
-            <section id="overview" className="scroll-mt-32 space-y-8">
+            <section id="overview" className="scroll-mt-32 space-y-10">
               <div className="mb-8">
-                <h2 className="text-3xl font-bold text-zinc-900">About {data.masterTrek.name}</h2>
+                <h2 className="text-3xl font-bold text-zinc-900 tracking-tight">About {data.masterTrek.name}</h2>
               </div>
               <QuickFacts masterTrek={data.masterTrek} />
               
@@ -105,8 +105,8 @@ export function MasterTrekView({ data, slug, companySlug }: MasterTrekViewProps)
             </section>
 
             <section id="operators" className="scroll-mt-32">
-              <div className="mb-8">
-                <h2 className="text-3xl font-bold text-zinc-900">
+              <div className="mb-8 pt-10 border-t border-zinc-100">
+                <h2 className="text-3xl font-bold text-zinc-900 tracking-tight">
                   {isSingleOperator ? `About the Operator` : `Compare Operators`}
                 </h2>
                 {!isSingleOperator && (
@@ -118,20 +118,20 @@ export function MasterTrekView({ data, slug, companySlug }: MasterTrekViewProps)
               <MarketplaceSection packages={data.packages} />
             </section>
             
-            <section id="departures" className="scroll-mt-32">
+            <section id="departures" className="scroll-mt-32 pt-10 border-t border-zinc-100">
               <DepartureCalendar allDepartures={data.allDepartures} />
             </section>
 
-            <section id="itinerary" className="scroll-mt-32">
+            <section id="itinerary" className="scroll-mt-32 pt-10 border-t border-zinc-100">
               <ItineraryTimeline packages={data.packages} />
             </section>
 
-            <section id="inclusions" className="scroll-mt-32">
+            <section id="inclusions" className="scroll-mt-32 pt-10 border-t border-zinc-100">
               <InclusionsExclusions inclusions={data.allInclusions} exclusions={data.allExclusions} />
             </section>
 
             {!isSingleOperator && (
-              <section className="scroll-mt-32 pt-12 border-t border-zinc-200">
+              <section className="scroll-mt-32 pt-12 border-t border-zinc-100">
                 <SimilarTreks similarTreks={data.similarTreks || []} />
               </section>
             )}

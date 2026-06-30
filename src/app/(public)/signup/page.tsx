@@ -101,7 +101,7 @@ export default function SignupPage() {
             type="submit" 
             variant="primary" 
             fullWidth 
-            className="h-12 text-base font-bold mt-2"
+            className="h-11 rounded-lg text-[14px] font-semibold mt-4 transition-all"
             disabled={loading}
           >
             {loading ? "Creating account..." : "Sign Up"}

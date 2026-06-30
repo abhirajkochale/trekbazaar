@@ -58,7 +58,7 @@ export default function LoginPage() {
               name="email"
               type="email" 
               required
-              className="w-full rounded-xl border border-zinc-200 px-4 py-3 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-tb-primary focus:border-tb-primary"
+              className="w-full h-11 rounded-lg border border-zinc-200 px-4 text-[14px] text-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 transition-shadow"
               placeholder="you@example.com"
             />
           </div>
@@ -74,7 +74,7 @@ export default function LoginPage() {
               name="password"
               type="password" 
               required
-              className="w-full rounded-xl border border-zinc-200 px-4 py-3 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-tb-primary focus:border-tb-primary"
+              className="w-full h-11 rounded-lg border border-zinc-200 px-4 text-[14px] text-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-900 focus:border-zinc-900 transition-shadow"
               placeholder="••••••••"
             />
           </div>
@@ -83,7 +83,7 @@ export default function LoginPage() {
             type="submit" 
             variant="primary" 
             fullWidth 
-            className="h-12 text-base font-bold mt-2"
+            className="h-11 rounded-lg text-[14px] font-semibold mt-4 transition-all"
             disabled={loading}
           >
             {loading ? "Signing in..." : "Sign In"}

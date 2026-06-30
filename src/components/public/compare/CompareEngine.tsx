@@ -80,8 +80,8 @@ export function CompareEngine({ masterTrek, packages }: Props) {
           <table className="w-full min-w-[800px] border-collapse relative">
             <thead>
               <tr>
-                <th className="p-6 text-left border-b border-zinc-100 bg-zinc-50/80 backdrop-blur-sm sticky left-0 z-20 w-64 shadow-[4px_0_12px_rgba(0,0,0,0.02)] align-bottom">
-                  <span className="text-sm font-bold text-zinc-400 uppercase tracking-wider">Feature Comparison</span>
+                <th className="p-6 text-left border-b border-zinc-200 bg-white sticky left-0 z-20 w-64 shadow-[2px_0_8px_rgba(0,0,0,0.02)] align-bottom">
+                  <span className="text-[13px] font-semibold text-zinc-400 uppercase tracking-wider">Feature Comparison</span>
                 </th>
                 {packages.map(pkg => (
                   <th key={pkg.id} className="p-6 text-left border-b border-zinc-100 min-w-[280px] bg-white align-top">
@@ -141,23 +141,23 @@ export function CompareEngine({ masterTrek, packages }: Props) {
               </tr>
             </thead>
             
-            <tbody className="divide-y divide-zinc-100 text-sm">
+            <tbody className="divide-y divide-zinc-100 text-[14px]">
               
               {/* Basic Info */}
-              <tr className="group hover:bg-zinc-50/50 transition-colors">
-                <td className="p-5 font-bold text-zinc-500 bg-white group-hover:bg-zinc-50/50 sticky left-0 z-10 shadow-[4px_0_12px_rgba(0,0,0,0.02)]">Duration</td>
+              <tr className="group transition-colors">
+                <td className="p-5 font-medium text-zinc-500 bg-white sticky left-0 z-10 shadow-[2px_0_8px_rgba(0,0,0,0.02)]">Duration</td>
                 {packages.map(pkg => (
                   <td key={pkg.id} className="p-5 text-zinc-900 font-medium">{pkg.duration_days} Days</td>
                 ))}
               </tr>
-              <tr className="group hover:bg-zinc-50/50 transition-colors">
-                <td className="p-5 font-bold text-zinc-500 bg-white group-hover:bg-zinc-50/50 sticky left-0 z-10 shadow-[4px_0_12px_rgba(0,0,0,0.02)]">Difficulty</td>
+              <tr className="group transition-colors">
+                <td className="p-5 font-medium text-zinc-500 bg-white sticky left-0 z-10 shadow-[2px_0_8px_rgba(0,0,0,0.02)]">Difficulty</td>
                 {packages.map(pkg => (
                   <td key={pkg.id} className="p-5 text-zinc-900 font-medium capitalize">{pkg.difficulty}</td>
                 ))}
               </tr>
-              <tr className="group hover:bg-zinc-50/50 transition-colors">
-                <td className="p-5 font-bold text-zinc-500 bg-white group-hover:bg-zinc-50/50 sticky left-0 z-10 shadow-[4px_0_12px_rgba(0,0,0,0.02)]">Starting Point</td>
+              <tr className="group transition-colors">
+                <td className="p-5 font-medium text-zinc-500 bg-white sticky left-0 z-10 shadow-[2px_0_8px_rgba(0,0,0,0.02)]">Starting Point</td>
                 {packages.map(pkg => (
                   <td key={pkg.id} className="p-5 text-zinc-900 font-medium flex items-center gap-2">
                     <MapPin className="w-4 h-4 text-zinc-400" /> {pkg.start_point || masterTrek.region?.name || 'Not specified'}
@@ -166,11 +166,11 @@ export function CompareEngine({ masterTrek, packages }: Props) {
               </tr>
 
               {/* Inclusions */}
-              <tr className="bg-zinc-50/80">
-                <td colSpan={packages.length + 1} className="px-6 py-3 font-bold text-xs text-zinc-400 uppercase tracking-wider sticky left-0">Inclusions & Policies</td>
+              <tr className="bg-white">
+                <td colSpan={packages.length + 1} className="px-6 py-4 font-bold text-[13px] text-zinc-900 uppercase tracking-wider sticky left-0">Inclusions & Policies</td>
               </tr>
-              <tr className="group hover:bg-zinc-50/50 transition-colors">
-                <td className="p-5 font-bold text-zinc-500 bg-white group-hover:bg-zinc-50/50 sticky left-0 z-10 shadow-[4px_0_12px_rgba(0,0,0,0.02)]">Meals Included</td>
+              <tr className="group transition-colors">
+                <td className="p-5 font-medium text-zinc-500 bg-white sticky left-0 z-10 shadow-[2px_0_8px_rgba(0,0,0,0.02)]">Meals Included</td>
                 {packages.map(pkg => {
                   const hasMeals = (pkg.included || []).some((i: string) => i.toLowerCase().includes('meal') || i.toLowerCase().includes('food') || i.toLowerCase().includes('breakfast'));
                   return (
@@ -184,8 +184,8 @@ export function CompareEngine({ masterTrek, packages }: Props) {
                   );
                 })}
               </tr>
-              <tr className="group hover:bg-zinc-50/50 transition-colors">
-                <td className="p-5 font-bold text-zinc-500 bg-white group-hover:bg-zinc-50/50 sticky left-0 z-10 shadow-[4px_0_12px_rgba(0,0,0,0.02)]">Transport / Pickup</td>
+              <tr className="group transition-colors">
+                <td className="p-5 font-medium text-zinc-500 bg-white sticky left-0 z-10 shadow-[2px_0_8px_rgba(0,0,0,0.02)]">Transport / Pickup</td>
                 {packages.map(pkg => {
                   const hasTransport = (pkg.included || []).some((i: string) => i.toLowerCase().includes('transport') || i.toLowerCase().includes('pickup') || i.toLowerCase().includes('drive'));
                   return (
@@ -199,8 +199,8 @@ export function CompareEngine({ masterTrek, packages }: Props) {
                   );
                 })}
               </tr>
-              <tr className="group hover:bg-zinc-50/50 transition-colors">
-                <td className="p-5 font-bold text-zinc-500 bg-white group-hover:bg-zinc-50/50 sticky left-0 z-10 shadow-[4px_0_12px_rgba(0,0,0,0.02)]">Guide & Support</td>
+              <tr className="group transition-colors">
+                <td className="p-5 font-medium text-zinc-500 bg-white sticky left-0 z-10 shadow-[2px_0_8px_rgba(0,0,0,0.02)]">Guide & Support</td>
                 {packages.map(pkg => {
                   const hasGuide = (pkg.included || []).some((i: string) => i.toLowerCase().includes('guide') || i.toLowerCase().includes('leader') || i.toLowerCase().includes('expert'));
                   return (
@@ -214,8 +214,8 @@ export function CompareEngine({ masterTrek, packages }: Props) {
                   );
                 })}
               </tr>
-              <tr className="group hover:bg-zinc-50/50 transition-colors">
-                <td className="p-5 font-bold text-zinc-500 bg-white group-hover:bg-zinc-50/50 sticky left-0 z-10 shadow-[4px_0_12px_rgba(0,0,0,0.02)]">Cancellation</td>
+              <tr className="group transition-colors">
+                <td className="p-5 font-medium text-zinc-500 bg-white sticky left-0 z-10 shadow-[2px_0_8px_rgba(0,0,0,0.02)]">Cancellation</td>
                 {packages.map(pkg => (
                   <td key={pkg.id} className="p-5 text-zinc-900 font-medium">
                     {pkg.cancellation_policy || 'Standard Flexible'}
@@ -224,11 +224,11 @@ export function CompareEngine({ masterTrek, packages }: Props) {
               </tr>
 
               {/* Availability */}
-              <tr className="bg-zinc-50/80">
-                <td colSpan={packages.length + 1} className="px-6 py-3 font-bold text-xs text-zinc-400 uppercase tracking-wider sticky left-0">Availability</td>
+              <tr className="bg-white">
+                <td colSpan={packages.length + 1} className="px-6 py-4 font-bold text-[13px] text-zinc-900 uppercase tracking-wider sticky left-0 border-t border-zinc-100">Availability</td>
               </tr>
-              <tr className="group hover:bg-zinc-50/50 transition-colors">
-                <td className="p-5 font-bold text-zinc-500 bg-white group-hover:bg-zinc-50/50 sticky left-0 z-10 shadow-[4px_0_12px_rgba(0,0,0,0.02)]">Upcoming Departures</td>
+              <tr className="group transition-colors">
+                <td className="p-5 font-medium text-zinc-500 bg-white sticky left-0 z-10 shadow-[2px_0_8px_rgba(0,0,0,0.02)]">Upcoming Departures</td>
                 {packages.map(pkg => (
                   <td key={pkg.id} className="p-5 text-zinc-900 font-bold">
                     {pkg.departures?.length || 0} Dates

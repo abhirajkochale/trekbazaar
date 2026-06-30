@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { MapPin, Mountain, CalendarDays, ExternalLink, IndianRupee } from 'lucide-react';
-import { PartnerBadge } from '@/components/ui/PartnerBadge';
+import { ShieldCheck } from 'lucide-react';
 import type { PublicCompany } from '@/lib/public/companies';
 
 interface CompanyCardProps {
@@ -10,88 +9,64 @@ interface CompanyCardProps {
 
 export function CompanyCard({ company }: CompanyCardProps) {
   const { metrics } = company;
+  const isVerified = metrics.badges.includes('verified');
   
   return (
-    <Link href={`/company/${company.slug}`} className="group flex flex-col bg-white rounded-2xl overflow-hidden border border-zinc-200 shadow-sm hover:border-zinc-300 hover:shadow-md transition-all duration-300">
-      {/* Cover Image & Badges */}
-      <div className="relative h-48 w-full bg-zinc-100 overflow-hidden">
+    <Link href={`/company/${company.slug}`} className="group flex flex-col bg-white rounded-2xl overflow-hidden border border-zinc-200 transition-all duration-300 hover:border-zinc-300">
+      {/* Cover Image */}
+      <div className="relative aspect-[16/9] w-full bg-zinc-100 overflow-hidden border-b border-zinc-100">
         {company.cover_image_url ? (
           <img 
             src={company.cover_image_url} 
             alt={`${company.name} cover`} 
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
-          <div className="w-full h-full bg-gradient-to-br from-zinc-100 to-zinc-200 flex items-center justify-center">
-            <Mountain className="w-4 h-4 text-zinc-300" />
+          <div className="w-full h-full bg-zinc-100 flex items-center justify-center">
+             <span className="text-zinc-300 font-medium">No cover image</span>
           </div>
         )}
-        
-        {/* Badges */}
-        <div className="absolute top-4 left-4 flex flex-col gap-2">
-          {metrics.badges.map(badge => (
-            <PartnerBadge key={badge} type={badge} />
-          ))}
-        </div>
       </div>
       
-      <div className="p-6 pt-0 relative flex-1 flex flex-col">
-        {/* Logo */}
-        <div className="absolute -top-10 right-6 w-20 h-20 bg-white rounded-2xl p-1.5 shadow-lg border border-zinc-100">
-          <div className="w-full h-full bg-zinc-50 rounded-xl overflow-hidden flex items-center justify-center">
-            {company.logo_url ? (
-              <img src={company.logo_url} alt={company.name} className="w-full h-full object-cover" />
-            ) : (
-              <span className="text-2xl font-black text-zinc-300">{company.name.charAt(0)}</span>
-            )}
-          </div>
-        </div>
-        
-        <div className="mt-5 pr-20">
-          <h3 className="text-xl font-black text-zinc-900 group-hover:text-tb-primary transition-colors line-clamp-1">
-            {company.name}
-          </h3>
-          {(company.city || company.state) && (
-            <div className="flex items-center gap-1.5 text-sm text-zinc-500 mt-1.5">
-              <MapPin className="w-4 h-4 flex-shrink-0" />
-              <span className="line-clamp-1">{[company.city, company.state].filter(Boolean).join(", ")}</span>
+      <div className="p-5 flex flex-col flex-1">
+        {/* Header: Logo & Name */}
+        <div className="flex items-start gap-3 mb-3">
+          {company.logo_url && (
+            <div className="w-10 h-10 rounded-lg bg-zinc-50 border border-zinc-100 shrink-0 overflow-hidden shadow-sm">
+               <img src={company.logo_url} alt={company.name} className="w-full h-full object-cover" />
             </div>
           )}
+          <div className="flex-1">
+            <h3 className="text-[16px] font-semibold text-zinc-900 transition-colors flex items-center gap-1.5 leading-tight line-clamp-1">
+              {company.name}
+              {isVerified && (
+                 <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" strokeWidth={2} />
+              )}
+            </h3>
+            <p className="text-[14px] text-zinc-500 line-clamp-1 mt-0.5">
+              {[company.city, company.state].filter(Boolean).join(", ") || 'India'}
+            </p>
+          </div>
         </div>
         
-        <p className="mt-4 text-sm text-zinc-600 line-clamp-2 leading-relaxed flex-1">
+        {/* Description */}
+        <p className="text-[14px] text-zinc-600 line-clamp-2 leading-snug mb-4">
           {company.description || "A trusted trekking operator verified by TrekBazaar."}
         </p>
-        
-        <div className="grid grid-cols-2 gap-4 mt-6 pt-5 border-t border-zinc-100">
-          <div className="flex flex-col">
-            <span className="text-xs font-bold uppercase tracking-wider text-zinc-400">Active Treks</span>
-            <div className="flex items-center gap-1.5 mt-1">
-              <Mountain className="w-4 h-4 text-tb-primary" />
-              <span className="font-bold text-zinc-900">{metrics.activeTreksCount || 0}</span>
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-xs font-bold uppercase tracking-wider text-zinc-400">Departures</span>
-            <div className="flex items-center gap-1.5 mt-1">
-              <CalendarDays className="w-4 h-4 text-tb-secondary" />
-              <span className="font-bold text-zinc-900">{metrics.upcomingDeparturesCount || 0}</span>
-            </div>
-          </div>
+
+        {/* Unified Metadata */}
+        <div className="mt-auto flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[13.5px] text-zinc-500 font-medium">
+          <span>{metrics.activeTreksCount || 0} active treks</span>
+          <span>•</span>
+          <span>{metrics.upcomingDeparturesCount || 0} departures</span>
         </div>
         
-        <div className="flex items-end justify-between mt-6 pt-5 border-t border-zinc-100">
-          <div className="flex flex-col">
-            <span className="text-xs font-bold uppercase tracking-wider text-zinc-400">Starting from</span>
-            <div className="flex items-baseline gap-1 mt-0.5">
-              <IndianRupee className="w-4 h-4 text-zinc-900 mb-0.5" />
-              <span className="text-lg font-black text-zinc-900">{metrics.lowestPrice?.toLocaleString() || "---"}</span>
-            </div>
-          </div>
-          
-          <div className="w-10 h-10 rounded-full bg-zinc-50 flex items-center justify-center group-hover:bg-tb-primary group-hover:text-white text-zinc-400 transition-colors">
-            <ExternalLink className="w-4 h-4" />
-          </div>
+        {/* Footer */}
+        <div className="mt-4 pt-4 border-t border-zinc-100 flex items-center justify-between">
+           <span className="text-[14px] text-zinc-500">Starting from</span>
+           <span className="text-[15px] font-semibold text-zinc-900">
+             {metrics.lowestPrice ? `₹${metrics.lowestPrice.toLocaleString()}` : "Price on request"}
+           </span>
         </div>
       </div>
     </Link>

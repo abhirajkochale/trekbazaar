@@ -15,7 +15,7 @@ export async function MasterTreksTable({ searchQuery, sortBy }: MasterTreksTable
     <AdminCard title="All Master Treks" noPadding>
       <div className="overflow-x-auto">
         <table className="w-full text-left text-sm whitespace-nowrap">
-          <thead className="border-b border-zinc-200 bg-zinc-50 text-xs uppercase tracking-wide text-zinc-500">
+          <thead className="border-b border-zinc-200 bg-white text-xs uppercase tracking-wide text-zinc-400 font-semibold">
             <tr>
               <th className="px-6 py-4 font-medium">Master Trek</th>
               <th className="px-6 py-4 font-medium">Category</th>
