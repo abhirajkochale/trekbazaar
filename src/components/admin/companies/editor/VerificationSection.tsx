@@ -17,8 +17,8 @@ export function VerificationSection({ company, updateField }: Props) {
       <div>
         <label className={labelClasses}>Verification Status</label>
         <select
-          value={company.verification_status || 'pending'}
-          onChange={(e) => updateField('verification_status', e.target.value as Company['verification_status'])}
+          value={company.onboarding_status || 'pending'}
+          onChange={(e) => updateField('onboarding_status', e.target.value as Company['onboarding_status'])}
           className={inputClasses}
         >
           <option value="pending">Pending</option>

@@ -18,7 +18,7 @@ export function generateCompanyTrustSignals(company: PublicCompany): TrustSignal
   const { metrics } = company;
 
   // 1. Identity & Verification
-  if (company.verification_status === 'approved' || metrics.badges.includes('verified')) {
+  if (company.onboarding_status === 'APPROVED' || metrics.badges.includes('verified')) {
     signals.push({
       id: 'tb-verified',
       label: 'TrekBazaar Verified',

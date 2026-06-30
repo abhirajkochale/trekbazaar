@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { redirect } from "next/navigation";
 
 export async function submitCompanyApplication(formData: FormData) {
@@ -17,8 +18,10 @@ export async function submitCompanyApplication(formData: FormData) {
   const phone = formData.get("phone") as string;
   const email = formData.get("email") as string;
 
-  // Insert the company as pending
-  const { data, error } = await supabase
+  const adminClient = createAdminClient();
+
+  // Insert the company as pending using adminClient to bypass RLS
+  const { data, error } = await adminClient
     .from("companies")
     .insert({
       owner_id: user.id,
@@ -27,7 +30,9 @@ export async function submitCompanyApplication(formData: FormData) {
       contact_person,
       phone,
       email,
-      verification_status: "pending",
+      years_of_experience: 0,
+      featured: false,
+      onboarding_status: "REGISTERED",
       status: "suspended", // Needs admin approval to become active
     })
     .select()
@@ -35,7 +40,7 @@ export async function submitCompanyApplication(formData: FormData) {
 
   if (error) {
     console.error("Failed to submit company application:", error.message);
-    throw new Error("Failed to submit application");
+    throw new Error(`Database Error: ${error.message}`);
   }
 
   redirect("/partner/onboarding/status");

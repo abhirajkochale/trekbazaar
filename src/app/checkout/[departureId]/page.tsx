@@ -39,7 +39,7 @@ export default async function CheckoutPage({ params }: PageProps) {
     .from('treks')
     .select(`
       *,
-      companies(id, name, logo_url, verification_status, years_of_experience),
+      companies(id, name, logo_url, onboarding_status, years_of_experience),
       departures(*)
     `)
     .eq('id', initialDeparture.trek_id)

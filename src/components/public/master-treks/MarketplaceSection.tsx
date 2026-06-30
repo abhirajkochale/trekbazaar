@@ -91,13 +91,13 @@ export function MarketplaceSection({ packages }: Props) {
         const bFeatured = b.companies?.featured ? 1 : 0;
         if (aFeatured !== bFeatured) return bFeatured - aFeatured;
 
-        const aVerified = a.companies?.verification_status === "approved" ? 1 : 0;
-        const bVerified = b.companies?.verification_status === "approved" ? 1 : 0;
+        const aVerified = a.companies?.onboarding_status === "APPROVED" ? 1 : 0;
+        const bVerified = b.companies?.onboarding_status === "APPROVED" ? 1 : 0;
         if (aVerified !== bVerified) return bVerified - aVerified;
       }
       if (sort === "verified-first") {
-        const aVerified = a.companies?.verification_status === "approved" ? 1 : 0;
-        const bVerified = b.companies?.verification_status === "approved" ? 1 : 0;
+        const aVerified = a.companies?.onboarding_status === "APPROVED" ? 1 : 0;
+        const bVerified = b.companies?.onboarding_status === "APPROVED" ? 1 : 0;
         if (aVerified !== bVerified) return bVerified - aVerified;
       }
       return 0;

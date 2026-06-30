@@ -1,5 +1,6 @@
 import type { User } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import type { Company } from "@/lib/types";
 
 /**
@@ -28,7 +29,11 @@ export async function getCompanyContext(): Promise<CompanyContext> {
   // Fetch up to 2 rows so we can deterministically detect the impossible
   // "duplicate owner" state without relying on .single()/.maybeSingle()
   // error-code parsing.
-  const { data, error } = await supabase
+  // We use the adminClient here because the user's company might be
+  // in 'suspended' status during onboarding, which is blocked by the public RLS SELECT policy.
+  // Since we hardcode `.eq("owner_id", user.id)`, this is perfectly secure.
+  const adminClient = createAdminClient();
+  const { data, error } = await adminClient
     .from("companies")
     .select("*")
     .eq("owner_id", user.id)

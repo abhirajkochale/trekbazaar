@@ -2,14 +2,14 @@
 
 import React, { useTransition } from 'react';
 import { updateApplicationStatusAction } from './actions';
-import type { ApprovalStatus } from '@/lib/types';
+import type { OnboardingStatus } from '@/lib/types';
 import toast from 'react-hot-toast';
 import { Check, X, Clock, AlertCircle } from 'lucide-react';
 
-export function ApplicationActions({ companyId, initialStatus }: { companyId: string, initialStatus: ApprovalStatus }) {
+export function ApplicationActions({ companyId, initialStatus }: { companyId: string, initialStatus: OnboardingStatus }) {
   const [isPending, startTransition] = useTransition();
 
-  const handleUpdate = (status: ApprovalStatus) => {
+  const handleUpdate = (status: OnboardingStatus) => {
     startTransition(async () => {
       const res = await updateApplicationStatusAction(companyId, status);
       if (res.success) {
@@ -23,8 +23,8 @@ export function ApplicationActions({ companyId, initialStatus }: { companyId: st
   return (
     <div className="flex flex-wrap items-center gap-2">
       <button
-        disabled={isPending || initialStatus === "approved"}
-        onClick={() => handleUpdate("approved")}
+        disabled={isPending || initialStatus === "APPROVED"}
+        onClick={() => handleUpdate("APPROVED")}
         className="inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-600 text-white text-sm font-bold rounded-lg hover:bg-emerald-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <Check className="w-4 h-4" />
@@ -32,8 +32,8 @@ export function ApplicationActions({ companyId, initialStatus }: { companyId: st
       </button>
 
       <button
-        disabled={isPending || initialStatus === "rejected"}
-        onClick={() => handleUpdate("rejected")}
+        disabled={isPending || initialStatus === "REJECTED"}
+        onClick={() => handleUpdate("REJECTED")}
         className="inline-flex items-center gap-1.5 px-4 py-2 bg-red-600 text-white text-sm font-bold rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <X className="w-4 h-4" />
@@ -41,8 +41,8 @@ export function ApplicationActions({ companyId, initialStatus }: { companyId: st
       </button>
       
       <button
-        disabled={isPending || initialStatus === "changes_requested"}
-        onClick={() => handleUpdate("changes_requested")}
+        disabled={isPending || initialStatus === "CHANGES_REQUESTED"}
+        onClick={() => handleUpdate("CHANGES_REQUESTED")}
         className="inline-flex items-center gap-1.5 px-4 py-2 bg-amber-500 text-white text-sm font-bold rounded-lg hover:bg-amber-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <AlertCircle className="w-4 h-4" />
@@ -50,8 +50,8 @@ export function ApplicationActions({ companyId, initialStatus }: { companyId: st
       </button>
       
       <button
-        disabled={isPending || initialStatus === "suspended"}
-        onClick={() => handleUpdate("suspended")}
+        disabled={isPending || initialStatus === "SUSPENDED"}
+        onClick={() => handleUpdate("SUSPENDED")}
         className="inline-flex items-center gap-1.5 px-4 py-2 bg-zinc-800 text-white text-sm font-bold rounded-lg hover:bg-zinc-900 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         Suspend Account

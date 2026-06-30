@@ -73,7 +73,18 @@ export interface MasterTrek {
   region?: Region;
 }
 
-export type ApprovalStatus = "pending" | "approved" | "rejected" | "changes_requested" | "suspended";
+export type OnboardingStatus = 
+  | "REGISTERED"
+  | "PROFILE_COMPLETED"
+  | "DUE_DILIGENCE"
+  | "TERMS_ACCEPTED"
+  | "KYC_COMPLETED"
+  | "READY_FOR_REVIEW"
+  | "APPROVED"
+  | "REJECTED"
+  | "CHANGES_REQUESTED"
+  | "SUSPENDED";
+
 export type CompanyStatus = "active" | "suspended";
 
 export interface Company {
@@ -100,13 +111,22 @@ export interface Company {
   state: string | null;
   
   gst_number: string | null;
+  pan_number: string | null;
   years_of_experience: number;
   
   gst_document_url: string | null;
   pan_document_url: string | null;
   registration_document_url: string | null;
+  owner_id_document_url: string | null;
+
+  bank_account_holder_name: string | null;
+  bank_account_number: string | null;
+  bank_ifsc_code: string | null;
+  bank_name: string | null;
+  bank_branch_name: string | null;
   
-  verification_status: ApprovalStatus;
+  onboarding_status: OnboardingStatus;
+  terms_accepted_at: string | null;
   status: CompanyStatus;
   featured: boolean;
   

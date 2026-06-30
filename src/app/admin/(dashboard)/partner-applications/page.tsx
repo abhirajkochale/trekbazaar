@@ -2,16 +2,21 @@ import React from 'react';
 import { getCompanies } from '@/lib/admin/companies';
 import Link from 'next/link';
 import { ShieldCheck, Clock, XCircle, Building2, AlertCircle } from 'lucide-react';
-import type { ApprovalStatus } from '@/lib/types';
+import type { OnboardingStatus } from '@/lib/types';
 
 export const dynamic = "force-dynamic";
 
-const badgeMap: Record<ApprovalStatus, { icon: any, class: string }> = {
-  approved: { icon: ShieldCheck, class: "bg-emerald-50 text-emerald-700" },
-  pending: { icon: Clock, class: "bg-amber-50 text-amber-700" },
-  changes_requested: { icon: AlertCircle, class: "bg-blue-50 text-blue-700" },
-  rejected: { icon: XCircle, class: "bg-red-50 text-red-700" },
-  suspended: { icon: XCircle, class: "bg-zinc-100 text-zinc-700" },
+const badgeMap: Record<OnboardingStatus, { icon: any, class: string }> = {
+  APPROVED: { icon: ShieldCheck, class: "bg-emerald-50 text-emerald-700" },
+  REGISTERED: { icon: Clock, class: "bg-amber-50 text-amber-700" },
+  PROFILE_COMPLETED: { icon: Clock, class: "bg-amber-50 text-amber-700" },
+  DUE_DILIGENCE: { icon: Clock, class: "bg-amber-50 text-amber-700" },
+  TERMS_ACCEPTED: { icon: Clock, class: "bg-amber-50 text-amber-700" },
+  KYC_COMPLETED: { icon: Clock, class: "bg-amber-50 text-amber-700" },
+  READY_FOR_REVIEW: { icon: Clock, class: "bg-amber-50 text-amber-700" },
+  CHANGES_REQUESTED: { icon: AlertCircle, class: "bg-blue-50 text-blue-700" },
+  REJECTED: { icon: XCircle, class: "bg-red-50 text-red-700" },
+  SUSPENDED: { icon: XCircle, class: "bg-zinc-100 text-zinc-700" },
 };
 
 export default async function PartnerApplicationsPage() {
@@ -20,8 +25,8 @@ export default async function PartnerApplicationsPage() {
   
   // Sort pending to top, then approved
   const sortedCompanies = [...companies].sort((a, b) => {
-    if (a.verification_status === "pending" && b.verification_status !== "pending") return -1;
-    if (a.verification_status !== "pending" && b.verification_status === "pending") return 1;
+    if (a.onboarding_status === "REGISTERED" && b.onboarding_status !== "REGISTERED") return -1;
+    if (a.onboarding_status !== "REGISTERED" && b.onboarding_status === "REGISTERED") return 1;
     return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
   });
 
@@ -53,7 +58,7 @@ export default async function PartnerApplicationsPage() {
                 </tr>
               )}
               {sortedCompanies.map(company => {
-                const Badge = badgeMap[company.verification_status as ApprovalStatus] || badgeMap.pending;
+                const Badge = badgeMap[company.onboarding_status as OnboardingStatus] || badgeMap.REGISTERED;
                 return (
                   <tr key={company.id} className="hover:bg-zinc-50 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -78,7 +83,7 @@ export default async function PartnerApplicationsPage() {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${Badge.class}`}>
                         <Badge.icon className="w-3.5 h-3.5" />
-                        {company.verification_status}
+                        {company.onboarding_status}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-zinc-500 font-medium">

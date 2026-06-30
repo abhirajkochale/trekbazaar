@@ -8,7 +8,7 @@ export default async function PartnerRegisterPage() {
 
   // Prevent logged-in users from seeing registration
   if (ctx.status !== "unauthenticated") {
-    if (ctx.status === "ok" && ctx.company.verification_status === "approved") {
+    if (ctx.status === "ok" && ctx.company.onboarding_status === "APPROVED") {
       redirect("/partner/dashboard");
     } else {
       redirect("/partner/onboarding");

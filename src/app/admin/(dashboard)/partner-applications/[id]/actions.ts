@@ -2,19 +2,19 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { revalidatePath } from "next/cache";
-import type { ApprovalStatus } from "@/lib/types";
+import type { OnboardingStatus } from "@/lib/types";
 
-export async function updateApplicationStatusAction(companyId: string, status: ApprovalStatus) {
+export async function updateApplicationStatusAction(companyId: string, status: OnboardingStatus) {
   const supabase = await createClient();
 
   // If approved, we also make the account active.
   // If rejected/suspended, we make it suspended.
-  const accountStatus = status === "approved" ? "active" : "suspended";
+  const accountStatus = status === "APPROVED" ? "active" : "suspended";
 
   const { error } = await supabase
     .from("companies")
     .update({ 
-      verification_status: status,
+      onboarding_status: status,
       status: accountStatus,
       updated_at: new Date().toISOString()
     })

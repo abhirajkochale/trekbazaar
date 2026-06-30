@@ -98,7 +98,7 @@ export function MarketplaceCard({ pkg, isSelectedForCompare, onCompareToggle }: 
           <div className="flex-1">
             <h3 className="font-bold text-zinc-900 text-xl flex items-center gap-2 flex-wrap">
               {company?.name || 'Unknown Operator'}
-              {company?.verification_status === 'approved' && (
+              {company?.onboarding_status === 'APPROVED' && (
                 <span title="Verified Operator" className="text-tb-primary">
                   <ShieldCheck className="w-4 h-4" />
                 </span>

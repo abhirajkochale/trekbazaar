@@ -2,19 +2,24 @@
 
 /* eslint-disable @next/next/no-img-element */
 import React, { useState, useTransition } from 'react';
-import type { Company } from '@/lib/types';
+import type { Company, OnboardingStatus } from '@/lib/types';
 import { Edit2, Trash2, MoreHorizontal, Star, ShieldCheck, Clock, XCircle, Building2 } from 'lucide-react';
 import Link from 'next/link';
 import { DeleteCompanyDialog } from './DeleteCompanyDialog';
 import { toggleCompanyFeaturedAction } from '@/app/admin/(dashboard)/companies/actions';
 import toast from 'react-hot-toast';
 
-const verificationBadge = {
-  approved: { icon: ShieldCheck, class: "bg-emerald-50 text-emerald-700" },
-  pending: { icon: Clock, class: "bg-amber-50 text-amber-700" },
-  changes_requested: { icon: Clock, class: "bg-amber-50 text-amber-700" },
-  rejected: { icon: XCircle, class: "bg-red-50 text-red-700" },
-  suspended: { icon: XCircle, class: "bg-red-50 text-red-700" },
+const verificationBadge: Record<OnboardingStatus, { icon: any, class: string }> = {
+  APPROVED: { icon: ShieldCheck, class: "bg-emerald-50 text-emerald-700" },
+  REGISTERED: { icon: Clock, class: "bg-amber-50 text-amber-700" },
+  PROFILE_COMPLETED: { icon: Clock, class: "bg-amber-50 text-amber-700" },
+  DUE_DILIGENCE: { icon: Clock, class: "bg-amber-50 text-amber-700" },
+  TERMS_ACCEPTED: { icon: Clock, class: "bg-amber-50 text-amber-700" },
+  KYC_COMPLETED: { icon: Clock, class: "bg-amber-50 text-amber-700" },
+  READY_FOR_REVIEW: { icon: Clock, class: "bg-amber-50 text-amber-700" },
+  CHANGES_REQUESTED: { icon: Clock, class: "bg-amber-50 text-amber-700" },
+  REJECTED: { icon: XCircle, class: "bg-red-50 text-red-700" },
+  SUSPENDED: { icon: XCircle, class: "bg-red-50 text-red-700" },
 };
 
 const statusBadge = {
@@ -38,7 +43,7 @@ export function CompanyRow({ company }: { company: Company }) {
     });
   };
 
-  const VerBadge = verificationBadge[company.verification_status];
+  const VerBadge = verificationBadge[company.onboarding_status];
 
   return (
     <>
@@ -72,7 +77,7 @@ export function CompanyRow({ company }: { company: Company }) {
         <td className="px-6 py-4 whitespace-nowrap">
           <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium capitalize border border-transparent ${VerBadge.class}`}>
             <VerBadge.icon className="w-3.5 h-3.5" />
-            {company.verification_status}
+            {company.onboarding_status}
           </span>
         </td>
         <td className="px-6 py-4 whitespace-nowrap">

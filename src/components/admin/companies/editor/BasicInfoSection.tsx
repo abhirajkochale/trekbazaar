@@ -4,6 +4,7 @@
 import React from 'react';
 import type { Company } from '@/lib/types';
 import { slugify } from '@/lib/format';
+import { ImageUpload } from '@/components/ui/ImageUpload';
 
 interface Props {
   company: Partial<Company>;
@@ -62,35 +63,23 @@ export function BasicInfoSection({ company, updateField }: Props) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-zinc-200">
         <div>
-          <label className={labelClasses}>Logo URL</label>
-          <input
-            type="url"
-            value={company.logo_url || ''}
-            onChange={(e) => updateField('logo_url', e.target.value)}
-            className={inputClasses}
-            placeholder="https://..."
+          <label className={labelClasses + " mb-2"}>Company Logo</label>
+          <ImageUpload 
+            value={company.logo_url || ''} 
+            onChange={(url) => updateField('logo_url', url)} 
+            folder="company-logos"
+            label="Upload Logo"
           />
-          {company.logo_url && (
-            <div className="mt-2 w-16 h-16 rounded-lg bg-zinc-100 border border-zinc-200 overflow-hidden">
-              <img src={company.logo_url} alt="Logo" className="w-full h-full object-cover" />
-            </div>
-          )}
         </div>
         
         <div>
-          <label className={labelClasses}>Cover Image URL</label>
-          <input
-            type="url"
-            value={company.cover_image_url || ''}
-            onChange={(e) => updateField('cover_image_url', e.target.value)}
-            className={inputClasses}
-            placeholder="https://..."
+          <label className={labelClasses + " mb-2"}>Cover Image</label>
+          <ImageUpload 
+            value={company.cover_image_url || ''} 
+            onChange={(url) => updateField('cover_image_url', url)} 
+            folder="company-covers"
+            label="Upload Cover"
           />
-          {company.cover_image_url && (
-            <div className="mt-2 w-full h-16 rounded-lg bg-zinc-100 border border-zinc-200 overflow-hidden">
-              <img src={company.cover_image_url} alt="Cover" className="w-full h-full object-cover" />
-            </div>
-          )}
         </div>
       </div>
     </div>

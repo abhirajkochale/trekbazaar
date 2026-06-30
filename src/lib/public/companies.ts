@@ -40,7 +40,7 @@ export async function getPublicCompanies(filters: CompanySearchFilters = {}): Pr
     .eq('status', 'active');
     
   if (filters.verifiedOnly !== false) {
-    query = query.eq('verification_status', 'approved');
+    query = query.eq('onboarding_status', 'APPROVED');
   }
   
   const { data, error } = await query;
@@ -90,7 +90,7 @@ export async function getPublicCompanies(filters: CompanySearchFilters = {}): Pr
     }
 
     const badges: string[] = [];
-    if (company.verification_status === "approved") badges.push("Verified");
+    if (company.onboarding_status === "APPROVED") badges.push("Verified");
     
     // "New" badge if created within last 30 days
     const thirtyDaysAgo = new Date();
@@ -206,7 +206,7 @@ export async function getPublicMarketplaceStats() {
     { count: treksAvailable },
     { count: upcomingDepartures }
   ] = await Promise.all([
-    supabase.from("companies").select("*", { count: "exact", head: true }).eq("status", "active").eq("verification_status", "approved"),
+    supabase.from("companies").select("*", { count: "exact", head: true }).eq("status", "active").eq("onboarding_status", "APPROVED"),
     supabase.from("treks").select("*", { count: "exact", head: true }).eq("status", "active"),
     supabase.from("departures").select("*", { count: "exact", head: true }).eq("status", "Upcoming").gte("departure_date", new Date().toISOString())
   ]);
