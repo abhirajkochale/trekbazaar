@@ -15,7 +15,7 @@ export function HeroSection() {
           Explore Trekking Companies
         </h1>
         <p className="text-xl text-white/90 max-w-2xl mx-auto font-medium mb-10 leading-relaxed">
-          India's largest marketplace of verified trekking operators. Compare destinations, reviews, departures, and prices to find your perfect adventure partner.
+          India&apos;s largest marketplace of verified trekking operators. Compare destinations, reviews, departures, and prices to find your perfect adventure partner.
         </p>
       </div>
     </div>

@@ -45,10 +45,10 @@ export function MarketplaceGuarantee() {
             The TrekBazaar Guarantee
           </span>
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-6">
-            Book with absolute confidence.
+            India&apos;s most trusted trekking marketplace.
           </h2>
           <p className="text-lg md:text-xl text-zinc-400 font-medium">
-            We&apos;ve removed the risk from booking treks. Our marketplace standards ensure you get the best experience, every single time.
+            We don&apos;t run treks—we bring the best independent operators together in one place. Compare itineraries, verify credentials, and book with absolute confidence.
           </p>
         </div>
 

@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { ShieldCheck } from 'lucide-react';
 import type { PublicCompany } from '@/lib/public/companies';
+import { generateCompanyTrustSignals } from '@/lib/trust';
 
 interface CompanyCardProps {
   company: PublicCompany;
@@ -10,6 +11,7 @@ interface CompanyCardProps {
 export function CompanyCard({ company }: CompanyCardProps) {
   const { metrics } = company;
   const isVerified = metrics.badges.includes('verified');
+  const trustSignals = generateCompanyTrustSignals(company);
   
   return (
     <Link href={`/company/${company.slug}`} className="group flex flex-col bg-white rounded-2xl overflow-hidden border border-zinc-200 transition-all duration-300 hover:border-zinc-300">
@@ -54,11 +56,14 @@ export function CompanyCard({ company }: CompanyCardProps) {
           {company.description || "A trusted trekking operator verified by TrekBazaar."}
         </p>
 
-        {/* Unified Metadata */}
-        <div className="mt-auto flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[13.5px] text-zinc-500 font-medium">
-          <span>{metrics.activeTreksCount || 0} active treks</span>
-          <span>•</span>
-          <span>{metrics.upcomingDeparturesCount || 0} departures</span>
+        {/* Unified Metadata & Trust Signals */}
+        <div className="mt-auto flex flex-wrap items-center gap-x-2 gap-y-1.5 text-[13px] text-zinc-500 font-medium">
+          {trustSignals.filter(s => s.type !== 'verified' && s.type !== 'location').map((signal, idx, arr) => (
+            <React.Fragment key={signal.id}>
+              <span className={signal.type === 'experience' ? 'text-zinc-700' : ''}>{signal.label}</span>
+              {idx < arr.length - 1 && <span>•</span>}
+            </React.Fragment>
+          ))}
         </div>
         
         {/* Footer */}

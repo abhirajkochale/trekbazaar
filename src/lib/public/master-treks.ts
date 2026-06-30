@@ -33,7 +33,7 @@ export async function getMasterTrekPageData(slug: string, companySlug?: string) 
   };
 
   // If companySlug is provided, strictly filter packages down to that single operator BEFORE aggregation
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   const filteredPackages = companySlug 
     ? packages.filter((pkg: any) => pkg.companies?.slug === companySlug || pkg.companies?.id === companySlug) 
     : packages;

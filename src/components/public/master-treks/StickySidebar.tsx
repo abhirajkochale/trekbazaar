@@ -11,7 +11,7 @@ interface Props {
   masterTrek: any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   packages: any[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   allDepartures: any[];
   isSingleOperator?: boolean;

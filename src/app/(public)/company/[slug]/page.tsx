@@ -98,7 +98,7 @@ export default async function CompanyPublicProfile({
   
   // Aggregate all future departures
   const now = new Date();
-  let allDepartures: any[] = [];
+  const allDepartures: any[] = [];
   let lowestPrice = Infinity;
   let highestRating = 0;
   const regionsCovered = new Set<string>();

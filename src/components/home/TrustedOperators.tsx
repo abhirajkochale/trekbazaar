@@ -13,7 +13,7 @@ interface Props {
   subtitle?: string;
 }
 
-export function TrustedOperators({ companies, title = "Explore Trekking Companies", subtitle = "Connect directly with verified, highly-rated trekking operators across India." }: Props) {
+export function TrustedOperators({ companies, title = "Discover Top Operators", subtitle = "Browse verified independent trekking companies and compare their itineraries." }: Props) {
   if (!companies || companies.length === 0) return null;
 
   return (

@@ -24,7 +24,7 @@ export async function CompanyGrid({ searchParams }: CompanyGridProps) {
         </div>
         <h3 className="text-2xl font-black text-zinc-900 mb-2">No partners found</h3>
         <p className="text-zinc-500 max-w-md mx-auto">
-          We couldn't find any trekking companies matching your exact filters. Try adjusting your search criteria.
+          We couldn&apos;t find any trekking companies matching your exact filters. Try adjusting your search criteria.
         </p>
       </div>
     );

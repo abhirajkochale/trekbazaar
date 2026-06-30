@@ -73,7 +73,7 @@ export function MasterTrekSearchCard({ masterTrek, className = '', href }: Props
         </p>
         
         <p className="text-[15px] text-zinc-500 line-clamp-1 leading-snug mt-0.5">
-          {masterTrek.difficulty ? difficultyLabel(masterTrek.difficulty) : 'Moderate'} • {stats.companiesCount} operators
+          {masterTrek.difficulty ? difficultyLabel(masterTrek.difficulty) : 'Moderate'} • {stats.companiesCount} verified operators {stats.upcomingDeparturesCount > 0 && `• ${stats.upcomingDeparturesCount} departures`}
         </p>
 
         {/* 5. Starting Price */}
