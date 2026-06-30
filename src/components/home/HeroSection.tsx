@@ -43,29 +43,18 @@ export function HeroSection() {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="text-center w-full max-w-4xl px-4 md:px-0"
         >
-          {/* Main Headline */}
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white mb-4 md:mb-6 drop-shadow-lg">
-            Discover India's Best <br className="hidden md:block" />
-            <span className="text-white/90">Trekking Companies.</span>
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white mb-6 drop-shadow-md">
+            India's marketplace for <br className="hidden md:block" />
+            <span className="text-white/90">trekking companies.</span>
           </h1>
           
           {/* Subheading */}
-          <p className="text-base md:text-xl text-white/90 mb-8 md:mb-10 max-w-2xl mx-auto font-medium drop-shadow-md">
-            Compare operators, prices, and departures. Book confidently from verified partners across the Himalayas.
+          <p className="text-lg md:text-xl text-white/80 mb-10 max-w-2xl mx-auto font-medium drop-shadow-sm">
+            Compare itineraries, verified operators, and prices in one place.
           </p>
 
           {/* Airbnb-style Omnibox */}
           <HeroOmnibox />
-
-          {/* Quick Links / Filter Chips */}
-          <div className="mt-8 flex overflow-x-auto snap-x hide-scrollbar whitespace-nowrap items-center justify-start md:justify-center gap-3 text-sm font-medium text-white/80 pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0 md:w-auto">
-            <span className="opacity-70 uppercase tracking-widest text-xs mr-2 shrink-0 snap-start">Quick Filters</span>
-            <Link href="/search?difficulty=Easy" className="shrink-0 snap-start bg-black/20 hover:bg-white/20 backdrop-blur-sm border border-white/20 px-4 py-1.5 rounded-full transition-all active:scale-95">Easy</Link>
-            <Link href="/search?season=Winter" className="shrink-0 snap-start bg-black/20 hover:bg-white/20 backdrop-blur-sm border border-white/20 px-4 py-1.5 rounded-full transition-all active:scale-95">Winter</Link>
-            <Link href="/search?maxPrice=10000" className="shrink-0 snap-start bg-black/20 hover:bg-white/20 backdrop-blur-sm border border-white/20 px-4 py-1.5 rounded-full transition-all active:scale-95">Under ₹10000</Link>
-            <Link href="/search?category=weekend-treks" className="shrink-0 snap-start bg-black/20 hover:bg-white/20 backdrop-blur-sm border border-white/20 px-4 py-1.5 rounded-full transition-all active:scale-95">Weekend</Link>
-            <Link href="/search?category=high-altitude" className="shrink-0 snap-start bg-black/20 hover:bg-white/20 backdrop-blur-sm border border-white/20 px-4 py-1.5 rounded-full transition-all active:scale-95">High Altitude</Link>
-          </div>
         </motion.div>
       </Container>
     </section>

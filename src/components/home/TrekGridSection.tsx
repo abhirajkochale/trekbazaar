@@ -16,7 +16,7 @@ export function TrekGridSection({ title, subtitle, treks }: Props) {
   if (!treks || treks.length === 0) return null;
 
   return (
-    <section className="py-16 md:py-24 bg-white border-b border-zinc-100">
+    <section className="py-24 md:py-32 bg-white">
       <Container>
         <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <motion.div 

@@ -35,7 +35,7 @@ const COLLECTIONS = [
 
 export function CuratedCollections() {
   return (
-    <section className="bg-zinc-50 py-24 md:py-32 border-y border-zinc-200">
+    <section className="bg-white py-24 md:py-32">
       <Container>
         <div className="max-w-2xl mb-12 md:mb-16">
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-zinc-900 mb-4">

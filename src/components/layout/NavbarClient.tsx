@@ -52,10 +52,9 @@ export function NavbarClient({ user }: NavbarClientProps) {
   }, [isMobileMenuOpen]);
 
   const navLinks = [
-    { name: 'Companies', href: '/companies' },
-    { name: 'Explore', href: '/search' },
-    { name: 'Treks', href: '/treks' },
-    { name: 'Regions', href: '/regions' },
+    { name: 'Explore Treks', href: '/search' },
+    { name: 'Compare Operators', href: '/companies' },
+    { name: 'Destinations', href: '/regions' },
   ];
 
   return (
@@ -67,7 +66,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
           }`}
       >
         <Container>
-          <div className="flex h-12 md:h-14 items-center justify-between">
+          <div className="flex h-14 md:h-16 items-center justify-between">
             <div className="flex items-center gap-10">
               <Link
                 href="/"
@@ -82,8 +81,8 @@ export function NavbarClient({ user }: NavbarClientProps) {
                   <Link
                     key={link.name}
                     href={link.href}
-                    className={`text-sm font-medium transition-colors duration-300 ${isSolid
-                      ? 'text-tb-text-secondary hover:text-tb-primary'
+                    className={`text-[14px] font-medium transition-colors duration-200 ${isSolid
+                      ? 'text-tb-text-secondary hover:text-tb-text-primary'
                       : 'text-white/80 hover:text-white drop-shadow-sm'
                       }`}
                   >
@@ -111,7 +110,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
                   <div className="relative">
                     <button
                       onClick={() => setIsAvatarDropdownOpen(!isAvatarDropdownOpen)}
-                      className="w-10 h-10 rounded-full bg-tb-primary text-white flex items-center justify-center font-bold text-sm shadow-sm hover:scale-105 transition-transform"
+                      className="w-9 h-9 rounded-full bg-zinc-900 text-white flex items-center justify-center font-bold text-sm shadow-sm hover:opacity-90 transition-opacity"
                     >
                       {user.firstName[0]?.toUpperCase()}
                     </button>
@@ -130,17 +129,17 @@ export function NavbarClient({ user }: NavbarClientProps) {
                             <div className="text-xs text-zinc-500 truncate">{user.email}</div>
                           </div>
                           <div className="py-2 flex flex-col">
-                            <Link href="/account/trips" onClick={() => setIsAvatarDropdownOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50 hover:text-tb-primary transition-colors">
-                              <Compass className="w-4 h-4" /> My Trips
+                            <Link href="/account/trips" onClick={() => setIsAvatarDropdownOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors">
+                              <Compass className="w-4 h-4 text-zinc-400" /> My Trips
                             </Link>
-                            <Link href="/account/wishlist" onClick={() => setIsAvatarDropdownOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50 hover:text-tb-primary transition-colors">
-                              <Heart className="w-4 h-4" /> Wishlist
+                            <Link href="/account/wishlist" onClick={() => setIsAvatarDropdownOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors">
+                              <Heart className="w-4 h-4 text-zinc-400" /> Wishlist
                             </Link>
-                            <Link href="/account/profile" onClick={() => setIsAvatarDropdownOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50 hover:text-tb-primary transition-colors">
-                              <User className="w-4 h-4" /> Profile
+                            <Link href="/account/profile" onClick={() => setIsAvatarDropdownOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors">
+                              <User className="w-4 h-4 text-zinc-400" /> Profile
                             </Link>
-                            <Link href="/account/settings" onClick={() => setIsAvatarDropdownOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50 hover:text-tb-primary transition-colors">
-                              <Settings className="w-4 h-4" /> Settings
+                            <Link href="/account/settings" onClick={() => setIsAvatarDropdownOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors">
+                              <Settings className="w-4 h-4 text-zinc-400" /> Settings
                             </Link>
                           </div>
                           <div className="border-t border-zinc-100 py-2">
@@ -149,7 +148,7 @@ export function NavbarClient({ user }: NavbarClientProps) {
                             </Link>
                             <form action={logoutAction} className="w-full">
                               <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-red-600 hover:bg-red-50 transition-colors">
-                                <LogOut className="w-4 h-4" /> Logout
+                                <LogOut className="w-4 h-4 text-red-500" /> Logout
                               </button>
                             </form>
                           </div>
@@ -162,8 +161,8 @@ export function NavbarClient({ user }: NavbarClientProps) {
                 <>
                   <Link
                     href="/partner"
-                    className={`hidden lg:block text-sm font-bold transition-colors duration-300 mr-4 ${isSolid
-                      ? 'text-tb-text-secondary hover:text-tb-primary'
+                    className={`hidden lg:block text-[14px] font-medium transition-colors duration-200 mr-4 ${isSolid
+                      ? 'text-tb-text-secondary hover:text-tb-text-primary'
                       : 'text-white/80 hover:text-white drop-shadow-sm'
                       }`}
                   >
@@ -171,8 +170,8 @@ export function NavbarClient({ user }: NavbarClientProps) {
                   </Link>
                   <Link
                     href="/login"
-                    className={`text-sm font-bold transition-colors duration-300 ${isSolid
-                      ? 'text-tb-text-secondary hover:text-tb-primary'
+                    className={`text-[14px] font-medium transition-colors duration-200 ${isSolid
+                      ? 'text-tb-text-secondary hover:text-tb-text-primary'
                       : 'text-white/80 hover:text-white drop-shadow-sm'
                       }`}
                   >
@@ -180,9 +179,9 @@ export function NavbarClient({ user }: NavbarClientProps) {
                   </Link>
                   <Link
                     href="/signup"
-                    className={`text-sm font-bold px-5 py-2 rounded-full transition-colors duration-300 shadow-sm ${isSolid
-                      ? 'bg-tb-primary text-white hover:bg-tb-primary-hover'
-                      : 'bg-white text-tb-primary hover:bg-zinc-100'
+                    className={`text-[14px] font-medium px-4 py-2 rounded-lg transition-all duration-200 ${isSolid
+                      ? 'bg-zinc-900 text-white hover:bg-zinc-800 shadow-sm'
+                      : 'bg-white text-zinc-900 hover:bg-zinc-100 shadow-sm'
                       }`}
                   >
                     Sign Up
