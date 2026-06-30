@@ -5,6 +5,7 @@ import "./globals.css";
 import { WishlistProvider } from "@/providers/WishlistProvider";
 import { MasterWishlistProvider } from "@/providers/MasterWishlistProvider";
 import { RecentlyViewedProvider } from "@/providers/RecentlyViewedProvider";
+import { ScrollToTop } from "@/components/layout/ScrollToTop";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -100,6 +101,7 @@ export default function RootLayout({
           </Script>
         )}
 
+        <ScrollToTop />
         <RecentlyViewedProvider>
           <WishlistProvider>
             <MasterWishlistProvider>
