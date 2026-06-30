@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, useCallback, useRef, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
 import { createClient } from '@/lib/supabase/client';
 
 type WishlistContextType = {
@@ -18,92 +18,106 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const supabase = createClient();
 
-  const hasSynced = useRef(false);
-
   useEffect(() => {
-    // 1. Load from local storage immediately for fast UI
-    const local = localStorage.getItem('tb_wishlist');
-    if (local) {
-      try {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setWishlistIds(JSON.parse(local));
-      } catch (e) {
-        console.error("Failed to parse wishlist from local storage", e);
-      }
-    }
+    let currentUser: string | null = null;
+    let isMounted = true;
 
-    // 2. Sync with Supabase if logged in
-    const syncWithDb = async () => {
-      if (hasSynced.current) return;
-      hasSynced.current = true;
+    const syncWithDb = async (uid: string | null) => {
+      if (!isMounted) return;
+      setIsLoading(true);
       
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
+      const storageKey = uid ? `tb_wishlist_${uid}` : 'tb_wishlist_anon';
+      const local = localStorage.getItem(storageKey);
+      let localIds: string[] = [];
+      
+      if (local) {
+        try {
+          localIds = JSON.parse(local);
+          setWishlistIds(localIds); // optimistic load for fast UI
+        } catch (e) {
+          console.error("Failed to parse local wishlist", e);
+        }
+      } else if (!uid) {
+        setWishlistIds([]);
+      }
+
+      if (!uid) {
         setIsLoading(false);
         return;
       }
-      
-      const { data, error } = await supabase.from('wishlists').select('trek_id').eq('customer_id', user.id);
-      if (data && !error) {
+
+      // DB Sync for authenticated user
+      const { data, error } = await supabase.from('wishlists').select('trek_id').eq('customer_id', uid);
+      if (data && !error && isMounted) {
         const dbIds = data.map(d => d.trek_id);
         
-        // Merge local storage items that aren't in DB yet (if they logged in for the first time on this device)
-        const parsedLocal: string[] = local ? JSON.parse(local) : [];
-        const localIds: string[] = [...new Set(parsedLocal)];
-        const toInsertCandidates = localIds.filter((id) => !dbIds.includes(id));
+        // If there's an anon wishlist, merge it into the user's account
+        const anon = localStorage.getItem('tb_wishlist_anon');
+        let anonIds: string[] = [];
+        if (anon) {
+          try { anonIds = JSON.parse(anon); } catch (e) {}
+        }
+
+        // We also want to import the legacy 'tb_wishlist' if it exists to preserve user's old data
+        const legacy = localStorage.getItem('tb_wishlist');
+        let legacyIds: string[] = [];
+        if (legacy) {
+          try { legacyIds = JSON.parse(legacy); } catch (e) {}
+        }
+
+        // Merge local storage items (from current uid, anon, and legacy) that aren't in DB yet
+        const toInsertCandidates = [...new Set([...localIds, ...anonIds, ...legacyIds])].filter((id) => !dbIds.includes(id));
         
         let validToInsert: string[] = [];
-        
         if (toInsertCandidates.length > 0) {
-          // Validate against treks table to prevent foreign key constraint violations from stale local storage
-          const { data: validTreks } = await supabase
-            .from('treks')
-            .select('id')
-            .in('id', toInsertCandidates);
-            
+          // Validate against treks table to prevent foreign key constraint violations
+          const { data: validTreks } = await supabase.from('treks').select('id').in('id', toInsertCandidates);
           validToInsert = validTreks ? validTreks.map(t => t.id) : [];
-
+          
           if (validToInsert.length > 0) {
-            const insertData = validToInsert.map((id) => ({ customer_id: user.id, trek_id: id }));
-            // Insert safely since validToInsert is strictly filtered against dbIds and treks
+            const insertData = validToInsert.map((id) => ({ customer_id: uid, trek_id: id }));
             const { error: insertError } = await supabase.from('wishlists').insert(insertData);
-            if (insertError) console.error("Wishlist sync error", insertError);
+            if (insertError) console.error("Wishlist merge error", insertError);
           }
         }
 
         const mergedIds = [...new Set([...dbIds, ...validToInsert])];
         setWishlistIds(mergedIds);
-        localStorage.setItem('tb_wishlist', JSON.stringify(mergedIds));
+        localStorage.setItem(`tb_wishlist_${uid}`, JSON.stringify(mergedIds));
+        
+        // Clean up anon and legacy wishlists since they are now merged
+        if (anon) localStorage.removeItem('tb_wishlist_anon');
+        if (legacy) localStorage.removeItem('tb_wishlist');
       }
       setIsLoading(false);
     };
 
-    syncWithDb();
-
-    // Listen for auth state changes (e.g. Logout) to clear local state
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
-      if (event === 'SIGNED_OUT') {
-        setWishlistIds([]);
-        localStorage.removeItem('tb_wishlist');
-      } else if (event === 'SIGNED_IN') {
-        syncWithDb();
+    // Listen for auth state changes to dynamically load/clear wishlist
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      const uid = session?.user?.id || null;
+      if (uid !== currentUser || event === 'INITIAL_SESSION') {
+        currentUser = uid;
+        syncWithDb(uid);
       }
     });
 
     return () => {
+      isMounted = false;
       subscription.unsubscribe();
     };
   }, [supabase]);
 
   const addToWishlist = useCallback(async (trekId: string) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    const storageKey = user ? `tb_wishlist_${user.id}` : 'tb_wishlist_anon';
+    
     // Optimistic UI
     const newIds = [...new Set([...wishlistIds, trekId])];
     setWishlistIds(newIds);
-    localStorage.setItem('tb_wishlist', JSON.stringify(newIds));
+    localStorage.setItem(storageKey, JSON.stringify(newIds));
 
-    const { data: { user } } = await supabase.auth.getUser();
     if (user) {
-      // Check if already exists to prevent 409 error in browser console
+      // Check existing to prevent 409 error in browser console
       const { data: existing } = await supabase
         .from('wishlists')
         .select('id')
@@ -116,26 +130,28 @@ export function WishlistProvider({ children }: { children: ReactNode }) {
           // Revert on error
           const reverted = wishlistIds.filter(id => id !== trekId);
           setWishlistIds(reverted);
-          localStorage.setItem('tb_wishlist', JSON.stringify(reverted));
+          localStorage.setItem(storageKey, JSON.stringify(reverted));
         }
       }
     }
   }, [wishlistIds, supabase]);
 
   const removeFromWishlist = useCallback(async (trekId: string) => {
+    const { data: { user } } = await supabase.auth.getUser();
+    const storageKey = user ? `tb_wishlist_${user.id}` : 'tb_wishlist_anon';
+
     // Optimistic UI
     const previousIds = [...wishlistIds];
     const newIds = wishlistIds.filter(id => id !== trekId);
     setWishlistIds(newIds);
-    localStorage.setItem('tb_wishlist', JSON.stringify(newIds));
+    localStorage.setItem(storageKey, JSON.stringify(newIds));
 
-    const { data: { user } } = await supabase.auth.getUser();
     if (user) {
       const { error } = await supabase.from('wishlists').delete().match({ customer_id: user.id, trek_id: trekId });
       if (error) {
         // Revert on error
         setWishlistIds(previousIds);
-        localStorage.setItem('tb_wishlist', JSON.stringify(previousIds));
+        localStorage.setItem(storageKey, JSON.stringify(previousIds));
       }
     }
   }, [wishlistIds, supabase]);
