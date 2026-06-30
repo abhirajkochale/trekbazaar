@@ -1,5 +1,6 @@
 import { searchMasterTreks } from "@/lib/search/master-api";
 import { getPublicCompanies, getPublicMarketplaceStats } from "@/lib/public/companies";
+import { getPublicCategories } from "@/lib/public/categories";
 import { HeroSection } from "@/components/home/HeroSection";
 import { QuickFilters } from "@/components/home/QuickFilters";
 import { MarketplaceMetrics } from "@/components/home/MarketplaceMetrics";
@@ -23,13 +24,15 @@ export default async function Home() {
   const { masterTreks } = await searchMasterTreks({ limit: 16 });
 
   const trendingTreks = masterTreks.slice(0, 8); // Top 8 newest/featured
+  
+  const categories = await getPublicCategories();
 
   return (
     <>
       <main className="flex flex-1 flex-col">
         {/* Section 1: Hero & Discovery (Existing, recently polished) */}
         <HeroSection />
-        <QuickFilters />
+        <QuickFilters categories={categories} />
         
         {/* Section 2: Marketplace Metrics (Replacing static Value Prop) */}
         <MarketplaceMetrics metrics={metrics} />
