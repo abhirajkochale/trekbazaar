@@ -26,7 +26,7 @@ export default async function WishlistPage() {
     // 2. Fetch Destinations (Master Treks)
     const { data: masterData } = await supabase
       .from('master_wishlists')
-      .select('*, master_treks(*, category:categories(*), region:regions(*))')
+      .select('*, master_treks(*, category:master_trek_categories(*), region:regions(*))')
       .eq('customer_id', user.id);
       
     if (masterData) {
