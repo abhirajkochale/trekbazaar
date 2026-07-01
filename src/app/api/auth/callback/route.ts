@@ -5,7 +5,13 @@ export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get('code');
   // if "next" is in param, use it as the redirect URL
-  const next = searchParams.get('next') ?? '/';
+  let next = searchParams.get('next') ?? '/';
+  
+  // Validate next against an internal allow-list to prevent open redirect vulnerabilities
+  const allowedPaths = ['/', '/partner/onboarding', '/partner/dashboard', '/account/profile'];
+  if (!allowedPaths.includes(next)) {
+    next = '/';
+  }
 
   if (code) {
     const supabase = await createClient();
@@ -19,8 +25,8 @@ export async function GET(request: Request) {
       // If last_sign_in_at is within 5 seconds of created_at, it's their first time signing in
       const isBrandNewUser = Math.abs(lastSignIn - createdAt) < 5000;
 
-      if (isBrandNewUser) {
-        // Redirect to setup password page for first-time OAuth users
+      if (isBrandNewUser && !next.startsWith('/partner')) {
+        // Redirect to setup password page for first-time OAuth users (Customers)
         return NextResponse.redirect(`${origin}/setup-password`);
       }
 

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { loginCompany } from "@/app/actions/company-auth";
 import { Button } from "@/components/ui/Button";
+import { GoogleAuthButton } from "@/components/auth/GoogleAuthButton";
 
 export default function CompanyLoginPage() {
   const [error, setError] = useState<string | null>(null);
@@ -31,6 +32,19 @@ export default function CompanyLoginPage() {
             {error}
           </div>
         )}
+
+        <div className="mb-6">
+          <GoogleAuthButton mode="login" nextUrl="/partner/onboarding" />
+        </div>
+
+        <div className="relative mb-6">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-zinc-200"></div>
+          </div>
+          <div className="relative flex justify-center text-sm">
+            <span className="px-2 bg-white text-zinc-500">Or continue with email</span>
+          </div>
+        </div>
 
         <form action={handleSubmit} className="space-y-5">
           <div>

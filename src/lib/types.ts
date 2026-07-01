@@ -117,6 +117,7 @@ export interface Company {
   name: string;
   slug: string;
   owner_id?: string | null;
+  owner_avatar_url?: string | null;
   logo_url: string | null;
   cover_image_url: string | null;
   description: string | null;

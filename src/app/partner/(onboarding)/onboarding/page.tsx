@@ -8,9 +8,9 @@ export default async function PartnerOnboardingRedirect() {
     redirect("/partner/login");
   }
 
-  // If no company, go to company-info to create one
+  // If no company, route through the initialization endpoint to avoid mutating in render
   if (ctx.status === "no-company") {
-    redirect("/partner/onboarding/company-info");
+    redirect("/api/partner/onboarding/init");
   }
 
   const status = ctx.status === "ok" ? ctx.company.onboarding_status : null;

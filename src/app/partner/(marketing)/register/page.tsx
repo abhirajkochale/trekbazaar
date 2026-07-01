@@ -2,6 +2,7 @@ import React from 'react';
 import { getCompanyContext } from '@/lib/company/auth';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
+import { GoogleAuthButton } from "@/components/auth/GoogleAuthButton";
 
 export default async function PartnerRegisterPage() {
   const ctx = await getCompanyContext();
@@ -36,6 +37,20 @@ export default async function PartnerRegisterPage() {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:rounded-3xl sm:px-10 border border-zinc-200/60">
+          
+          <div className="mb-6">
+            <GoogleAuthButton mode="signup" nextUrl="/partner/onboarding" />
+          </div>
+
+          <div className="relative mb-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-zinc-200"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-white text-zinc-500 font-medium">Or register with email</span>
+            </div>
+          </div>
+
           <form className="space-y-6" action="/api/partner/auth/register" method="POST">
             
             <div>

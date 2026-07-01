@@ -7,9 +7,10 @@ import Image from 'next/image';
 
 interface GoogleAuthButtonProps {
   mode: 'login' | 'signup';
+  nextUrl?: string;
 }
 
-export function GoogleAuthButton({ mode }: GoogleAuthButtonProps) {
+export function GoogleAuthButton({ mode, nextUrl = '/' }: GoogleAuthButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
   const supabase = createClient();
 
@@ -19,7 +20,7 @@ export function GoogleAuthButton({ mode }: GoogleAuthButtonProps) {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/api/auth/callback`,
+          redirectTo: `${window.location.origin}/api/auth/callback?next=${encodeURIComponent(nextUrl)}`,
         },
       });
 
