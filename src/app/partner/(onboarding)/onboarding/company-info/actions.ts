@@ -23,8 +23,11 @@ export async function saveCompanyInfoAction(formData: FormData) {
   const city = formData.get("city") as string;
   const state = formData.get("state") as string;
 
-  // We check if the company already exists
-  const { data: existingCompany } = await supabase
+  const adminClient = createAdminClient();
+
+  // We check if the company already exists. 
+  // We use adminClient because the company is 'suspended' during onboarding and RLS blocks regular select.
+  const { data: existingCompany } = await adminClient
     .from("companies")
     .select("id, onboarding_status")
     .eq("owner_id", user.id)
@@ -51,10 +54,11 @@ export async function saveCompanyInfoAction(formData: FormData) {
 
   const newStatus = existingCompany.onboarding_status === "REGISTERED" ? "PROFILE_COMPLETED" : existingCompany.onboarding_status;
   
-  const { error } = await supabase
+  const { error } = await adminClient
     .from("companies")
     .update({ ...payload, onboarding_status: newStatus })
-    .eq("id", existingCompany.id);
+    .eq("id", existingCompany.id)
+    .eq("owner_id", user.id); // Extra safety check
 
   if (error) {
     console.error("Save company error:", error);
