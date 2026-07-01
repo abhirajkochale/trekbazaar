@@ -58,7 +58,7 @@ export function BankingForm({ companyId, initialData, existingBankProof }: { com
         setLastSaved(new Date());
         setIsComplete(true);
         setTimeout(() => {
-          router.push("/partner/onboarding/first-trek");
+          router.push("/partner/onboarding/status");
         }, 1200);
       } else {
         setSaveState('error');
@@ -108,7 +108,7 @@ export function BankingForm({ companyId, initialData, existingBankProof }: { com
           <CheckCircle2 className="w-8 h-8 text-emerald-500" />
         </div>
         <h2 className="text-2xl font-black text-zinc-900 tracking-tight">Bank Details Secured</h2>
-        <p className="text-zinc-500 font-medium mt-2">Moving to First Trek setup...</p>
+        <p className="text-zinc-500 font-medium mt-2">Moving to Review...</p>
       </div>
     );
   }
