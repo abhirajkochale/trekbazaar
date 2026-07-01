@@ -26,7 +26,7 @@ export default async function PartnerStatusPage() {
     <div className="w-full max-w-2xl mx-auto">
       <div className="bg-white rounded-3xl p-10 shadow-xl shadow-zinc-200/40 border border-zinc-200 text-center relative overflow-hidden">
         
-        {status === "REGISTERED" && (
+        {(status === "READY_FOR_REVIEW" || status === "KYC_COMPLETED") && (
           <>
             <div className="absolute top-0 left-0 w-full h-2 bg-amber-400" />
             <div className="w-20 h-20 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-6 border-8 border-white shadow-sm">

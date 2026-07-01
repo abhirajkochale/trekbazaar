@@ -26,12 +26,11 @@ export default async function PartnerOnboardingRedirect() {
     case "TERMS_ACCEPTED":
       redirect("/partner/onboarding/banking");
     case "KYC_COMPLETED":
-      redirect("/partner/onboarding/first-trek");
     case "READY_FOR_REVIEW":
     case "CHANGES_REQUESTED":
     case "REJECTED":
     case "SUSPENDED":
-      redirect("/partner/onboarding/review");
+      redirect("/partner/onboarding/status");
     case "APPROVED":
       redirect("/partner/dashboard");
     default:

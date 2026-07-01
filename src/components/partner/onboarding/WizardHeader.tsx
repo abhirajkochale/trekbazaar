@@ -8,8 +8,6 @@ export const STEPS = [
   { id: 'PROFILE_COMPLETED', path: 'due-diligence', label: 'Due Diligence', estMinutes: 4 },
   { id: 'DUE_DILIGENCE', path: 'terms', label: 'Commercial Terms', estMinutes: 5 },
   { id: 'TERMS_ACCEPTED', path: 'banking', label: 'Bank Details', estMinutes: 3 },
-  { id: 'KYC_COMPLETED', path: 'first-trek', label: 'First Trek', estMinutes: 5 },
-  { id: 'READY_FOR_REVIEW', path: 'review', label: 'Review', estMinutes: 1 },
 ];
 
 export function WizardHeader({ status }: { status: string | null }) {
@@ -24,14 +22,14 @@ export function WizardHeader({ status }: { status: string | null }) {
   let maxStepIndex = 0;
   if (status === "PROFILE_COMPLETED") maxStepIndex = 1;
   if (status === "DUE_DILIGENCE") maxStepIndex = 2;
-  if (status === "TERMS_ACCEPTED") maxStepIndex = 3;
-  if (status === "KYC_COMPLETED") maxStepIndex = 4;
-  if (status === "READY_FOR_REVIEW" || status === "APPROVED") maxStepIndex = 5;
+  if (status === "TERMS_ACCEPTED" || status === "READY_FOR_REVIEW" || status === "APPROVED") maxStepIndex = 3;
 
   const progressPercentage = Math.round((maxStepIndex / (STEPS.length - 1)) * 100);
   
   // Calculate remaining time from the currently active step
   const remainingMinutes = STEPS.slice(displayStepNumber - 1).reduce((acc, step) => acc + step.estMinutes, 0);
+
+  if (pathname.includes('/status')) return null;
 
   return (
     <div className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-zinc-200 shadow-sm">

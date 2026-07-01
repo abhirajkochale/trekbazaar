@@ -68,7 +68,7 @@ export async function advanceToNextStepAction(companyId: string) {
   if (company.onboarding_status === "TERMS_ACCEPTED") {
     const { error } = await adminClient
       .from("companies")
-      .update({ onboarding_status: "KYC_COMPLETED" })
+      .update({ onboarding_status: "READY_FOR_REVIEW" })
       .eq("id", companyId);
       
     if (error) return { success: false, error: error.message };
