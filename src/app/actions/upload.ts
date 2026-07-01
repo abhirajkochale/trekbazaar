@@ -42,3 +42,59 @@ export async function uploadMedia(formData: FormData) {
 
   return publicUrlData.publicUrl;
 }
+
+export async function uploadFileExactPathAction(formData: FormData) {
+  const file = formData.get("file") as File;
+  const path = formData.get("path") as string;
+  const upsert = formData.get("upsert") === "true";
+
+  if (!file || !path) {
+    throw new Error("File and path are required");
+  }
+
+  const adminClient = createAdminClient();
+  const bucketName = "media";
+
+  // Ensure bucket exists
+  const { data: buckets } = await adminClient.storage.listBuckets();
+  if (!buckets?.find(b => b.name === bucketName)) {
+    await adminClient.storage.createBucket(bucketName, { public: true });
+  }
+
+  const { error } = await adminClient.storage
+    .from(bucketName)
+    .upload(path, file, {
+      cacheControl: "3600",
+      upsert,
+    });
+
+  if (error) {
+    console.error("Upload exact error:", error);
+    throw new Error(`Failed to upload: ${error.message}`);
+  }
+
+  const { data: publicUrlData } = adminClient.storage
+    .from(bucketName)
+    .getPublicUrl(path);
+
+  return publicUrlData.publicUrl;
+}
+
+export async function deleteFileAction(path: string) {
+  const adminClient = createAdminClient();
+  const bucketName = "media";
+  
+  let relativePath = path;
+  if (path.includes(`${bucketName}/`)) {
+    relativePath = path.split(`${bucketName}/`)[1];
+  }
+
+  const { error } = await adminClient.storage
+    .from(bucketName)
+    .remove([relativePath]);
+
+  if (error) {
+    console.error('Delete error:', error);
+    throw new Error(error.message);
+  }
+}
