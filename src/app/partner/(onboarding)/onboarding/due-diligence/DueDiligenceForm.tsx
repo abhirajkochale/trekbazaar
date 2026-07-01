@@ -31,6 +31,7 @@ export function DueDiligenceForm({ companyId, existingDocuments }: { companyId: 
       throw new Error(result.error);
     }
     setUploadedDocs(prev => ({ ...prev, [type]: true }));
+    router.refresh();
   };
 
   const handleContinue = () => {
