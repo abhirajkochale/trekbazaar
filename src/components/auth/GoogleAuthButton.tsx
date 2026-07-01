@@ -17,10 +17,15 @@ export function GoogleAuthButton({ mode, nextUrl = '/' }: GoogleAuthButtonProps)
   const handleGoogleAuth = async () => {
     try {
       setIsLoading(true);
+      
+      // Store nextUrl in a cookie so the server callback can read it without changing the exact redirect URI
+      // This prevents Supabase from rejecting the redirect URL due to query parameters
+      document.cookie = `next_auth_url=${encodeURIComponent(nextUrl)}; path=/; max-age=3600;`;
+
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/api/auth/callback?next=${encodeURIComponent(nextUrl)}`,
+          redirectTo: `${window.location.origin}/api/auth/callback`,
         },
       });
 

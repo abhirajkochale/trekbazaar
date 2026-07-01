@@ -1,11 +1,15 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { cookies } from 'next/headers';
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get('code');
-  // if "next" is in param, use it as the redirect URL
-  let next = searchParams.get('next') ?? '/';
+  
+  // if "next" is in param, use it, otherwise check the cookie
+  const cookieStore = await cookies();
+  const cookieNext = cookieStore.get('next_auth_url')?.value;
+  let next = searchParams.get('next') ?? (cookieNext ? decodeURIComponent(cookieNext) : '/');
   
   // Validate next against an internal allow-list to prevent open redirect vulnerabilities
   const allowedPaths = ['/', '/partner/onboarding', '/partner/dashboard', '/account/profile'];
