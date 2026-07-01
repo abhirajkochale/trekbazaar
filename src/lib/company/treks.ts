@@ -72,7 +72,8 @@ export async function saveCompanyTrek(payload: Partial<Trek>): Promise<Trek> {
     .eq("id", companyId)
     .maybeSingle();
 
-  const dataToSave: Partial<Trek> = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const dataToSave: any = {
     ...payload,
     company_id: companyId, // Never trust a client-supplied company_id.
     operator_name: company?.name ?? null,
