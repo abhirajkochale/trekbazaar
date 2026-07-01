@@ -1,0 +1,179 @@
+﻿
+> trekbazaar@0.1.0 lint
+> eslint --quiet
+
+
+C:\Projects\trekbazaar\replace.js
+  1:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  2:14  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+C:\Projects\trekbazaar\scratch\check-bucket-policies.js
+   1:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  11:26  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+C:\Projects\trekbazaar\scratch\check-bucket.js
+   1:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  11:26  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+C:\Projects\trekbazaar\scratch\check-categories.js
+   1:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  11:26  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+C:\Projects\trekbazaar\scratch\check-company.js
+   1:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  11:26  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+C:\Projects\trekbazaar\scratch\check-rls.js
+   1:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  11:26  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+C:\Projects\trekbazaar\scratch\check-schema.js
+   1:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  11:26  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+C:\Projects\trekbazaar\scratch\check-sql.js
+   1:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  11:26  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+C:\Projects\trekbazaar\scratch\clear-db.js
+   1:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  11:26  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+C:\Projects\trekbazaar\scratch\test-query.js
+   1:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  11:26  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+C:\Projects\trekbazaar\src\app\(public)\account\wishlist\page.tsx
+  12:22  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  13:28  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Projects\trekbazaar\src\app\(public)\companies\page.tsx
+  54:27  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Projects\trekbazaar\src\app\(public)\company\[slug]\page.tsx
+  101:24  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  108:30  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  122:37  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  171:42  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  172:49  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  177:44  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Projects\trekbazaar\src\app\(public)\login\page.tsx
+  26:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Projects\trekbazaar\src\app\(public)\setup-password\page.tsx
+  24:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Projects\trekbazaar\src\app\(public)\signup\page.tsx
+  26:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Projects\trekbazaar\src\app\admin\(dashboard)\partner-applications\[id]\page.tsx
+  22:92  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Projects\trekbazaar\src\app\admin\(dashboard)\partner-applications\page.tsx
+  9:50  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Projects\trekbazaar\src\app\partner\(marketing)\how-it-works\page.tsx
+  76:122  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Projects\trekbazaar\src\app\partner\(marketing)\page.tsx
+  215:18   error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  228:17   error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  228:200  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+  228:237  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  246:17   error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  246:207  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+C:\Projects\trekbazaar\src\app\partner\(marketing)\pricing\page.tsx
+  46:68  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Projects\trekbazaar\src\app\partner\(marketing)\register\page.tsx
+  102:54  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Projects\trekbazaar\src\app\partner\(onboarding)\onboarding\status\page.tsx
+  48:24  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Projects\trekbazaar\src\app\partner\dashboard\page.tsx
+  64:27  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Projects\trekbazaar\src\components\admin\companies\CompanyRow.tsx
+  12:59  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Projects\trekbazaar\src\components\admin\shared\SearchableMasterTrekSelect.tsx
+  38:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Projects\trekbazaar\src\components\admin\shared\SearchableMasterTrekSelect.tsx:38:5
+  36 |   // Sync if props change
+  37 |   useEffect(() => {
+> 38 |     setLocalMasterTreks(masterTreks);
+     |     ^^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  39 |   }, [masterTreks]);
+  40 |
+  41 |   const selectedMasterTrek = localMasterTreks.find(mt => mt.id === value);  react-hooks/set-state-in-effect
+
+C:\Projects\trekbazaar\src\components\auth\GoogleAuthButton.tsx
+  29:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Projects\trekbazaar\src\components\company-profile\ActiveTreks.tsx
+  69:30  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Projects\trekbazaar\src\components\company-profile\BecomePartnerCTA.tsx
+  16:28  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Projects\trekbazaar\src\components\company-profile\CompanyFAQ.tsx
+  30:37  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Projects\trekbazaar\src\components\company-profile\CompanyReviews.tsx
+  41:41  error  Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  48:56  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  48:73  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+C:\Projects\trekbazaar\src\components\company-profile\ShareOperator.tsx
+  17:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Projects\trekbazaar\src\components\company-profile\ShareOperator.tsx:17:5
+  15 |
+  16 |   useEffect(() => {
+> 17 |     setUrl(window.location.href);
+     |     ^^^^^^ Avoid calling setState() directly within an effect
+  18 |   }, []);
+  19 |
+  20 |   const handleNativeShare = async () => {  react-hooks/set-state-in-effect
+
+C:\Projects\trekbazaar\src\components\home\HeroSection.tsx
+  47:18  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Projects\trekbazaar\src\components\layout\Footer.tsx
+  15:20  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Projects\trekbazaar\src\lib\admin\treks.ts
+  158:38  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  167:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  216:8   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Projects\trekbazaar\src\lib\company\treks.ts
+   80:8   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   99:23  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  111:23  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Projects\trekbazaar\src\lib\public\master-treks.ts
+  38:29  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Projects\trekbazaar\test-update.js
+   1:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  11:26  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+Γ£û 66 problems (66 errors, 0 warnings)
+

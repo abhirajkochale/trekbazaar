@@ -13,7 +13,7 @@ import { BasicInfoSection } from './BasicInfoSection';
 import { ContactSection } from './ContactSection';
 import { SocialSection } from './SocialSection';
 import { VerificationSection } from './VerificationSection';
-import { CredentialsSection } from './CredentialsSection';
+
 
 export function CompanyEditor({ 
   initialCompany,
@@ -180,9 +180,7 @@ export function CompanyEditor({
               <VerificationSection company={company} updateField={updateField} />
             </AdminCard>
 
-            <AdminCard title="Partner Access">
-              <CredentialsSection company={company} />
-            </AdminCard>
+
           </div>
         )}
       </div>
