@@ -4,19 +4,17 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { 
   ArrowRight, Mountain, ShieldCheck, Banknote, 
-  Search, BarChart3, Users, CheckCircle2, Star, 
-  HelpCircle, ChevronRight, Activity
+  Search, Users, CheckCircle2, Star, ChevronRight, Activity, XCircle
 } from 'lucide-react';
 
 export const metadata = {
-  title: 'Partner with TrekBazaar | Grow Your Trekking Business',
-  description: 'Join India\'s premium verified marketplace for trekking operators. Get a professional storefront, manage bookings, and reach thousands of trekkers.',
+  title: 'Partner with TrekBazaar | Scale Your Trekking Business',
+  description: 'Join India\'s premier verified marketplace for trekking operators. Professionalize your operations, automate settlements, and acquire high-intent trekkers.',
 };
 
 export default async function PartnerLandingPage() {
   const ctx = await getCompanyContext();
 
-  // Redirect users who already have an account
   if (ctx.status === "ok") {
     if (ctx.company.onboarding_status === "APPROVED") {
       redirect("/partner/dashboard");
@@ -29,94 +27,87 @@ export default async function PartnerLandingPage() {
 
   return (
     <div className="bg-white">
-      {/* Hero Section - SaaS Style */}
+      {/* HERO SECTION */}
       <section className="relative overflow-hidden bg-[#0F3D2E] pt-32 pb-20 lg:pt-40 lg:pb-32 selection:bg-[#D4AF37] selection:text-zinc-900">
-        {/* Abstract Background Elements */}
         <div className="absolute top-0 right-0 -mr-40 -mt-40 w-[800px] h-[800px] bg-gradient-to-br from-[#1B5E3C]/40 to-transparent rounded-full blur-3xl opacity-50 mix-blend-screen pointer-events-none" />
         <div className="absolute bottom-0 left-0 -ml-40 -mb-40 w-[600px] h-[600px] bg-gradient-to-tr from-[#D4AF37]/20 to-transparent rounded-full blur-3xl opacity-30 mix-blend-screen pointer-events-none" />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-            {/* Left Copy */}
             <div className="max-w-2xl">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white font-medium text-sm mb-8 backdrop-blur-md shadow-sm">
                 <span className="relative flex h-2.5 w-2.5">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D4AF37] opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#D4AF37]"></span>
                 </span>
-                Now onboarding verified operators for the Winter Season
+                Accepting new operator applications for the winter season
               </div>
               <h1 className="text-5xl md:text-7xl font-black text-white leading-[1.05] mb-6 tracking-tight">
-                The operating system for <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] to-[#e8c65a]">trekking companies.</span>
+                Scale beyond WhatsApp. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] to-[#e8c65a]">Build a business trekkers trust.</span>
               </h1>
               <p className="text-lg md:text-xl text-zinc-300 mb-10 leading-relaxed font-medium">
-                Ditch the WhatsApp groups, Excel sheets, and manual UPI links. TrekBazaar provides a world-class storefront, instant verified bookings, and automated bank settlements.
+                You run incredible treks, but your operations are stuck in spreadsheets, manual UPI links, and endless chat threads. TrekBazaar provides the complete infrastructure to professionalize your storefront, automate settlements, and acquire high-intent customers.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/partner/register" className="inline-flex items-center justify-center bg-[#D4AF37] hover:bg-[#c4a132] text-zinc-900 font-bold px-8 h-14 rounded-xl text-lg shadow-[0_0_40px_-10px_rgba(212,175,55,0.4)] transition-all active:scale-95 group">
-                  Open Partner Account <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                  Start Verification Application <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <Link href="/partner/how-it-works" className="inline-flex items-center justify-center border border-white/20 bg-white/5 hover:bg-white/10 text-white font-bold px-8 h-14 rounded-xl text-lg backdrop-blur-md transition-all active:scale-95">
-                  See the workflow
+                  Understand the process
                 </Link>
               </div>
-              <p className="mt-6 text-sm text-zinc-400 font-medium">
-                No setup fees. No monthly subscriptions. 100% performance based.
-              </p>
+              <div className="mt-6 flex items-center gap-6 text-sm text-zinc-400 font-medium">
+                <span className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500" /> Zero setup fees</span>
+                <span className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500" /> Keep 100% data ownership</span>
+              </div>
             </div>
 
-            {/* Right UI Mockup (Premium B2B Feel) */}
             <div className="hidden lg:block relative perspective-1000">
               <div className="relative transform rotate-y-[-10deg] rotate-x-[5deg] transition-transform duration-700 hover:rotate-y-0 hover:rotate-x-0 shadow-2xl rounded-2xl bg-white border border-zinc-200 overflow-hidden">
-                {/* Mock Header */}
                 <div className="bg-zinc-50 border-b border-zinc-200 px-6 py-4 flex justify-between items-center">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-lg bg-[#0F3D2E] flex items-center justify-center text-white font-black text-xs">T</div>
-                    <span className="font-bold text-zinc-900">Partner Hub</span>
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-[#0F3D2E] flex items-center justify-center text-[#D4AF37] font-black text-xs border border-[#1B5E3C]">T</div>
+                    <span className="font-bold text-zinc-900 tracking-tight">Partner Dashboard</span>
                   </div>
                   <div className="flex gap-2">
-                    <div className="w-2 h-2 rounded-full bg-zinc-300"></div>
-                    <div className="w-2 h-2 rounded-full bg-zinc-300"></div>
-                    <div className="w-2 h-2 rounded-full bg-zinc-300"></div>
+                    <div className="w-2.5 h-2.5 rounded-full bg-zinc-300"></div>
+                    <div className="w-2.5 h-2.5 rounded-full bg-zinc-300"></div>
+                    <div className="w-2.5 h-2.5 rounded-full bg-zinc-300"></div>
                   </div>
                 </div>
-                {/* Mock Body */}
                 <div className="p-6 bg-white">
                   <div className="flex justify-between items-end mb-8">
                     <div>
-                      <div className="text-zinc-500 font-medium mb-1 text-sm">Monthly Revenue</div>
-                      <div className="text-4xl font-black text-zinc-900">₹8,45,000</div>
+                      <div className="text-zinc-500 font-medium mb-1 text-sm tracking-wide uppercase">Next Settlement (Oct 12)</div>
+                      <div className="text-4xl font-black text-zinc-900 tracking-tight">₹4,82,500</div>
                     </div>
-                    <div className="flex items-center gap-1 text-[#1B5E3C] bg-emerald-50 px-2 py-1 rounded-md text-sm font-bold">
-                      <TrendingUpIcon className="w-4 h-4" /> +18.2%
+                    <div className="flex items-center gap-1 text-[#1B5E3C] bg-emerald-50 border border-emerald-100 px-3 py-1.5 rounded-lg text-sm font-bold shadow-sm">
+                      <TrendingUpIcon className="w-4 h-4" /> Ready for transfer
                     </div>
                   </div>
-                  {/* Chart Mock */}
-                  <div className="h-32 flex items-end gap-2 mb-8">
-                    {[40, 60, 45, 80, 55, 90, 75].map((h, i) => (
-                      <div key={i} className="flex-1 bg-[#1B5E3C]/10 rounded-t-sm" style={{ height: `${h}%` }}>
-                        <div className="w-full bg-[#1B5E3C] rounded-t-sm transition-all duration-1000" style={{ height: `${h * 0.8}%` }}></div>
-                      </div>
-                    ))}
-                  </div>
-                  {/* Recent Bookings */}
-                  <div className="space-y-3">
-                    <div className="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2">Live Departures</div>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center pb-2 border-b border-zinc-100">
+                      <div className="text-xs font-bold text-zinc-400 uppercase tracking-wider">Live Departures</div>
+                      <div className="text-xs font-bold text-[#1B5E3C]">View All</div>
+                    </div>
                     {[
-                      { name: 'Kedarkantha Trek', pax: 12, rev: '₹1,44,000' },
-                      { name: 'Brahmatal Winter', pax: 8, rev: '₹92,000' }
+                      { name: 'Kedarkantha Winter Batch', date: 'Oct 15 - Oct 20', pax: '14/15 Booked', rev: '₹1,23,200', status: 'Filling Fast' },
+                      { name: 'Brahmatal Expedition', date: 'Oct 18 - Oct 23', pax: '8/12 Booked', rev: '₹70,400', status: 'Confirmed' }
                     ].map((t, i) => (
-                      <div key={i} className="flex justify-between items-center p-3 rounded-lg border border-zinc-100 bg-zinc-50">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-white border border-zinc-200 flex items-center justify-center">
-                            <Mountain className="w-4 h-4 text-[#1B5E3C]" />
+                      <div key={i} className="flex justify-between items-center p-4 rounded-xl border border-zinc-100 bg-zinc-50/50 hover:bg-zinc-50 transition-colors">
+                        <div className="flex items-center gap-4">
+                          <div className="w-10 h-10 rounded-full bg-white border border-zinc-200 flex items-center justify-center shadow-sm">
+                            <Mountain className="w-5 h-5 text-[#1B5E3C]" />
                           </div>
                           <div>
                             <div className="text-sm font-bold text-zinc-900">{t.name}</div>
-                            <div className="text-xs text-zinc-500">{t.pax} Trekkers confirmed</div>
+                            <div className="text-xs text-zinc-500 font-medium">{t.date} &middot; {t.pax}</div>
                           </div>
                         </div>
-                        <div className="font-bold text-zinc-900 text-sm">{t.rev}</div>
+                        <div className="text-right">
+                           <div className="font-bold text-zinc-900 text-sm">{t.rev}</div>
+                           <div className="text-[10px] font-bold text-emerald-600 uppercase tracking-wider">{t.status}</div>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -127,254 +118,197 @@ export default async function PartnerLandingPage() {
         </div>
       </section>
 
-      {/* Trust & Scale Bar */}
-      <section className="border-b border-zinc-100 bg-zinc-50 py-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-zinc-200">
-            <div className="text-center px-4">
-              <div className="text-3xl font-black text-zinc-900 mb-1">₹4.2Cr+</div>
-              <div className="text-sm font-medium text-zinc-500 uppercase tracking-wider">Processed Annually</div>
-            </div>
-            <div className="text-center px-4">
-              <div className="text-3xl font-black text-zinc-900 mb-1">0%</div>
-              <div className="text-sm font-medium text-zinc-500 uppercase tracking-wider">Chargeback Rate</div>
-            </div>
-            <div className="text-center px-4">
-              <div className="text-3xl font-black text-zinc-900 mb-1">3 Days</div>
-              <div className="text-sm font-medium text-zinc-500 uppercase tracking-wider">Avg. Settlement Time</div>
-            </div>
-            <div className="text-center px-4">
-              <div className="text-3xl font-black text-zinc-900 mb-1">120+</div>
-              <div className="text-sm font-medium text-zinc-500 uppercase tracking-wider">Verified Operators</div>
-            </div>
-          </div>
+      {/* THE PROBLEM / WHY WE BUILT THIS */}
+      <section className="py-24 bg-zinc-50 border-b border-zinc-100">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-5xl font-black text-zinc-900 tracking-tight mb-8">
+            Running a trekking company shouldn&apos;t mean drowning in admin work.
+          </h2>
+          <p className="text-xl text-zinc-600 leading-relaxed font-medium mb-16">
+            We spoke to 300+ operators across India. The story is always the same. You spend 80% of your time chasing partial payments, manually sending itineraries on WhatsApp, and fighting for visibility against scam operators who slash prices. TrekBazaar was built to eliminate this chaos.
+          </p>
         </div>
       </section>
 
-      {/* Differentiated Benefits (Bento Box Layout) */}
+      {/* THE SOLUTION / OUTCOMES */}
       <section className="py-32 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-20">
-            <h2 className="text-sm font-bold text-[#1B5E3C] tracking-widest uppercase mb-3">The Platform Advantage</h2>
-            <h3 className="text-4xl md:text-5xl font-black text-zinc-900 tracking-tight leading-tight mb-6">
-              Infrastructure built for scale, not just a listing directory.
-            </h3>
-            <p className="text-xl text-zinc-600 leading-relaxed font-medium">
-              We solve the hard problems—marketing, payments, customer trust, and operational syncing—so you can spend your time ensuring safety and experience on the mountain.
+          
+          <div className="grid md:grid-cols-2 gap-20 items-center mb-32">
+            <div>
+              <div className="w-14 h-14 bg-emerald-50 border border-emerald-100 rounded-2xl flex items-center justify-center mb-6">
+                <Banknote className="w-7 h-7 text-[#1B5E3C]" />
+              </div>
+              <h3 className="text-3xl font-black text-zinc-900 mb-6 tracking-tight">Stop chasing trekkers for the remaining 50% balance.</h3>
+              <p className="text-lg text-zinc-600 font-medium leading-relaxed mb-6">
+                Most operators accept a 30% advance via UPI and pray the customer pays the rest at basecamp. This creates severe cashflow anxiety.
+              </p>
+              <p className="text-lg text-zinc-600 font-medium leading-relaxed mb-8">
+                TrekBazaar acts as a trusted escrow. Customers pay 100% upfront through our secure Razorpay gateway because they trust our brand. When the trek finishes, we automatically settle the funds directly to your verified business bank account.
+              </p>
+              <ul className="space-y-4">
+                <li className="flex items-center gap-3 font-bold text-zinc-900"><CheckCircle2 className="w-5 h-5 text-emerald-500" /> Guaranteed 100% upfront collection</li>
+                <li className="flex items-center gap-3 font-bold text-zinc-900"><CheckCircle2 className="w-5 h-5 text-emerald-500" /> NEFT/IMPS automated settlements</li>
+              </ul>
+            </div>
+            <div className="bg-zinc-50 rounded-3xl p-8 border border-zinc-200 shadow-xl shadow-zinc-200/50 relative">
+               <div className="absolute top-4 right-4 bg-white px-4 py-2 rounded-full border border-zinc-200 shadow-sm font-bold text-xs text-zinc-900 flex items-center gap-2">
+                 <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div> Auto-Settled
+               </div>
+               <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80" alt="Accounting" className="rounded-2xl border border-zinc-200 shadow-sm opacity-90 mix-blend-multiply" />
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-20 items-center mb-32">
+            <div className="order-2 md:order-1 bg-[#0F3D2E] rounded-3xl p-8 border border-[#1B5E3C] shadow-2xl relative overflow-hidden">
+               <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80')] opacity-20 mix-blend-overlay bg-cover bg-center"></div>
+               <div className="relative z-10 bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-2xl">
+                 <div className="text-white font-bold mb-4 flex items-center gap-2"><Users className="w-5 h-5 text-[#D4AF37]" /> Live Manifest Download</div>
+                 <div className="space-y-3">
+                   {[1,2,3].map(i => (
+                     <div key={i} className="bg-white/5 border border-white/10 rounded-lg p-3 flex justify-between items-center">
+                       <div>
+                         <div className="text-white font-medium text-sm">Customer #{840 + i}</div>
+                         <div className="text-zinc-400 text-xs">Medical: Cleared</div>
+                       </div>
+                       <div className="text-[#D4AF37] text-xs font-bold uppercase">Paid</div>
+                     </div>
+                   ))}
+                 </div>
+               </div>
+            </div>
+            <div className="order-1 md:order-2">
+              <div className="w-14 h-14 bg-blue-50 border border-blue-100 rounded-2xl flex items-center justify-center mb-6">
+                <Users className="w-7 h-7 text-blue-600" />
+              </div>
+              <h3 className="text-3xl font-black text-zinc-900 mb-6 tracking-tight">Every booking detail organized in one place.</h3>
+              <p className="text-lg text-zinc-600 font-medium leading-relaxed mb-6">
+                Forget scrolling through WhatsApp to find emergency contacts or medical conditions. TrekBazaar captures all critical data during checkout.
+              </p>
+              <p className="text-lg text-zinc-600 font-medium leading-relaxed mb-8">
+                Download a clean, structured manifest for your Trek Leaders the day before the departure. Track capacity limits in real-time to avoid double booking. 
+              </p>
+              <Link href="/partner/register" className="font-bold text-[#1B5E3C] hover:text-[#0F3D2E] flex items-center gap-1 group">
+                Create your partner account <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* WHO SHOULD NOT JOIN (Extreme Trust Filter) */}
+      <section className="py-24 bg-zinc-900 text-white border-y border-zinc-800">
+        <div className="max-w-5xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">Who should <span className="text-red-500">NOT</span> join TrekBazaar?</h2>
+            <p className="text-xl text-zinc-400 font-medium max-w-2xl mx-auto">
+              We aggressively defend the trust our customers place in us. We are not an open bulletin board. We reject 35% of all applications.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 auto-rows-[280px]">
-            {/* Large Card 1 */}
-            <div className="md:col-span-2 bg-zinc-50 rounded-3xl p-10 border border-zinc-200 relative overflow-hidden group hover:border-zinc-300 transition-colors">
-              <div className="relative z-10 max-w-sm">
-                <div className="w-12 h-12 bg-white rounded-xl shadow-sm border border-zinc-100 flex items-center justify-center mb-6">
-                  <Banknote className="w-6 h-6 text-[#1B5E3C]" />
-                </div>
-                <h4 className="text-2xl font-black text-zinc-900 mb-3">Guaranteed, Automated Settlements</h4>
-                <p className="text-zinc-600 font-medium leading-relaxed">
-                  No more chasing trekkers for the remaining 50% balance via UPI. We collect 100% upfront. Once the trek concludes safely, funds are automatically routed to your registered bank account. Zero stress.
-                </p>
-              </div>
-              {/* UI Decorator */}
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/4 w-80 bg-white rounded-2xl shadow-xl border border-zinc-100 p-4 opacity-50 group-hover:opacity-100 group-hover:translate-x-10 transition-all duration-500">
-                <div className="flex items-center gap-3 mb-4 border-b border-zinc-100 pb-4">
-                  <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center"><CheckCircle2 className="w-5 h-5 text-emerald-600" /></div>
-                  <div>
-                    <div className="font-bold text-sm">Settlement Initiated</div>
-                    <div className="text-xs text-zinc-500">HDFC Bank ****4592</div>
-                  </div>
-                  <div className="ml-auto font-black text-sm">₹84,500</div>
-                </div>
-                <div className="h-2 w-full bg-zinc-100 rounded-full overflow-hidden">
-                  <div className="h-full w-full bg-emerald-500 rounded-full"></div>
-                </div>
-              </div>
-            </div>
-
-            {/* Small Card 1 */}
-            <div className="bg-[#0F3D2E] rounded-3xl p-10 relative overflow-hidden text-white group">
-              <div className="relative z-10">
-                <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mb-6 backdrop-blur-sm border border-white/20">
-                  <Search className="w-6 h-6 text-[#D4AF37]" />
-                </div>
-                <h4 className="text-2xl font-black mb-3 text-[#D4AF37]">Instant Distribution</h4>
-                <p className="text-zinc-300 font-medium leading-relaxed">
-                  Publish a departure on your dashboard and it instantly ranks on our heavily SEO-optimized marketplace. Tap into our audience of high-intent buyers.
-                </p>
-              </div>
-            </div>
-
-            {/* Small Card 2 */}
-            <div className="bg-zinc-50 rounded-3xl p-10 border border-zinc-200 group hover:border-zinc-300 transition-colors">
-               <div className="w-12 h-12 bg-white rounded-xl shadow-sm border border-zinc-100 flex items-center justify-center mb-6">
-                  <Users className="w-6 h-6 text-[#1B5E3C]" />
-                </div>
-                <h4 className="text-xl font-black text-zinc-900 mb-3">Manifest Management</h4>
-                <p className="text-zinc-600 font-medium leading-relaxed">
-                  Download live trekker manifests with medical history, emergency contacts, and ID proofs. Keep your trek leaders fully informed.
-                </p>
-            </div>
-
-            {/* Large Card 2 */}
-            <div className="md:col-span-2 bg-zinc-50 rounded-3xl p-10 border border-zinc-200 relative overflow-hidden group hover:border-zinc-300 transition-colors">
-              <div className="relative z-10 max-w-md">
-                <div className="w-12 h-12 bg-white rounded-xl shadow-sm border border-zinc-100 flex items-center justify-center mb-6">
-                  <ShieldCheck className="w-6 h-6 text-[#1B5E3C]" />
-                </div>
-                <h4 className="text-2xl font-black text-zinc-900 mb-3">The &quot;Verified&quot; Halo Effect</h4>
-                <p className="text-zinc-600 font-medium leading-relaxed">
-                  Trekkers are terrified of scam operators. By passing our stringent due-diligence process, you earn the TrekBazaar Verified Badge. Operators see an average <span className="font-bold text-zinc-900">40% increase in conversion rates</span> compared to booking via their own websites.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* The "Why Verification" Section (Deep Dive into Trust) */}
-      <section className="py-32 bg-[#0F3D2E] text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <div className="inline-flex items-center gap-2 text-[#D4AF37] font-bold tracking-widest uppercase text-xs mb-6 bg-[#D4AF37]/10 px-3 py-1.5 rounded-full border border-[#D4AF37]/20">
-                <ShieldCheck className="w-4 h-4" /> Strict Quality Control
-              </div>
-              <h2 className="text-4xl md:text-5xl font-black mb-6 leading-tight tracking-tight">
-                Why is it so hard to get approved on TrekBazaar?
-              </h2>
-              <p className="text-zinc-300 text-lg mb-8 leading-relaxed font-medium">
-                We are not an open bulletin board. We reject approximately 35% of all operator applications. We do this to protect the ecosystem. When customers see your company listed on TrekBazaar, they implicitly trust you with their lives and their money.
-              </p>
-              
-              <div className="grid sm:grid-cols-2 gap-8 mb-10">
-                <div>
-                  <div className="w-10 h-10 bg-[#1B5E3C] rounded-lg flex items-center justify-center mb-4">
-                    <Activity className="w-5 h-5 text-white" />
-                  </div>
-                  <h5 className="font-bold text-lg mb-2">Safety First</h5>
-                  <p className="text-zinc-400 text-sm leading-relaxed">We verify equipment standards and trek leader certifications.</p>
-                </div>
-                <div>
-                  <div className="w-10 h-10 bg-[#1B5E3C] rounded-lg flex items-center justify-center mb-4">
-                    <Banknote className="w-5 h-5 text-white" />
-                  </div>
-                  <h5 className="font-bold text-lg mb-2">Financial Solvency</h5>
-                  <p className="text-zinc-400 text-sm leading-relaxed">We verify GST, bank accounts, and company registration.</p>
-                </div>
-              </div>
-              
-              <Link href="/partner/how-it-works" className="inline-flex items-center font-bold text-[#D4AF37] hover:text-white transition-colors text-lg group">
-                Review the onboarding workflow <ChevronRight className="w-5 h-5 ml-1 group-hover:translate-x-1 transition-transform" />
-              </Link>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-sm">
+              <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3"><XCircle className="w-6 h-6 text-red-500" /> Do not apply if:</h3>
+              <ul className="space-y-4 text-zinc-300 font-medium leading-relaxed">
+                <li className="flex items-start gap-3"><div className="w-1.5 h-1.5 rounded-full bg-red-500 mt-2 shrink-0"></div> You operate without a registered company or valid GST.</li>
+                <li className="flex items-start gap-3"><div className="w-1.5 h-1.5 rounded-full bg-red-500 mt-2 shrink-0"></div> You outsource operations entirely to third parties on the ground.</li>
+                <li className="flex items-start gap-3"><div className="w-1.5 h-1.5 rounded-full bg-red-500 mt-2 shrink-0"></div> You cut corners on safety equipment to offer the &quot;lowest price&quot; in the market.</li>
+                <li className="flex items-start gap-3"><div className="w-1.5 h-1.5 rounded-full bg-red-500 mt-2 shrink-0"></div> You cannot guarantee refunds for weather-induced cancellations.</li>
+              </ul>
             </div>
             
-            {/* The Badge Graphic */}
-            <div className="flex justify-center lg:justify-end">
-               <div className="relative w-72 h-72">
-                  <div className="absolute inset-0 bg-[#D4AF37] rounded-full blur-[100px] opacity-20"></div>
-                  <div className="relative w-full h-full border-[12px] border-[#1B5E3C] rounded-full flex flex-col items-center justify-center bg-zinc-900 shadow-2xl">
-                     <ShieldCheck className="w-24 h-24 text-[#D4AF37] mb-2" />
-                     <div className="text-[#D4AF37] font-black text-xl uppercase tracking-widest">Verified</div>
-                     <div className="text-white font-bold tracking-widest text-sm">Operator</div>
-                  </div>
-               </div>
+            <div className="bg-[#1B5E3C]/20 border border-[#1B5E3C]/50 rounded-3xl p-8 backdrop-blur-sm">
+              <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3"><CheckCircle2 className="w-6 h-6 text-[#D4AF37]" /> Please apply if:</h3>
+              <ul className="space-y-4 text-emerald-100 font-medium leading-relaxed">
+                <li className="flex items-start gap-3"><div className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-2 shrink-0"></div> You are a registered entity serious about scaling your operations.</li>
+                <li className="flex items-start gap-3"><div className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-2 shrink-0"></div> You employ certified trek leaders and prioritize customer safety above margins.</li>
+                <li className="flex items-start gap-3"><div className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-2 shrink-0"></div> You want to stop competing on price and start competing on quality.</li>
+                <li className="flex items-start gap-3"><div className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-2 shrink-0"></div> You are willing to undergo strict verification to earn the TrekBazaar Badge.</li>
+              </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Success Stories / Social Proof */}
-      <section className="py-32 bg-zinc-50 border-y border-zinc-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-5xl font-black text-zinc-900 tracking-tight mb-6">
-              Trusted by the best in the mountains.
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white p-12 rounded-3xl border border-zinc-200 shadow-sm">
-              <div className="flex text-[#D4AF37] mb-8 gap-1">
-                {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-5 h-5 fill-current" />)}
-              </div>
-              <p className="text-2xl text-zinc-800 font-bold mb-10 leading-snug">
-                &quot;Before TrekBazaar, my ops team spent 4 hours every day just answering WhatsApp messages about availability. Now, the bookings just show up on our dashboard and the money hits our bank account. It&apos;s completely changed how we operate.&quot;
-              </p>
-              <div className="flex items-center gap-4">
-                <div className="w-16 h-16 bg-zinc-200 rounded-full overflow-hidden border-2 border-zinc-100">
-                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop" alt="Profile" className="w-full h-full object-cover" />
-                </div>
-                <div>
-                  <div className="font-black text-zinc-900 text-lg">Rajesh Sharma</div>
-                  <div className="text-zinc-500 font-medium">Founder, Himalayan Ventures</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white p-12 rounded-3xl border border-zinc-200 shadow-sm">
-              <div className="flex text-[#D4AF37] mb-8 gap-1">
-                {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-5 h-5 fill-current" />)}
-              </div>
-              <p className="text-2xl text-zinc-800 font-bold mb-10 leading-snug">
-                &quot;The onboarding was strict, but it proved to me that this is a serious platform. Our bookings have increased by 45% in one season simply because customers trust the TrekBazaar checkout process more than a random UPI link.&quot;
-              </p>
-              <div className="flex items-center gap-4">
-                <div className="w-16 h-16 bg-zinc-200 rounded-full overflow-hidden border-2 border-zinc-100">
-                  <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop" alt="Profile" className="w-full h-full object-cover" />
-                </div>
-                <div>
-                  <div className="font-black text-zinc-900 text-lg">Priya Patel</div>
-                  <div className="text-zinc-500 font-medium">Operations Head, Peak Expeditions</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Accordions */}
+      {/* CUSTOMER ACQUISITION ENGINE */}
       <section className="py-32 bg-white">
+         <div className="max-w-7xl mx-auto px-4 text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-black text-zinc-900 tracking-tight mb-6">How do you get bookings?</h2>
+            <p className="text-xl text-zinc-600 font-medium max-w-3xl mx-auto leading-relaxed">
+              When you list a departure on TrekBazaar, you are immediately plugging into our massive customer acquisition engine. We spend the marketing money so you don&apos;t have to.
+            </p>
+         </div>
+         <div className="max-w-5xl mx-auto px-4 grid md:grid-cols-3 gap-8">
+            <div className="text-center p-6">
+              <div className="w-16 h-16 mx-auto bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-6 shadow-sm border border-blue-100">
+                <Search className="w-8 h-8" />
+              </div>
+              <h4 className="text-xl font-bold text-zinc-900 mb-3">SEO Dominance</h4>
+              <p className="text-zinc-600 font-medium">Our Master Trek pages rank at the top of Google. Your departures are automatically listed on these high-traffic pages.</p>
+            </div>
+            <div className="text-center p-6">
+              <div className="w-16 h-16 mx-auto bg-purple-50 text-purple-600 rounded-full flex items-center justify-center mb-6 shadow-sm border border-purple-100">
+                <Activity className="w-8 h-8" />
+              </div>
+              <h4 className="text-xl font-bold text-zinc-900 mb-3">Performance Marketing</h4>
+              <p className="text-zinc-600 font-medium">We run highly targeted Google and Meta ads for specific seasons. The 12% commission funds this machine entirely.</p>
+            </div>
+            <div className="text-center p-6">
+              <div className="w-16 h-16 mx-auto bg-amber-50 text-amber-600 rounded-full flex items-center justify-center mb-6 shadow-sm border border-amber-100">
+                <ShieldCheck className="w-8 h-8" />
+              </div>
+              <h4 className="text-xl font-bold text-zinc-900 mb-3">The Trust Conversion</h4>
+              <p className="text-zinc-600 font-medium">Customers who find you organically convert at a 40% higher rate when they book through the TrekBazaar secure checkout.</p>
+            </div>
+         </div>
+      </section>
+
+      {/* FULL FAQ */}
+      <section className="py-32 bg-zinc-50 border-t border-zinc-200">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-black text-zinc-900 tracking-tight mb-12 text-center">
-            Frequently Asked Questions
-          </h2>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-black text-zinc-900 tracking-tight mb-6">
+              Everything you need to know.
+            </h2>
+            <p className="text-xl text-zinc-600 font-medium">No hidden terms. Total transparency.</p>
+          </div>
           
           <div className="space-y-4">
             {[
               {
-                q: "What does the 12% commission cover?",
-                a: "Everything. It includes the 2% payment gateway fee, server costs, marketing acquisition costs, SMS/Email notifications to your customers, and automated payouts. There are absolutely no setup fees, monthly fees, or hidden charges."
+                q: "Why should I pay 12% instead of taking free WhatsApp bookings?",
+                a: "Because WhatsApp isn't free. You pay in lost hours, manual follow-ups, payment gateway setup fees, lost trust from skeptical buyers, and zero marketing reach. Our 12% covers your Razorpay fees, your hosting, your SEO, and guarantees your customer pays 100% upfront."
               },
               {
-                q: "How long does verification take?",
-                a: "Once you submit your GST, bank details, and company documents in our onboarding wizard, our Trust & Safety team manually reviews your application within 24-48 hours."
+                q: "Who owns the customer data?",
+                a: "You do. You get full access to the customer's name, contact details, emergency info, and medical history. We never hide your customers from you."
               },
               {
-                q: "Do I need to give TrekBazaar exclusive inventory?",
-                a: "No. You have full control over your inventory. You simply allocate a certain number of slots to TrekBazaar via your dashboard. You can continue selling via your own channels simultaneously."
+                q: "Is there exclusivity? Do I have to sell only on TrekBazaar?",
+                a: "Absolutely not. You have total control over your inventory. You simply allocate a certain number of slots to TrekBazaar via your dashboard. You can continue selling via your own channels simultaneously."
               },
               {
-                q: "When do I receive payments?",
-                a: "To protect trekkers, funds are held in escrow. Once the trek successfully concludes (based on the return date), funds are automatically settled to your verified bank account within 3 business days."
+                q: "Can I leave TrekBazaar later?",
+                a: "Yes. There are no lock-in contracts. You can unpublish your inventory and close your account at any time with a single click."
               },
               {
-                q: "What if a trekker cancels?",
-                a: "You define your cancellation policy during onboarding (e.g., 50% refund if cancelled 15 days prior). If a trekker cancels, the platform handles the refund automatically. We do not charge commission on refunded amounts."
+                q: "What if a trekker cancels? Who handles refunds?",
+                a: "During onboarding, you define your own cancellation policy (e.g., 50% refund if cancelled 15 days prior). If a trekker cancels, the platform processes the refund automatically based on your rules. We do not charge commission on refunded amounts."
               },
               {
-                q: "What if bad weather forces us to cancel a trek?",
-                a: "If the operator (you) cancels the trek due to force majeure or operational issues, a 100% refund must be issued to the trekkers. You can trigger this directly from your dashboard."
+                q: "What if I don't get any bookings?",
+                a: "Then you pay absolutely nothing. We charge zero setup fees and zero monthly subscription fees. We only make money when you successfully complete a booking."
               }
             ].map((faq, i) => (
-              <details key={i} className="group bg-zinc-50 rounded-2xl border border-zinc-200 overflow-hidden open:bg-white open:border-zinc-300 transition-colors">
+              <details key={i} className="group bg-white rounded-2xl border border-zinc-200 overflow-hidden shadow-sm hover:border-zinc-300 transition-colors">
                 <summary className="flex justify-between items-center font-bold text-lg cursor-pointer list-none p-6 text-zinc-900 group-hover:text-[#1B5E3C] transition-colors">
                   {faq.q}
                   <span className="transition group-open:rotate-180">
                     <ChevronRight className="w-5 h-5 text-zinc-400" />
                   </span>
                 </summary>
-                <div className="px-6 pb-6 text-zinc-600 font-medium leading-relaxed">
+                <div className="px-6 pb-6 text-zinc-600 font-medium leading-relaxed border-t border-zinc-100 pt-4 mt-2">
                   {faq.a}
                 </div>
               </details>
@@ -383,25 +317,29 @@ export default async function PartnerLandingPage() {
         </div>
       </section>
 
-      {/* Final Massive CTA */}
-      <section className="py-32 bg-zinc-900 text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-[#0F3D2E]/20 mix-blend-multiply"></div>
-        <div className="absolute -bottom-40 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[#1B5E3C] rounded-full blur-[120px] opacity-20 pointer-events-none"></div>
+      {/* EXTREME CTA */}
+      <section className="py-32 bg-[#0F3D2E] text-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent mix-blend-multiply"></div>
+        <div className="absolute -bottom-40 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[#D4AF37] rounded-full blur-[150px] opacity-20 pointer-events-none"></div>
         
         <div className="max-w-4xl mx-auto px-4 relative z-10">
-          <h2 className="text-5xl md:text-6xl font-black text-white tracking-tight mb-8 leading-tight">
-            Stop losing bookings to<br/>unprofessional checkout flows.
+          <div className="inline-flex items-center gap-2 text-[#D4AF37] font-bold tracking-widest uppercase text-xs mb-8 bg-[#D4AF37]/10 px-4 py-2 rounded-full border border-[#D4AF37]/20">
+            Application Time: ~15 Minutes
+          </div>
+          <h2 className="text-5xl md:text-7xl font-black text-white tracking-tight mb-8 leading-[1.1]">
+            Professionalize your entire operation today.
           </h2>
-          <p className="text-xl text-zinc-400 mb-12 max-w-2xl mx-auto font-medium">
-            Join the fastest growing network of verified trekking operators in India. 
-            The application takes about 15 minutes.
+          <p className="text-xl text-zinc-300 mb-12 max-w-2xl mx-auto font-medium leading-relaxed">
+            Join the most trusted network of verified trekking operators in India. 
+            Stop managing spreadsheets. Start scaling your business.
           </p>
-          <Link href="/partner/register" className="inline-flex items-center justify-center bg-[#D4AF37] hover:bg-[#c4a132] text-zinc-900 font-black px-12 h-16 rounded-xl text-xl shadow-[0_0_40px_-10px_rgba(212,175,55,0.3)] hover:scale-105 transition-all">
-            Start Verification Application
-          </Link>
-          <div className="mt-8 flex items-center justify-center gap-6 text-sm font-bold text-zinc-500">
-            <span className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500" /> Free to apply</span>
-            <span className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-500" /> No credit card required</span>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/partner/register" className="inline-flex items-center justify-center bg-[#D4AF37] hover:bg-[#c4a132] text-zinc-900 font-black px-12 h-16 rounded-xl text-xl shadow-[0_0_40px_-10px_rgba(212,175,55,0.4)] hover:-translate-y-1 transition-all active:scale-95">
+              Begin Verification Application
+            </Link>
+            <Link href="/partner/pricing" className="inline-flex items-center justify-center bg-white/10 hover:bg-white/20 border border-white/20 text-white font-black px-12 h-16 rounded-xl text-xl backdrop-blur-md transition-all active:scale-95">
+              Review Pricing First
+            </Link>
           </div>
         </div>
       </section>
@@ -409,7 +347,6 @@ export default async function PartnerLandingPage() {
   );
 }
 
-// Dummy Icons for UI Mockup
 function TrendingUpIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
