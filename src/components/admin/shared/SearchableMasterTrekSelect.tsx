@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Search, ChevronDown, Check } from 'lucide-react';
+import { Search, ChevronDown, Check, Plus, Loader2 } from 'lucide-react';
+import { createInlineMasterTrekAction } from '@/app/partner/dashboard/treks/actions';
 
 interface Props {
   value: string | null;
@@ -27,11 +28,46 @@ export function SearchableMasterTrekSelect({ value, onChange, masterTreks = [], 
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const selectedMasterTrek = masterTreks.find(mt => mt.id === value);
-  const filteredMasterTreks = masterTreks.filter(mt => {
+  const [isCreating, setIsCreating] = useState(false);
+  
+  // We keep a local list of master treks so we can optimistically add newly created ones without waiting for page reload
+  const [localMasterTreks, setLocalMasterTreks] = useState(masterTreks);
+  
+  // Sync if props change
+  useEffect(() => {
+    setLocalMasterTreks(masterTreks);
+  }, [masterTreks]);
+
+  const selectedMasterTrek = localMasterTreks.find(mt => mt.id === value);
+  const filteredMasterTreks = localMasterTreks.filter(mt => {
     const searchStr = `${mt.name} ${mt.category?.name || ''} ${mt.region?.name || ''}`.toLowerCase();
     return searchStr.includes(mtSearch.toLowerCase());
   });
+
+  const exactMatchExists = localMasterTreks.some(mt => mt.name.toLowerCase() === mtSearch.toLowerCase());
+
+  const handleCreate = async () => {
+    if (!mtSearch.trim() || isCreating) return;
+    setIsCreating(true);
+    
+    try {
+      const res = await createInlineMasterTrekAction(mtSearch.trim());
+      if (res.success && res.masterTrekId) {
+        // Optimistically add it to the local list so it shows as selected
+        setLocalMasterTreks(prev => [...prev, { id: res.masterTrekId, name: res.masterTrekName }]);
+        onChange(res.masterTrekId);
+        setMtOpen(false);
+        setMtSearch('');
+      } else {
+        alert(res.error || "Failed to create destination");
+      }
+    } catch (e) {
+      console.error(e);
+      alert("An unexpected error occurred");
+    } finally {
+      setIsCreating(false);
+    }
+  };
 
   return (
     <div ref={dropdownRef} className="relative">
@@ -64,7 +100,23 @@ export function SearchableMasterTrekSelect({ value, onChange, masterTreks = [], 
           <ul className="max-h-60 overflow-y-auto py-1">
             {filteredMasterTreks.length === 0 ? (
               <li className="px-3 py-2 text-sm text-zinc-500 text-center">No matching treks found.</li>
-            ) : (
+            ) : null}
+            
+            {mtSearch.trim().length > 0 && !exactMatchExists && (
+              <li 
+                className="px-3 py-2 text-sm cursor-pointer bg-blue-50 hover:bg-blue-100 text-blue-700 flex items-center border-b border-blue-100"
+                onClick={handleCreate}
+              >
+                {isCreating ? (
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                ) : (
+                  <Plus className="w-4 h-4 mr-2" />
+                )}
+                <span className="font-medium">Create new destination: &quot;{mtSearch.trim()}&quot;</span>
+              </li>
+            )}
+            
+            {filteredMasterTreks.length > 0 && (
               filteredMasterTreks.map(mt => (
                 <li
                   key={mt.id}

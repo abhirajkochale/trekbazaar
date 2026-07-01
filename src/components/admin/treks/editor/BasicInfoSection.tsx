@@ -62,12 +62,6 @@ export function BasicInfoSection({ trek, updateField, companies = [], masterTrek
             onChange={(val) => updateField('master_trek_id', val)}
             masterTreks={masterTreks}
           />
-          
-          {isCompanyPortal && (
-            <p className="mt-2 text-xs text-zinc-500">
-              Can&apos;t find your destination? Contact TrekBazaar Admin to add it.
-            </p>
-          )}
         </div>
 
         {!isCompanyPortal && (
@@ -88,18 +82,24 @@ export function BasicInfoSection({ trek, updateField, companies = [], masterTrek
         )}
         <div>
           <label className={labelClasses}>Region</label>
-          <select
+          <input
+            type="text"
+            list="region-options"
             value={trek.region || ''}
             onChange={(e) => updateField('region', e.target.value)}
             className={inputClasses}
-          >
-            <option value="">Select Region</option>
-            <option value="Uttarakhand">Uttarakhand</option>
-            <option value="Himachal Pradesh">Himachal Pradesh</option>
-            <option value="Kashmir">Kashmir</option>
-            <option value="Ladakh">Ladakh</option>
-            <option value="Sikkim">Sikkim</option>
-          </select>
+            placeholder="e.g. Uttarakhand"
+          />
+          <datalist id="region-options">
+            <option value="Uttarakhand" />
+            <option value="Himachal Pradesh" />
+            <option value="Kashmir" />
+            <option value="Ladakh" />
+            <option value="Sikkim" />
+            <option value="Nepal" />
+            <option value="Meghalaya" />
+            <option value="Western Ghats" />
+          </datalist>
         </div>
         <div>
           <label className={labelClasses}>Difficulty</label>
