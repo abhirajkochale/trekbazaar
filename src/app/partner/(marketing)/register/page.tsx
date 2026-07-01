@@ -3,11 +3,6 @@ import { getCompanyContext } from '@/lib/company/auth';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 
-export const metadata = {
-  title: 'Create Partner Account | TrekBazaar',
-  description: 'Join India\'s most trusted marketplace for trekking operators.',
-};
-
 export default async function PartnerRegisterPage() {
   const ctx = await getCompanyContext();
 
@@ -21,100 +16,92 @@ export default async function PartnerRegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white flex flex-col justify-center py-12 sm:px-6 lg:px-8 font-sans selection:bg-[#0F3D2E] selection:text-white">
-      <div className="sm:mx-auto sm:w-full sm:max-w-[400px]">
-        <div className="flex justify-center mb-8">
-          <Link href="/partner" className="text-[#111827] font-bold text-xl tracking-tight">
-            TrekBazaar.
-          </Link>
+    <div className="min-h-screen bg-zinc-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="flex justify-center">
+          <div className="w-12 h-12 bg-zinc-900 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg">
+            T
+          </div>
         </div>
-        <h2 className="text-center text-3xl font-bold text-[#111827] tracking-tight mb-2">
-          Create your account
+        <h2 className="mt-6 text-center text-3xl font-black text-zinc-900 tracking-tight">
+          Create Partner Account
         </h2>
-        <p className="text-center text-[15px] text-[#6B7280]">
-          Join the trusted marketplace for operators.
+        <p className="mt-2 text-center text-sm text-zinc-600">
+          Already have an account?{' '}
+          <Link href="/partner/login" className="font-bold text-tb-primary hover:text-zinc-900 transition-colors">
+            Sign in
+          </Link>
         </p>
       </div>
 
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[400px]">
-        <div className="bg-white py-8 px-4 sm:px-0">
-          <form className="space-y-5" action="/api/partner/auth/register" method="POST">
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-white py-8 px-4 shadow-[0_8px_30px_rgb(0,0,0,0.04)] sm:rounded-3xl sm:px-10 border border-zinc-200/60">
+          <form className="space-y-6" action="/api/partner/auth/register" method="POST">
             
             <div>
-              <label htmlFor="name" className="block text-[13px] font-medium text-[#111827] mb-1.5">
+              <label htmlFor="name" className="block text-sm font-bold text-zinc-700">
                 Full Name
               </label>
-              <div>
+              <div className="mt-1">
                 <input
                   id="name"
                   name="name"
                   type="text"
                   autoComplete="name"
                   required
-                  className="appearance-none block w-full px-3 py-2.5 border border-zinc-200 rounded-lg shadow-sm placeholder-zinc-400 focus:outline-none focus:ring-1 focus:ring-[#0F3D2E] focus:border-[#0F3D2E] sm:text-[15px] transition-shadow text-[#111827]"
-                  placeholder="Enter your full name"
+                  className="appearance-none block w-full px-3 py-2.5 border border-zinc-300 rounded-xl shadow-sm placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-tb-primary focus:border-tb-primary sm:text-sm font-medium"
+                  placeholder="John Doe"
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-[13px] font-medium text-[#111827] mb-1.5">
-                Email Address
+              <label htmlFor="email" className="block text-sm font-bold text-zinc-700">
+                Email address
               </label>
-              <div>
+              <div className="mt-1">
                 <input
                   id="email"
                   name="email"
                   type="email"
                   autoComplete="email"
                   required
-                  className="appearance-none block w-full px-3 py-2.5 border border-zinc-200 rounded-lg shadow-sm placeholder-zinc-400 focus:outline-none focus:ring-1 focus:ring-[#0F3D2E] focus:border-[#0F3D2E] sm:text-[15px] transition-shadow text-[#111827]"
-                  placeholder="you@company.com"
+                  className="appearance-none block w-full px-3 py-2.5 border border-zinc-300 rounded-xl shadow-sm placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-tb-primary focus:border-tb-primary sm:text-sm font-medium"
+                  placeholder="john@trekcompany.com"
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-[13px] font-medium text-[#111827] mb-1.5">
+              <label htmlFor="password" className="block text-sm font-bold text-zinc-700">
                 Password
               </label>
-              <div>
+              <div className="mt-1">
                 <input
                   id="password"
                   name="password"
                   type="password"
                   autoComplete="new-password"
                   required
-                  className="appearance-none block w-full px-3 py-2.5 border border-zinc-200 rounded-lg shadow-sm placeholder-zinc-400 focus:outline-none focus:ring-1 focus:ring-[#0F3D2E] focus:border-[#0F3D2E] sm:text-[15px] transition-shadow text-[#111827]"
-                  placeholder="Create a strong password"
+                  className="appearance-none block w-full px-3 py-2.5 border border-zinc-300 rounded-xl shadow-sm placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-tb-primary focus:border-tb-primary sm:text-sm font-medium"
+                  placeholder="••••••••"
                 />
               </div>
             </div>
 
-            <div className="pt-2">
+            <div>
               <button
                 type="submit"
-                className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-[15px] font-medium text-white bg-[#0F3D2E] hover:bg-[#0a291f] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0F3D2E] transition-colors"
+                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-zinc-900 bg-tb-primary hover:bg-tb-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-tb-primary transition-all active:scale-95"
               >
                 Create Account
               </button>
             </div>
-          </form>
-          
-          <div className="mt-8 text-center">
-            <p className="text-[14px] text-[#6B7280]">
-              Already have an account?{' '}
-              <Link href="/partner/login" className="font-medium text-[#111827] hover:underline">
-                Sign in
-              </Link>
+            
+            <p className="text-xs text-zinc-500 text-center leading-relaxed mt-4">
+              By registering, you agree to TrekBazaar's Partner Terms of Service and Privacy Policy. All applications are subject to a manual verification process.
             </p>
-          </div>
-
-          <div className="mt-8 pt-8 border-t border-zinc-100">
-             <p className="text-[12px] text-[#6B7280] text-center leading-relaxed">
-               By creating an account, you agree to our <Link href="#" className="underline hover:text-[#111827]">Terms of Service</Link> and <Link href="#" className="underline hover:text-[#111827]">Privacy Policy</Link>. All applications are verified.
-             </p>
-          </div>
+          </form>
         </div>
       </div>
     </div>
