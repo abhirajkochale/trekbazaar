@@ -32,9 +32,13 @@ export async function getPublicCompanies(filters: CompanySearchFilters = {}): Pr
       *,
       treks(
         id,
-        master_treks(id, name, region_id, difficulty, category_id, regions(id, name), master_trek_categories(id, name))
-      ),
-      departures(id, departure_date)
+        status,
+        region,
+        difficulty,
+        price_per_person,
+        master_treks(id, name, region_id, difficulty, category_id, regions(id, name), master_trek_categories(id, name)),
+        departures(id, departure_date, status, base_price, offer_price)
+      )
     `)
     .eq('onboarding_status', 'APPROVED');
   
