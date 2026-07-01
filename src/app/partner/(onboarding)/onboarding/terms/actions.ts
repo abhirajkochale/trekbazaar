@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { revalidatePath } from "next/cache";
 
 export async function acceptTermsAction(companyId: string, version: string) {
@@ -9,7 +10,9 @@ export async function acceptTermsAction(companyId: string, version: string) {
 
   if (!user) return { success: false, error: "Not authenticated" };
 
-  const { data: company } = await supabase
+  const adminClient = createAdminClient();
+
+  const { data: company } = await adminClient
     .from("companies")
     .select("id, onboarding_status")
     .eq("id", companyId)
@@ -23,7 +26,7 @@ export async function acceptTermsAction(companyId: string, version: string) {
   const shouldUpdateStatus = ["REGISTERED", "PROFILE_COMPLETED", "DUE_DILIGENCE"].includes(company.onboarding_status);
   const newStatus = shouldUpdateStatus ? "TERMS_ACCEPTED" : company.onboarding_status;
 
-  const { error } = await supabase
+  const { error } = await adminClient
     .from("companies")
     .update({ 
       terms_accepted_at: new Date().toISOString(),

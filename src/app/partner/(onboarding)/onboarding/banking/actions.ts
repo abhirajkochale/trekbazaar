@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { revalidatePath } from "next/cache";
 
 export async function saveBankingAction(companyId: string, formData: FormData) {
@@ -9,7 +10,9 @@ export async function saveBankingAction(companyId: string, formData: FormData) {
 
   if (!user) return { success: false, error: "Not authenticated" };
 
-  const { data: company } = await supabase
+  const adminClient = createAdminClient();
+
+  const { data: company } = await adminClient
     .from("companies")
     .select("id, onboarding_status")
     .eq("id", companyId)
@@ -34,7 +37,7 @@ export async function saveBankingAction(companyId: string, formData: FormData) {
     bank_account_type
   };
 
-  const { error } = await supabase
+  const { error } = await adminClient
     .from("companies")
     .update(payload)
     .eq("id", companyId);
@@ -51,7 +54,9 @@ export async function advanceToNextStepAction(companyId: string) {
 
   if (!user) return { success: false, error: "Not authenticated" };
 
-  const { data: company } = await supabase
+  const adminClient = createAdminClient();
+
+  const { data: company } = await adminClient
     .from("companies")
     .select("id, onboarding_status")
     .eq("id", companyId)
@@ -61,7 +66,7 @@ export async function advanceToNextStepAction(companyId: string) {
   if (!company) return { success: false, error: "Unauthorized" };
 
   if (company.onboarding_status === "TERMS_ACCEPTED") {
-    const { error } = await supabase
+    const { error } = await adminClient
       .from("companies")
       .update({ onboarding_status: "KYC_COMPLETED" })
       .eq("id", companyId);
