@@ -1,9 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { Button } from '@/components/ui/Button';
 import { 
-  Check, X, Building2, Globe, Megaphone, 
-  ShieldAlert, CreditCard, Banknote, HelpCircle 
+  Check, X, ShieldAlert, CreditCard, ArrowRight, Activity 
 } from 'lucide-react';
 
 export const metadata = {
@@ -13,86 +11,157 @@ export const metadata = {
 
 export default function PricingPage() {
   return (
-    <div className="bg-white min-h-screen pt-24 pb-20">
+    <div className="bg-white min-h-screen">
       
       {/* Header */}
-      <section className="text-center max-w-3xl mx-auto px-4 py-20">
-        <div className="inline-flex items-center px-3 py-1 rounded-full bg-emerald-100 text-[#1B5E3C] font-bold text-sm mb-6 border border-emerald-200">
-          No Hidden Charges
+      <section className="bg-zinc-50 pt-32 pb-24 border-b border-zinc-200">
+        <div className="text-center max-w-4xl mx-auto px-4">
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-emerald-100 text-emerald-800 font-bold text-xs uppercase tracking-widest mb-8 border border-emerald-200 shadow-sm">
+            Zero Fixed Costs. Zero Setup Fees.
+          </div>
+          <h1 className="text-5xl md:text-7xl font-black text-zinc-900 mb-8 tracking-tight leading-[1.1]">
+            We succeed only when <span className="text-[#1B5E3C]">you succeed.</span>
+          </h1>
+          <p className="text-xl text-zinc-600 leading-relaxed font-medium max-w-2xl mx-auto">
+            TrekBazaar takes a flat commission on successful bookings. We reinvest that revenue into marketing your treks and maintaining world-class software.
+          </p>
         </div>
-        <h1 className="text-4xl md:text-6xl font-black text-zinc-900 mb-6 tracking-tight">
-          Simple, Transparent Partnership
-        </h1>
-        <p className="text-xl text-zinc-600 leading-relaxed font-medium">
-          Opening a partner account is 100% free. You only pay when we deliver a successful booking.
-        </p>
       </section>
 
-      {/* Main Pricing Card */}
-      <section className="max-w-5xl mx-auto px-4 mb-24">
-        <div className="bg-zinc-900 rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row">
+      {/* Main Pricing Card (Stripe-esque breakdown) */}
+      <section className="max-w-5xl mx-auto px-4 -mt-12 relative z-10 mb-32">
+        <div className="bg-zinc-900 rounded-[2.5rem] overflow-hidden shadow-2xl flex flex-col md:flex-row border border-zinc-800">
           
           {/* Left: The Number */}
-          <div className="p-12 md:w-2/5 border-b md:border-b-0 md:border-r border-zinc-700 flex flex-col justify-center items-center text-center bg-zinc-950">
-            <div className="text-6xl font-black text-white mb-2">12<span className="text-[#D4AF37]">%</span></div>
-            <div className="text-xl font-bold text-zinc-400 uppercase tracking-widest">Commission</div>
-            <p className="mt-4 text-zinc-500 text-sm">
-              Flat rate per successful booking.<br/>Includes all payment gateway fees.
-            </p>
+          <div className="p-12 md:p-16 md:w-5/12 bg-[#0F3D2E] flex flex-col justify-center relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#1B5E3C] rounded-full blur-[80px] opacity-50 -translate-y-1/2 translate-x-1/2"></div>
+            
+            <div className="relative z-10">
+              <div className="text-sm font-bold text-[#D4AF37] uppercase tracking-widest mb-4">Flat Platform Fee</div>
+              <div className="flex items-baseline gap-1 mb-2">
+                <div className="text-7xl font-black text-white tracking-tighter">12<span className="text-4xl text-[#D4AF37]">%</span></div>
+              </div>
+              <div className="text-xl font-medium text-zinc-300 mb-8">
+                Per successful booking
+              </div>
+              
+              <div className="space-y-4">
+                <div className="bg-black/20 p-4 rounded-xl border border-white/10 backdrop-blur-sm">
+                  <div className="text-sm text-zinc-400 font-medium mb-1">Example: ₹10,000 Booking</div>
+                  <div className="flex justify-between items-center">
+                    <div className="font-bold text-white">Your Payout</div>
+                    <div className="font-black text-emerald-400">₹8,800</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Right: What's Included */}
-          <div className="p-10 md:p-12 md:w-3/5 bg-[#0F3D2E]">
-            <h3 className="text-2xl font-bold text-white mb-6">What&apos;s included in the commission?</h3>
-            <ul className="space-y-4">
+          <div className="p-12 md:p-16 md:w-7/12 bg-zinc-900">
+            <h3 className="text-2xl font-bold text-white mb-8">Everything included. No add-ons.</h3>
+            
+            <div className="grid sm:grid-cols-2 gap-x-8 gap-y-6">
               {[
-                "2% Payment Gateway processing fees",
-                "SEO-optimized Company Microsite",
-                "Placement on the TrekBazaar Search Engine",
-                "Partner Operations Dashboard",
-                "Automated Bank Settlements",
-                "Customer Support & Dispute Resolution"
+                { title: "Payment Gateway", desc: "Covers 2% Razorpay processing fees natively." },
+                { title: "Marketing & SEO", desc: "Google Ads and top ranking for your routes." },
+                { title: "Partner Dashboard", desc: "Manage bookings, inventory, and manifests." },
+                { title: "Automated Payouts", desc: "NEFT/IMPS transfers direct to your bank." },
+                { title: "SMS & Email Ops", desc: "Automated comms sent to your trekkers." },
+                { title: "Dispute Support", desc: "We handle chargebacks and basic support." }
               ].map((item, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <Check className="w-6 h-6 text-[#D4AF37] shrink-0" />
-                  <span className="text-zinc-200 font-medium">{item}</span>
-                </li>
+                <div key={i} className="flex items-start gap-4">
+                  <div className="w-6 h-6 rounded-full bg-[#1B5E3C]/20 flex items-center justify-center shrink-0 mt-0.5">
+                    <Check className="w-3.5 h-3.5 text-[#D4AF37]" />
+                  </div>
+                  <div>
+                    <div className="font-bold text-white text-sm mb-1">{item.title}</div>
+                    <div className="text-xs text-zinc-500 leading-relaxed font-medium">{item.desc}</div>
+                  </div>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Comparison Section */}
-      <section className="py-20 bg-zinc-50 border-y border-zinc-200">
-        <div className="max-w-5xl mx-auto px-4">
+      {/* Deep Dive Policies (Cards) */}
+      <section className="py-24 bg-zinc-50 border-t border-zinc-200">
+        <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-black text-zinc-900">The true cost of running it yourself</h2>
-            <p className="text-zinc-600 mt-4 text-lg">See why paying commission is cheaper than building this infrastructure.</p>
+            <h2 className="text-3xl md:text-4xl font-black text-zinc-900 tracking-tight">How we handle the edge cases</h2>
+            <p className="text-lg text-zinc-600 font-medium mt-4">Transparent policies protecting your business and the customer.</p>
           </div>
 
-          <div className="bg-white rounded-2xl border border-zinc-200 overflow-hidden shadow-sm">
-            <div className="grid grid-cols-3 bg-zinc-100 border-b border-zinc-200 p-4 font-bold text-zinc-900">
-              <div>Feature</div>
-              <div className="text-center">Manual (WhatsApp/Forms)</div>
-              <div className="text-center text-[#1B5E3C]">TrekBazaar</div>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm">
+               <div className="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center mb-6">
+                 <CreditCard className="w-6 h-6 text-emerald-600" />
+               </div>
+               <h3 className="text-xl font-bold text-zinc-900 mb-3">Escrow & Settlements</h3>
+               <p className="text-zinc-600 font-medium leading-relaxed mb-4">
+                 When a customer books, funds are held in a nodal escrow account. Once the trek's return date is crossed successfully, the funds (minus 12%) are settled to you within 3 business days.
+               </p>
+               <div className="text-sm font-bold text-zinc-900 bg-zinc-50 p-3 rounded-lg">Why? Prevents scam operators from taking money and disappearing.</div>
+            </div>
+
+            <div className="bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm">
+               <div className="w-12 h-12 bg-amber-50 rounded-xl flex items-center justify-center mb-6">
+                 <ShieldAlert className="w-6 h-6 text-amber-600" />
+               </div>
+               <h3 className="text-xl font-bold text-zinc-900 mb-3">Customer Cancellations</h3>
+               <p className="text-zinc-600 font-medium leading-relaxed mb-4">
+                 You define your own refund slab policy during onboarding (e.g., 50% refund if &lt; 10 days). If a trekker cancels within an eligible window, we auto-refund them. <strong className="text-zinc-900">We do not charge the 12% commission on refunded amounts.</strong>
+               </p>
+            </div>
+
+            <div className="bg-white p-8 rounded-3xl border border-zinc-200 shadow-sm">
+               <div className="w-12 h-12 bg-red-50 rounded-xl flex items-center justify-center mb-6">
+                 <Activity className="w-6 h-6 text-red-600" />
+               </div>
+               <h3 className="text-xl font-bold text-zinc-900 mb-3">Operator Cancellations</h3>
+               <p className="text-zinc-600 font-medium leading-relaxed mb-4">
+                 If you cancel a batch due to extreme weather or force majeure, you must issue a 100% refund to the trekkers via the dashboard. We waive our platform fee entirely in this scenario.
+               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ROI / Build vs Buy Comparison */}
+      <section className="py-32 bg-white">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-black text-zinc-900 tracking-tight">
+              Is 12% worth it?
+            </h2>
+            <p className="text-xl text-zinc-600 font-medium mt-6">
+              Compare the true costs of building your own infrastructure vs partnering with TrekBazaar.
+            </p>
+          </div>
+
+          <div className="bg-zinc-50 rounded-3xl border border-zinc-200 overflow-hidden shadow-sm">
+            <div className="grid grid-cols-12 bg-zinc-100 border-b border-zinc-200 p-6 font-bold text-zinc-900 text-sm uppercase tracking-wider">
+              <div className="col-span-6 md:col-span-6">Infrastructure</div>
+              <div className="col-span-3 md:col-span-3 text-center text-zinc-500">Do It Yourself</div>
+              <div className="col-span-3 md:col-span-3 text-center text-[#1B5E3C]">TrekBazaar</div>
             </div>
             
             {[
-              { name: "Online Visibility", manual: false, tb: true },
-              { name: "Payment Processing", manual: false, tb: true },
-              { name: "Booking Management", manual: false, tb: true },
-              { name: "Trust & Credibility", manual: false, tb: true },
-              { name: "Automated Receipts", manual: false, tb: true },
-              { name: "Customer Reviews", manual: false, tb: true },
+              { name: "Payment Gateway Setup & Fees", diy: "~2.5% + Setup", tb: "Included" },
+              { name: "Website Hosting & Maintenance", diy: "₹15,000/yr", tb: "Included" },
+              { name: "Google Ads & SEO Marketing", diy: "₹40,000+/mo", tb: "Included" },
+              { name: "Automated SMS/Email Comms", diy: "₹5,000/yr", tb: "Included" },
+              { name: "Booking Management Software", diy: "₹2,000/mo", tb: "Included" },
+              { name: "Trust & Credibility Badge", diy: "Impossible", tb: "Included" },
             ].map((row, i) => (
-              <div key={i} className={`grid grid-cols-3 p-4 border-b border-zinc-100 ${i % 2 === 0 ? 'bg-white' : 'bg-zinc-50'}`}>
-                <div className="font-medium text-zinc-700 flex items-center">{row.name}</div>
-                <div className="flex justify-center items-center">
-                  {row.manual ? <Check className="w-5 h-5 text-zinc-400" /> : <X className="w-5 h-5 text-red-400" />}
+              <div key={i} className="grid grid-cols-12 p-6 border-b border-zinc-100 bg-white hover:bg-zinc-50 transition-colors">
+                <div className="col-span-6 md:col-span-6 font-bold text-zinc-800 flex items-center">{row.name}</div>
+                <div className="col-span-3 md:col-span-3 flex justify-center items-center text-zinc-500 font-medium text-sm text-center">
+                  {row.diy}
                 </div>
-                <div className="flex justify-center items-center">
-                  {row.tb ? <Check className="w-5 h-5 text-[#1B5E3C]" /> : <X className="w-5 h-5 text-red-400" />}
+                <div className="col-span-3 md:col-span-3 flex justify-center items-center font-black text-[#1B5E3C] text-sm text-center">
+                  {row.tb}
                 </div>
               </div>
             ))}
@@ -100,34 +169,11 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* Policies */}
-      <section className="py-24 max-w-5xl mx-auto px-4">
-        <h2 className="text-3xl font-black text-zinc-900 mb-12 text-center">Important Partnership Policies</h2>
-        
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="p-8 rounded-2xl bg-zinc-50 border border-zinc-200">
-            <Banknote className="w-8 h-8 text-[#1B5E3C] mb-4" />
-            <h3 className="text-xl font-bold text-zinc-900 mb-2">Settlements</h3>
-            <p className="text-zinc-600 leading-relaxed">
-              To protect customers, funds are held in escrow until the trek concludes. Once the return date passes, 88% of the booking value (100% - 12% commission) is automatically settled to your verified bank account within 3 business days.
-            </p>
-          </div>
-          
-          <div className="p-8 rounded-2xl bg-zinc-50 border border-zinc-200">
-            <ShieldAlert className="w-8 h-8 text-amber-600 mb-4" />
-            <h3 className="text-xl font-bold text-zinc-900 mb-2">Cancellations & Refunds</h3>
-            <p className="text-zinc-600 leading-relaxed">
-              If a customer cancels within your allowed policy window, we process the refund automatically. We do not charge the 12% commission on refunded amounts. If you cancel the trek, full refunds are mandatory.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
-      <section className="max-w-3xl mx-auto px-4 text-center pb-10">
-        <h2 className="text-3xl font-black text-zinc-900 mb-6">Ready to list your company?</h2>
-        <Link href="/partner/register" className="inline-flex items-center justify-center bg-[#D4AF37] hover:bg-[#c4a132] text-zinc-900 font-bold px-10 h-14 rounded-xl text-lg shadow-xl transition-all hover:-translate-y-1">
-          Start Verification
+      <section className="bg-zinc-900 py-24 text-center px-4">
+        <h2 className="text-4xl md:text-5xl font-black text-white mb-8 tracking-tight">Stop building software.<br/>Start building experiences.</h2>
+        <Link href="/partner/register" className="inline-flex items-center justify-center bg-[#D4AF37] hover:bg-[#c4a132] text-zinc-900 font-black px-12 h-16 rounded-xl text-lg shadow-[0_0_30px_-10px_rgba(212,175,55,0.4)] transition-all hover:scale-105">
+          Apply as a Partner <ArrowRight className="w-5 h-5 ml-2" />
         </Link>
       </section>
     </div>
