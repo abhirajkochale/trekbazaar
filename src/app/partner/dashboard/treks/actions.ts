@@ -9,6 +9,7 @@ export async function saveCompanyTrekAction(payload: Partial<Trek>) {
     const trek = await saveCompanyTrek(payload);
     revalidatePath("/partner/dashboard/treks");
     revalidatePath(`/partner/dashboard/treks/${trek.id}/edit`);
+    revalidatePath("/", "layout"); // Revalidate all public routes so changes show immediately
     return { success: true, trekId: trek.id };
   } catch (error: unknown) {
     const msg = error instanceof Error ? error.message : "Failed to save trek";

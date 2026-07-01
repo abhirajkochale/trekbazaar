@@ -22,10 +22,12 @@ export async function saveTrekAction(trekData: Partial<Trek>): Promise<SaveTrekR
       await updateTrek(trekData.id, trekData);
       revalidatePath("/admin/treks");
       revalidatePath(`/admin/treks/${trekData.id}/edit`);
+      revalidatePath("/", "layout"); // Revalidate all public routes
       return { success: true, trekId: trekData.id };
     } else {
       const newTrek = await createTrek(trekData);
       revalidatePath("/admin/treks");
+      revalidatePath("/", "layout"); // Revalidate all public routes
       return { success: true, trekId: newTrek.id };
     }
   } catch (error: unknown) {
@@ -38,6 +40,7 @@ export async function removeTrekAction(id: string) {
   try {
     await deleteTrek(id);
     revalidatePath("/admin/treks");
+    revalidatePath("/", "layout");
     return { success: true };
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Failed to delete trek.";
@@ -49,6 +52,7 @@ export async function duplicateTrekAction(id: string) {
   try {
     const newId = await duplicateTrek(id);
     revalidatePath("/admin/treks");
+    revalidatePath("/", "layout");
     return { success: true, newId };
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Failed to duplicate trek.";
@@ -60,6 +64,7 @@ export async function togglePublishAction(id: string, currentStatus: string) {
   try {
     await togglePublished(id, currentStatus);
     revalidatePath("/admin/treks");
+    revalidatePath("/", "layout");
     return { success: true };
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Failed to toggle status.";
