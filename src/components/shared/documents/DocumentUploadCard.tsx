@@ -26,7 +26,10 @@ export function DocumentUploadCard({
   readOnly = false
 }: DocumentUploadCardProps) {
   const [isUploading, setIsUploading] = useState(false);
+  const [uploadedDocument, setUploadedDocument] = useState<PartnerDocument | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const activeDocument = uploadedDocument || existingDocument;
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -51,6 +54,18 @@ export function DocumentUploadCard({
         await onUploadComplete(documentType, url);
       }
       
+      setUploadedDocument({
+        id: 'temp',
+        company_id: companyId,
+        document_type: documentType,
+        file_url: url,
+        status: 'PENDING',
+        review_notes: null,
+        uploaded_at: new Date().toISOString(),
+        reviewed_at: null,
+        reviewed_by: null
+      });
+      
       toast.success('Document uploaded successfully');
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
@@ -64,9 +79,9 @@ export function DocumentUploadCard({
   };
 
   const getStatusDisplay = () => {
-    if (!existingDocument) return null;
+    if (!activeDocument) return null;
 
-    switch (existingDocument.status) {
+    switch (activeDocument.status) {
       case 'APPROVED':
         return (
           <div className="flex items-center gap-1.5 text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full text-xs font-bold border border-emerald-200">
@@ -90,7 +105,7 @@ export function DocumentUploadCard({
   };
 
   return (
-    <div className={`bg-white border rounded-2xl overflow-hidden transition-all duration-300 ${existingDocument?.status === 'REJECTED' ? 'border-red-300 shadow-sm shadow-red-100' : 'border-zinc-200 shadow-sm'}`}>
+    <div className={`bg-white border rounded-2xl overflow-hidden transition-all duration-300 ${activeDocument?.status === 'REJECTED' ? 'border-red-300 shadow-sm shadow-red-100' : 'border-zinc-200 shadow-sm'}`}>
       <div className="p-6 md:p-8">
         <div className="flex flex-col md:flex-row gap-6 md:items-start justify-between">
           
@@ -101,7 +116,7 @@ export function DocumentUploadCard({
             </div>
             <p className="text-sm font-medium text-zinc-500 leading-relaxed max-w-xl">{description}</p>
             
-            {!existingDocument && !readOnly && (
+            {!activeDocument && !readOnly && (
               <div className="flex items-center gap-4 text-xs font-medium text-zinc-400">
                 <span className="flex items-center gap-1"><FileText className="w-3.5 h-3.5" /> PDF, JPG, PNG</span>
                 <span>•</span>
@@ -109,12 +124,12 @@ export function DocumentUploadCard({
               </div>
             )}
 
-            {existingDocument?.status === 'REJECTED' && existingDocument.review_notes && (
+            {activeDocument?.status === 'REJECTED' && activeDocument.review_notes && (
               <div className="mt-4 bg-red-50 text-red-700 p-4 rounded-xl text-sm font-medium border border-red-100 flex items-start gap-3">
                 <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
                 <div>
                   <div className="font-bold mb-1">Update required</div>
-                  {existingDocument.review_notes}
+                  {activeDocument.review_notes}
                 </div>
               </div>
             )}
@@ -127,13 +142,13 @@ export function DocumentUploadCard({
               onChange={handleFileSelect}
               accept=".pdf,.jpg,.jpeg,.png"
               className="hidden"
-              disabled={isUploading || readOnly || existingDocument?.status === 'APPROVED'}
+              disabled={isUploading || readOnly || activeDocument?.status === 'APPROVED'}
             />
             
-            {existingDocument ? (
+            {activeDocument ? (
               <div className="space-y-3">
                 <a 
-                  href={existingDocument.file_url} 
+                  href={activeDocument.file_url} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="flex flex-col items-center justify-center w-full aspect-[4/3] rounded-xl border-2 border-zinc-200 bg-zinc-50 hover:bg-zinc-100 hover:border-zinc-300 transition-all group overflow-hidden relative"
@@ -146,7 +161,7 @@ export function DocumentUploadCard({
                   </div>
                 </a>
                 
-                {!readOnly && existingDocument.status !== 'APPROVED' && (
+                {!readOnly && activeDocument.status !== 'APPROVED' && (
                   <button
                     type="button"
                     onClick={() => fileInputRef.current?.click()}

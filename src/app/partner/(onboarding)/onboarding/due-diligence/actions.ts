@@ -65,7 +65,7 @@ export async function savePartnerDocumentAction(companyId: string, documentType:
     return { success: false, error: error.message };
   }
 
-  revalidatePath("/partner/onboarding/due-diligence");
+  revalidatePath("/partner/onboarding", "layout");
   return { success: true };
 }
 
