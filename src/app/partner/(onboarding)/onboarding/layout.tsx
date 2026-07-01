@@ -19,19 +19,29 @@ export default async function WizardLayout({ children }: { children: React.React
     const adminClient = createAdminClient();
     const uniqueSlug = `company-${ctx.user.id.substring(0, 12)}`;
     
-    await adminClient.from("companies").insert({
+    const { error } = await adminClient.from("companies").insert({
       owner_id: ctx.user.id,
+      name: "New Partner Company",
       slug: uniqueSlug,
       onboarding_status: "REGISTERED",
       status: "suspended",
       featured: false
     });
     
-    // Force a hard refresh to grab the new company context
-    redirect("/partner/onboarding");
+    if (error) {
+      console.error("Failed to initialize company", error);
+      return (
+        <div className="flex flex-col items-center justify-center min-h-screen p-4">
+          <h1 className="text-xl font-bold text-red-500">Initialization Failed</h1>
+          <p className="text-zinc-600 mt-2">{error.message}</p>
+        </div>
+      );
+    }
   }
 
-  const status = ctx.status === "ok" ? ctx.company.onboarding_status : null;
+  // We fetch context again because we might have just created the company
+  const finalCtx = await getCompanyContext();
+  const status = finalCtx.status === "ok" ? finalCtx.company.onboarding_status : null;
 
   return (
     <div className="w-full min-h-screen bg-zinc-50 flex flex-col">

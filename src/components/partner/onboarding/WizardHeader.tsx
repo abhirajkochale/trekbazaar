@@ -13,7 +13,7 @@ export const STEPS = [
 ];
 
 export function WizardHeader({ status }: { status: string | null }) {
-  const pathname = usePathname();
+  const pathname = usePathname() || "";
 
   // Find the step corresponding to the current URL
   const currentStepIndex = STEPS.findIndex(step => pathname.includes(step.path));
