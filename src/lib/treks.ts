@@ -18,7 +18,10 @@ export const getActiveTreks = cache(async (): Promise<Trek[]> => {
     console.error("Failed to load treks:", error.message);
     return [];
   }
-  return (data ?? []) as Trek[];
+  return (data ?? []).map((t: any) => ({
+    ...t,
+    gallery: t.gallery_images || [],
+  })) as Trek[];
 });
 
 /**
@@ -41,7 +44,10 @@ export const getTrekBySlug = cache(
       return null;
     }
 
-    const trek = data as Trek;
+    const trek = {
+      ...data,
+      gallery: data.gallery_images || [],
+    } as Trek;
 
     // Fetch upcoming and full departures
     const { data: departures } = await supabase
@@ -96,7 +102,10 @@ export const getRelatedTreks = cache(async (currentTrek: Trek): Promise<Trek[]> 
     }
   }
 
-  return (related ?? []) as Trek[];
+  return (related ?? []).map((t: any) => ({
+    ...t,
+    gallery: t.gallery_images || [],
+  })) as Trek[];
 });
 
 export const getRegionBySlug = cache(async (slug: string): Promise<Region | null> => {
@@ -142,5 +151,8 @@ export const getTreksByRegion = cache(async (regionSlug: string): Promise<Trek[]
     .eq("region", region.name)
     .order("created_at", { ascending: false });
 
-  return (data ?? []) as Trek[];
+  return (data ?? []).map((t: any) => ({
+    ...t,
+    gallery: t.gallery_images || [],
+  })) as Trek[];
 });

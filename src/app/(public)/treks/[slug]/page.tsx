@@ -10,6 +10,7 @@ import { Highlights } from '@/components/trek/details/Highlights';
 import { ItineraryTimeline } from '@/components/trek/details/ItineraryTimeline';
 import { StickySidebar } from '@/components/trek/details/StickySidebar';
 import { RelatedTreks } from '@/components/trek/details/RelatedTreks';
+import { TrekImageGallery } from '@/components/trek/details/TrekImageGallery';
 
 interface TrekDetailsPageProps {
   params: Promise<{ slug: string }>;
@@ -53,6 +54,7 @@ export default async function TrekDetailsPage({ params }: TrekDetailsPageProps) 
             <div className="flex-1 w-full min-w-0 flex flex-col">
               <TrekOverview trek={trek} />
               <QuickFacts trek={trek} />
+              <TrekImageGallery trek={trek} />
               <Highlights trek={trek} />
               <ItineraryTimeline trek={trek} />
             </div>
