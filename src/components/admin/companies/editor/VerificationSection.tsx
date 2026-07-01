@@ -21,11 +21,16 @@ export function VerificationSection({ company, updateField }: Props) {
           onChange={(e) => updateField('onboarding_status', e.target.value as Company['onboarding_status'])}
           className={inputClasses}
         >
-          <option value="pending">Pending</option>
-          <option value="approved">Approved</option>
-          <option value="rejected">Rejected</option>
-          <option value="changes_requested">Changes Requested</option>
-          <option value="suspended">Suspended</option>
+          <option value="REGISTERED">Registered</option>
+          <option value="PROFILE_COMPLETED">Profile Completed</option>
+          <option value="DUE_DILIGENCE">Due Diligence</option>
+          <option value="TERMS_ACCEPTED">Terms Accepted</option>
+          <option value="KYC_COMPLETED">KYC Completed</option>
+          <option value="READY_FOR_REVIEW">Ready For Review</option>
+          <option value="APPROVED">Approved</option>
+          <option value="REJECTED">Rejected</option>
+          <option value="CHANGES_REQUESTED">Changes Requested</option>
+          <option value="SUSPENDED">Suspended</option>
         </select>
       </div>
 
