@@ -15,8 +15,13 @@ export function HeroGallery({ masterTrek }: Props) {
   const defaultImage = 'https://images.unsplash.com/photo-1522163182402-834f871fd851?auto=format&fit=crop&q=80&w=2000';
   let rawImages: string[] = [];
   
-  if (Array.isArray(masterTrek.gallery) && masterTrek.gallery.length > 0) {
-    rawImages = masterTrek.gallery;
+  let parsedGallery = masterTrek.gallery;
+  if (typeof parsedGallery === 'string') {
+    try { parsedGallery = JSON.parse(parsedGallery); } catch (e) {}
+  }
+
+  if (Array.isArray(parsedGallery) && parsedGallery.length > 0) {
+    rawImages = masterTrek.cover_image ? [masterTrek.cover_image, ...parsedGallery] : parsedGallery;
   } else if (masterTrek.cover_image) {
     rawImages = [masterTrek.cover_image];
   } else {

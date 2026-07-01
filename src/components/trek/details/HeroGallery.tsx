@@ -15,19 +15,26 @@ export function HeroGallery({ trek }: HeroGalleryProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
-  // Realistic fallback images if no gallery provided
-  let images: string[];
-  if (Array.isArray(trek.gallery) && trek.gallery.length > 0) {
-    images = trek.gallery;
-  } else {
-    images = [
-      trek.cover_image_url || 'https://images.unsplash.com/photo-1522163182402-834f871fd851?auto=format&fit=crop&q=80&w=1920',
-      'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=1920',
-      'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&q=80&w=1920',
-      'https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?auto=format&fit=crop&q=80&w=1920',
-      'https://images.unsplash.com/photo-1516466723877-e4ec1d736c8a?auto=format&fit=crop&q=80&w=1920',
-    ];
+  const defaultImage = 'https://images.unsplash.com/photo-1522163182402-834f871fd851?auto=format&fit=crop&q=80&w=1920';
+  let rawImages: string[] = [];
+
+  let parsedGallery = trek.gallery;
+  if (typeof parsedGallery === 'string') {
+    try { parsedGallery = JSON.parse(parsedGallery); } catch (e) {}
   }
+
+  if (Array.isArray(parsedGallery) && parsedGallery.length > 0) {
+    // If they uploaded a cover image but it's not in the gallery, we could prepend it
+    // But usually cover image is just the first gallery image or standalone. 
+    // Let's just use what they provided in gallery, or prepend cover if available
+    rawImages = trek.cover_image_url ? [trek.cover_image_url, ...parsedGallery] : parsedGallery;
+  } else if (trek.cover_image_url) {
+    rawImages = [trek.cover_image_url];
+  } else {
+    rawImages = [defaultImage];
+  }
+
+  const images = Array.from(new Set(rawImages));
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (!lightboxOpen) return;
@@ -117,7 +124,7 @@ export function HeroGallery({ trek }: HeroGalleryProps) {
 
             {/* Desktop Thumbnails Overlay */}
             <div className="hidden md:flex gap-3 pointer-events-auto shrink-0 mb-2">
-              {images.map((img, idx) => (
+              {images.length > 1 && images.map((img, idx) => (
                 <button
                   key={idx}
                   onClick={(e) => { e.stopPropagation(); setActiveIndex(idx); }}
@@ -134,20 +141,22 @@ export function HeroGallery({ trek }: HeroGalleryProps) {
         </div>
 
         {/* Mobile Horizontal Swipe Thumbnails */}
-        <div className="md:hidden flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-2 p-4 bg-tb-sys-background">
-          {images.map((img, idx) => (
-            <button
-              key={idx}
-              onClick={() => setActiveIndex(idx)}
-              className={`relative shrink-0 snap-start w-24 h-20 rounded-lg overflow-hidden border-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tb-primary ${
-                activeIndex === idx ? 'border-tb-primary shadow-sm' : 'border-transparent opacity-70 hover:opacity-100'
-              }`}
-              aria-label={`View image ${idx + 1}`}
-            >
-              <Image src={img} alt={`Thumbnail ${idx + 1}`} fill className="object-cover" sizes="96px" />
-            </button>
-          ))}
-        </div>
+        {images.length > 1 && (
+          <div className="md:hidden flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-2 p-4 bg-tb-sys-background">
+            {images.map((img, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveIndex(idx)}
+                className={`relative shrink-0 snap-start w-24 h-20 rounded-lg overflow-hidden border-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tb-primary ${
+                  activeIndex === idx ? 'border-tb-primary shadow-sm' : 'border-transparent opacity-70 hover:opacity-100'
+                }`}
+                aria-label={`View image ${idx + 1}`}
+              >
+                <Image src={img} alt={`Thumbnail ${idx + 1}`} fill className="object-cover" sizes="96px" />
+              </button>
+            ))}
+          </div>
+        )}
       </section>
 
       {/* Lightbox Modal */}
