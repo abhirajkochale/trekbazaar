@@ -6,6 +6,7 @@ import { WishlistProvider } from "@/providers/WishlistProvider";
 import { MasterWishlistProvider } from "@/providers/MasterWishlistProvider";
 import { RecentlyViewedProvider } from "@/providers/RecentlyViewedProvider";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -102,6 +103,7 @@ export default function RootLayout({
         )}
 
         <ScrollToTop />
+        <Toaster position="bottom-right" />
         <RecentlyViewedProvider>
           <WishlistProvider>
             <MasterWishlistProvider>

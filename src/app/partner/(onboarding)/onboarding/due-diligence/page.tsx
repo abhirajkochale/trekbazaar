@@ -19,13 +19,18 @@ export default async function DueDiligencePage() {
     .eq('company_id', ctx.company.id);
 
   return (
-    <div className="max-w-3xl">
-      <div className="mb-8">
-        <h1 className="text-3xl font-black text-zinc-900 tracking-tight mb-2">Due Diligence</h1>
-        <p className="text-zinc-500 font-medium">Please upload the required compliance documents to verify your business identity.</p>
+    <div className="animate-in fade-in slide-in-from-bottom-4 duration-300">
+      <div className="mb-10">
+        <h1 className="text-3xl font-black text-zinc-900 tracking-tight mb-3">Due Diligence</h1>
+        <p className="text-zinc-500 font-medium leading-relaxed max-w-xl">
+          These documents help us verify your company before customers can book with you. Verification usually takes 24-48 hours after final submission.
+        </p>
       </div>
 
-      <DueDiligenceForm companyId={ctx.company.id} documents={(documents || []) as PartnerDocument[]} />
+      <DueDiligenceForm 
+        companyId={ctx.company.id} 
+        existingDocuments={(documents as PartnerDocument[]) || []} 
+      />
     </div>
   );
 }

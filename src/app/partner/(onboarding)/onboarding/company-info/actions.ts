@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { revalidatePath } from "next/cache";
 
 export async function saveCompanyInfoAction(formData: FormData) {
@@ -55,9 +56,9 @@ export async function saveCompanyInfoAction(formData: FormData) {
       .eq("id", existingCompany.id);
     error = updateError;
   } else {
-    // We create via admin client to bypass RLS initially as done before, or use the standard client if RLS allows inserts.
-    // Assuming RLS allows insert for authenticated users with owner_id = auth.uid()
-    const { error: insertError } = await supabase
+    // We create via admin client to bypass RLS initially because the user doesn't have an insert policy
+    const adminSupabase = createAdminClient();
+    const { error: insertError } = await adminSupabase
       .from("companies")
       .insert({
         ...payload,

@@ -1,30 +1,20 @@
 import React from 'react';
 import { getCompanyContext } from '@/lib/company/auth';
-import { redirect } from 'next/navigation';
 import { CompanyInfoForm } from './CompanyInfoForm';
 
 export default async function CompanyInfoPage() {
   const ctx = await getCompanyContext();
-  
-  if (ctx.status === "unauthenticated") {
-    redirect("/partner/login");
-  }
-
-  // Pass existing data if any
   const initialData = ctx.status === "ok" ? ctx.company : null;
 
   return (
-    <div className="max-w-3xl">
-      <div className="mb-8">
-        <h1 className="text-3xl font-black text-zinc-900 tracking-tight mb-2">Company Information</h1>
-        <p className="text-zinc-500 font-medium">Tell us about your organization. This information will be displayed on your public profile.</p>
+    <div className="animate-in fade-in slide-in-from-bottom-4 duration-300">
+      <div className="mb-10">
+        <h1 className="text-3xl font-black text-zinc-900 tracking-tight mb-3">Company Information</h1>
+        <p className="text-zinc-500 font-medium leading-relaxed max-w-xl">
+          Tell us about your organization so customers can trust your profile. Profiles with complete information convert 40% better on the marketplace.
+        </p>
       </div>
-
-      <div className="bg-white rounded-2xl shadow-sm border border-zinc-200 overflow-hidden">
-        <div className="p-8">
-          <CompanyInfoForm initialData={initialData} />
-        </div>
-      </div>
+      <CompanyInfoForm initialData={initialData} />
     </div>
   );
 }

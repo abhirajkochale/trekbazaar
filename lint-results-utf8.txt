@@ -1,0 +1,270 @@
+﻿
+> trekbazaar@0.1.0 lint
+> eslint
+
+
+C:\Projects\trekbazaar\check-treks.mjs
+  12:17  warning  'error' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Projects\trekbazaar\fix-images.mjs
+  8:7  warning  'BAD_URLS' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Projects\trekbazaar\replace.js
+  1:12  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  2:14  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+
+C:\Projects\trekbazaar\src\app\(public)\account\wishlist\page.tsx
+  12:22  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  13:28  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Projects\trekbazaar\src\app\(public)\companies\page.tsx
+   2:10  warning  'createClient' is defined but never used                         @typescript-eslint/no-unused-vars
+  54:27  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Projects\trekbazaar\src\app\(public)\company\[slug]\page.tsx
+  101:24  error    Unexpected any. Specify a different type          @typescript-eslint/no-explicit-any
+  108:30  error    Unexpected any. Specify a different type          @typescript-eslint/no-explicit-any
+  122:37  error    Unexpected any. Specify a different type          @typescript-eslint/no-explicit-any
+  152:9   warning  'avgDuration' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  171:42  error    Unexpected any. Specify a different type          @typescript-eslint/no-explicit-any
+  172:49  error    Unexpected any. Specify a different type          @typescript-eslint/no-explicit-any
+  177:44  error    Unexpected any. Specify a different type          @typescript-eslint/no-explicit-any
+
+C:\Projects\trekbazaar\src\app\(public)\login\page.tsx
+  26:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Projects\trekbazaar\src\app\(public)\setup-password\page.tsx
+  24:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Projects\trekbazaar\src\app\(public)\signup\page.tsx
+  26:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Projects\trekbazaar\src\app\actions\upload.ts
+  26:11  warning  'data' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Projects\trekbazaar\src\app\admin\(dashboard)\partner-applications\[id]\ApplicationActions.tsx
+  7:20  warning  'Clock' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Projects\trekbazaar\src\app\admin\(dashboard)\partner-applications\[id]\page.tsx
+   4:10  warning  'ShieldCheck' is defined but never used                                                                                                                                                                                                                                                  @typescript-eslint/no-unused-vars
+   4:23  warning  'XCircle' is defined but never used                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+   4:32  warning  'Clock' is defined but never used                                                                                                                                                                                                                                                        @typescript-eslint/no-unused-vars
+   4:39  warning  'AlertCircle' is defined but never used                                                                                                                                                                                                                                                  @typescript-eslint/no-unused-vars
+  22:92  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                                                                                                                                                          react/no-unescaped-entities
+  35:19  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Projects\trekbazaar\src\app\admin\(dashboard)\partner-applications\page.tsx
+   9:50  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  68:29  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Projects\trekbazaar\src\app\api\partner\auth\register\route.ts
+  12:11  warning  'data' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Projects\trekbazaar\src\app\partner\(marketing)\page.tsx
+  28:11  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  44:25  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`                                                                                                                                                                                                                          react/no-unescaped-entities
+
+C:\Projects\trekbazaar\src\app\partner\(marketing)\register\page.tsx
+  102:54  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Projects\trekbazaar\src\app\partner\(onboarding)\onboarding\banking\BankingForm.tsx
+  12:110  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  27:37   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Projects\trekbazaar\src\app\partner\(onboarding)\onboarding\company-info\CompanyInfoForm.tsx
+  10:65  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Projects\trekbazaar\src\app\partner\(onboarding)\onboarding\due-diligence\DueDiligenceForm.tsx
+  3:42  warning  'useEffect' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Projects\trekbazaar\src\app\partner\(onboarding)\onboarding\layout.tsx
+  4:8   warning  'Link' is defined but never used              @typescript-eslint/no-unused-vars
+  5:10  warning  'CheckCircle2' is defined but never used      @typescript-eslint/no-unused-vars
+  6:15  warning  'OnboardingStatus' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Projects\trekbazaar\src\app\partner\(onboarding)\onboarding\status\page.tsx
+   4:52  warning  'ArrowRight' is defined but never used                           @typescript-eslint/no-unused-vars
+   5:8   warning  'Link' is defined but never used                                 @typescript-eslint/no-unused-vars
+  43:24  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Projects\trekbazaar\src\app\partner\(onboarding)\onboarding\terms\TermsForm.tsx
+  139:23  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Projects\trekbazaar\src\app\partner\dashboard\page.tsx
+   6:10  warning  'Map' is defined but never used                                  @typescript-eslint/no-unused-vars
+  64:27  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Projects\trekbazaar\src\components\admin\companies\CompanyRow.tsx
+  12:59  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Projects\trekbazaar\src\components\admin\companies\editor\BasicInfoSection.tsx
+  3:1  warning  Unused eslint-disable directive (no problems were reported from '@next/next/no-img-element')
+
+C:\Projects\trekbazaar\src\components\admin\companies\editor\CompanyEditor.tsx
+  89:6  warning  React Hook useCallback has a missing dependency: 'onSaveOverride'. Either include it or remove the dependency array. If 'onSaveOverride' changes too often, find the parent component that defines it and wrap that definition in useCallback  react-hooks/exhaustive-deps
+
+C:\Projects\trekbazaar\src\components\admin\departures\editor\DepartureEditor.tsx
+  93:6  warning  React Hook useCallback has a missing dependency: 'onSaveOverride'. Either include it or remove the dependency array. If 'onSaveOverride' changes too often, find the parent component that defines it and wrap that definition in useCallback  react-hooks/exhaustive-deps
+
+C:\Projects\trekbazaar\src\components\admin\shared\FileUploadZone.tsx
+    4:23  warning  'X' is defined but never used                                                                                     @typescript-eslint/no-unused-vars
+    4:50  warning  'Loader2' is defined but never used                                                                               @typescript-eslint/no-unused-vars
+   85:6   warning  React Hook useCallback has a missing dependency: 'handleFiles'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  100:6   warning  React Hook useEffect has a missing dependency: 'handleFiles'. Either include it or remove the dependency array    react-hooks/exhaustive-deps
+
+C:\Projects\trekbazaar\src\components\admin\shared\ImageLightbox.tsx
+  5:40  warning  'ZoomIn' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Projects\trekbazaar\src\components\admin\treks\editor\BasicInfoSection.tsx
+  6:8  warning  'Link' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Projects\trekbazaar\src\components\admin\treks\editor\MediaSection.tsx
+  6:22  warning  'ImageIcon' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Projects\trekbazaar\src\components\auth\GoogleAuthButton.tsx
+   6:8   warning  'Image' is defined but never used         @typescript-eslint/no-unused-vars
+  29:19  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Projects\trekbazaar\src\components\company-profile\ActiveTreks.tsx
+  69:30  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Projects\trekbazaar\src\components\company-profile\BecomePartnerCTA.tsx
+  16:28  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Projects\trekbazaar\src\components\company-profile\CompanyDepartures.tsx
+  6:20  warning  'Users' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Projects\trekbazaar\src\components\company-profile\CompanyFAQ.tsx
+  30:37  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Projects\trekbazaar\src\components\company-profile\CompanyReviews.tsx
+  41:41  error  Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  48:56  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  48:73  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+C:\Projects\trekbazaar\src\components\company-profile\CompanyStats.tsx
+  12:98  warning  'establishedYear' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Projects\trekbazaar\src\components\company-profile\ShareOperator.tsx
+  17:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Projects\trekbazaar\src\components\company-profile\ShareOperator.tsx:17:5
+  15 |
+  16 |   useEffect(() => {
+> 17 |     setUrl(window.location.href);
+     |     ^^^^^^ Avoid calling setState() directly within an effect
+  18 |   }, []);
+  19 |
+  20 |   const handleNativeShare = async () => {  react-hooks/set-state-in-effect
+
+C:\Projects\trekbazaar\src\components\company-profile\TrustSection.tsx
+  3:48  warning  'CheckCircle' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Projects\trekbazaar\src\components\home\HeroSection.tsx
+   5:8   warning  'Link' is defined but never used                                 @typescript-eslint/no-unused-vars
+  47:18  error    `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Projects\trekbazaar\src\components\layout\Footer.tsx
+  15:20  error  `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`  react/no-unescaped-entities
+
+C:\Projects\trekbazaar\src\components\partner\departures\DeparturesClientList.tsx
+  5:34  warning  'ArrowDown' is defined but never used  @typescript-eslint/no-unused-vars
+  5:45  warning  'ArrowUp' is defined but never used    @typescript-eslint/no-unused-vars
+
+C:\Projects\trekbazaar\src\components\partner\layout\CompanySidebar.tsx
+  13:3  warning  'Settings' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Projects\trekbazaar\src\components\public\companies\CompanyCard.tsx
+  21:11  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  38:16  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Projects\trekbazaar\src\components\public\companies\CompanyFilters.tsx
+  18:7  error    Error: Cannot access variable before it is declared
+
+`applyFilters` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.
+
+C:\Projects\trekbazaar\src\components\public\companies\CompanyFilters.tsx:18:7
+  16 |   useEffect(() => {
+  17 |     const handler = setTimeout(() => {
+> 18 |       applyFilters({ q, state, sort });
+     |       ^^^^^^^^^^^^ `applyFilters` accessed before it is declared
+  19 |     }, 400);
+  20 |     return () => clearTimeout(handler);
+  21 |   }, [q, state, sort]);
+
+C:\Projects\trekbazaar\src\components\public\companies\CompanyFilters.tsx:23:3
+  21 |   }, [q, state, sort]);
+  22 |
+> 23 |   const applyFilters = (filters: { q: string; state: string; sort: string }) => {
+     |   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 24 |     const params = new URLSearchParams(searchParams.toString());
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 25 |     
+     ΓÇª
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 35 |     router.push(`/companies?${params.toString()}`);
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 36 |   };
+     | ^^^^^ `applyFilters` is declared here
+  37 |
+  38 |   const clearFilters = () => {
+  39 |     setQ('');  react-hooks/immutability
+  21:6  warning  React Hook useEffect has a missing dependency: 'applyFilters'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               react-hooks/exhaustive-deps
+
+C:\Projects\trekbazaar\src\components\public\compare\CompareEngine.tsx
+  7:63  warning  'Coffee' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Projects\trekbazaar\src\components\public\master-treks\MasterTrekView.tsx
+  38:9  warning  'operatorName' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Projects\trekbazaar\src\components\region\RegionFeaturedTreks.tsx
+  52:35  warning  'index' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Projects\trekbazaar\src\components\search\MasterTrekSearchCard.tsx
+  8:17  warning  'CalendarDays' is defined but never used  @typescript-eslint/no-unused-vars
+  9:10  warning  'Badge' is defined but never used         @typescript-eslint/no-unused-vars
+
+C:\Projects\trekbazaar\src\components\shared\AutoSaveIndicator.tsx
+  18:7  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Projects\trekbazaar\src\components\shared\AutoSaveIndicator.tsx:18:7
+  16 |   useEffect(() => {
+  17 |     if (!lastSavedAt) {
+> 18 |       setTimeAgo('');
+     |       ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  19 |       return;
+  20 |     }
+  21 |  react-hooks/set-state-in-effect
+
+C:\Projects\trekbazaar\src\components\shared\documents\DocumentUploadCard.tsx
+  57:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Projects\trekbazaar\src\lib\public\companies.ts
+  2:24  warning  'Trek' is defined but never used       @typescript-eslint/no-unused-vars
+  2:30  warning  'Departure' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Projects\trekbazaar\src\lib\public\master-treks.ts
+  38:29  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Projects\trekbazaar\src\providers\MasterWishlistProvider.tsx
+  58:54  warning  'e' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Projects\trekbazaar\src\providers\WishlistProvider.tsx
+  58:54  warning  'e' is defined but never used  @typescript-eslint/no-unused-vars
+  65:58  warning  'e' is defined but never used  @typescript-eslint/no-unused-vars
+
+Γ£û 91 problems (39 errors, 52 warnings)
+  0 errors and 1 warning potentially fixable with the `--fix` option.
+

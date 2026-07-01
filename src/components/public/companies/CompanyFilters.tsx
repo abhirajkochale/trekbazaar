@@ -12,14 +12,6 @@ export function CompanyFilters() {
   const [state, setState] = useState(searchParams.get('state') || '');
   const [sort, setSort] = useState(searchParams.get('sort') || '');
 
-  // Debounced search
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      applyFilters({ q, state, sort });
-    }, 400);
-    return () => clearTimeout(handler);
-  }, [q, state, sort]);
-
   const applyFilters = (filters: { q: string; state: string; sort: string }) => {
     const params = new URLSearchParams(searchParams.toString());
     
@@ -34,6 +26,17 @@ export function CompanyFilters() {
     
     router.push(`/companies?${params.toString()}`);
   };
+
+  // Debounced search
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      applyFilters({ q, state, sort });
+    }, 400);
+    return () => clearTimeout(handler);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [q, state, sort]);
+
+
 
   const clearFilters = () => {
     setQ('');

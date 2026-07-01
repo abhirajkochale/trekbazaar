@@ -2,18 +2,18 @@ import React from 'react';
 import { getCompanyContext } from '@/lib/company/auth';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import { Building2, FileCheck, ShieldCheck, CreditCard, Tent, CalendarDays, CheckCircle2 } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
 import type { OnboardingStatus } from '@/lib/types';
 
 const STEPS = [
-  { id: 'REGISTERED', label: 'Create Account', href: '#', icon: CheckCircle2, completed: true },
-  { id: 'PROFILE_COMPLETED', label: 'Company Info', href: '/partner/onboarding/company-info', icon: Building2 },
-  { id: 'DUE_DILIGENCE', label: 'Due Diligence', href: '/partner/onboarding/due-diligence', icon: ShieldCheck },
-  { id: 'TERMS_ACCEPTED', label: 'Commercial Terms', href: '/partner/onboarding/terms', icon: FileCheck },
-  { id: 'KYC_COMPLETED', label: 'Bank Details', href: '/partner/onboarding/banking', icon: CreditCard },
-  { id: 'READY_FOR_REVIEW', label: 'First Trek', href: '/partner/onboarding/first-trek', icon: Tent },
-  { id: 'READY_FOR_REVIEW', label: 'First Departure', href: '/partner/onboarding/first-departure', icon: CalendarDays },
-  { id: 'READY_FOR_REVIEW', label: 'Review', href: '/partner/onboarding/review', icon: CheckCircle2 },
+  { id: 'REGISTERED', label: 'Create Account', estMinutes: 0 },
+  { id: 'PROFILE_COMPLETED', label: 'Company Info', estMinutes: 2 },
+  { id: 'DUE_DILIGENCE', label: 'Due Diligence', estMinutes: 4 },
+  { id: 'TERMS_ACCEPTED', label: 'Commercial Terms', estMinutes: 5 },
+  { id: 'KYC_COMPLETED', label: 'Bank Details', estMinutes: 3 },
+  { id: 'READY_FOR_REVIEW', label: 'First Trek', estMinutes: 5 },
+  { id: 'READY_FOR_REVIEW', label: 'First Departure', estMinutes: 2 },
+  { id: 'READY_FOR_REVIEW', label: 'Review', estMinutes: 1 },
 ];
 
 export default async function WizardLayout({ children }: { children: React.ReactNode }) {
@@ -31,46 +31,48 @@ export default async function WizardLayout({ children }: { children: React.React
     if (status === "DUE_DILIGENCE") currentStepIndex = 3;
     if (status === "TERMS_ACCEPTED") currentStepIndex = 4;
     if (status === "KYC_COMPLETED") currentStepIndex = 5;
-    // For READY_FOR_REVIEW and others, we let the review page handle it.
   }
 
-  return (
-    <div className="w-full max-w-6xl mx-auto flex flex-col md:flex-row gap-8 items-start">
-      {/* Sidebar Navigation */}
-      <div className="w-full md:w-64 shrink-0 bg-white border border-zinc-200 rounded-2xl p-6 sticky top-24">
-        <h3 className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-6">Onboarding Steps</h3>
-        <nav className="space-y-1">
-          {STEPS.map((step, index) => {
-            const isCompleted = step.completed || index < currentStepIndex;
-            const isCurrent = index === currentStepIndex;
-            const isLocked = index > currentStepIndex;
-            const Icon = step.icon;
+  const currentStep = STEPS[currentStepIndex];
+  const progressPercentage = Math.round(((currentStepIndex) / (STEPS.length - 1)) * 100);
+  
+  // Calculate remaining time
+  const remainingMinutes = STEPS.slice(currentStepIndex).reduce((acc, step) => acc + step.estMinutes, 0);
 
-            return (
-              <div
-                key={index}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors
-                  ${isCurrent ? 'bg-zinc-900 text-white shadow-sm' : ''}
-                  ${isCompleted && !isCurrent ? 'text-zinc-900 hover:bg-zinc-50' : ''}
-                  ${isLocked ? 'text-zinc-400 cursor-not-allowed opacity-60' : ''}
-                `}
-              >
-                <div className="shrink-0 flex items-center justify-center w-6 h-6">
-                  {isCompleted && !isCurrent ? (
-                    <CheckCircle2 className="w-5 h-5 text-emerald-500" />
-                  ) : (
-                    <Icon className="w-4 h-4" />
-                  )}
-                </div>
-                <span>{step.label}</span>
-              </div>
-            );
-          })}
-        </nav>
+  return (
+    <div className="w-full min-h-screen bg-zinc-50 flex flex-col">
+      {/* Sticky Top Progress Header */}
+      <div className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-zinc-200 shadow-sm">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="flex items-center justify-between py-4">
+            <div className="flex flex-col">
+              <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-1">
+                Step {currentStepIndex} of {STEPS.length - 1}
+              </span>
+              <h1 className="text-lg font-black text-zinc-900 tracking-tight leading-none">
+                {currentStep.label}
+              </h1>
+            </div>
+
+            <div className="text-right">
+              <div className="text-sm font-bold text-zinc-900 mb-1">{progressPercentage}% Complete</div>
+              <div className="text-xs font-medium text-zinc-500">~{remainingMinutes} mins remaining</div>
+            </div>
+          </div>
+
+          {/* Progress Bar Track */}
+          <div className="w-full h-1.5 bg-zinc-100 rounded-full mb-[-1px] overflow-hidden">
+            <div 
+              className="h-full bg-zinc-900 rounded-full transition-all duration-700 ease-out" 
+              style={{ width: `${progressPercentage}%` }}
+            />
+          </div>
+        </div>
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 w-full min-w-0">
+      <div className="flex-1 w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16">
         {children}
       </div>
     </div>

@@ -1,264 +1,186 @@
 "use client";
 
-import React, { useState, useTransition } from 'react';
-import { saveBankingAction, advanceToNextStepAction } from './actions';
+import React, { useState, useTransition, useEffect } from 'react';
+import { saveBankingAction } from './actions';
 import { savePartnerDocumentAction } from '../due-diligence/actions';
 import { DocumentUploadCard } from '@/components/shared/documents/DocumentUploadCard';
 import { useRouter } from 'next/navigation';
-import { ArrowRight, Loader2, Building, Pencil } from 'lucide-react';
+import { ArrowRight, Loader2, CheckCircle2, Lock } from 'lucide-react';
+import { AutoSaveIndicator } from '@/components/shared/AutoSaveIndicator';
 import toast from 'react-hot-toast';
-import type { Company, PartnerDocument, DocumentType } from '@/lib/types';
+import type { PartnerDocument, DocumentType } from '@/lib/types';
 
-export function BankingForm({ company, bankProofDocument }: { company: Company, bankProofDocument: PartnerDocument | null }) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function BankingForm({ companyId, initialData, existingBankProof }: { companyId: string, initialData: any, existingBankProof: PartnerDocument | null }) {
   const [isPending, startTransition] = useTransition();
-  const [showPreview, setShowPreview] = useState(false);
+  const [saveState, setSaveState] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
+  const [lastSaved, setLastSaved] = useState<Date | null>(null);
+  const [isComplete, setIsComplete] = useState(false);
+  const [bankProofUploaded, setBankProofUploaded] = useState(!!existingBankProof);
   const router = useRouter();
-  
-  // Local state for validation
-  const [ifsc, setIfsc] = useState(company.bank_ifsc_code || "");
-  const [accountNumber, setAccountNumber] = useState(company.bank_account_number || "");
-  const [confirmAccount, setConfirmAccount] = useState(company.bank_account_number || "");
-  const [accountHolder, setAccountHolder] = useState(company.bank_account_holder_name || "");
-  const [accountType, setAccountType] = useState(company.bank_account_type || "Current");
-  const [bankName, setBankName] = useState(company.bank_name || "");
-  const [bankBranch, setBankBranch] = useState(company.bank_branch_name || "");
+
+  useEffect(() => {
+    if (saveState === 'saved') {
+      const timer = setTimeout(() => setSaveState('idle'), 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [saveState]);
 
   const handleUpload = async (type: DocumentType, url: string) => {
-    const result = await savePartnerDocumentAction(company.id, type, url);
+    const result = await savePartnerDocumentAction(companyId, 'BANK_PROOF', url);
     if (!result.success) {
       throw new Error(result.error);
     }
+    setBankProofUploaded(true);
   };
 
-  const handleAutoSave = () => {
-    const formData = new FormData();
-    formData.append("bank_account_holder_name", accountHolder);
-    formData.append("bank_name", bankName);
-    formData.append("bank_branch_name", bankBranch);
-    formData.append("bank_account_number", accountNumber);
-    formData.append("bank_ifsc_code", ifsc);
-    formData.append("bank_account_type", accountType);
-
-    startTransition(async () => {
-      await saveBankingAction(company.id, formData);
-    });
-  };
-
-  const validateAndPreview = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // IFSC validation (Standard Indian format: 4 letters, 1 zero, 6 alphanumeric)
-    const ifscRegex = /^[A-Z]{4}0[A-Z0-9]{6}$/;
-    if (!ifscRegex.test(ifsc.toUpperCase())) {
-      toast.error("Invalid IFSC code format");
+    const formData = new FormData(e.currentTarget);
+    
+    if (!bankProofUploaded) {
+      toast.error("Please upload a cancelled cheque or bank statement.");
       return;
     }
 
-    if (accountNumber !== confirmAccount) {
-      toast.error("Account numbers do not match");
+    // Basic IFSC validation
+    const ifsc = formData.get("bank_ifsc_code") as string;
+    if (!/^[A-Z]{4}0[A-Z0-9]{6}$/.test(ifsc)) {
+      toast.error("Invalid IFSC Code format.");
       return;
     }
-
-    if (!bankProofDocument) {
-      toast.error("Please upload a cancelled cheque or passbook");
-      return;
-    }
-
-    // Force autosave before preview
-    handleAutoSave();
-    setShowPreview(true);
-  };
-
-  const handleFinalSubmit = () => {
+    
     startTransition(async () => {
-      const result = await advanceToNextStepAction(company.id);
+      setSaveState('saving');
+      const result = await saveBankingAction(companyId, formData);
       if (result.success) {
-        toast.success("Banking details saved");
-        router.push("/partner/onboarding/first-trek");
+        setSaveState('saved');
+        setLastSaved(new Date());
+        setIsComplete(true);
+        setTimeout(() => {
+          router.push("/partner/onboarding/first-trek");
+        }, 1200);
       } else {
-        toast.error(result.error || "Failed to proceed");
+        setSaveState('error');
+        toast.error(result.error || "Failed to save bank information");
       }
     });
   };
 
-  const maskAccount = (num: string) => {
-    if (num.length <= 4) return num;
-    return "•".repeat(num.length - 4) + num.slice(-4);
+  const handleBlur = (e: React.FocusEvent<HTMLFormElement>) => {
+    const formData = new FormData(e.currentTarget);
+    const ifsc = formData.get("bank_ifsc_code") as string;
+    if (ifsc && !/^[A-Z]{4}0[A-Z0-9]{6}$/.test(ifsc)) return; // Don't autosave invalid ifsc
+
+    startTransition(async () => {
+      setSaveState('saving');
+      const result = await saveBankingAction(companyId, formData);
+      if (result.success) {
+        setSaveState('saved');
+        setLastSaved(new Date());
+      } else {
+        setSaveState('error');
+      }
+    });
   };
 
-  if (showPreview) {
+  if (isComplete) {
     return (
-      <div className="space-y-6">
-        <div className="bg-white rounded-2xl shadow-sm border border-zinc-200 overflow-hidden">
-          <div className="p-6 border-b border-zinc-200 bg-zinc-50 flex items-center justify-between">
-            <h2 className="text-lg font-bold text-zinc-900">Review Bank Details</h2>
-            <button 
-              onClick={() => setShowPreview(false)}
-              className="inline-flex items-center gap-2 text-sm font-semibold text-zinc-600 hover:text-zinc-900 transition-colors"
-            >
-              <Pencil className="w-4 h-4" /> Edit
-            </button>
-          </div>
-          
-          <div className="p-8 space-y-6">
-            <div className="flex items-center gap-4 p-4 bg-zinc-50 rounded-xl border border-zinc-200">
-              <div className="w-12 h-12 bg-white rounded-lg border border-zinc-200 flex items-center justify-center shrink-0">
-                <Building className="w-6 h-6 text-zinc-400" />
-              </div>
-              <div>
-                <div className="font-bold text-zinc-900">{bankName}</div>
-                <div className="text-sm font-medium text-zinc-500">{bankBranch} • IFSC: {ifsc.toUpperCase()}</div>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-y-6 gap-x-4">
-              <div>
-                <div className="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-1">Account Holder</div>
-                <div className="font-medium text-zinc-900">{accountHolder}</div>
-              </div>
-              <div>
-                <div className="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-1">Account Type</div>
-                <div className="font-medium text-zinc-900">{accountType}</div>
-              </div>
-              <div className="col-span-2">
-                <div className="text-xs font-bold text-zinc-400 uppercase tracking-wider mb-1">Account Number</div>
-                <div className="font-mono text-lg font-bold text-zinc-900">{maskAccount(accountNumber)}</div>
-              </div>
-            </div>
-          </div>
+      <div className="flex flex-col items-center justify-center py-20 animate-in fade-in duration-300">
+        <div className="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center mb-4">
+          <CheckCircle2 className="w-8 h-8 text-emerald-500" />
         </div>
-
-        <div className="flex justify-end">
-          <button 
-            onClick={handleFinalSubmit}
-            disabled={isPending}
-            className="inline-flex items-center gap-2 bg-zinc-900 text-white font-bold px-6 py-3 rounded-xl hover:bg-zinc-800 transition-colors shadow-md disabled:opacity-50"
-          >
-            {isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Confirm & Continue'}
-            {!isPending && <ArrowRight className="w-4 h-4" />}
-          </button>
-        </div>
+        <h2 className="text-2xl font-black text-zinc-900 tracking-tight">Bank Details Secured</h2>
+        <p className="text-zinc-500 font-medium mt-2">Moving to First Trek setup...</p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
-      <div className="bg-white rounded-2xl shadow-sm border border-zinc-200 overflow-hidden">
-        <div className="p-8">
-          <form onSubmit={validateAndPreview} onBlur={handleAutoSave} className="space-y-6">
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-1 md:col-span-2">
-                <label className="text-sm font-bold text-zinc-700">Account Holder Name *</label>
-                <input 
-                  type="text" 
-                  required 
-                  value={accountHolder}
-                  onChange={e => setAccountHolder(e.target.value)}
-                  placeholder="e.g. Sahyadri Adventures Pvt Ltd" 
-                  className="w-full px-3 py-2 border border-zinc-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-tb-primary focus:border-tb-primary font-medium" 
-                />
-              </div>
+    <form onSubmit={handleSubmit} onBlur={handleBlur} className="space-y-10 pb-20">
+      
+      <div className="flex items-center gap-2 text-sm font-bold text-zinc-500 bg-zinc-100 px-4 py-2 rounded-lg w-fit">
+        <Lock className="w-4 h-4" />
+        <span>End-to-End Encrypted</span>
+      </div>
 
-              <div className="space-y-1">
-                <label className="text-sm font-bold text-zinc-700">Bank Name *</label>
-                <input 
-                  type="text" 
-                  required 
-                  value={bankName}
-                  onChange={e => setBankName(e.target.value)}
-                  placeholder="e.g. HDFC Bank" 
-                  className="w-full px-3 py-2 border border-zinc-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-tb-primary focus:border-tb-primary font-medium" 
-                />
-              </div>
+      <fieldset className="space-y-6">
+        <div className="border-b border-zinc-200 pb-2">
+          <h2 className="text-lg font-bold text-zinc-900 tracking-tight">Account Information</h2>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-1.5 md:col-span-2">
+            <label htmlFor="bank_account_holder_name" className="text-sm font-bold text-zinc-700">Account Holder Name *</label>
+            <input 
+              type="text" id="bank_account_holder_name" name="bank_account_holder_name" required 
+              defaultValue={initialData?.bank_account_holder_name || ""}
+              placeholder="Exactly as it appears on bank statement" 
+              className="w-full px-4 py-3 bg-zinc-50/50 border border-zinc-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent transition-all font-medium" 
+            />
+          </div>
+          
+          <div className="space-y-1.5 md:col-span-2">
+            <label htmlFor="bank_account_number" className="text-sm font-bold text-zinc-700">Account Number *</label>
+            <input 
+              type="text" id="bank_account_number" name="bank_account_number" required 
+              defaultValue={initialData?.bank_account_number || ""}
+              placeholder="e.g. 123456789012" 
+              className="w-full px-4 py-3 bg-zinc-50/50 border border-zinc-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent transition-all font-medium font-mono tracking-wider" 
+            />
+          </div>
 
-              <div className="space-y-1">
-                <label className="text-sm font-bold text-zinc-700">Branch Name *</label>
-                <input 
-                  type="text" 
-                  required 
-                  value={bankBranch}
-                  onChange={e => setBankBranch(e.target.value)}
-                  placeholder="e.g. MG Road Branch" 
-                  className="w-full px-3 py-2 border border-zinc-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-tb-primary focus:border-tb-primary font-medium" 
-                />
-              </div>
+          <div className="space-y-1.5">
+            <label htmlFor="bank_ifsc_code" className="text-sm font-bold text-zinc-700">IFSC Code *</label>
+            <input 
+              type="text" id="bank_ifsc_code" name="bank_ifsc_code" required 
+              defaultValue={initialData?.bank_ifsc_code || ""}
+              placeholder="HDFC0001234" 
+              className="w-full px-4 py-3 bg-zinc-50/50 border border-zinc-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent transition-all font-medium uppercase font-mono tracking-wider" 
+            />
+          </div>
 
-              <div className="space-y-1">
-                <label className="text-sm font-bold text-zinc-700">Account Number *</label>
-                <input 
-                  type="password" 
-                  required 
-                  value={accountNumber}
-                  onChange={e => setAccountNumber(e.target.value.replace(/\D/g, ''))}
-                  placeholder="Enter account number" 
-                  className="w-full px-3 py-2 border border-zinc-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-tb-primary focus:border-tb-primary font-medium font-mono" 
-                />
-              </div>
+          <div className="space-y-1.5">
+            <label htmlFor="bank_name" className="text-sm font-bold text-zinc-700">Bank Name *</label>
+            <input 
+              type="text" id="bank_name" name="bank_name" required 
+              defaultValue={initialData?.bank_name || ""}
+              placeholder="e.g. HDFC Bank" 
+              className="w-full px-4 py-3 bg-zinc-50/50 border border-zinc-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent transition-all font-medium" 
+            />
+          </div>
+        </div>
+      </fieldset>
 
-              <div className="space-y-1">
-                <label className="text-sm font-bold text-zinc-700">Confirm Account Number *</label>
-                <input 
-                  type="text" 
-                  required 
-                  value={confirmAccount}
-                  onChange={e => setConfirmAccount(e.target.value.replace(/\D/g, ''))}
-                  placeholder="Re-enter account number" 
-                  className="w-full px-3 py-2 border border-zinc-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-tb-primary focus:border-tb-primary font-medium font-mono" 
-                />
-              </div>
+      <fieldset className="space-y-6">
+        <div className="border-b border-zinc-200 pb-2">
+          <h2 className="text-lg font-bold text-zinc-900 tracking-tight">Verification</h2>
+        </div>
+        
+        <DocumentUploadCard
+          companyId={companyId}
+          documentType="BANK_PROOF"
+          title="Cancelled Cheque or Statement *"
+          description="Upload a cancelled cheque or recent bank statement showing the Account Number, IFSC code, and Holder Name."
+          existingDocument={existingBankProof}
+          onUploadComplete={handleUpload}
+        />
+      </fieldset>
 
-              <div className="space-y-1">
-                <label className="text-sm font-bold text-zinc-700">IFSC Code *</label>
-                <input 
-                  type="text" 
-                  required 
-                  value={ifsc}
-                  onChange={e => setIfsc(e.target.value.toUpperCase())}
-                  placeholder="e.g. HDFC0001234" 
-                  className="w-full px-3 py-2 border border-zinc-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-tb-primary focus:border-tb-primary font-medium font-mono uppercase" 
-                />
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-sm font-bold text-zinc-700">Account Type *</label>
-                <select 
-                  required 
-                  value={accountType}
-                  onChange={e => setAccountType(e.target.value)}
-                  className="w-full px-3 py-2 border border-zinc-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-tb-primary focus:border-tb-primary font-medium" 
-                >
-                  <option value="Current">Current</option>
-                  <option value="Savings">Savings</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="pt-6">
-              <DocumentUploadCard
-                companyId={company.id}
-                documentType="BANK_PROOF"
-                title="Proof of Bank Account *"
-                description="Upload a cancelled cheque or the first page of your passbook showing account details."
-                existingDocument={bankProofDocument}
-                onUploadComplete={handleUpload}
-              />
-            </div>
-
-            <div className="pt-6 border-t border-zinc-200 flex justify-end">
-              <button 
-                type="submit" 
-                disabled={isPending}
-                className="inline-flex items-center gap-2 bg-zinc-900 text-white font-bold px-6 py-3 rounded-xl hover:bg-zinc-800 transition-colors shadow-md disabled:opacity-50"
-              >
-                {isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Review Details'}
-                {!isPending && <ArrowRight className="w-4 h-4" />}
-              </button>
-            </div>
-          </form>
+      <div className="fixed bottom-0 left-0 w-full bg-white/90 backdrop-blur-md border-t border-zinc-200 py-4 px-4 sm:px-6 z-40">
+        <div className="max-w-3xl mx-auto flex items-center justify-between">
+          <AutoSaveIndicator state={saveState} lastSavedAt={lastSaved} />
+          
+          <button 
+            type="submit" 
+            disabled={isPending || isComplete || !bankProofUploaded}
+            className="inline-flex items-center gap-2 bg-zinc-900 text-white font-bold px-8 py-3 rounded-xl hover:bg-zinc-800 transition-colors shadow-sm disabled:opacity-50"
+          >
+            {isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Continue'}
+            {!isPending && <ArrowRight className="w-4 h-4" />}
+          </button>
         </div>
       </div>
-    </div>
+    </form>
   );
 }
