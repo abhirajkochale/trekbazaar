@@ -22,6 +22,11 @@ export default async function PartnerStatusPage() {
     redirect("/partner/dashboard");
   }
 
+  // If they somehow land here without finishing onboarding, send them back to the active step
+  if (["REGISTERED", "PROFILE_COMPLETED", "DUE_DILIGENCE", "TERMS_ACCEPTED"].includes(status)) {
+    redirect("/partner/onboarding");
+  }
+
   return (
     <div className="w-full max-w-2xl mx-auto">
       <div className="bg-white rounded-3xl p-10 shadow-xl shadow-zinc-200/40 border border-zinc-200 text-center relative overflow-hidden">
