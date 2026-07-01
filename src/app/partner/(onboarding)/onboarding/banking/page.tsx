@@ -11,6 +11,11 @@ export default async function BankingPage() {
     redirect("/partner/onboarding/terms");
   }
 
+  const status = ctx.company.onboarding_status;
+  if (["REGISTERED", "PROFILE_COMPLETED", "DUE_DILIGENCE"].includes(status)) {
+    redirect("/partner/onboarding/terms");
+  }
+
   const supabase = await createClient();
   const { data: documents } = await supabase
     .from('partner_documents')

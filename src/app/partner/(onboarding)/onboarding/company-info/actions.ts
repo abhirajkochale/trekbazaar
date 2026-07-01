@@ -30,9 +30,12 @@ export async function saveCompanyInfoAction(formData: FormData) {
     .eq("owner_id", user.id)
     .single();
 
+  if (!existingCompany) {
+    return { success: false, error: "Company not found. Please contact support." };
+  }
+
   const payload = {
     name,
-    slug: name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
     logo_url,
     website,
     gst_number,
@@ -46,29 +49,12 @@ export async function saveCompanyInfoAction(formData: FormData) {
     updated_at: new Date().toISOString()
   };
 
-  let error = null;
-
-  if (existingCompany) {
-    const newStatus = existingCompany.onboarding_status === "REGISTERED" ? "PROFILE_COMPLETED" : existingCompany.onboarding_status;
-    const { error: updateError } = await supabase
-      .from("companies")
-      .update({ ...payload, onboarding_status: newStatus })
-      .eq("id", existingCompany.id);
-    error = updateError;
-  } else {
-    // We create via admin client to bypass RLS initially because the user doesn't have an insert policy
-    const adminSupabase = createAdminClient();
-    const { error: insertError } = await adminSupabase
-      .from("companies")
-      .insert({
-        ...payload,
-        owner_id: user.id,
-        onboarding_status: "PROFILE_COMPLETED",
-        status: "suspended",
-        featured: false
-      });
-    error = insertError;
-  }
+  const newStatus = existingCompany.onboarding_status === "REGISTERED" ? "PROFILE_COMPLETED" : existingCompany.onboarding_status;
+  
+  const { error } = await supabase
+    .from("companies")
+    .update({ ...payload, onboarding_status: newStatus })
+    .eq("id", existingCompany.id);
 
   if (error) {
     console.error("Save company error:", error);

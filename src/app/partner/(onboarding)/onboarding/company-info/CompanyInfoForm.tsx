@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useTransition, useState, useEffect } from 'react';
+import React, { useTransition, useState, useEffect, useRef } from 'react';
 import { saveCompanyInfoAction } from './actions';
 import { useRouter } from 'next/navigation';
 import { ArrowRight, Loader2, CheckCircle2 } from 'lucide-react';
@@ -45,18 +45,34 @@ export function CompanyInfoForm({ initialData }: { initialData: any }) {
     });
   };
 
+  const isSavingRef = useRef(false);
+  const formRef = useRef<HTMLFormElement>(null);
+  
+  const performSave = async (formData: FormData) => {
+    isSavingRef.current = true;
+    setSaveState('saving');
+    const result = await saveCompanyInfoAction(formData);
+    if (result.success) {
+      setSaveState('saved');
+      setLastSaved(new Date());
+    } else {
+      setSaveState('error');
+    }
+    isSavingRef.current = false;
+  };
+
   const handleBlur = (e: React.FocusEvent<HTMLFormElement>) => {
-    // Only auto-save if they blurred an input field that changed
-    // For MVP, we'll just save the whole form
     const formData = new FormData(e.currentTarget);
-    startTransition(async () => {
-      setSaveState('saving');
-      const result = await saveCompanyInfoAction(formData);
-      if (result.success) {
-        setSaveState('saved');
-        setLastSaved(new Date());
+    startTransition(() => {
+      if (!isSavingRef.current) {
+        performSave(formData);
       } else {
-        setSaveState('error');
+        // Simple queue: wait 1 second and retry if it was saving
+        setTimeout(() => {
+          if (formRef.current) {
+            performSave(new FormData(formRef.current));
+          }
+        }, 1000);
       }
     });
   };
@@ -74,7 +90,7 @@ export function CompanyInfoForm({ initialData }: { initialData: any }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} onBlur={handleBlur} className="space-y-10 pb-20">
+    <form ref={formRef} onSubmit={handleSubmit} onBlur={handleBlur} className="space-y-10 pb-20">
       
       {/* Business Information Section */}
       <fieldset className="space-y-6">

@@ -12,6 +12,11 @@ export default async function DueDiligencePage() {
     redirect("/partner/onboarding/company-info");
   }
 
+  const status = ctx.company.onboarding_status;
+  if (status === "REGISTERED") {
+    redirect("/partner/onboarding/company-info");
+  }
+
   const supabase = await createClient();
   const { data: documents } = await supabase
     .from('partner_documents')

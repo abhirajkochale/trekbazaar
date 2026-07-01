@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useTransition, useEffect } from 'react';
+import React, { useState, useTransition, useEffect, useRef } from 'react';
 import { saveBankingAction } from './actions';
 import { savePartnerDocumentAction } from '../due-diligence/actions';
 import { DocumentUploadCard } from '@/components/shared/documents/DocumentUploadCard';
@@ -67,19 +67,36 @@ export function BankingForm({ companyId, initialData, existingBankProof }: { com
     });
   };
 
+  const isSavingRef = useRef(false);
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const performSave = async (formData: FormData) => {
+    isSavingRef.current = true;
+    setSaveState('saving');
+    const result = await saveBankingAction(companyId, formData);
+    if (result.success) {
+      setSaveState('saved');
+      setLastSaved(new Date());
+    } else {
+      setSaveState('error');
+    }
+    isSavingRef.current = false;
+  };
+
   const handleBlur = (e: React.FocusEvent<HTMLFormElement>) => {
     const formData = new FormData(e.currentTarget);
     const ifsc = formData.get("bank_ifsc_code") as string;
     if (ifsc && !/^[A-Z]{4}0[A-Z0-9]{6}$/.test(ifsc)) return; // Don't autosave invalid ifsc
 
-    startTransition(async () => {
-      setSaveState('saving');
-      const result = await saveBankingAction(companyId, formData);
-      if (result.success) {
-        setSaveState('saved');
-        setLastSaved(new Date());
+    startTransition(() => {
+      if (!isSavingRef.current) {
+        performSave(formData);
       } else {
-        setSaveState('error');
+        setTimeout(() => {
+          if (formRef.current) {
+            performSave(new FormData(formRef.current));
+          }
+        }, 1000);
       }
     });
   };
@@ -97,7 +114,7 @@ export function BankingForm({ companyId, initialData, existingBankProof }: { com
   }
 
   return (
-    <form onSubmit={handleSubmit} onBlur={handleBlur} className="space-y-10 pb-20">
+    <form ref={formRef} onSubmit={handleSubmit} onBlur={handleBlur} className="space-y-10 pb-20">
       
       <div className="flex items-center gap-2 text-sm font-bold text-zinc-500 bg-zinc-100 px-4 py-2 rounded-lg w-fit">
         <Lock className="w-4 h-4" />

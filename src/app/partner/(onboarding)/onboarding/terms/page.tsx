@@ -10,6 +10,11 @@ export default async function TermsPage() {
     redirect("/partner/onboarding/due-diligence");
   }
 
+  const status = ctx.company.onboarding_status;
+  if (["REGISTERED", "PROFILE_COMPLETED"].includes(status)) {
+    redirect("/partner/onboarding/due-diligence");
+  }
+
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-300">
       <div className="mb-10">
