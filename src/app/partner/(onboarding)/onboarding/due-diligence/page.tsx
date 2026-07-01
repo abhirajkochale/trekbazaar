@@ -2,7 +2,7 @@ import React from 'react';
 import { getCompanyContext } from '@/lib/company/auth';
 import { redirect } from 'next/navigation';
 import { DueDiligenceForm } from './DueDiligenceForm';
-import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 import type { PartnerDocument } from '@/lib/types';
 
 export default async function DueDiligencePage() {
@@ -17,8 +17,8 @@ export default async function DueDiligencePage() {
     redirect("/partner/onboarding/company-info");
   }
 
-  const supabase = await createClient();
-  const { data: documents } = await supabase
+  const adminClient = createAdminClient();
+  const { data: documents } = await adminClient
     .from('partner_documents')
     .select('*')
     .eq('company_id', ctx.company.id);
