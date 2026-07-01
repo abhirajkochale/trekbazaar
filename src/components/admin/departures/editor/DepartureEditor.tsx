@@ -83,8 +83,9 @@ export function DepartureEditor({ initialDeparture, companies, treks, isCompanyP
       if (showToast) toast.success("Departure saved successfully");
       
       if (!initialDeparture && res.departureId) {
+        const basePath = isCompanyPortal ? "/partner/dashboard/departures" : "/admin/departures";
         startTransition(() => {
-          router.replace(`/admin/departures/${res.departureId}/edit`);
+          router.replace(`${basePath}/${res.departureId}/edit`);
         });
       }
     } else {
