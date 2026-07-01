@@ -37,27 +37,41 @@ export function TrekImageGallery({ trek }: { trek: Trek & { gallery?: string[] }
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
-        {images.map((img, idx) => (
-          <button
-            key={idx}
-            onClick={() => setLightboxIndex(idx)}
-            className="group relative aspect-square w-full rounded-2xl overflow-hidden bg-zinc-100 border border-zinc-200 transition-all hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tb-primary"
-            aria-label={`View image ${idx + 1}`}
-          >
-            <Image
-              src={img}
-              alt={`Gallery image ${idx + 1}`}
-              fill
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-              sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            />
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-              <span className="opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 bg-white/90 text-zinc-900 text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
-                View Full
-              </span>
-            </div>
-          </button>
-        ))}
+        {images.slice(0, 4).map((img, idx) => {
+          const isLast = idx === 3;
+          const remaining = images.length - 4;
+          const showOverlay = isLast && remaining > 0;
+
+          return (
+            <button
+              key={idx}
+              onClick={() => setLightboxIndex(idx)}
+              className="group relative aspect-square w-full rounded-2xl overflow-hidden bg-zinc-100 border border-zinc-200 transition-all hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tb-primary"
+              aria-label={showOverlay ? `View all ${images.length} images` : `View image ${idx + 1}`}
+            >
+              <Image
+                src={img}
+                alt={`Gallery image ${idx + 1}`}
+                fill
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              />
+              {showOverlay ? (
+                <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px] flex items-center justify-center transition-colors duration-300 group-hover:bg-black/60">
+                  <span className="text-white text-3xl font-bold tracking-tight">
+                    +{remaining}
+                  </span>
+                </div>
+              ) : (
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                  <span className="opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 bg-white/90 text-zinc-900 text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
+                    View Full
+                  </span>
+                </div>
+              )}
+            </button>
+          );
+        })}
       </div>
 
       <ImageLightbox
