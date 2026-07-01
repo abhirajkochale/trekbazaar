@@ -1,0 +1,37 @@
+{
+  "project_metadata": {
+    "name": "TrekBazaar",
+    "description": "Premium B2B2C marketplace for adventure tourism in India.",
+    "stage": "Advanced MVP",
+    "stack": ["Next.js 14 App Router", "React Server Components", "Supabase", "PostgreSQL", "Tailwind CSS", "TypeScript"]
+  },
+  "architecture": {
+    "frontend": "Hybrid SSR/Client. Heavy reliance on Server Actions for mutations.",
+    "backend": "Postgres RLS. State machines managed via Enums.",
+    "key_tables": ["master_treks", "companies", "partner_documents", "departures", "partner_application_history"],
+    "key_views": ["v_search_master_treks (strictly filters by APPROVED companies)"],
+    "enums": {
+      "onboarding_status": ["REGISTERED", "PROFILE_COMPLETED", "DUE_DILIGENCE", "TERMS_ACCEPTED", "KYC_COMPLETED", "READY_FOR_REVIEW", "UNDER_REVIEW", "CHANGES_REQUESTED", "APPROVED", "REJECTED", "SUSPENDED"],
+      "document_type": ["PAN", "GST", "COMPANY_REGISTRATION", "OWNER_ID", "BANK_PROOF", "OTHER"]
+    }
+  },
+  "product_philosophy": {
+    "trust_engine": "Never fake data. Trust is derived mathematically from verified database facts.",
+    "master_treks": "TrekBazaar owns the itinerary page. Operators only own the departure instance.",
+    "aesthetic_authority": "UI must look like an editorial magazine / premium SaaS (Stripe/Linear). No generic components."
+  },
+  "engineering_rules": [
+    "Never hardcode state. Drive UI from database enums.",
+    "Commit only after logical milestones.",
+    "Always run lint, tsc --noEmit, and build before pushing.",
+    "Do not break RLS. Use standard createClient() for user actions."
+  ],
+  "current_state": {
+    "completed": [
+      "B2C Search and Discovery",
+      "B2B Database refactor (partner_documents)",
+      "B2B Onboarding Steps 1-5 (Company Info, Due Diligence, Terms, Banking)"
+    ],
+    "next_up": "Integrate First Trek & Departure creation into Onboarding Wizard Step 6 & 7."
+  }
+}
