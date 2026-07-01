@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useTransition, useEffect, useRef } from 'react';
-import { saveBankingAction } from './actions';
+import { saveBankingAction, advanceToNextStepAction } from './actions';
 import { savePartnerDocumentAction } from '../due-diligence/actions';
 import { DocumentUploadCard } from '@/components/shared/documents/DocumentUploadCard';
 import { useRouter } from 'next/navigation';
@@ -54,12 +54,18 @@ export function BankingForm({ companyId, initialData, existingBankProof }: { com
       setSaveState('saving');
       const result = await saveBankingAction(companyId, formData);
       if (result.success) {
-        setSaveState('saved');
-        setLastSaved(new Date());
-        setIsComplete(true);
-        setTimeout(() => {
-          router.push("/partner/onboarding/status");
-        }, 1200);
+        const advanceResult = await advanceToNextStepAction(companyId);
+        if (advanceResult.success) {
+          setSaveState('saved');
+          setLastSaved(new Date());
+          setIsComplete(true);
+          setTimeout(() => {
+            router.push("/partner/onboarding/status");
+          }, 1200);
+        } else {
+          setSaveState('error');
+          toast.error(advanceResult.error || "Failed to finalize setup");
+        }
       } else {
         setSaveState('error');
         toast.error(result.error || "Failed to save bank information");
