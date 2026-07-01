@@ -1,13 +1,8 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from '@/lib/supabase/client';
 import type { UploadProvider } from './UploadService';
 
-// Initialize a standard supabase client for storage operations
-// We use anon key here, assuming the bucket is configured properly for uploads
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-
-const supabase = createClient(supabaseUrl, supabaseAnonKey);
-const BUCKET_NAME = 'trek-images';
+const supabase = createClient();
+const BUCKET_NAME = 'media';
 
 export class SupabaseUploadProvider implements UploadProvider {
   async upload(file: File, path: string): Promise<string> {
