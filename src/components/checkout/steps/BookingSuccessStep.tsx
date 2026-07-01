@@ -113,11 +113,12 @@ export function BookingSuccessStep() {
         >
           Explore More Treks
         </Link>
-        <button 
-          className="flex-1 bg-tb-primary hover:bg-tb-primary-hover text-white font-bold py-3.5 px-6 rounded-xl shadow-lg shadow-tb-primary/20 transition-all active:scale-[0.98]"
+        <Link 
+          href="/account/trips"
+          className="flex-1 bg-tb-primary hover:bg-tb-primary-hover text-white font-bold py-3.5 px-6 rounded-xl shadow-lg shadow-tb-primary/20 transition-all active:scale-[0.98] text-center block"
         >
           Manage Booking
-        </button>
+        </Link>
       </div>
 
     </motion.div>
