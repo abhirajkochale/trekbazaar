@@ -1,5 +1,6 @@
 import React from 'react';
 import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 import { formatPrice } from '@/lib/format';
 import { Compass, Calendar, MapPin, Users, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
@@ -10,11 +11,12 @@ export const metadata = { title: 'My Trips — TrekBazaar' };
 export default async function TripsPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
+  const adminDb = createAdminClient();
 
-  const { data: trips } = await supabase
+  const { data: trips } = await adminDb
     .from('bookings')
     .select('*, treks(title, slug), companies(name)')
-    .eq('customer_id', user?.id)
+    .or(`customer_id.eq.${user?.id},customer_email.eq.${user?.email}`)
     .order('departure_date', { ascending: false });
 
   const upcoming = trips?.filter(t => new Date(t.departure_date) >= new Date() && t.status !== 'Cancelled') || [];
