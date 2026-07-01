@@ -13,7 +13,11 @@ export async function getCompanyTreks(): Promise<Trek[]> {
     .eq("company_id", companyId)
     .order("created_at", { ascending: false });
 
-  return (data || []) as Trek[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return (data || []).map((t: any) => ({
+    ...t,
+    gallery: t.gallery_images || [],
+  })) as Trek[];
 }
 
 export async function getCompanyTrek(id: string): Promise<Trek | null> {
@@ -28,7 +32,13 @@ export async function getCompanyTrek(id: string): Promise<Trek | null> {
     .eq("company_id", companyId)
     .maybeSingle();
 
-  return (data as Trek) || null;
+  if (!data) return null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const t = data as any;
+  return {
+    ...t,
+    gallery: t.gallery_images || [],
+  } as Trek;
 }
 
 export async function saveCompanyTrek(payload: Partial<Trek>): Promise<Trek> {
@@ -67,7 +77,12 @@ export async function saveCompanyTrek(payload: Partial<Trek>): Promise<Trek> {
     company_id: companyId, // Never trust a client-supplied company_id.
     operator_name: company?.name ?? null,
     operator_contact: company?.email || company?.phone || null,
-  };
+  } as any;
+
+  if ('gallery' in dataToSave) {
+    dataToSave.gallery_images = dataToSave.gallery;
+    delete dataToSave.gallery;
+  }
 
   if (payload.id) {
     // Update existing — scoped to this company so one company can never edit
@@ -81,7 +96,8 @@ export async function saveCompanyTrek(payload: Partial<Trek>): Promise<Trek> {
       .single();
 
     if (error) throw new Error(error.message);
-    return data as Trek;
+    const t = data as any;
+    return { ...t, gallery: t.gallery_images || [] } as Trek;
   } else {
     // Insert new — strip any client-injected id so this is always a create.
     delete dataToSave.id;
@@ -92,6 +108,7 @@ export async function saveCompanyTrek(payload: Partial<Trek>): Promise<Trek> {
       .single();
 
     if (error) throw new Error(error.message);
-    return data as Trek;
+    const t = data as any;
+    return { ...t, gallery: t.gallery_images || [] } as Trek;
   }
 }

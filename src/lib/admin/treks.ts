@@ -101,14 +101,26 @@ export async function getTreks(
 
   const { data, error } = await query;
   if (error) throw error;
-  return data as Trek[];
+  
+  // Map gallery_images to gallery
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return (data as any[]).map(t => ({
+    ...t,
+    gallery: t.gallery_images || [],
+  })) as Trek[];
 }
 
 export async function getTrek(id: string): Promise<Trek> {
   const supabase = createAdminClient();
   const { data, error } = await supabase.from("treks").select("*").eq("id", id).single();
   if (error) throw error;
-  return data as Trek;
+  
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const t = data as any;
+  return {
+    ...t,
+    gallery: t.gallery_images || [],
+  } as Trek;
 }
 
 export async function createTrek(trekData: Partial<Trek>): Promise<Trek> {
@@ -143,10 +155,20 @@ export async function createTrek(trekData: Partial<Trek>): Promise<Trek> {
 
   if (!activeMasterTrek) throw new Error("Selected Master Trek must be active and exist.");
 
-  const { data, error } = await supabase.from("treks").insert([trekData]).select().single();
+  const payload = { ...trekData } as any;
+  if ('gallery' in payload) {
+    payload.gallery_images = payload.gallery;
+    delete payload.gallery;
+  }
+
+  const { data, error } = await supabase.from("treks").insert([payload]).select().single();
   if (error) throw new Error(error.message);
   
-  return data as Trek;
+  const t = data as any;
+  return {
+    ...t,
+    gallery: t.gallery_images || [],
+  } as Trek;
 }
 
 export async function updateTrek(id: string, trekData: Partial<Trek>): Promise<Trek> {
@@ -191,7 +213,12 @@ export async function updateTrek(id: string, trekData: Partial<Trek>): Promise<T
   const payload = {
     ...trekData,
     updated_at: new Date().toISOString()
-  };
+  } as any;
+  
+  if ('gallery' in payload) {
+    payload.gallery_images = payload.gallery;
+    delete payload.gallery;
+  }
   
   // Clean up 'id' if it accidentally got passed in Partial<Trek>
   if ('id' in payload) delete payload.id;
@@ -205,7 +232,12 @@ export async function updateTrek(id: string, trekData: Partial<Trek>): Promise<T
 
   if (error) throw new Error(error.message);
   
-  return data as Trek;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const t = data as any;
+  return {
+    ...t,
+    gallery: t.gallery_images || [],
+  } as Trek;
 }
 
 export async function deleteTrek(id: string): Promise<void> {
