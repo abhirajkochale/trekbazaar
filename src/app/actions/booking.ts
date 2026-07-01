@@ -17,7 +17,19 @@ export async function createBookingAction(input: CreateBookingInput) {
     
     // Check if user is logged in
     const { data: { user } } = await supabase.auth.getUser();
-    const customerId = user?.id || null;
+    let customerId = null;
+
+    if (user) {
+      const { data: profile } = await supabase
+        .from('customer_profiles')
+        .select('id')
+        .eq('id', user.id)
+        .maybeSingle();
+      
+      if (profile) {
+        customerId = user.id;
+      }
+    }
     // 1. Basic validation
     if (!input.departureId || !input.customerName || !input.customerEmail || !input.customerPhone) {
       return { success: false, error: "Please fill in all required fields." };
