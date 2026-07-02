@@ -63,13 +63,7 @@ export function FeaturedRegions() {
                 href={`/search?q=${encodeURIComponent(region.name)}`}
                 className="group relative block aspect-[3/4] md:aspect-[4/5] overflow-hidden rounded-2xl bg-black focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-tb-primary focus-visible:ring-offset-2 shadow-sm hover:shadow-xl transition-all"
               >
-                <Image 
-                  src={region.imageUrl} 
-                  alt={`Landscape of ${region.name}`}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  className="object-cover transition-transform duration-[2s] ease-out group-hover:scale-105 opacity-90 group-hover:opacity-100"
-                />
+                <div className="absolute inset-0 bg-zinc-800 transition-transform duration-700 group-hover:scale-105" />
                 {/* Gradient Overlay for text legibility */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent transition-opacity duration-500 group-hover:opacity-90" />
                 

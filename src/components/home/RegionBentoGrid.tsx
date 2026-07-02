@@ -5,39 +5,30 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Container } from '../layout/Container';
 import { motion } from 'framer-motion';
+import { Region } from '@/lib/types';
+import { Compass } from 'lucide-react';
 
-const REGIONS = [
-  {
-    id: 'himachal-pradesh',
-    name: 'Himachal Pradesh',
-    slug: 'himachal-pradesh',
-    image: 'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&q=80&w=1200',
-    gridClass: 'col-span-1 md:col-span-6 md:row-span-2 h-[400px] md:h-[600px]',
-  },
-  {
-    id: 'uttarakhand',
-    name: 'Uttarakhand',
-    slug: 'uttarakhand',
-    image: 'https://images.unsplash.com/photo-1593322138379-05f42e4ec3c2?auto=format&fit=crop&q=80&w=1200',
-    gridClass: 'col-span-1 md:col-span-6 md:row-span-1 h-[300px] md:h-auto',
-  },
-  {
-    id: 'kashmir',
-    name: 'Kashmir',
-    slug: 'kashmir',
-    image: 'https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&q=80&w=800',
-    gridClass: 'col-span-1 md:col-span-3 md:row-span-1 h-[300px] md:h-auto',
-  },
-  {
-    id: 'nepal',
-    name: 'Nepal',
-    slug: 'nepal',
-    image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&q=80&w=800',
-    gridClass: 'col-span-1 md:col-span-3 md:row-span-1 h-[300px] md:h-auto',
-  }
-];
+interface RegionBentoGridProps {
+  regions: Region[];
+}
 
-export function RegionBentoGrid() {
+export function RegionBentoGrid({ regions }: RegionBentoGridProps) {
+  // Pre-calculated grid layouts based on index
+  const getGridClass = (index: number) => {
+    switch (index % 4) {
+      case 0:
+        return 'col-span-1 md:col-span-6 md:row-span-2 h-[400px] md:h-[600px]';
+      case 1:
+        return 'col-span-1 md:col-span-6 md:row-span-1 h-[300px] md:h-auto';
+      case 2:
+      case 3:
+      default:
+        return 'col-span-1 md:col-span-3 md:row-span-1 h-[300px] md:h-auto';
+    }
+  };
+
+  if (!regions || regions.length === 0) return null;
+
   return (
     <section className="bg-white py-24 md:py-32">
       <Container>
@@ -62,26 +53,32 @@ export function RegionBentoGrid() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-12 auto-rows-fr gap-4 md:gap-6">
-          {REGIONS.map((region, idx) => (
+          {regions.map((region, idx) => (
             <motion.div
               key={region.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
-              className={`relative rounded-3xl overflow-hidden group cursor-pointer ${region.gridClass}`}
+              className={`relative rounded-3xl overflow-hidden group cursor-pointer bg-zinc-100 ${getGridClass(idx)}`}
             >
               <Link href={`/regions/${region.slug}`} className="absolute inset-0 z-20">
                 <span className="sr-only">Explore {region.name}</span>
               </Link>
               
-              <Image
-                src={region.image}
-                alt={region.name}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
+              {region.hero_image_url ? (
+                <Image
+                  src={region.hero_image_url}
+                  alt={region.name}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center bg-zinc-200">
+                  <Compass className="w-12 h-12 text-zinc-300" />
+                </div>
+              )}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
               
               <div className="absolute bottom-0 left-0 p-8 z-10 w-full flex items-end justify-between">

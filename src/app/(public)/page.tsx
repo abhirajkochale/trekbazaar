@@ -11,6 +11,7 @@ import { RegionBentoGrid } from "@/components/home/RegionBentoGrid";
 import { CuratedCollections } from "@/components/home/CuratedCollections";
 import { TrustedOperators } from "@/components/home/TrustedOperators";
 import { MarketplaceGuarantee } from "@/components/home/MarketplaceGuarantee";
+import { getPublicRegions } from "@/lib/public/regions";
 import { CTASection } from "@/components/home/CTASection";
 
 export default async function Home() {
@@ -26,6 +27,9 @@ export default async function Home() {
   const trendingTreks = masterTreks.slice(0, 8); // Top 8 newest/featured
   
   const categories = await getPublicCategories();
+  
+  // Fetch dynamic regions for the Bento Grid
+  const regions = await getPublicRegions({ limit: 4 });
 
   return (
     <>
@@ -47,7 +51,7 @@ export default async function Home() {
         )}
         
         {/* Section 6: Explore by Region (Airbnb-style Bento Grid) */}
-        <RegionBentoGrid />
+        {regions.length > 0 && <RegionBentoGrid regions={regions} />}
         
         {/* Section 7: Curated Collections (Replaces 5 redundant carousels) */}
         <CuratedCollections />
