@@ -32,6 +32,7 @@ export function TrekEditor({
   companies = [], 
   masterTreks = [],
   isCompanyPortal = false, 
+  currentCompanyName,
   onSaveOverride 
 }: { 
   initialTrek?: Trek, 
