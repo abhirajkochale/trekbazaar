@@ -17,13 +17,7 @@ export function CTASection() {
         transition={{ duration: 1.5, ease: "easeOut" }}
         className="absolute inset-0 z-0"
       >
-        <Image 
-          src="https://images.unsplash.com/photo-1544198365-f5d60b6d8190?auto=format&fit=crop&q=80&w=2400"
-          alt="Trekkers walking on a mountain ridge"
-          fill
-          className="object-cover opacity-90"
-          sizes="100vw"
-        />
+        <div className="absolute inset-0 bg-[#0F3D2E]" />
       </motion.div>
       
       {/* Premium Gradient Overlay */}

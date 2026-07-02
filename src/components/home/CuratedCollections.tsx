@@ -60,13 +60,7 @@ export function CuratedCollections() {
                 <span className="sr-only">Explore {collection.title}</span>
               </Link>
               
-              <Image
-                src={collection.image}
-                alt={collection.title}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
+              <div className="absolute inset-0 bg-zinc-800 transition-transform duration-700 group-hover:scale-105" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10" />
               
               <div className="absolute bottom-0 left-0 p-8 z-10">

@@ -15,13 +15,7 @@ export function FeaturedBanner() {
         transition={{ duration: 10, ease: "easeOut" }}
         className="absolute inset-0 z-0"
       >
-        <Image 
-          src="https://images.unsplash.com/photo-1522163182402-834f871fd851?auto=format&fit=crop&q=80&w=2400"
-          alt="High Altitude Trekking"
-          fill
-          className="object-cover"
-          sizes="100vw"
-        />
+        <div className="absolute inset-0 bg-[#0F3D2E]" />
       </motion.div>
 
       {/* Gradient Overlay for Typography */}

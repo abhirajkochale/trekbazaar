@@ -155,13 +155,13 @@ export default async function PartnerLandingPage() {
                <div className="absolute top-4 right-4 bg-white px-4 py-2 rounded-full border border-zinc-200 shadow-sm font-bold text-xs text-zinc-900 flex items-center gap-2">
                  <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div> Auto-Settled
                </div>
-               <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80" alt="Accounting" className="rounded-2xl border border-zinc-200 shadow-sm opacity-90 mix-blend-multiply" />
+               <div className="h-64 w-full rounded-2xl bg-zinc-200" />
             </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-20 items-center mb-32">
             <div className="order-2 md:order-1 bg-[#0F3D2E] rounded-3xl p-8 border border-[#1B5E3C] shadow-2xl relative overflow-hidden">
-               <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80')] opacity-20 mix-blend-overlay bg-cover bg-center"></div>
+               <div className="absolute inset-0 bg-white/5"></div>
                <div className="relative z-10 bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-2xl">
                  <div className="text-white font-bold mb-4 flex items-center gap-2"><Users className="w-5 h-5 text-[#D4AF37]" /> Live Manifest Download</div>
                  <div className="space-y-3">
