@@ -9,18 +9,22 @@ interface RegionHeroProps {
 }
 
 export function RegionHero({ region, trekCount }: RegionHeroProps) {
-  const imageUrl = region.hero_image_url || 'https://images.unsplash.com/photo-1522163182402-834f871fd851?auto=format&fit=crop&q=80&w=1920';
+  const imageUrl = region.hero_image_url;
 
   return (
     <section className="relative w-full h-[60vh] min-h-[500px] max-h-[700px] bg-tb-sys-background flex items-end overflow-hidden">
-      <Image
-        src={imageUrl}
-        alt={`Trekking in ${region.name}`}
-        fill
-        priority
-        className="object-cover"
-        sizes="100vw"
-      />
+      {imageUrl ? (
+        <Image
+          src={imageUrl}
+          alt={`Trekking in ${region.name}`}
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
+        />
+      ) : (
+        <div className="absolute inset-0 bg-zinc-800" />
+      )}
       
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent pointer-events-none" />
 

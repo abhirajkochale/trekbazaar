@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Compass } from 'lucide-react';
 import { formatPrice, formatDuration, difficultyLabel, difficultyBadgeClasses } from '@/lib/format';
 import type { Trek } from '@/lib/types';
 
@@ -30,8 +31,8 @@ const PinIcon = () => (
 export function TrekCard({ trek, variant = 'default', className = '' }: TrekCardProps) {
   const isCompact = variant === 'compact';
   
-  // Provide a fallback image just in case
-  const imageUrl = trek.cover_image_url || 'https://images.unsplash.com/photo-1522163182402-834f871fd851?auto=format&fit=crop&q=80&w=800';
+  // Use actual cover image or null
+  const imageUrl = trek.cover_image_url;
 
   if (isCompact) {
     return (
@@ -41,13 +42,19 @@ export function TrekCard({ trek, variant = 'default', className = '' }: TrekCard
         aria-label={`View details for ${trek.title}`}
       >
         <div className="relative w-1/3 min-w-[120px] max-w-[200px] bg-tb-sys-background shrink-0">
-          <Image 
-            src={imageUrl} 
-            alt={trek.title}
-            fill
-            sizes="(max-width: 768px) 33vw, 20vw"
-            className="object-cover transition-transform duration-tb-slow ease-tb-ease group-hover:scale-105"
-          />
+          {imageUrl ? (
+            <Image 
+              src={imageUrl} 
+              alt={trek.title}
+              fill
+              sizes="(max-width: 768px) 33vw, 20vw"
+              className="object-cover transition-transform duration-tb-slow ease-tb-ease group-hover:scale-105"
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center bg-zinc-200">
+              <Compass className="w-8 h-8 text-zinc-300" />
+            </div>
+          )}
         </div>
 
         <div className="flex flex-1 flex-col p-4">
@@ -96,13 +103,19 @@ export function TrekCard({ trek, variant = 'default', className = '' }: TrekCard
         className="relative aspect-[16/10] w-full bg-tb-sys-background overflow-hidden block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tb-primary"
         aria-label={`View image of ${trek.title}`}
       >
-        <Image 
-          src={imageUrl} 
-          alt={`Scenery from ${trek.title}`}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover transition-transform duration-tb-slow ease-tb-ease group-hover:scale-105"
-        />
+        {imageUrl ? (
+          <Image 
+            src={imageUrl} 
+            alt={`Scenery from ${trek.title}`}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover transition-transform duration-tb-slow ease-tb-ease group-hover:scale-105"
+          />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center bg-zinc-200 group-hover:bg-zinc-300 transition-colors">
+            <Compass className="w-12 h-12 text-zinc-400" />
+          </div>
+        )}
       </Link>
 
       <div className="flex flex-1 flex-col p-4">

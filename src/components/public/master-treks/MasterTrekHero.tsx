@@ -10,21 +10,25 @@ interface Props {
 }
 
 export function MasterTrekHero({ masterTrek, packages }: Props) {
-  const imageUrl = masterTrek.cover_image || 'https://images.unsplash.com/photo-1522163182402-834f871fd851?auto=format&fit=crop&q=80&w=2000';
+  const imageUrl = masterTrek.cover_image;
 
   const companiesCount = new Set(packages.map(p => p.companies?.id)).size;
   const departuresCount = packages.reduce((acc, p) => acc + (p.departures?.length || 0), 0);
 
   return (
     <div className="relative w-full h-[60vh] min-h-[500px] flex items-end">
-      <Image 
-        src={imageUrl} 
-        alt={masterTrek.name}
-        fill
-        sizes="100vw"
-        priority
-        className="object-cover"
-      />
+      {imageUrl ? (
+        <Image 
+          src={imageUrl} 
+          alt={masterTrek.name}
+          fill
+          sizes="100vw"
+          priority
+          className="object-cover"
+        />
+      ) : (
+        <div className="absolute inset-0 bg-zinc-800" />
+      )}
       {/* Gradient overlay for text readability */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
       

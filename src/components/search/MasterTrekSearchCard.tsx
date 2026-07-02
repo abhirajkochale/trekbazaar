@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { formatPrice } from '@/lib/format';
 import { difficultyLabel } from '@/lib/format';
-import { Heart, CalendarDays, Star } from 'lucide-react';
+import { Heart, CalendarDays, Star, Compass } from 'lucide-react';
 import { Badge } from '@/components/ui/Badge';
 import { useMasterWishlist } from '@/providers/MasterWishlistProvider';
 
@@ -17,7 +17,7 @@ interface Props {
 }
 
 export function MasterTrekSearchCard({ masterTrek, className = '', href }: Props) {
-  const [imgSrc, setImgSrc] = useState(masterTrek.cover_image || 'https://images.unsplash.com/photo-1522163182402-834f871fd851?auto=format&fit=crop&q=80&w=800');
+  const imgSrc = masterTrek.cover_image;
   const stats = masterTrek.aggregated || { lowestPrice: 0, companiesCount: 0, upcomingDeparturesCount: 0 };
   const { isInMasterWishlist, addToMasterWishlist, removeFromMasterWishlist } = useMasterWishlist();
 
@@ -30,14 +30,19 @@ export function MasterTrekSearchCard({ masterTrek, className = '', href }: Props
     >
       {/* 1. Hero Image (Airbnb style) */}
       <div className="relative aspect-[4/3] w-full bg-zinc-100 overflow-hidden rounded-2xl mb-3">
-        <Image 
-          src={imgSrc} 
-          alt={`Scenery from ${masterTrek.name}`}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-          onError={() => setImgSrc('https://images.unsplash.com/photo-1522163182402-834f871fd851?auto=format&fit=crop&q=80&w=800')}
-        />
+        {imgSrc ? (
+          <Image 
+            src={imgSrc} 
+            alt={`Scenery from ${masterTrek.name}`}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+          />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center bg-zinc-200">
+            <Compass className="w-12 h-12 text-zinc-300" />
+          </div>
+        )}
         
         {/* Wishlist Button */}
         <button 

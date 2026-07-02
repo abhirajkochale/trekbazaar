@@ -15,9 +15,7 @@ export function HeroGallery({ trek }: HeroGalleryProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
-  const defaultImage = 'https://images.unsplash.com/photo-1522163182402-834f871fd851?auto=format&fit=crop&q=80&w=1920';
-  const coverImageUrl = trek.cover_image_url || defaultImage;
-  const images = [coverImageUrl];
+  const images = trek.cover_image_url ? [trek.cover_image_url] : [];
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (!lightboxOpen) return;
@@ -51,25 +49,29 @@ export function HeroGallery({ trek }: HeroGalleryProps) {
           aria-label="Open fullscreen gallery"
           onKeyDown={(e) => e.key === 'Enter' && setLightboxOpen(true)}
         >
-          <AnimatePresence initial={false}>
-            <motion.div
-              key={activeIndex}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="absolute inset-0"
-            >
-              <Image
-                src={images[activeIndex]}
-                alt={`Gallery image ${activeIndex + 1} of ${trek.title}`}
-                fill
-                priority={activeIndex === 0}
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                sizes="100vw"
-              />
-            </motion.div>
-          </AnimatePresence>
+          {images.length > 0 ? (
+            <AnimatePresence initial={false}>
+              <motion.div
+                key={activeIndex}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="absolute inset-0"
+              >
+                <Image
+                  src={images[activeIndex]}
+                  alt={`Gallery image ${activeIndex + 1} of ${trek.title}`}
+                  fill
+                  priority={activeIndex === 0}
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  sizes="100vw"
+                />
+              </motion.div>
+            </AnimatePresence>
+          ) : (
+            <div className="absolute inset-0 bg-zinc-800" />
+          )}
           
           {/* Gradient Overlay for Text Readability */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent pointer-events-none z-10" />

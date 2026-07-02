@@ -12,7 +12,6 @@ interface Props {
 }
 
 export function HeroGallery({ masterTrek }: Props) {
-  const defaultImage = 'https://images.unsplash.com/photo-1522163182402-834f871fd851?auto=format&fit=crop&q=80&w=2000';
   let rawImages: string[] = [];
   
   let parsedGallery = masterTrek.gallery;
@@ -25,7 +24,7 @@ export function HeroGallery({ masterTrek }: Props) {
   } else if (masterTrek.cover_image) {
     rawImages = [masterTrek.cover_image];
   } else {
-    rawImages = [defaultImage];
+    rawImages = [];
   }
 
   // Ensure unique URLs for the gallery to prevent key collisions
@@ -75,6 +74,21 @@ export function HeroGallery({ masterTrek }: Props) {
     setCurrentIndex(index);
     setLightboxOpen(true);
   };
+
+  if (images.length === 0) {
+    return (
+      <div className="relative w-full h-[60vh] min-h-[500px] max-h-[700px] bg-zinc-900 flex items-center justify-center">
+        {/* Title Overlay for empty state */}
+        <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pt-32 pb-8 px-4 sm:px-6 lg:px-8 z-10">
+          <div className="max-w-7xl mx-auto">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight drop-shadow-md">
+              {masterTrek.name}
+            </h1>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative w-full bg-black">
