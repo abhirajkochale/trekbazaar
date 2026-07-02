@@ -8,10 +8,10 @@ import { useRouter } from 'next/navigation';
 import { ArrowRight, Loader2, CheckCircle2, Lock } from 'lucide-react';
 import { AutoSaveIndicator } from '@/components/shared/AutoSaveIndicator';
 import toast from 'react-hot-toast';
-import type { PartnerDocument, DocumentType } from '@/lib/types';
+import type { PartnerDocument, DocumentType, Company } from '@/lib/types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function BankingForm({ companyId, initialData, existingBankProof }: { companyId: string, initialData: any, existingBankProof: PartnerDocument | null }) {
+export function BankingForm({ companyId, companyName, initialData, existingBankProof }: { companyId: string, companyName: string, initialData: Company, existingBankProof: PartnerDocument | null }) {
   const [isPending, startTransition] = useTransition();
   const [saveState, setSaveState] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
@@ -182,6 +182,7 @@ export function BankingForm({ companyId, initialData, existingBankProof }: { com
         
         <DocumentUploadCard
           companyId={companyId}
+          companyName={companyName}
           documentType="BANK_PROOF"
           title="Cancelled Cheque or Statement *"
           description="Upload a cancelled cheque or recent bank statement showing the Account Number, IFSC code, and Holder Name."

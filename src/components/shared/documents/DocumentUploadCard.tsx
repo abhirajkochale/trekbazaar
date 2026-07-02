@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 
 interface DocumentUploadCardProps {
   companyId: string;
+  companyName?: string;
   documentType: DocumentType;
   title: string;
   description: string;
@@ -18,6 +19,7 @@ interface DocumentUploadCardProps {
 
 export function DocumentUploadCard({
   companyId,
+  companyName,
   documentType,
   title,
   description,
@@ -45,7 +47,8 @@ export function DocumentUploadCard({
       const formData = new FormData();
       formData.append('file', file);
       
-      const folderPath = `documents/${companyId}`;
+      const safeCompany = companyName ? companyName.toLowerCase().replace(/[^a-z0-9]+/g, '-') : companyId;
+      const folderPath = `documents/${safeCompany}`;
       formData.append('folder', folderPath);
       
       const url = await uploadMedia(formData);

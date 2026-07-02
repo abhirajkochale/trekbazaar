@@ -35,6 +35,7 @@ export default async function BankingPage() {
 
       <BankingForm 
         companyId={ctx.company.id} 
+        companyName={ctx.company.name}
         initialData={ctx.company} 
         existingBankProof={documents || null} 
       />

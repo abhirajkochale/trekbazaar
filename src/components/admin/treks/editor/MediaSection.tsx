@@ -10,13 +10,16 @@ import imageCompression from 'browser-image-compression';
 import { v4 as uuidv4 } from 'uuid';
 import toast from 'react-hot-toast';
 import { ImageLightbox } from '../../shared/ImageLightbox';
+import { slugify } from '@/lib/format';
 
 interface Props {
   trek: Partial<Trek>;
   updateField: <K extends keyof Trek>(field: K, value: Trek[K]) => void;
+  companyName: string;
+  trekName: string;
 }
 
-export function MediaSection({ trek, updateField }: Props) {
+export function MediaSection({ trek, updateField, companyName, trekName }: Props) {
   const gallery = (trek.gallery as string[]) || [];
 
   // Upload States
@@ -50,7 +53,9 @@ export function MediaSection({ trek, updateField }: Props) {
       setCoverProgress(40);
 
       const ext = file.name.split('.').pop();
-      const path = `covers/${uuidv4()}.${ext}`;
+      const safeCompany = slugify(companyName || 'unknown-company');
+      const safeTrek = slugify(trekName || 'untitled-trek');
+      const path = `covers/${safeCompany}/${safeTrek}/${uuidv4()}.${ext}`;
 
       const url = await uploadService.upload(compressed, path);
       setCoverProgress(100);
@@ -69,11 +74,13 @@ export function MediaSection({ trek, updateField }: Props) {
     setGalleryProgress(10);
     try {
       const newUrls = [...gallery];
+      const safeCompany = slugify(companyName || 'unknown-company');
+      const safeTrek = slugify(trekName || 'untitled-trek');
 
       for (let i = 0; i < files.length; i++) {
         const compressed = await compressImage(files[i]);
         const ext = files[i].name.split('.').pop();
-        const path = `gallery/${uuidv4()}.${ext}`;
+        const path = `gallery/${safeCompany}/${safeTrek}/${uuidv4()}.${ext}`;
         const url = await uploadService.upload(compressed, path);
         newUrls.push(url);
         setGalleryProgress(10 + Math.floor(((i + 1) / files.length) * 80));
@@ -138,6 +145,11 @@ export function MediaSection({ trek, updateField }: Props) {
       {/* Cover Image Area */}
       <div>
         <h3 className="text-base font-bold text-zinc-900 mb-4">Cover Image</h3>
+        {(!companyName || !trekName) && (
+          <div className="mb-4 p-3 bg-amber-50 border border-amber-200 rounded-lg text-sm text-amber-800 font-medium">
+            Please enter a Trek Title and select a Company in the Overview section before uploading images.
+          </div>
+        )}
         <div className="flex flex-col gap-4">
           {!trek.cover_image_url || isUploadingCover ? (
             <FileUploadZone
@@ -145,8 +157,8 @@ export function MediaSection({ trek, updateField }: Props) {
               isUploading={isUploadingCover}
               progress={coverProgress}
               maxFiles={1}
-              title="Drag & Drop your Cover Photo"
-              subtitle="This is the first thing customers will see"
+              title={(!companyName || !trekName) ? "Missing Trek Details" : "Drag & Drop your Cover Photo"}
+              subtitle={(!companyName || !trekName) ? "Fill out overview first" : "This is the first thing customers will see"}
             />
           ) : (
             <div className="w-full aspect-[21/9] sm:aspect-[4/1] bg-zinc-100 rounded-2xl border border-zinc-200 overflow-hidden relative group shadow-sm">
@@ -247,8 +259,8 @@ export function MediaSection({ trek, updateField }: Props) {
           isUploading={isUploadingGallery}
           progress={galleryProgress}
           maxFiles={10}
-          title={gallery.length === 0 ? "Drag & Drop Gallery Images" : "Add More Images"}
-          subtitle="You can select up to 10 images at once"
+          title={(!companyName || !trekName) ? "Missing Trek Details" : (gallery.length === 0 ? "Drag & Drop Gallery Images" : "Add More Images")}
+          subtitle={(!companyName || !trekName) ? "Fill out overview first" : "You can select up to 10 images at once"}
         />
       </div>
 

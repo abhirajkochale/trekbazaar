@@ -39,6 +39,7 @@ export function TrekEditor({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   masterTreks?: any[],
   isCompanyPortal?: boolean, 
+  currentCompanyName?: string,
   onSaveOverride?: (payload: Partial<Trek>) => Promise<{success: boolean, error?: string, trekId?: string}> 
 }) {
   const router = useRouter();
@@ -198,6 +199,9 @@ export function TrekEditor({
     }
   };
 
+  const derivedCompanyName = currentCompanyName || companies?.find(c => c.id === trek.company_id)?.name || "";
+  const derivedTrekName = trek.title || "";
+
   return (
     <div className="max-w-7xl mx-auto pb-32 animate-in fade-in duration-500">
       {/* Premium Sticky Header */}
@@ -287,7 +291,7 @@ export function TrekEditor({
           
           <div id="media-gallery" className="scroll-mt-32">
             <AdminCard title="Media & Gallery" description="Manage cover image and gallery photos. Drag and drop is supported.">
-              <MediaSection trek={trek} updateField={updateField} />
+              <MediaSection trek={trek} updateField={updateField} companyName={derivedCompanyName} trekName={derivedTrekName} />
             </AdminCard>
           </div>
 

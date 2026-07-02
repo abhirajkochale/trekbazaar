@@ -8,7 +8,7 @@ import { ArrowRight, Loader2, CheckCircle2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import type { PartnerDocument, DocumentType } from '@/lib/types';
 
-export function DueDiligenceForm({ companyId, existingDocuments }: { companyId: string, existingDocuments: PartnerDocument[] }) {
+export function DueDiligenceForm({ companyId, companyName, existingDocuments }: { companyId: string, companyName: string, existingDocuments: PartnerDocument[] }) {
   const [isPending, startTransition] = useTransition();
   const [isComplete, setIsComplete] = useState(false);
   const router = useRouter();
@@ -70,6 +70,7 @@ export function DueDiligenceForm({ companyId, existingDocuments }: { companyId: 
       <div className="grid grid-cols-1 gap-6">
         <DocumentUploadCard
           companyId={companyId}
+          companyName={companyName}
           documentType="COMPANY_REGISTRATION"
           title="Company Registration Certificate *"
           description="Proof of your business registration (e.g., Certificate of Incorporation, MSME, Partnership Deed)."
@@ -79,6 +80,7 @@ export function DueDiligenceForm({ companyId, existingDocuments }: { companyId: 
 
         <DocumentUploadCard
           companyId={companyId}
+          companyName={companyName}
           documentType="PAN"
           title="Company PAN Card *"
           description="A clear, readable copy of the business PAN card. Must match the registered business name."
@@ -88,6 +90,7 @@ export function DueDiligenceForm({ companyId, existingDocuments }: { companyId: 
 
         <DocumentUploadCard
           companyId={companyId}
+          companyName={companyName}
           documentType="OWNER_ID"
           title="Owner/Director Government ID *"
           description="Aadhar or Passport of the primary business owner. Used strictly for identity verification."
@@ -97,6 +100,7 @@ export function DueDiligenceForm({ companyId, existingDocuments }: { companyId: 
         
         <DocumentUploadCard
           companyId={companyId}
+          companyName={companyName}
           documentType="GST"
           title="GST Registration Certificate"
           description="Optional. Required only if your business is GST registered."

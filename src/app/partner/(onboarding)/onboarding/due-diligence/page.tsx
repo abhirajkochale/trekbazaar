@@ -34,6 +34,7 @@ export default async function DueDiligencePage() {
 
       <DueDiligenceForm 
         companyId={ctx.company.id} 
+        companyName={ctx.company.name}
         existingDocuments={(documents as PartnerDocument[]) || []} 
       />
     </div>
